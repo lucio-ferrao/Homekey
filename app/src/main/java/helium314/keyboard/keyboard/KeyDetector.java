@@ -101,6 +101,16 @@ public class KeyDetector {
                 primaryKey = key;
             }
         }
+        // the left third of a period right after the space bar counts as space: a thumb at the end of the bar
+        // often lands on the period
+        if (primaryKey != null && primaryKey.getCode() == '.'
+                && touchX < primaryKey.getX() + primaryKey.getWidth() / 3) {
+            for (final Key key : mKeyboard.getSortedKeys()) {
+                if (key.getCode() == ' ' && key.getY() == primaryKey.getY() && key.getX() < primaryKey.getX()
+                        && primaryKey.getX() - (key.getX() + key.getWidth()) < primaryKey.getWidth() / 2)
+                    return key;
+            }
+        }
         return primaryKey;
     }
 }

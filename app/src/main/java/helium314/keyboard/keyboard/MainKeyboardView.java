@@ -81,9 +81,11 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     /* Space key and its icon and background. */
     private Key mSpaceKey;
     // shown on the space bar instead of the language, e.g. while dictating
-    @Nullable private String mSpacebarOverrideText;
+    /** voice input is listening: the microphone on the space bar is drawn bright */
+    private boolean mVoiceListening;
     // shown on the space bar instead of the language when long press on space starts dictation
     @Nullable private Drawable mSpacebarVoiceIcon;
+    @Nullable private Drawable mSpacebarVoiceListeningIcon;
     // Stuff to draw language name on spacebar.
     private final int mLanguageOnSpacebarFinalAlpha;
     private final ObjectAnimator mLanguageOnSpacebarFadeoutAnimator;
@@ -720,9 +722,9 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         final int code = key.getCode();
         if (code == Constants.CODE_SPACE) {
             // If input language are explicitly selected.
-            if (mSpacebarOverrideText == null && Settings.getValues().mVoiceInKeyboard) {
+            if (mVoiceListening || Settings.getValues().mVoiceInKeyboard) {
                 drawVoiceIconOnSpacebar(key, canvas);
-            } else if (mLanguageOnSpacebarFormatType != LanguageOnSpacebarUtils.FORMAT_TYPE_NONE || mSpacebarOverrideText != null) {
+            } else if (mLanguageOnSpacebarFormatType != LanguageOnSpacebarUtils.FORMAT_TYPE_NONE) {
                 drawLanguageOnSpacebar(key, canvas, paint);
             }
             // Whether space key needs to show the "..." popup hint for special purposes
@@ -737,17 +739,22 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     private void drawVoiceIconOnSpacebar(final Key key, final Canvas canvas) {
         if (mSpacebarVoiceIcon == null) {
             mSpacebarVoiceIcon = KeyboardIconsSet.Companion.getInstance().getNewDrawable(ToolbarKey.VOICE.name(), getContext());
-            if (mSpacebarVoiceIcon == null) return;
+            mSpacebarVoiceListeningIcon = KeyboardIconsSet.Companion.getInstance().getNewDrawable(ToolbarKey.VOICE.name(), getContext());
+            if (mSpacebarVoiceIcon == null || mSpacebarVoiceListeningIcon == null) return;
             mSpacebarVoiceIcon.setColorFilter(new PorterDuffColorFilter(mLanguageOnSpacebarTextColor, PorterDuff.Mode.SRC_IN));
+            // while listening, in the full color of the key labels instead of the dim space bar text color
+            mSpacebarVoiceListeningIcon.setColorFilter(new PorterDuffColorFilter(
+                    Settings.getValues().mColors.get(ColorType.KEY_TEXT), PorterDuff.Mode.SRC_IN));
         }
         final int size = (int) Math.min(key.getHeight() * 0.42f, mLanguageOnSpacebarTextSize);
         // at the left end of the space bar
         final int left = Math.max(mLanguageOnSpacebarHorizontalMargin, (key.getHeight() - size) / 2);
-        drawIcon(canvas, mSpacebarVoiceIcon, left, (key.getHeight() - size) / 2, size, size);
+        drawIcon(canvas, mVoiceListening ? mSpacebarVoiceListeningIcon : mSpacebarVoiceIcon, left, (key.getHeight() - size) / 2, size, size);
     }
 
-    public void setSpacebarOverrideText(@Nullable final String text) {
-        mSpacebarOverrideText = text;
+    /** voice input started or stopped listening (dictation or the launcher mode) */
+    public void setVoiceListening(final boolean listening) {
+        mVoiceListening = listening;
         invalidateKey(mSpaceKey);
     }
 
@@ -842,9 +849,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
         paint.setTextSize(mLanguageOnSpacebarTextSize);
         final String customText = Settings.getValues().mSpaceBarText;
         final String spaceText;
-        if (mSpacebarOverrideText != null) {
-            spaceText = mSpacebarOverrideText;
-        } else if (!customText.isEmpty()) {
+        if (!customText.isEmpty()) {
             spaceText = customText;
         } else if (DebugFlags.DEBUG_ENABLED) {
             final String l = KeyboardSwitcher.getInstance().getLocaleAndConfidenceInfo();
@@ -864,7 +869,7 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
             paint.clearShadowLayer();
         }
         paint.setColor(mLanguageOnSpacebarTextColor);
-        paint.setAlpha(mSpacebarOverrideText != null ? Constants.Color.ALPHA_OPAQUE : mLanguageOnSpacebarAnimAlpha);
+        paint.setAlpha(mLanguageOnSpacebarAnimAlpha);
         if (!fitsTextIntoWidth(width, spaceText, paint)) {
             final float textWidth = TypefaceUtils.getStringWidth(spaceText, paint);
             paint.setTextScaleX((width - mLanguageOnSpacebarHorizontalMargin * 2) / textWidth);

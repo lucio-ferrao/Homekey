@@ -262,7 +262,8 @@ sealed interface KeyData : AbstractKeyData {
         private const val POPUP_KEYS_NAVIGATE_PREVIOUS_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
         private const val POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
         private const val POPUP_KEYS_NEW_LINE = "!icon/enter_key|!code/key_shift_enter"
-        private const val POPUP_KEYS_NAVIGATE_EMOJI = "!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
+        // emoji first: the first popup key goes next to the enter key, at the right
+        private const val POPUP_KEYS_NAVIGATE_EMOJI = "!icon/emoji_action_key|!code/key_emoji,!icon/clipboard_action_key|!code/key_clipboard"
         private const val POPUP_KEYS_NAVIGATE_EMOJI_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
         private const val POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
     }
@@ -443,8 +444,8 @@ sealed interface KeyData : AbstractKeyData {
         return when (label) {
             KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.PERIOD -> Key.LABEL_FLAGS_PRESERVE_CASE or
-                    // in functional_keys.json the label flag is already defined, let's not override it in case it's removed by the user
-                    if (!params.mId.element.takesFunctionalKeys && shouldShowTldPopups(params)) Key.LABEL_FLAGS_DISABLE_HINT_LABEL else 0
+                    // the ? hint on the letters, but none over the web address endings or on the symbols and numbers
+                    if (shouldShowTldPopups(params) || !params.mId.element.isAlphabet) Key.LABEL_FLAGS_DISABLE_HINT_LABEL else 0
             KeyLabel.ACTION -> {
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or
                         KeyboardTheme.getThemeActionAndEmojiKeyLabelFlags(params.mThemeId)
@@ -487,11 +488,13 @@ sealed interface KeyData : AbstractKeyData {
         }
     }
 
-    private fun getPeriodPopups(params: KeyboardParams): SimplePopups =
-        SimplePopups(
-            if (shouldShowTldPopups(params)) params.mLocaleKeyboardInfos.tlds
-            else getPunctuationPopupKeys(params)
-        )
+    private fun getPeriodPopups(params: KeyboardParams): PopupSet<AbstractKeyData> {
+        if (shouldShowTldPopups(params)) return SimplePopups(params.mLocaleKeyboardInfos.tlds)
+        val punctuation = getPunctuationPopupKeys(params)
+        if ("?" !in punctuation) return SimplePopups(punctuation)
+        // ? first: shown as the hint of the period and typed by a long press
+        return PopupSet("?".toTextKey(), (punctuation - "?").map { it.toTextKey() })
+    }
 }
 
 /**

@@ -227,6 +227,13 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         suggestionsStrip.layoutDirection = newLayoutDirection
     }
 
+    /** the launcher mode uses the space of the toolbar arrow, which comes back when it ends */
+    fun setLauncherMode(active: Boolean) {
+        val settingsValues = Settings.getValues()
+        toolbarExpandKey.isVisible = !active &&
+            (settingsValues.mIncognitoModeEnabled || settingsValues.mToolbarMode == ToolbarMode.EXPANDABLE)
+    }
+
     fun setToolbarVisibility(toolbarVisible: Boolean) {
         pinnedKeys.isVisible = !toolbarVisible
         suggestionsStrip.isVisible = !toolbarVisible

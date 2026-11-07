@@ -526,6 +526,20 @@ public final class InputLogic {
         return inputTransaction;
     }
 
+    /** starts recognizing a gesture without touching the text field (for the launcher mode, where the word goes to its search) */
+    public void onStartBatchInputDetached(LatinIME.UIHandler handler) {
+        mWordComposer.reset();
+        mInputLogicHandler.onStartBatchInput();
+        handler.showGesturePreviewAndSetSuggestions(SuggestedWords.getEmptyBatchInstance(), false);
+        handler.cancelUpdateSuggestionStrip();
+        ++mAutoCommitSequenceNumber;
+    }
+
+    /** forgets the gestured word instead of putting it in the text field */
+    public void discardBatchInput() {
+        mWordComposer.reset();
+    }
+
     public void onStartBatchInput(SettingsValues settingsValues, KeyboardSwitcher keyboardSwitcher, LatinIME.UIHandler handler) {
         mInputLogicHandler.onStartBatchInput();
         handler.showGesturePreviewAndSetSuggestions(SuggestedWords.getEmptyBatchInstance(), false);
@@ -850,6 +864,10 @@ public final class InputLogic {
                 commitTyped(sv, LastComposedWord.NOT_A_SEPARATOR);
                 mLatinIME.launchEmojiSearch();
                 break;
+            case KeyCode.APP_SEARCH:
+                commitTyped(sv, LastComposedWord.NOT_A_SEPARATOR);
+                mLatinIME.toggleAppLauncher();
+                break;
             case KeyCode.SEND_INTENT_ONE, KeyCode.SEND_INTENT_TWO, KeyCode.SEND_INTENT_THREE:
                 IntentUtils.handleSendIntentKey(mLatinIME, event.getKeyCode());
             case KeyCode.IME_HIDE_UI:
@@ -1123,6 +1141,32 @@ public final class InputLogic {
      * @param event The event to handle.
      * @param inputTransaction The transaction in progress.
      */
+    /** a word, a period and a word in lower case, at the end of the text: "uma.mensagem" */
+    private static final java.util.regex.Pattern PERIOD_BETWEEN_WORDS =
+            java.util.regex.Pattern.compile("(?:^|[\\s(\"'])(\\p{L}+)\\.(\\p{Ll}+)$");
+
+    /**
+     * Before the space after a word: "uma.mensagem" becomes "uma mensagem" if both words are in the dictionary (the
+     * period was a tap meant for the space bar next to it); "llama.cpp" or "ca.crt" stay. Not in fields for web
+     * addresses, emails or passwords, nor where there is no autocorrection.
+     */
+    private void replacePeriodBetweenWords(final SettingsValues settingsValues) {
+        if (!settingsValues.mAutoCorrectEnabled || InputTypeUtils.isUriOrEmailType(settingsValues.mInputAttributes.mInputType))
+            return;
+        final CharSequence before = mConnection.getTextBeforeCursor(64, 0);
+        if (before == null) return;
+        final java.util.regex.Matcher matcher = PERIOD_BETWEEN_WORDS.matcher(before);
+        if (!matcher.find()) return;
+        final String first = matcher.group(1);
+        final String second = matcher.group(2);
+        final Locale locale = mDictionaryFacilitator.getCurrentLocale();
+        if (!mDictionaryFacilitator.isValidSpellingWord(first)
+                && !mDictionaryFacilitator.isValidSpellingWord(first.toLowerCase(locale))) return;
+        if (!mDictionaryFacilitator.isValidSpellingWord(second)) return;
+        mConnection.deleteTextBeforeCursor(second.length() + 1);
+        mConnection.commitText(" " + second, 1);
+    }
+
     private void handleSeparatorEvent(final Event event, final InputTransaction inputTransaction,
             final LatinIME.UIHandler handler) {
         final int codePoint = event.getCodePoint();
@@ -1189,6 +1233,7 @@ public final class InputLogic {
                 mSpaceState = SpaceState.WEAK;
             }
 
+            if (wasComposingWord && !shouldAvoidSendingCode) replacePeriodBetweenWords(settingsValues);
             startDoubleSpacePeriodCountdown(inputTransaction);
             if (wasComposingWord || mSuggestedWords.isEmpty()) {
                 inputTransaction.setRequiresUpdateSuggestions();
@@ -1536,7 +1581,7 @@ public final class InputLogic {
 
     /**
      * Double tap on space: takes back the space typed by the first tap and returns true, so that the caller
-     * switches between the letters and the emoji palette instead of typing the second space.
+     * enters the launcher mode instead of typing the second space.
      */
     public boolean takeBackSpaceOnDoubleTap(final Event event) {
         if (event.getCodePoint() != Constants.CODE_SPACE || event.isKeyRepeat()) {

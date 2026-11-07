@@ -124,6 +124,7 @@ public class LatinIME extends InputMethodService implements
     final InputLogic mInputLogic = new InputLogic(this, this, mDictionaryFacilitator);
     private static final int EMAIL_CONTEXT_LENGTH = 256;
     private final VoiceDictation mVoiceDictation = new VoiceDictation(this);
+    private final AppLauncherMode mAppLauncher = new AppLauncherMode(this);
     private final EmailSuggestions mEmailSuggestions = new EmailSuggestions(this);
 
     // TODO: Move these {@link View}s to {@link KeyboardSwitcher}.
@@ -228,6 +229,13 @@ public class LatinIME extends InputMethodService implements
                     break;
                 case MSG_UPDATE_TAIL_BATCH_INPUT_COMPLETED:
                     final SuggestedWords suggestedWords = (SuggestedWords) msg.obj;
+                    // in the launcher mode the gestured word goes to the search, not to the text field
+                    if (latinIme.mAppLauncher.capturesInput()) {
+                        latinIme.mInputLogic.discardBatchInput();
+                        if (!suggestedWords.isEmpty())
+                            latinIme.mAppLauncher.onTextInput(latinIme.mAppLauncher.gestureSeparator() + suggestedWords.getWord(0));
+                        break;
+                    }
                     latinIme.mInputLogic.onUpdateTailBatchInputCompleted(
                             latinIme.mSettings.getCurrent(),
                             suggestedWords, latinIme.mKeyboardSwitcher);
@@ -716,12 +724,18 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void onStartInputView(final EditorInfo editorInfo, final boolean restarting) {
         mHandler.onStartInputView(editorInfo, restarting);
+        // on the home screen of Homekey the keyboard opens in the launcher mode
+        mHandler.post(() -> {
+            if (HomeActivity.Companion.isHomeField(getCurrentInputEditorInfo()) && !mAppLauncher.isActive())
+                mAppLauncher.start();
+        });
         mStatsUtilsManager.onStartInputView();
     }
 
     @Override
     public void onFinishInputView(final boolean finishingInput) {
         mVoiceDictation.cancel();
+        mAppLauncher.reset();
         learnEmailField();
         StatsUtils.onFinishInputView();
         mHandler.onFinishInputView(finishingInput);
@@ -994,6 +1008,9 @@ public class LatinIME extends InputMethodService implements
                                   final int composingSpanStart, final int composingSpanEnd) {
         super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
                 composingSpanStart, composingSpanEnd);
+        // a tap in the text field of the app moves the cursor: that leaves the launcher mode
+        if (mAppLauncher.capturesInput() && (oldSelStart != newSelStart || oldSelEnd != newSelEnd))
+            mAppLauncher.onTapOutside();
         if (DebugFlags.DEBUG_ENABLED) {
             Log.i(TAG, "onUpdateSelection: oss=" + oldSelStart + ", ose=" + oldSelEnd
                     + ", nss=" + newSelStart + ", nse=" + newSelEnd
@@ -1348,13 +1365,18 @@ public class LatinIME extends InputMethodService implements
     // This method is public for testability of LatinIME, but also in the future it should
     // completely replace #onCodeInput.
     public void onEvent(@NonNull final Event event) {
+        // in the launcher mode, voice input (long press on space) is a spoken command
+        if (mAppLauncher.capturesInput() && KeyCode.VOICE_INPUT == event.getKeyCode()) {
+            mAppLauncher.onVoiceInput();
+            return;
+        }
         if (KeyCode.VOICE_INPUT == event.getKeyCode()) {
             if (mVoiceDictation.isListening())
                 mVoiceDictation.stop();
             else if (!mSettings.getCurrent().mVoiceInKeyboard || !mVoiceDictation.start())
                 mRichImm.switchToShortcutIme(this);
         } else if (mVoiceDictation.isListening()) {
-            // space stops dictation (the label on the space bar says so), backspace deletes a word,
+            // space stops dictation (its microphone is bright while listening), backspace deletes a word,
             // any other key ends it immediately, keeping what was recognized so far
             if (event.getCodePoint() == Constants.CODE_SPACE) {
                 mVoiceDictation.stop();
@@ -1367,10 +1389,18 @@ public class LatinIME extends InputMethodService implements
             }
             mVoiceDictation.cancel();
         }
-        // double tap on space switches between the letters and the emoji palette
-        if (mInputLogic.takeBackSpaceOnDoubleTap(event)) {
-            onCodeInput(mKeyboardSwitcher.isShowingEmojiPalettes() ? KeyCode.ALPHA : KeyCode.EMOJI,
-                    Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+        // in the launcher mode, typing searches apps instead of going to the text field
+        if (mAppLauncher.capturesInput() && mAppLauncher.onEvent(event)) {
+            mKeyboardSwitcher.onEvent(event, Constants.TextUtils.CAP_MODE_OFF, null);
+            return;
+        }
+        // double tap on space enters the launcher mode (and leaves the emoji palette); on the home screen of Homekey,
+        // whose text field is the search, spaces are just typed
+        if (!HomeActivity.Companion.isHomeField(getCurrentInputEditorInfo()) && mInputLogic.takeBackSpaceOnDoubleTap(event)) {
+            if (mKeyboardSwitcher.isShowingEmojiPalettes())
+                onCodeInput(KeyCode.ALPHA, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
+            else
+                mAppLauncher.start();
             return;
         }
         InputTransaction completeInputTransaction =
@@ -1382,6 +1412,10 @@ public class LatinIME extends InputMethodService implements
     public void onTextInput(@Nullable String rawText) {
         if (rawText == null) return;
         mVoiceDictation.cancel();
+        if (mAppLauncher.capturesInput()) {
+            mAppLauncher.onTextInput(rawText);
+            return;
+        }
         // TODO: have the keyboard pass the correct key code when we need it.
         Event event = Event.createSoftwareTextEvent(rawText, KeyCode.MULTIPLE_CODE_POINTS, null);
         InputTransaction completeInputTransaction = mInputLogic.onTextInput(mSettings.getCurrent(),
@@ -1392,6 +1426,11 @@ public class LatinIME extends InputMethodService implements
     }
 
     public void onStartBatchInput() {
+        // in the launcher mode the gesture is recognized as usual, but nothing is committed or inserted in the text field
+        if (mAppLauncher.capturesInput()) {
+            mInputLogic.onStartBatchInputDetached(mHandler);
+            return;
+        }
         mInputLogic.onStartBatchInput(mSettings.getCurrent(), mKeyboardSwitcher, mHandler);
         mGestureConsumer.onGestureStarted(mRichImm.getCurrentSubtypeLocale(), mKeyboardSwitcher.getKeyboard());
     }
@@ -1402,11 +1441,13 @@ public class LatinIME extends InputMethodService implements
 
     public void onEndBatchInput(final InputPointers batchPointers) {
         mInputLogic.onEndBatchInput(batchPointers);
+        if (mAppLauncher.capturesInput()) return;
         mGestureConsumer.onGestureCompleted(batchPointers);
     }
 
     public void onCancelBatchInput() {
         mInputLogic.onCancelBatchInput(mHandler);
+        if (mAppLauncher.capturesInput()) return;
         mGestureConsumer.onGestureCanceled();
     }
 
@@ -1432,11 +1473,20 @@ public class LatinIME extends InputMethodService implements
                 dismissGestureFloatingPreviewText /* dismissDelayed */);
     }
 
+    @Nullable
+    public SuggestionStripView getSuggestionStripView() {
+        return mSuggestionStripView;
+    }
+
     public boolean hasSuggestionStripView() {
         return null != mSuggestionStripView;
     }
 
     private void setSuggestedWords(final SuggestedWords wordSuggestions) {
+        if (mAppLauncher.capturesInput()) {
+            mAppLauncher.show();
+            return;
+        }
         // email fields get suggestions from the addresses typed before instead of words
         final SuggestedWords suggestedWords = isEmailField() ? getEmailSuggestedWords() : wordSuggestions;
         final SettingsValues currentSettingsValues = mSettings.getCurrent();
@@ -1526,6 +1576,10 @@ public class LatinIME extends InputMethodService implements
     // and there is a selection of text or it's the start of a line.
     @Override
     public void setNeutralSuggestionStrip() {
+        if (mAppLauncher.capturesInput()) {
+            mAppLauncher.show();
+            return;
+        }
         final SettingsValues currentSettings = mSettings.getCurrent();
         if (tryShowClipboardSuggestion()) {
             // clipboard suggestion has been set
@@ -1592,15 +1646,17 @@ public class LatinIME extends InputMethodService implements
     }
 
     void onVoiceDictationStarted() {
-        final String listening = getString(R.string.voice_in_keyboard_listening);
-        final MainKeyboardView view = mKeyboardSwitcher.getMainKeyboardView();
-        if (view != null) view.setSpacebarOverrideText(listening);
-        else mKeyboardSwitcher.showToast(listening, true);
+        showVoiceListening(true);
     }
 
     void onVoiceDictationFinished() {
+        showVoiceListening(false);
+    }
+
+    /** voice input listening (dictation or the launcher mode): the microphone on the space bar is drawn bright */
+    void showVoiceListening(final boolean listening) {
         final MainKeyboardView view = mKeyboardSwitcher.getMainKeyboardView();
-        if (view != null) view.setSpacebarOverrideText(null);
+        if (view != null) view.setVoiceListening(listening);
     }
 
     void onVoiceDictationSend() {
@@ -1691,6 +1747,9 @@ public class LatinIME extends InputMethodService implements
     // Hooks for hardware keyboard
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent keyEvent) {
+        // on the home screen of Homekey the keyboard never hides: back clears the search (and an editing) instead
+        if (keyCode == KeyEvent.KEYCODE_BACK && HomeActivity.Companion.isHomeField(getCurrentInputEditorInfo()))
+            return true;
         if (mKeyboardActionListener.onKeyDown(keyCode, keyEvent))
             return true;
         return super.onKeyDown(keyCode, keyEvent);
@@ -1698,6 +1757,10 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public boolean onKeyUp(final int keyCode, final KeyEvent keyEvent) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && HomeActivity.Companion.isHomeField(getCurrentInputEditorInfo())) {
+            mAppLauncher.clearSearch();
+            return true;
+        }
         if (mKeyboardActionListener.onKeyUp(keyCode, keyEvent))
             return true;
         return super.onKeyUp(keyCode, keyEvent);
@@ -1731,6 +1794,10 @@ public class LatinIME extends InputMethodService implements
         Log.d(EmojiSearchActivityKt.TAG, "before activity launch");
         startActivity(new Intent().setClass(this, EmojiSearchActivity.class)
                           .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_MULTIPLE_TASK));
+    }
+
+    public void toggleAppLauncher() {
+        mAppLauncher.toggle();
     }
 
     public boolean isEmojiSearch() {
