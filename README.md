@@ -1,25 +1,52 @@
-# HeliBoard
-HeliBoard is a privacy-conscious and customizable open-source keyboard, based on AOSP / OpenBoard.
-Does not use internet permission, and thus is 100% offline.
+# Homekey
+Homekey is an Android keyboard that is also the home screen: a fork of [HeliBoard](https://github.com/HeliBorg/HeliBoard) where the suggestion strip doubles as an app launcher, and the home screen is a list of apps, chats, notifications and events searched from the keyboard.
+Like HeliBoard, it does not use the internet permission: everything stays on the phone (dictation goes through the speech recognizer of the system).
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Get it on F-Droid" height="80">](https://f-droid.org/packages/helium314.keyboard/)
-[<img src="https://user-images.githubusercontent.com/663460/26973090-f8fdc986-4d14-11e7-995a-e7c5e79ed925.png" alt="Get APK from GitHub" height="80">](https://github.com/HeliBorg/HeliBoard/releases/latest)
-[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/helium314.keyboard)
+It is a personal project, made for one phone (a Pixel 8 Pro) and Portuguese (Portugal); there are no releases.
 
 ## Table of Contents
 
-- [Features](#features)
-- [Contributing](#contributing-)
-   * [Reporting Issues](#reporting-issues)
-   * [Translations](#translations)
-   * [To Community](#to-community)
-   * [Code Contribution](CONTRIBUTING.md)
-- [Links](#links)
+- [Launcher mode](#launcher-mode)
+- [Home screen](#home-screen)
+- [Keyboard](#keyboard)
+- [Setup](#setup)
+- [Building](#building)
 - [License](#license)
 - [Credits](#credits)
-  * [Funding](#funding)
 
-# Features
+# Launcher mode
+A double tap on the space bar (or the Apps key of the toolbar) turns the suggestion strip into a search: the keys type into it instead of the app, and another double tap, the Apps icon or a tap in the app leaves it.
+
+- Apps of the main profile, the work profile and the private space; an app of a locked private space unlocks it first and opens once it is unlocked
+- Monochrome icons in the text color (themed layer, or the icon reduced to two shades with its background removed), cached between sessions
+- Names and tags, imported from the [KISS launcher](https://kisslauncher.com/) export or set on the home screen, searched like the app names
+- Order by recent use, and the result last chosen for the same text goes first
+- Chats of starred contacts: WhatsApp, or Element X with the room or person set for the contact; the message box is tapped once the chat opens, so the keyboard stays
+- Notifications, searchable by their text; a one-to-one message from a starred contact goes into the entry of that person and moves it forward
+- What players are playing, in the place of the player app
+- Today's events of the calendar, coming forward as they get near
+- Shortcuts of the apps and the ones pinned to Homekey ("add to home screen")
+- Typed or pasted web addresses, with the icon of the app that opens them
+- Patterns: a phone number gives Call, "10 min" a timer, "7h15" an alarm
+- Shortcuts for starred contacts: `d`/`drive`/`go name` (directions in Google Maps), `s`/`sms name`, `c`/`call`/`liga`/`ligar name`
+- Dictation with a long press on the space bar, and spoken commands in Portuguese ("abre o Spotify", "liga à Ema", "manda mensagem à Marta a dizer que chego às 8")
+
+# Home screen
+When Homekey is chosen as the home app, the home screen is the launcher mode as a vertical list above a search field, on black, with the keyboard always open.
+
+- Tags, or the latest message of a person, under each name
+- A long press opens a panel: name, tags, WhatsApp or Element for a person, uninstall an app, remove a shortcut
+- Swiping a notification, a message or an event aside dismisses it (an event only from the list)
+- The home gesture or back clears the search
+
+# Keyboard
+All the features of HeliBoard (see its [wiki](https://github.com/HeliBorg/HeliBoard/wiki)), with these changes:
+
+- A Portuguese (Portugal) main dictionary without Brazilian spellings and with accent misspellings turned into corrections (see below)
+- Symbols: `?` as the hint and long press of the period, `/` over `m`; emoji to the right in the alternatives of Enter
+- A tap on the left third of the period next to the space bar counts as space, and "word.word" with both words in the dictionary becomes "word word"
+- Enter sends in Element X; suggestions and corrections in Instagram messages
+
 <ul>
   <li>Add dictionaries for suggestions and spell check</li>
   <ul>
@@ -49,72 +76,24 @@ Does not use internet permission, and thus is 100% offline.
   <li>Backup and restore your settings and learned word / history data</li>
 </ul>
 
-For [FAQ](https://github.com/HeliBorg/HeliBoard/wiki/FAQ), [hidden features](https://github.com/HeliBorg/HeliBoard/wiki/9.-Hidden-features) and more information about the app and features, please visit the [wiki](https://github.com/HeliBorg/HeliBoard/wiki)
+# Setup
+Homekey needs a few things Android asks for separately:
 
-# Contributing ❤
+- Choose it as keyboard, and as home app (Settings › Apps › Default apps)
+- Notification access, for notifications and players
+- The accessibility service "Homekey chats", to tap the message box of a chat and to leave the launcher mode on a tap in the app
+- Permissions for contacts (starred contacts), calendar (events) and microphone (dictation)
+- For glide typing, the closed source library, as in HeliBoard
 
-## Reporting Issues
-
-Whether you encountered a bug, or want to see a new feature in HeliBoard, you can contribute to the project by opening a new issue [here](https://github.com/HeliBorg/HeliBoard/issues). Your help is always welcome!
-
-Before opening a new issue, be sure to check the following:
- - **Does the issue already exist?** Make sure a similar issue has not been reported by browsing [existing issues](https://github.com/HeliBorg/HeliBoard/issues?q=). Please search open and closed issues. In case of feature requests you could also check the [FAQ](https://github.com/HeliBorg/HeliBoard/wiki/FAQ) and [hidden features](https://github.com/HeliBorg/HeliBoard/wiki/9.-Hidden-features).
- - **Is the issue still relevant?** Make sure your issue is not already fixed in the latest version of HeliBoard.
- - **Is it a single topic?** If you want to suggest multiple things, open multiple issues.
- - **Did you use the issue template?** It is important to make life of our kind contributors easier by avoiding issues that miss key information to their resolution.
- - **Is it written by a human?** Do not use LLMs or similar to generate issues. Having LLMs help with translation or similar is acceptable, but must be disclosed. See also [AI_USAGE.md](AI_USAGE.md)
-Note that issues that that ignore part of the issue template will likely get treated with very low priority, as often they are needlessly hard to read or understand (e.g. huge screenshots, not providing a proper description, or addressing multiple topics). Blatant violation of the guidelines may result in the issue getting closed.
-
-If you're interested, you can read the following useful text about effective bug reporting (a bit longer read): https://www.chiark.greenend.org.uk/~sgtatham/bugs.html
-
-## Translations
-Translations can be added using [Weblate](https://translate.codeberg.org/projects/heliboard/). You will need an account to update translations and add languages. Add the language you want to translate to in Languages -> Manage translated languages in the top menu bar.
-Updating translations in a PR will not be accepted, as it may cause conflicts with Weblate translations.
-
-Some notes on translations
-* when translating metadata, translating the changelogs is rather useless. It's available as it was requested by translators.
-* the `hidden_features_message` is horrible to translate with Weblate, and serves little benefit as it's just a copy of what's already in the wiki: https://github.com/HeliBorg/HeliBoard/wiki/9.-Hidden-features. It's been made available in the app on user request/contribution.
-
-## To Community
-There is the [discussions on GitHub](https://github.com/HeliBorg/HeliBoard/discussions), or if you prefer a more open network there is [Lemmy](https://lemmy.world/c/Heliboard).
-You can share your themes, layouts and dictionaries with other people:
-* Themes can be saved and loaded using the menu on top-right in the _adjust colors_ screen
-  * you can share custom colors in a separate [discussion section](https://github.com/HeliBorg/HeliBoard/discussions/categories/custom-colors)
-  * there are theme collections available at [Star-Trowa/heliboard-themes](https://github.com/Star-Trowa/heliboard-themes) and [PickleHik3/droid-tings](https://github.com/PickleHik3/droid-tings)
-* Custom keyboard layouts are text files whose content you can edit, copy and share
-  * this applies to main keyboard layouts and to special layouts adjustable in advanced settings
-  * see [layouts.md](layouts.md) for details
-  * you can share custom layouts in a separate [discussion section](https://github.com/HeliBorg/HeliBoard/discussions/categories/custom-layout)
-  * [Roccobot's Layout Maker](https://roccobot.github.io/HeliBoard-RLM/) is a browser-based editor for json layout files
-* Creating dictionaries is a little more work
-  * first you will need a wordlist in the format from [here](https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists/sample.combined) and in the repository readme
-    * you can load the wordlist dictionary directly in HeliBoard like you would load a dictionary, but other AOSP keyboard forks will likely need the .dict file
-  * then you need to compile the dictionary using [external tools](https://github.com/remi0s/aosp-dictionary-tools)
-    * when you want to add the dictionary to the [repository](https://codeberg.org/Helium314/aosp-dictionaries/), no need to compile to a .dict file
-  * the resulting file (and ideally the wordlist too) can be shared with other users
-  * note that there will not be any further dictionaries added to this app, but you can add dictionaries to the [dictionaries repository](https://codeberg.org/Helium314/aosp-dictionaries)
-
-## Code Contribution
-See [Contribution Guidelines](CONTRIBUTING.md)
-
-# Links
-* Info
-  * [Wiki](https://github.com/HeliBorg/HeliBoard/wiki), including FAQ, help on customizing layouts, and gesture data gathering
-  * [Layout documentation](layouts.md) (more technical info regarding layout customization)
-  * [For creating custom dictionaries](https://codeberg.org/Helium314/aosp-dictionaries#wordlist-information) (see also top of the linked readme)
-* Community
-  * [Lemmy](https://lemmy.world/c/Heliboard)
-  * [Reddit](https://www.reddit.com/r/HeliBoard)
-  * GitHub [discussions](https://github.com/HeliBorg/HeliBoard/discussions)
-* Other
-  * [Translations](https://translate.codeberg.org/projects/heliboard/)
-  * [Dictionaries](https://codeberg.org/Helium314/aosp-dictionaries)
-  * [k3lp](https://codeberg.org/k3lp/k3lp) is a WIP library for keyboard layout parsing that will be implemented in HeliBoard when ready (created by [FlorisBoard](https://github.com/florisboard/florisboard/) maintainers)
-  * [swipe-o-scope](https://codeberg.org/eclexic/swipe-o-scope) for visualizing gesture data as created when using gesture data gathering
+# Building
+```
+./gradlew assembleDebug
+```
+The APK is `app/build/outputs/apk/debug/Homekey_<version>-debug.apk`, with the package `org.ferrao.homekey.debug` (`org.ferrao.homekey` for release builds).
 
 # License
 
-HeliBoard (as a fork of OpenBoard) is licensed under GNU General Public License v3.0.
+Homekey, like HeliBoard (a fork of OpenBoard), is licensed under GNU General Public License v3.0.
 
  > Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
 
@@ -124,6 +103,7 @@ Since the app is based on Apache 2.0 licensed AOSP Keyboard, an [Apache 2.0](LIC
 The icon is licensed under [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). A [license file](LICENSE-CC-BY-SA-4.0) is also included.
 
 # Credits
+- [HeliBoard](https://github.com/HeliBorg/HeliBoard), which Homekey is a fork of, and its [contributors](https://github.com/HeliBorg/HeliBoard/graphs/contributors)
 - Icon by [Fabian OvrWrt](https://github.com/FabianOvrWrt) with contributions from [The Eclectic Dyslexic](https://github.com/the-eclectic-dyslexic)
 - [OpenBoard](https://github.com/openboard-team/openboard)
 - [AOSP Keyboard](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/)
@@ -131,12 +111,11 @@ The icon is licensed under [Creative Commons BY-SA 4.0](https://creativecommons.
 - [Simple Keyboard](https://github.com/rkkr/simple-keyboard)
 - [Indic Keyboard](https://gitlab.com/indicproject/indic-keyboard)
 - [FlorisBoard](https://github.com/florisboard/florisboard/)
-- Our [contributors](https://github.com/HeliBorg/HeliBoard/graphs/contributors)
 
-## Funding
+## Funding of HeliBoard
 
-This project is funded through [NGI Mobifree Fund](https://nlnet.nl/mobifree), a fund established by [NLnet](https://nlnet.nl) with financial support from the European Commission's [Next Generation Internet](https://ngi.eu) program. Learn more at the [NLnet project page](https://nlnet.nl/project/GestureTyping).
+HeliBoard is funded through [NGI Mobifree Fund](https://nlnet.nl/mobifree), a fund established by [NLnet](https://nlnet.nl) with financial support from the European Commission's [Next Generation Internet](https://ngi.eu) program. Learn more at the [NLnet project page](https://nlnet.nl/project/GestureTyping).
 
 [<img src="https://nlnet.nl/logo/banner.png" alt="NLnet foundation logo" width="20%" />](https://nlnet.nl)
 
-Further the project benefits from donations provided by many users (thank you all!).
+Further HeliBoard benefits from donations provided by many users (thank you all!).
