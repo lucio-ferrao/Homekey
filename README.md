@@ -2,7 +2,7 @@
 Homekey is an Android keyboard that is also the home screen: a fork of [HeliBoard](https://github.com/HeliBorg/HeliBoard) where the suggestion strip doubles as an app launcher, and the home screen is a list of apps, chats, notifications and events searched from the keyboard.
 Like HeliBoard, it does not use the internet permission: everything stays on the phone (dictation goes through the speech recognizer of the system).
 
-It is a personal project, made for one phone (a Pixel 8 Pro) and Portuguese (Portugal); there are no releases.
+It is a personal project, made for one phone (a Pixel 8 Pro) and Portuguese (Portugal). Debug APKs are in the [releases](https://github.com/lucio-ferrao/Homekey/releases).
 
 ## Table of Contents
 
