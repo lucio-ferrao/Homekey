@@ -1,9 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin
 
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -11,10 +15,13 @@ import android.widget.TextView
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.utils.dpToPx
+import kotlin.math.abs
+import kotlin.math.sign
 
 /**
  * A notification that arrives while the keyboard is open, shown in the suggestion strip with the icon of its app until
- * the next key or for [SHOWN_FOR] ms; a tap opens it, like in the list of the launcher mode. Not for the app being
+ * the next key or for [SHOWN_FOR] ms; a tap opens it, like in the list of the launcher mode, and a slide to either side
+ * dismisses it, like on the home screen. Not for the app being
  * typed in, nor on the home screen of Homekey (its list has the notifications), nor while the strip has a search.
  */
 class NotificationStrip(private val latinIME: LatinIME) {
@@ -57,7 +64,52 @@ class NotificationStrip(private val latinIME: LatinIME) {
             ScreenAgentService.focusMessageFieldSoon(entry.packageName)
             entry.open()
         }
+        slideToDismiss(row, entry)
         strip.setExternalSuggestionView(row, false)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun slideToDismiss(row: View, entry: LauncherNotificationService.Entry) {
+        val slop = ViewConfiguration.get(row.context).scaledTouchSlop
+        var downX = 0f
+        var sliding = false
+        val slideBack = {
+            row.animate().translationX(0f).alpha(1f).setDuration(SLIDE_MS)
+            handler.postDelayed(timeout, SHOWN_FOR)
+        }
+        row.setOnTouchListener { _, event ->
+            when (event.actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
+                    downX = event.rawX
+                    sliding = false
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    val dx = event.rawX - downX
+                    if (!sliding && abs(dx) > slop) {
+                        sliding = true
+                        // the strip would take an upward slide for its more suggestions
+                        row.parent?.requestDisallowInterceptTouchEvent(true)
+                        handler.removeCallbacks(timeout)
+                    }
+                    if (sliding) {
+                        row.translationX = dx
+                        row.alpha = 1f - (abs(dx) / row.width).coerceAtMost(1f)
+                    }
+                }
+                MotionEvent.ACTION_UP -> when {
+                    !sliding -> row.performClick()
+                    abs(row.translationX) > row.width / 3f -> row.animate()
+                        .translationX(sign(row.translationX) * row.width).alpha(0f).setDuration(SLIDE_MS)
+                        .withEndAction {
+                            hide()
+                            LauncherNotificationService.dismiss(entry.key)
+                        }
+                    else -> slideBack()
+                }
+                MotionEvent.ACTION_CANCEL -> if (sliding) slideBack()
+            }
+            true
+        }
     }
 
     /** gives the strip back to the suggestions */
@@ -75,5 +127,6 @@ class NotificationStrip(private val latinIME: LatinIME) {
 
     companion object {
         private const val SHOWN_FOR = 10_000L
+        private const val SLIDE_MS = 150L
     }
 }
