@@ -498,6 +498,11 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     private fun dismissedEvents() = latinIME.prefs().getStringSet(PREF_DISMISSED_EVENTS, emptySet())!!
 
+    /** for a shortcut: the name of its app (as named in the list), to tell which app it belongs to, and its detail ("Ecto · terminado") */
+    fun appNameOf(app: App): String? = if (app.shortcut == null) null else listOfNotNull(apps.firstOrNull {
+        it.shortcut == null && it.whatsAppDataId == null && it.component == app.component && it.user == app.user
+    }?.label, app.shortcut.detail).joinToString(" · ").ifEmpty { null }
+
     /** the icon shown for a result (Element for a person contacted through it) */
     fun iconOf(app: App): Drawable? = app.element?.let { elementIcon } ?: app.icon
 
@@ -541,6 +546,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             val label = TextView(context)
             label.text = highlighted(app.label, color)
             app.unread?.let { label.append(": " + it.text.replace('\n', ' ').take(40)) }
+            appNameOf(app)?.let { label.append(" · $it") }
             label.setTextColor(ColorUtils.setAlphaComponent(color, 180))
             label.textSize = 14f
             label.maxLines = 1
@@ -990,7 +996,11 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     /** an app with the name and tags given in the launcher mode (or in KISS), [kissId] identifying it as KISS does */
     /** a shortcut of an app: what starts or removes it; offered = by the app itself (not only pinned) */
-    class Shortcut(val packageName: String, val id: String, val isPinned: Boolean, val isOffered: Boolean)
+    class Shortcut(val packageName: String, val id: String, val isPinned: Boolean, val isOffered: Boolean,
+                   /** when the app last changed it (e.g. Ecto when its session gets busy or ends): recency of its own */
+                   val lastChanged: Long,
+                   /** its long label when it says more than the name, e.g. the state of an Ecto session */
+                   val detail: String?)
 
     class App(val key: String, val kissId: String, val originalLabel: String, val component: ComponentName,
               val user: UserHandle, val icon: Drawable, label: String?, tags: List<String>,
@@ -1183,6 +1193,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                         put("shortcutPackage", it.packageName)
                         put("pinned", it.isPinned)
                         put("offered", it.isOffered)
+                        put("lastChanged", it.lastChanged)
+                        it.detail?.let { detail -> put("detail", detail) }
                     }
                 })
             }
@@ -1217,7 +1229,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                     val kissId = o.getString("kissId")
                     val whatsApp = if (o.has("whatsApp")) o.getLong("whatsApp") else null
                     val shortcut = if (o.has("shortcut")) Shortcut(o.getString("shortcutPackage"), o.getString("shortcut"),
-                        o.getBoolean("pinned"), o.getBoolean("offered")) else null
+                        o.getBoolean("pinned"), o.getBoolean("offered"), o.optLong("lastChanged"),
+                        o.optString("detail").ifEmpty { null }) else null
                     list.add(App(o.getString("key"), kissId, o.getString("label"),
                         ComponentName(o.getString("package"), o.getString("class")), user, icon, names[kissId],
                         tags[kissId].orEmpty(), whatsApp, if (whatsApp != null) elementLinks[kissId] else null,
@@ -1292,7 +1305,9 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                     }
                     App("shortcut|${info.`package`}|${info.id}|$serial", kissId, label, app.component, user, icon,
                         names[kissId], tags[kissId].orEmpty(), shortcut = Shortcut(info.`package`, info.id, info.isPinned,
-                            info.isDynamic || info.isDeclaredInManifest)).also { it.iconFile = iconFile }
+                            info.isDynamic || info.isDeclaredInManifest, info.lastChangedTimestamp,
+                            info.longLabel?.toString()?.takeIf { it.isNotBlank() && it != label })
+                    ).also { it.iconFile = iconFile }
                 }
             }
         }
@@ -1630,7 +1645,9 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         /** the order of use: the most recently launched from here first, then the most often launched */
         private fun filter(apps: List<App>, query: String, counts: Map<String, Int>, lastUsed: Map<String, Long> = emptyMap()): List<App> {
             val q = normalize(query.trim())
-            val byUse = compareByDescending<App> { lastUsed[it.key] ?: 0L }.thenByDescending { counts[it.key] ?: 0 }
+            // a shortcut counts as used when the app last changed it too (an Ecto session that just ended comes forward)
+            val byUse = compareByDescending<App> { maxOf(lastUsed[it.key] ?: 0L, it.shortcut?.lastChanged ?: 0L) }
+                .thenByDescending { counts[it.key] ?: 0 }
             if (q.isEmpty()) return apps.sortedWith(byUse)
             fun rank(app: App) = when {
                 app.names.any { it.startsWith(q) } -> 0

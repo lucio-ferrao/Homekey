@@ -221,8 +221,10 @@ class HomeActivity : Activity() {
             holder.name.text = mode.highlighted(app.label, Color.WHITE)
             // under a person, their newest message instead of the tags
             val unread = app.unread?.text?.replace('\n', ' ')
-            holder.tags.text = unread ?: mode.highlighted(app.rawTags.joinToString(" "), Color.WHITE)
-            holder.tags.visibility = if (unread == null && app.rawTags.isEmpty()) android.view.View.GONE else android.view.View.VISIBLE
+            // for a shortcut, the name of its app before the tags
+            val under = listOfNotNull(mode.appNameOf(app), app.rawTags.joinToString(" ").ifEmpty { null }).joinToString(" · ")
+            holder.tags.text = unread ?: mode.highlighted(under, Color.WHITE)
+            holder.tags.visibility = if (unread == null && under.isEmpty()) android.view.View.GONE else android.view.View.VISIBLE
             holder.row.setOnClickListener { mode.open(app) }
             holder.row.setOnLongClickListener { mode.showActions(app); true }
         }
