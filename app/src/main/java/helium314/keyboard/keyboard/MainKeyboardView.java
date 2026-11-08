@@ -420,6 +420,13 @@ public final class MainKeyboardView extends KeyboardView implements DrawingProxy
     }
 
     @Override
+    public void showCtrlOnShift(final boolean show) {
+        if (mShiftShowsCtrl == show) return;
+        mShiftShowsCtrl = show;
+        invalidateAllKeys();
+    }
+
+    @Override
     public void showSlidingKeyInputPreview(@Nullable final PointerTracker tracker) {
         locatePreviewPlacerView();
         if (tracker != null) {

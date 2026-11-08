@@ -1405,6 +1405,8 @@ public class LatinIME extends InputMethodService implements
             mEmojiStrip.start();
             return;
         }
+        // Ctrl with a key (a slide from shift) means nothing to the search of the launcher or emoji mode
+        if (capturingSearch() != null && (event.getMetaState() & KeyEvent.META_CTRL_ON) != 0) return;
         // in the launcher or emoji mode, typing searches apps or emojis instead of going to the text field
         if (capturingSearch() != null && capturingSearch().onEvent(event)) {
             mKeyboardSwitcher.onEvent(event, Constants.TextUtils.CAP_MODE_OFF, null);

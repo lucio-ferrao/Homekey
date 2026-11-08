@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The two keys of the Homekey icon, filling the drawing: the key on the left of the suggestion strip -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+  <group android:translateX="-22" android:translateY="-22">
+    <group android:pivotX="54" android:pivotY="62" android:scaleX="0.78" android:scaleY="0.78" android:translateY="-8">
+      <group android:pivotX="35" android:pivotY="62" android:rotation="-32">
+        <path android:fillColor="#FFFFFFFF" android:pathData="M27,47H43A7,7 0,0 1,50 54V70A7,7 0,0 1,43 77H27A7,7 0,0 1,20 70V54A7,7 0,0 1,27 47Z"/>
+      </group>
+      <group android:pivotX="73" android:pivotY="62" android:rotation="32">
+        <path android:fillColor="#FFFFFFFF" android:pathData="M65,47H81A7,7 0,0 1,88 54V70A7,7 0,0 1,81 77H65A7,7 0,0 1,58 70V54A7,7 0,0 1,65 47Z"/>
+      </group>
+    </group>
+  </group>
+</vector>

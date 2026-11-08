@@ -280,7 +280,6 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         ACTION_KEY_BACKGROUND, CLIPBOARD_PIN -> accent
         SHIFT_KEY_ICON -> if (accentShiftedIcon) accent else keyText
         AUTOFILL_BACKGROUND_CHIP, GESTURE_PREVIEW, POPUP_KEYS_BACKGROUND, MORE_SUGGESTIONS_BACKGROUND, KEY_PREVIEW_BACKGROUND -> adjustedBackground
-        TOOL_BAR_EXPAND_KEY_BACKGROUND -> if (!isNight) accent else doubleAdjustedBackground
         GESTURE_TRAIL -> gesture
         KEY_TEXT, SUGGESTION_AUTO_CORRECT, REMOVE_SUGGESTION_ICON, KEY_PREVIEW_TEXT, POPUP_KEY_TEXT,
             KEY_ICON, POPUP_KEY_ICON, ONE_HANDED_MODE_BUTTON, EMOJI_CATEGORY, TOOL_BAR_KEY, FUNCTIONAL_KEY_TEXT, CLIPBOARD_SUGGESTION_ICON -> keyText
@@ -295,7 +294,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         CLIPBOARD_SUGGESTION_BACKGROUND -> keyBackground
         NAVIGATION_BAR -> navBar
         MORE_SUGGESTIONS_HINT, SUGGESTED_WORD, SUGGESTION_TYPED_WORD, SUGGESTION_VALID_WORD -> adjustedKeyText
-        ACTION_KEY_ICON, TOOL_BAR_EXPAND_KEY -> Color.WHITE
+        ACTION_KEY_ICON -> Color.WHITE
     }
 
     override fun setColor(drawable: Drawable, color: ColorType) {
@@ -332,7 +331,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
         CLIPBOARD_PIN -> accentColorFilter
         SHIFT_KEY_ICON -> if (accentShiftedIcon) accentColorFilter else keyTextFilter
         REMOVE_SUGGESTION_ICON, EMOJI_CATEGORY, KEY_TEXT,
-            KEY_ICON, ONE_HANDED_MODE_BUTTON, TOOL_BAR_KEY, TOOL_BAR_EXPAND_KEY -> keyTextFilter
+            KEY_ICON, ONE_HANDED_MODE_BUTTON, TOOL_BAR_KEY -> keyTextFilter
         KEY_PREVIEW_BACKGROUND -> adjustedBackgroundFilter
         ACTION_KEY_ICON -> actionKeyIconColorFilter
         else -> colorFilter(get(color))
@@ -479,7 +478,7 @@ class DefaultColors (
         SHIFT_KEY_ICON -> if (accentShiftedIcon) accent else keyText
         AUTOFILL_BACKGROUND_CHIP -> if (themeStyle == STYLE_MATERIAL && !hasKeyBorders) background else adjustedBackground
         GESTURE_PREVIEW, POPUP_KEYS_BACKGROUND, MORE_SUGGESTIONS_BACKGROUND, KEY_PREVIEW_BACKGROUND -> adjustedBackground
-        TOOL_BAR_EXPAND_KEY_BACKGROUND, CLIPBOARD_SUGGESTION_BACKGROUND -> doubleAdjustedBackground
+        CLIPBOARD_SUGGESTION_BACKGROUND -> doubleAdjustedBackground
         GESTURE_TRAIL -> gesture
         KEY_TEXT, REMOVE_SUGGESTION_ICON, FUNCTIONAL_KEY_TEXT, KEY_ICON,
             POPUP_KEY_TEXT, POPUP_KEY_ICON, KEY_PREVIEW_TEXT, CLIPBOARD_SUGGESTION_ICON -> keyText
@@ -492,7 +491,7 @@ class DefaultColors (
         ACTION_KEY_POPUP_KEYS_BACKGROUND -> if (themeStyle == STYLE_HOLO) adjustedBackground else accent
         STRIP_BACKGROUND -> if (!hasKeyBorders && themeStyle == STYLE_MATERIAL) adjustedBackground else background
         NAVIGATION_BAR -> navBar
-        SUGGESTION_AUTO_CORRECT, EMOJI_CATEGORY, TOOL_BAR_KEY, TOOL_BAR_EXPAND_KEY, ONE_HANDED_MODE_BUTTON -> suggestionText
+        SUGGESTION_AUTO_CORRECT, EMOJI_CATEGORY, TOOL_BAR_KEY, ONE_HANDED_MODE_BUTTON -> suggestionText
         MORE_SUGGESTIONS_HINT, SUGGESTED_WORD, SUGGESTION_TYPED_WORD, SUGGESTION_VALID_WORD -> adjustedSuggestionText
         ACTION_KEY_ICON -> Color.WHITE
     }
@@ -554,7 +553,7 @@ class DefaultColors (
         CLIPBOARD_PIN -> accentColorFilter
         SHIFT_KEY_ICON -> if (accentShiftedIcon) accentColorFilter else keyTextFilter
         KEY_TEXT, KEY_ICON -> keyTextFilter
-        REMOVE_SUGGESTION_ICON, EMOJI_CATEGORY, ONE_HANDED_MODE_BUTTON, TOOL_BAR_KEY, TOOL_BAR_EXPAND_KEY -> suggestionTextFilter
+        REMOVE_SUGGESTION_ICON, EMOJI_CATEGORY, ONE_HANDED_MODE_BUTTON, TOOL_BAR_KEY -> suggestionTextFilter
         KEY_PREVIEW_BACKGROUND -> adjustedBackgroundFilter
         ACTION_KEY_ICON -> actionKeyIconColorFilter
         else -> colorFilter(get(color)) // create color filter (not great for performance, so the frequently used filters should be stored)
@@ -656,8 +655,6 @@ enum class ColorType {
     SUGGESTION_AUTO_CORRECT,
     SUGGESTION_TYPED_WORD,
     SUGGESTION_VALID_WORD,
-    TOOL_BAR_EXPAND_KEY,
-    TOOL_BAR_EXPAND_KEY_BACKGROUND,
     TOOL_BAR_KEY,
     MAIN_BACKGROUND,
 }

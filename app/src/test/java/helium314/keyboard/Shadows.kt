@@ -133,6 +133,8 @@ class ShadowInputMethodService {
         var composingStart = -1
         var composingEnd = -1
         var currentInputType = InputType.TYPE_CLASS_TEXT
+        /** the last key event sent down, e.g. to check its meta state */
+        var lastKeyDown: KeyEvent? = null
 
         // convenience for access
         val textBeforeCursor get() = text.substring(0, selectionStart)
@@ -152,6 +154,7 @@ class ShadowInputMethodService {
             composingStart = -1
             composingEnd = -1
             currentInputType = InputType.TYPE_CLASS_TEXT
+            lastKeyDown = null
         }
     }
 
@@ -277,6 +280,7 @@ class ShadowInputMethodService {
         }
         override fun sendKeyEvent(p0: KeyEvent): Boolean {
             if (p0.action != KeyEvent.ACTION_DOWN) return true // only change the text on key down, like RichInputConnection does
+            ShadowInputMethodService.lastKeyDown = p0
             if (p0.keyCode == KeyEvent.KEYCODE_DEL) {
                 if (selectionEnd == 0) return true // nothing to delete
                 if (selectedText.isEmpty()) {

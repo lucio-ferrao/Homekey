@@ -38,15 +38,27 @@ public final class SpacingAndPunctuations {
     public final Locale mLocale;
     public final String mScript;
 
+    /** characters that belong to a word in a shell of a terminal, for tokens like --no-daemon or ~/.local/bin */
+    private static final String TERMINAL_TOKEN_CHARS = "-./_~=";
+
     public SpacingAndPunctuations(Resources res, Boolean urlDetection, Locale locale) {
+        this(res, urlDetection, locale, false);
+    }
+
+    /** With [terminalTokens], the characters of shell tokens connect words instead of separating them. */
+    public SpacingAndPunctuations(Resources res, Boolean urlDetection, Locale locale, boolean terminalTokens) {
         // To be able to binary search the code point. See {@link #isUsuallyPrecededBySpace(int)}.
         mSortedSymbolsPrecededBySpace = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_preceded_by_space));
         // To be able to binary search the code point. See {@link #isUsuallyFollowedBySpace(int)}.
         mSortedSymbolsFollowedBySpace = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_followed_by_space));
         mSortedSymbolsClusteringTogether = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_clustering_together));
         // To be able to binary search the code point. See {@link #isWordConnector(int)}.
-        mSortedWordConnectors = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_word_connectors));
-        mSortedWordSeparators = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_word_separators));
+        final String connectors = res.getString(R.string.symbols_word_connectors);
+        final String separators = res.getString(R.string.symbols_word_separators);
+        mSortedWordConnectors = StringUtils.toSortedCodePointArray(terminalTokens ? connectors + TERMINAL_TOKEN_CHARS : connectors);
+        mSortedWordSeparators = StringUtils.toSortedCodePointArray(
+                terminalTokens ? separators.codePoints().filter(c -> TERMINAL_TOKEN_CHARS.indexOf(c) < 0)
+                        .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append).toString() : separators);
         mPairSymbols = StringUtilsKt.toSortedCodepointArrays(res.getString(R.string.pair_symbols));
         mSortedSentenceTerminators = StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_sentence_terminators));
         mSentenceSeparator = res.getInteger(R.integer.sentence_separator);
@@ -55,7 +67,7 @@ public final class SpacingAndPunctuations {
                 mSentenceSeparator, Constants.CODE_SPACE }, 0, 2);
         mCurrentLanguageHasSpaces = res.getBoolean(R.bool.current_language_has_spaces);
         // make it empty if language doesn't have spaces, to avoid weird glitches
-        mSortedSometimesWordConnectors = (urlDetection && mCurrentLanguageHasSpaces) ? StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_sometimes_word_connectors)) : new int[0];
+        mSortedSometimesWordConnectors = (urlDetection && mCurrentLanguageHasSpaces && !terminalTokens) ? StringUtils.toSortedCodePointArray(res.getString(R.string.symbols_sometimes_word_connectors)) : new int[0];
         mLocale = locale;
         // Heuristic: we use American Typography rules because it's the most common rules for all
         // English variants. German rules (not "German typography") also have small gotchas.

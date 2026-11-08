@@ -1,5 +1,6 @@
 package helium314.keyboard
 
+import android.view.KeyEvent
 import android.view.MotionEvent
 import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -14,6 +15,7 @@ import org.robolectric.shadows.ShadowLooper
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 // todo: expand with swipe & touch stuff
 @RunWith(RobolectricTestRunner::class)
@@ -52,11 +54,13 @@ class InputTest {
         assertEquals(KeyboardElement.ALPHABET_SHIFT_LOCKED, keyboardSwitcher.keyboard?.mId?.element)
     }
 
-    @Test fun slidingInput() {
+    @Test fun slidingFromShiftSendsCtrl() {
         touchKey(KeyCode.SHIFT, MotionEvent.ACTION_DOWN)
         touchKey('F'.code, MotionEvent.ACTION_MOVE)
         touchKey('F'.code, MotionEvent.ACTION_UP)
-        assertEquals("F", ShadowInputMethodService.text)
+        val key = ShadowInputMethodService.lastKeyDown
+        assertEquals(KeyEvent.KEYCODE_F, key?.keyCode)
+        assertTrue(key?.isCtrlPressed == true)
         assertEquals(KeyboardElement.ALPHABET, keyboardSwitcher.keyboard?.mId?.element)
     }
 

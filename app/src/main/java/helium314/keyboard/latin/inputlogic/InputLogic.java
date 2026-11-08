@@ -37,6 +37,8 @@ import helium314.keyboard.keyboard.emoji.RecentEmojis;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.CapsMode;
 import helium314.keyboard.latin.InputStyle;
+import helium314.keyboard.latin.TerminalVocabulary;
+import helium314.keyboard.latin.TerminalContext;
 import helium314.keyboard.latin.ScreenAgentService;
 import helium314.keyboard.latin.dictionary.Dictionary;
 import helium314.keyboard.latin.DictionaryFacilitator;
@@ -112,6 +114,7 @@ public final class InputLogic {
     public LastComposedWord mLastComposedWord = LastComposedWord.NOT_A_COMPOSED_WORD;
     // This has package visibility so it can be accessed from InputLogicHandler.
     /* package */ final WordComposer mWordComposer;
+    private final TerminalVocabulary mTerminalVocabulary;
     public final RichInputConnection mConnection;
     private final RecapitalizeStatus mRecapitalizeStatus = new RecapitalizeStatus();
 
@@ -150,6 +153,7 @@ public final class InputLogic {
         mInputLogicHandler = new InputLogicHandler(mLatinIME.mHandler, this);
         mSuggest = new Suggest(dictionaryFacilitator);
         mDictionaryFacilitator = dictionaryFacilitator;
+        mTerminalVocabulary = new TerminalVocabulary(latinIME);
     }
 
     /**
@@ -1092,7 +1096,9 @@ public final class InputLogic {
             // the character is a word connector. The idea here is, word connectors are not
             // separators and they should be treated as normal characters, except in the first
             // position where they should not start composing a word.
-            isComposingWord = !settingsValues.mSpacingAndPunctuations.isWordConnector(codePoint);
+            // (in a shell a token may start with one: --no-daemon, ~/.local)
+            isComposingWord = !settingsValues.mSpacingAndPunctuations.isWordConnector(codePoint)
+                    || settingsValues.mInputAttributes.mTerminalContext == TerminalContext.SHELL;
             // Here we don't need to reset the last composed word. It will be reset
             // when we commit this one, if we ever do; if on the other hand we backspace
             // it entirely and resume suggestions on the previous word, we'd like to still
@@ -1739,6 +1745,11 @@ public final class InputLogic {
             return;
         boolean wasAutoCapitalized = mWordComposer.wasAutoCapitalized() && !mWordComposer.isMostlyCaps();
         String word = StringUtilsKt.stripTrailingSeparatorsAndConnectors(suggestion, settingsValues.mSpacingAndPunctuations);
+        // what is typed in a shell goes to the terminal vocabulary only, never to the history of the language
+        if (settingsValues.mInputAttributes.mTerminalContext == TerminalContext.SHELL) {
+            if (!settingsValues.mIncognitoModeEnabled) mTerminalVocabulary.learn(word);
+            return;
+        }
         if (settingsValues.mIncognitoModeEnabled) {
             // don't add to history, but still adjust confidences
             // otherwise incognito input fields can be very annoying when the wrong language is active
@@ -1763,6 +1774,7 @@ public final class InputLogic {
             || mWordComposer.isComposingWord() // emoji will be part of the word in this case, better do nothing
             || !settingsValues.mBigramPredictionEnabled // this is only for next word suggestions, so they need to be enabled
             || settingsValues.mIncognitoModeEnabled
+            || settingsValues.mInputAttributes.mTerminalContext == TerminalContext.SHELL
             || !settingsValues.needsToLookupSuggestions()
             || !StringUtilsKt.isEmoji(text)
             || mConnection.hasSlowInputConnection()
@@ -2075,7 +2087,9 @@ public final class InputLogic {
 
         final EditorInfo ei = getCurrentInputEditorInfo();
         if (ei == null) return Constants.TextUtils.CAP_MODE_OFF;
-        final int inputType = ei.inputType;
+        // an agent in a terminal gets capitals at the start of sentences, like a message field
+        final int inputType = settingsValues.mInputAttributes.mTerminalContext == TerminalContext.AGENT
+                ? ei.inputType | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES : ei.inputType;
         // Warning: this depends on mSpaceState, which may not be the most current value. If
         // mSpaceState gets updated later, whoever called this may need to be told about it.
         return mConnection.getCursorCapsMode(inputType, settingsValues.mSpacingAndPunctuations,
@@ -2567,6 +2581,16 @@ public final class InputLogic {
             return;
         }
         final SettingsValues settingsValues = Settings.getValues();
+        // a shell completes the token from what was typed in shells before, ahead of the dictionaries
+        if (settingsValues.mInputAttributes.mTerminalContext == TerminalContext.SHELL
+                && inputStyle != InputStyle.UPDATE_BATCH && inputStyle != InputStyle.TAIL_BATCH) {
+            final String typed = mWordComposer.getTypedWord();
+            final java.util.List<String> completions = mTerminalVocabulary.completions(typed);
+            if (!completions.isEmpty()) {
+                callback.onGetSuggestedWords(mTerminalVocabulary.toSuggestedWords(typed, completions, inputStyle, sequenceNumber));
+                return;
+            }
+        }
         mWordComposer.adviseCapitalizedModeBeforeFetchingSuggestions(
                 getActualCapsMode(settingsValues, KeyboardSwitcher.getInstance().getKeyboardCapsMode()));
         try {

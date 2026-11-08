@@ -54,6 +54,11 @@ public interface DrawingProxy {
     void showSlidingKeyInputPreview(@Nullable PointerTracker tracker);
 
     /**
+     * Shows "Ctrl" on the shift key while a slide from it is going on (the key it ends on is sent with Ctrl).
+     */
+    void showCtrlOnShift(boolean show);
+
+    /**
      * Show gesture trails.
      * @param tracker the {@link PointerTracker} whose gesture trail will be shown.
      * @param showsFloatingPreviewText when true, a gesture floating preview text will be shown

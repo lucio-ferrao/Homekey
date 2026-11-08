@@ -89,6 +89,8 @@ public class KeyboardView extends View {
     private Bitmap mOffscreenBuffer;
     /** Flag for whether the key hints should be displayed */
     private boolean mShowsHints;
+    /** while a slide from the shift key is going on, the shift key shows "Ctrl" (see PointerTracker) */
+    protected boolean mShiftShowsCtrl;
     /** Scale for downscaling icons and fixed size backgrounds if keyboard height is set below 80% */
     private float mIconScaleFactor;
     /** The canvas for the above mutable keyboard bitmap */
@@ -380,11 +382,13 @@ public class KeyboardView extends View {
 
         // Draw key label.
         final Keyboard keyboard = getKeyboard();
-        final Drawable icon = (keyboard == null) ? null
+        // a slide from the shift key sends Ctrl with the key it ends on
+        final boolean ctrlOnShift = mShiftShowsCtrl && key.isShift();
+        final Drawable icon = (keyboard == null || ctrlOnShift) ? null
                 : key.getIcon(keyboard.mIconsSet, params.mAnimAlpha);
         float labelX = centerX;
         float labelBaseline = centerY;
-        final String label = key.getLabel();
+        final String label = ctrlOnShift ? "Ctrl" : key.getLabel();
         if (label != null) {
             paint.setTypeface(KeyboardTypeface.resolve(label, key.selectTypeface(params)));
             paint.setTextSize(key.selectTextSize(params) * mFontSizeMultiplier);

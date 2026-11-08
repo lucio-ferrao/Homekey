@@ -26,7 +26,7 @@ A double tap on the space bar, or the arrow at the left of the suggestion strip,
 - Notifications, searchable by their text; a one-to-one message from a starred contact goes into the entry of that person and moves it forward
 - What players are playing, in the place of the player app
 - Today's events of the calendar, coming forward as they get near
-- Shortcuts of the apps and the ones pinned to Homekey ("add to home screen"); the shortcuts of conversations with a starred contact (WhatsApp, Messages) are left out, as the contact has its entry; any shortcut can be removed from the list
+- Shortcuts of the apps turned on in Settings › App shortcuts (all off at first; each app with its shortcuts listed and a switch) and the ones pinned to Homekey ("add to home screen"); the shortcuts of conversations with a starred contact (WhatsApp, Messages) are left out, as the contact has its entry; any shortcut can be removed from the list
 - The typed text stays where the names of the results start, also when nothing matches
 - Typed or pasted web addresses, with the icon of the app that opens them
 - Patterns: a phone number gives Call, "10 min" a timer, "7h15" an alarm
@@ -49,6 +49,7 @@ All the features of HeliBoard (see its [wiki](https://github.com/HeliBorg/HeliBo
 - Notifications arriving while typing show in the suggestion strip until the next key or 10 s; a tap opens them
 - Symbols: `/` as the hint and long press of the period; emoji next to Enter in its alternatives, before the new line where Enter sends
 - Enter without the colored circle, like the other functional keys
+- Ctrl by sliding from shift: shift slid to c sends Ctrl+C (also Tab, arrows, numbers), with "Ctrl" on the shift key while sliding; ignored in the launcher and emoji modes
 - No toolbar: the arrow of the suggestion strip opens the apps instead, and the toolbar of HeliBoard (its keys, pinned keys and settings) is gone; the clipboard history keeps its own row of keys
 - A tap on the left third of the period next to the space bar counts as space, and "word.word" with both words in the dictionary becomes "word word"
 - Enter sends in Element X, and taps the send button in Claude (through the accessibility service); suggestions and corrections in Instagram messages

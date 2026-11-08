@@ -10,6 +10,8 @@ import android.os.Build;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 
+import androidx.annotation.Nullable;
+
 import helium314.keyboard.latin.common.StringUtilsKt;
 import helium314.keyboard.compat.AppWorkarounds;
 import helium314.keyboard.latin.utils.Log;
@@ -38,6 +40,8 @@ public final class InputAttributes {
     final public boolean mShouldInsertSpacesAutomatically;
     final public boolean mShouldShowVoiceInputKey;
     final public boolean mNoLearning;
+    /** what runs in a terminal field (from the terminal app), which sets suggestions, corrections and spaces; or null */
+    @Nullable final public TerminalContext mTerminalContext;
     /**
      * Whether the floating gesture preview should be disabled. If true, this should override the
      * corresponding keyboard settings preference, always suppressing the floating preview text.
@@ -58,6 +62,7 @@ public final class InputAttributes {
         final int inputClass = mInputType & InputType.TYPE_MASK_CLASS;
         mIsPasswordField = InputTypeUtils.isPasswordInputType(mInputType)
                 || InputTypeUtils.isVisiblePasswordInputType(mInputType);
+        mTerminalContext = null != editorInfo ? TerminalContext.parse(editorInfo.privateImeOptions) : null;
         if (inputClass != InputType.TYPE_CLASS_TEXT) {
             // If we are not looking at a TYPE_CLASS_TEXT field, the following strange
             // cases may arise, so we do a couple sanity checks for them. If it's a
@@ -93,10 +98,14 @@ public final class InputAttributes {
 
         // TODO: Have a helper method in InputTypeUtils
         // Make sure that passwords are not displayed in {@link SuggestionStripView}.
-        mShouldShowSuggestions = !mIsPasswordField && !flagNoSuggestions;
-        mMayOverrideShowingSuggestions = !mIsPasswordField;
+        // In a terminal, an agent gets prose and a shell gets its own completions, whatever the field asks for; a
+        // full-screen program gets keys only. A password still shows nothing.
+        mShouldShowSuggestions = !mIsPasswordField && (mTerminalContext == TerminalContext.AGENT
+                || mTerminalContext == TerminalContext.SHELL || (mTerminalContext == null && !flagNoSuggestions));
+        mMayOverrideShowingSuggestions = !mIsPasswordField && mTerminalContext != TerminalContext.FULLSCREEN;
 
-        mShouldInsertSpacesAutomatically = InputTypeUtils.isAutoSpaceFriendlyType(mInputType);
+        mShouldInsertSpacesAutomatically = mTerminalContext == TerminalContext.AGENT
+                || (mTerminalContext == null && InputTypeUtils.isAutoSpaceFriendlyType(mInputType));
 
         final boolean noMicrophone = mIsPasswordField
                 || InputTypeUtils.isEmailVariation(variation)
@@ -111,13 +120,13 @@ public final class InputAttributes {
         // autocorrect if explicitly wanted, but also for most multi-line input types (like AOSP keyboard)
         // originally, URI and email were always excluded from autocorrect (in Suggest.java), but this is
         //  and unexpected place, and if the input field explicitly requests autocorrect we should follow the flag
-        mInputTypeShouldAutoCorrect = flagAutoCorrect || (
+        mInputTypeShouldAutoCorrect = mTerminalContext == TerminalContext.AGENT || (mTerminalContext == null && (flagAutoCorrect || (
                 flagMultiLine
                 && variation != InputType.TYPE_TEXT_VARIATION_WEB_EDIT_TEXT
                 && variation != InputType.TYPE_TEXT_VARIATION_URI
                 && !InputTypeUtils.isEmailVariation(variation)
                 && !flagNoSuggestions
-        );
+        )));
 
         mApplicationSpecifiedCompletionOn = flagAutoComplete && isFullscreenMode;
 
@@ -143,7 +152,9 @@ public final class InputAttributes {
 
     public boolean isSameInputType(final EditorInfo editorInfo) {
         return editorInfo.inputType == mInputType && mEditorInfo != null
-                && (mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) == (editorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII);
+                && (mEditorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII) == (editorInfo.imeOptions & EditorInfo.IME_FLAG_FORCE_ASCII)
+                // a terminal switching from an agent to a shell keeps the same field and input type
+                && TerminalContext.parse(editorInfo.privateImeOptions) == mTerminalContext;
     }
 
     private boolean hasNoMicrophoneKeyOption() {

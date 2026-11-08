@@ -152,6 +152,12 @@ class KeyboardActionListenerImpl(private val latinIME: LatinIME, private val inp
         metaAfterCodeInput(primaryCode)
     }
 
+    override fun onCtrlCodeInput(primaryCode: Int) {
+        val ctrl = KeyEvent.META_CTRL_ON or KeyEvent.META_CTRL_LEFT_ON
+        latinIME.onEvent(Event.createSoftwareKeypressEvent(primaryCode, metaState or ctrl,
+            Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false))
+    }
+
     override fun onTextInput(text: String?) = latinIME.onTextInput(text)
 
     override fun onContent(content: InputContentInfoCompat) {

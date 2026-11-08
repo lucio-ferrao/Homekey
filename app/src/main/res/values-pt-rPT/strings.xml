@@ -549,4 +549,6 @@
     <string name="launcher_lock_private_space">Bloquear espaço privado</string>
     <string name="launcher_uninstall">Desinstalar</string>
     <string name="launcher_remove_shortcut">Remover</string>
+    <string name="app_shortcuts">Atalhos das apps</string>
+    <string name="app_shortcuts_not_home">Só a app de ecrã inicial pode ver os atalhos das apps: escolhe o Homekey como app de ecrã inicial (Definições › Apps › Apps predefinidas).</string>
 </resources>

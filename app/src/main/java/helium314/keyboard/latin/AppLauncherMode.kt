@@ -997,8 +997,11 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     /** an app with the name and tags given in the launcher mode (or in KISS), [kissId] identifying it as KISS does */
     /** a shortcut of an app: what starts or removes it; offered = by the app itself (not only pinned) */
     class Shortcut(val packageName: String, val id: String, val isPinned: Boolean, val isOffered: Boolean,
-                   /** when the app last changed it (e.g. Ecto when its session gets busy or ends): recency of its own */
-                   val lastChanged: Long,
+                   /**
+                    * when what it shows (name, detail) last changed, e.g. an Ecto session that gets busy or ends: recency
+                    * of its own; an app publishing it again unchanged does not count. 0 if never seen changing.
+                    */
+                   val changedAt: Long,
                    /** its long label when it says more than the name, e.g. the state of an Ecto session */
                    val detail: String?)
 
@@ -1082,6 +1085,28 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         private const val PREF_DISMISSED_EVENTS = "app_search_dismissed_events"
         /** the shortcuts offered by the apps that were removed from the list (ids like shortcut://package/id) */
         private const val PREF_REMOVED_SHORTCUTS = "app_search_removed_shortcuts"
+        /** the apps whose shortcuts (those of a long press on their icon) are in the list, set in the settings */
+        const val PREF_SHORTCUT_APPS = "app_search_shortcut_apps"
+
+        /**
+         * Whether a shortcut is in the list: one pinned to Homekey always, one an app offers only for an app turned on in
+         * the settings ("App shortcuts") and not removed from the list.
+         */
+        fun isShortcutShown(pinned: Boolean, packageName: String, kissId: String, enabledApps: Set<String>,
+                            removed: Set<String>): Boolean = pinned || packageName in enabledApps && kissId !in removed
+
+        /**
+         * Turns the shortcuts of [packageName] on or off for the list. Off takes them out of the list at once (and of
+         * the list saved for the next start); on adds them at the next load, when the launcher mode opens.
+         */
+        fun setShortcutsShown(context: Context, packageName: String, shown: Boolean) {
+            val prefs = context.prefs()
+            val enabled = prefs.getStringSet(PREF_SHORTCUT_APPS, emptySet())!!
+            prefs.edit { putStringSet(PREF_SHORTCUT_APPS, if (shown) enabled + packageName else enabled - packageName) }
+            if (shown || apps.isEmpty()) return
+            apps = apps.filter { it.shortcut == null || it.shortcut.isPinned || it.shortcut.packageName != packageName }
+            saveApps(context, apps)
+        }
         private const val MAX_SHOWN = 30
         /** to change when the icon processing changes, so the cached icons are computed again */
         private const val ICON_VERSION = 2
@@ -1193,7 +1218,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                         put("shortcutPackage", it.packageName)
                         put("pinned", it.isPinned)
                         put("offered", it.isOffered)
-                        put("lastChanged", it.lastChanged)
+                        put("changedAt", it.changedAt)
                         it.detail?.let { detail -> put("detail", detail) }
                     }
                 })
@@ -1204,6 +1229,20 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             } catch (e: Exception) {
                 Log.w(TAG, "can't save the apps", e)
             }
+        }
+
+        /** the shortcuts in the list saved by [saveApps]: key to what they showed (name, detail) and when it changed */
+        private fun savedShortcuts(context: Context): Map<String, Pair<Pair<String, String?>, Long>> = try {
+            val file = File(context.filesDir, "launcher/$SAVED_APPS_FILE")
+            if (!file.isFile) emptyMap() else {
+                val array = JSONArray(file.readText())
+                (0 until array.length()).map { array.getJSONObject(it) }.filter { it.has("shortcut") }.associate { o ->
+                    o.getString("key") to ((o.getString("label") to o.optString("detail").ifEmpty { null }) to o.optLong("changedAt"))
+                }
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "can't read the saved shortcuts", e)
+            emptyMap()
         }
 
         /** the list saved by [saveApps], with the current names, tags and Element links; empty if there is none */
@@ -1229,7 +1268,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                     val kissId = o.getString("kissId")
                     val whatsApp = if (o.has("whatsApp")) o.getLong("whatsApp") else null
                     val shortcut = if (o.has("shortcut")) Shortcut(o.getString("shortcutPackage"), o.getString("shortcut"),
-                        o.getBoolean("pinned"), o.getBoolean("offered"), o.optLong("lastChanged"),
+                        o.getBoolean("pinned"), o.getBoolean("offered"), o.optLong("changedAt"),
                         o.optString("detail").ifEmpty { null }) else null
                     list.add(App(o.getString("key"), kissId, o.getString("label"),
                         ComponentName(o.getString("package"), o.getString("class")), user, icon, names[kissId],
@@ -1280,12 +1319,17 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
          */
         private fun appShortcuts(context: Context, launchable: List<App>, names: Map<String, String>,
                                  tags: Map<String, List<String>>, usedIconFiles: MutableSet<String>): List<App> {
+            val previous = savedShortcuts(context)
             val launcherApps = context.getSystemService(LauncherApps::class.java)
             val userManager = context.getSystemService(UserManager::class.java)
             if (!launcherApps.hasShortcutHostPermission()) return emptyList()
             val query = LauncherApps.ShortcutQuery().setQueryFlags(LauncherApps.ShortcutQuery.FLAG_MATCH_DYNAMIC or
                 LauncherApps.ShortcutQuery.FLAG_MATCH_MANIFEST or LauncherApps.ShortcutQuery.FLAG_MATCH_PINNED)
             val removed = context.prefs().getStringSet(PREF_REMOVED_SHORTCUTS, emptySet())!!
+            val enabledApps = context.prefs().getStringSet(PREF_SHORTCUT_APPS, emptySet())!!
+            // apps whose shortcuts were in the last load: a new one of theirs is a change, the shortcuts of an app just
+            // turned on are not
+            val previousApps = previous.keys.map { it.split('|')[1] }.toSet()
             return launcherApps.profiles.filter { !userManager.isQuietModeEnabled(it) }.flatMap { user ->
                 val serial = userManager.getSerialNumberForUser(user)
                 val shortcuts = try { launcherApps.getShortcuts(query, user) } catch (e: Exception) {
@@ -1297,16 +1341,24 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                         ?: return@mapNotNull null
                     val label = (info.shortLabel ?: info.longLabel)?.toString()?.takeIf { it.isNotBlank() } ?: return@mapNotNull null
                     val kissId = "shortcut://${info.`package`}/${info.id}" + if (user == Process.myUserHandle()) "" else "/$serial"
-                    if (kissId in removed && !info.isPinned) return@mapNotNull null
+                    if (!isShortcutShown(info.isPinned, info.`package`, kissId, enabledApps, removed)) return@mapNotNull null
                     val iconKey = "shortcut|${info.`package`}|${info.id}|$serial|${info.lastChangedTimestamp}"
                     val (icon, iconFile) = cachedIcon(context, iconKey, usedIconFiles) {
                         launcherApps.getShortcutIconDrawable(info, context.resources.displayMetrics.densityDpi)
                             ?.let { processedIcon(context, it, user, info.id) } ?: app.icon
                     }
-                    App("shortcut|${info.`package`}|${info.id}|$serial", kissId, label, app.component, user, icon,
+                    val detail = info.longLabel?.toString()?.takeIf { it.isNotBlank() && it != label }
+                    val key = "shortcut|${info.`package`}|${info.id}|$serial"
+                    // recent only when what it shows changed since the last load, or when it is new for an app already shown
+                    val before = previous[key]
+                    val changedAt = when {
+                        before == null -> if (info.`package` in previousApps) System.currentTimeMillis() else 0L
+                        before.first != label to detail -> System.currentTimeMillis()
+                        else -> before.second
+                    }
+                    App(key, kissId, label, app.component, user, icon,
                         names[kissId], tags[kissId].orEmpty(), shortcut = Shortcut(info.`package`, info.id, info.isPinned,
-                            info.isDynamic || info.isDeclaredInManifest, info.lastChangedTimestamp,
-                            info.longLabel?.toString()?.takeIf { it.isNotBlank() && it != label })
+                            info.isDynamic || info.isDeclaredInManifest, changedAt, detail)
                     ).also { it.iconFile = iconFile }
                 }
             }
@@ -1645,8 +1697,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         /** the order of use: the most recently launched from here first, then the most often launched */
         private fun filter(apps: List<App>, query: String, counts: Map<String, Int>, lastUsed: Map<String, Long> = emptyMap()): List<App> {
             val q = normalize(query.trim())
-            // a shortcut counts as used when the app last changed it too (an Ecto session that just ended comes forward)
-            val byUse = compareByDescending<App> { maxOf(lastUsed[it.key] ?: 0L, it.shortcut?.lastChanged ?: 0L) }
+            // a shortcut counts as used when what it shows last changed too (an Ecto session that just ended comes forward)
+            val byUse = compareByDescending<App> { maxOf(lastUsed[it.key] ?: 0L, it.shortcut?.changedAt ?: 0L) }
                 .thenByDescending { counts[it.key] ?: 0 }
             if (q.isEmpty()) return apps.sortedWith(byUse)
             fun rank(app: App) = when {

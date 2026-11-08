@@ -25,6 +25,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.view.doOnNextLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import helium314.keyboard.event.HapticEvent
 import helium314.keyboard.keyboard.KeyboardSwitcher
@@ -101,10 +102,13 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     }
 
     private val suggestionsStrip: ViewGroup = findViewById(R.id.suggestions_strip)
-    /** the arrow on the left: opens the launcher mode, and closes it pointing the other way */
+    /**
+     * The Homekey icon on the left, on its side like an arrow: pointing in to open the launcher mode, and the other way
+     * to close it; a long press opens the settings.
+     */
     private val appsKey = findViewById<ImageButton>(R.id.suggestions_strip_apps_key)
     private val incognitoIcon = KeyboardIconsSet.instance.getNewDrawable(ToolbarKey.INCOGNITO.name, context)
-    private val arrowIcon = KeyboardIconsSet.instance.getNewDrawable(KeyboardIconsSet.NAME_TOOLBAR_KEY, context)
+    private val homekeyIcon = ContextCompat.getDrawable(context, R.drawable.ic_homekey_key)
     private var direction = 1 // 1 if LTR, -1 if RTL
     private var launcherMode = false
     private var emojiMode = false
@@ -125,9 +129,11 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         appsKey.layoutParams.height = keyHeight
         appsKey.layoutParams.width = keyHeight // we want it square
         colors.setBackground(appsKey, ColorType.STRIP_BACKGROUND)
-        colors.setColor(appsKey, ColorType.TOOL_BAR_EXPAND_KEY)
-        colors.setColor(appsKey.background, ColorType.TOOL_BAR_EXPAND_KEY_BACKGROUND)
         appsKey.setOnClickListener(this)
+        appsKey.setOnLongClickListener {
+            listener.onCodeInput(KeyCode.SETTINGS, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false)
+            true
+        }
 
         updateKeys()
     }
@@ -175,7 +181,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         updateAppsKey()
     }
 
-    /** in the launcher mode the arrow points the other way, and closes it */
+    /** in the launcher mode the icon points the other way, and closes it */
     fun setLauncherMode(active: Boolean) {
         launcherMode = active
         updateAppsKey()
@@ -195,8 +201,10 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
     private fun updateAppsKey() {
         appsKey.isVisible = !emojiMode && !onHomeScreen
-        appsKey.setImageDrawable(if (Settings.getValues().mIncognitoModeEnabled && !launcherMode) incognitoIcon else arrowIcon)
-        appsKey.scaleX = (if (launcherMode) -1f else 1f) * direction
+        appsKey.setImageDrawable(if (Settings.getValues().mIncognitoModeEnabled && !launcherMode) incognitoIcon else homekeyIcon)
+        // no background of its own: just the icon on the strip, in the color of the strip's keys (tints the drawable)
+        Settings.getValues().mColors.setColor(appsKey, ColorType.TOOL_BAR_KEY)
+        appsKey.rotation = (if (launcherMode) -90f else 90f) * direction
     }
 
     fun setSuggestions(suggestions: SuggestedWords, isRtlLanguage: Boolean) {

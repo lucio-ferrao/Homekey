@@ -106,6 +106,12 @@ public interface KeyboardActionListener {
     void onFinishSlidingInput();
 
     /**
+     * Sends the key with Ctrl: a slide from the shift key to another key (shift slid to c is Ctrl+C).
+     * @param primaryCode the code of the key the slide ended on (a code point or a {@code KeyCode}).
+     */
+    void onCtrlCodeInput(int primaryCode);
+
+    /**
      * Send a non-"code input" custom request to the listener.
      * @return true if the request has been consumed, false otherwise.
      */
@@ -159,6 +165,8 @@ public interface KeyboardActionListener {
         public void onCancelInput() {}
         @Override
         public void onFinishSlidingInput() {}
+        @Override
+        public void onCtrlCodeInput(int primaryCode) {}
         @Override
         public boolean onCustomRequest(CustomAction request) {
             return false;

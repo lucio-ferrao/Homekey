@@ -6,6 +6,9 @@
 
 package helium314.keyboard.keyboard;
 
+import helium314.keyboard.latin.TerminalContext;
+import helium314.keyboard.latin.settings.Settings;
+
 /**
  * This class handles key detection.
  */
@@ -102,8 +105,10 @@ public class KeyDetector {
             }
         }
         // the left third of a period right after the space bar counts as space: a thumb at the end of the bar
-        // often lands on the period
+        // often lands on the period (not in a shell or full-screen program of a terminal, where periods matter)
+        final TerminalContext terminal = Settings.getValues().mInputAttributes.mTerminalContext;
         if (primaryKey != null && primaryKey.getCode() == '.'
+                && terminal != TerminalContext.SHELL && terminal != TerminalContext.FULLSCREEN
                 && touchX < primaryKey.getX() + primaryKey.getWidth() / 3) {
             for (final Key key : mKeyboard.getSortedKeys()) {
                 if (key.getCode() == ' ' && key.getY() == primaryKey.getY() && key.getX() < primaryKey.getX()
