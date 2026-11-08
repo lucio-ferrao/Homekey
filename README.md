@@ -19,6 +19,7 @@ A double tap on the space bar (or the Apps key of the toolbar) turns the suggest
 
 - Apps of the main profile, the work profile and the private space; an app of a locked private space unlocks it first and opens once it is unlocked
 - Monochrome icons in the text color (themed layer, or the icon reduced to two shades with its background removed), cached between sessions
+- The list is saved and read when the keyboard starts, so it shows at once also after a restart, and is refreshed in the background
 - Names and tags, imported from the [KISS launcher](https://kisslauncher.com/) export or set on the home screen, searched like the app names
 - Order by recent use, and the result last chosen for the same text goes first
 - Chats of starred contacts: WhatsApp, or Element X with the room or person set for the contact; the message box is tapped once the chat opens, so the keyboard stays
@@ -43,9 +44,12 @@ When Homekey is chosen as the home app, the home screen is the launcher mode as 
 All the features of HeliBoard (see its [wiki](https://github.com/HeliBorg/HeliBoard/wiki)), with these changes:
 
 - A Portuguese (Portugal) main dictionary without Brazilian spellings and with accent misspellings turned into corrections (see below)
-- Symbols: `/` as the hint and long press of the period; emoji to the right in the alternatives of Enter
+- Emojis in the suggestion strip, with the keyboard still shown (emoji key, or emoji in the alternatives of Enter): the recent ones first, and typing filters them by their names and keywords in English and Portuguese, from the [CLDR](https://cldr.unicode.org/) annotations (`tools/emoji-nomes.py` makes `assets/emoji/nomes.txt`); the emoji grid of HeliBoard is gone
+- Notifications arriving while typing show in the suggestion strip until the next key or 10 s; a tap opens them
+- Symbols: `/` as the hint and long press of the period; emoji next to Enter in its alternatives, before the new line where Enter sends
+- Enter without the colored circle, like the other functional keys
 - A tap on the left third of the period next to the space bar counts as space, and "word.word" with both words in the dictionary becomes "word word"
-- Enter sends in Element X; suggestions and corrections in Instagram messages
+- Enter sends in Element X, and taps the send button in Claude (through the accessibility service); suggestions and corrections in Instagram messages
 
 <ul>
   <li>Add dictionaries for suggestions and spell check</li>
@@ -80,8 +84,8 @@ All the features of HeliBoard (see its [wiki](https://github.com/HeliBorg/HeliBo
 Homekey needs a few things Android asks for separately:
 
 - Choose it as keyboard, and as home app (Settings › Apps › Default apps)
-- Notification access, for notifications and players
-- The accessibility service "Homekey chats", to tap the message box of a chat and to leave the launcher mode on a tap in the app
+- Notification access, for notifications (in the list and in the suggestion strip) and players
+- The accessibility service "Homekey chats", to tap the message box of a chat, the send button of Claude, and to leave the launcher and emoji modes on a tap in the app
 - Permissions for contacts (starred contacts), calendar (events) and microphone (dictation)
 - For glide typing, the closed source library, as in HeliBoard
 
@@ -100,6 +104,7 @@ Homekey, like HeliBoard (a fork of OpenBoard), is licensed under GNU General Pub
 See repo's [LICENSE](/LICENSE) file.
 
 Since the app is based on Apache 2.0 licensed AOSP Keyboard, an [Apache 2.0](LICENSE-Apache-2.0) license file is provided.
+The names of the emojis (`assets/emoji/nomes.txt`) come from the CLDR annotations, under the [Unicode License v3](https://www.unicode.org/license.txt).
 The icon is licensed under [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). A [license file](LICENSE-CC-BY-SA-4.0) is also included.
 
 # Credits
