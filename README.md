@@ -15,7 +15,7 @@ It is a personal project, made for one phone (a Pixel 8 Pro) and Portuguese (Por
 - [Credits](#credits)
 
 # Launcher mode
-A double tap on the space bar, or the arrow at the left of the suggestion strip, turns the suggestion strip into a search: the keys type into it instead of the app, and another double tap, the arrow (now pointing the other way) or a tap in the app leaves it.
+A double tap on the space bar, or the Homekey icon at the left of the suggestion strip, turns the suggestion strip into a search: the keys type into it instead of the app, and another double tap, the icon (now a house) or a tap in the app leaves it. A long press on the icon opens the settings.
 
 - Apps of the main profile, the work profile and the private space; an app of a locked private space unlocks it first and opens once it is unlocked
 - Monochrome icons in the text color (themed layer, or the icon reduced to two shades with its background removed), cached between sessions
@@ -31,10 +31,12 @@ A double tap on the space bar, or the arrow at the left of the suggestion strip,
 - Typed or pasted web addresses, with the icon of the app that opens them
 - Patterns: a phone number gives Call, "10 min" a timer, "7h15" an alarm
 - Shortcuts for starred contacts: `d`/`drive`/`go name` (directions in Google Maps), `sms name`, `c`/`call`/`liga`/`ligar name`
+- `s`/`search text`: a web search in the default browser, with its search engine
+- Enter opens the first result, or runs the sentence when it is one of the spoken commands below
 - Dictation with a long press on the space bar, and spoken commands in Portuguese ("abre o Spotify", "liga à Ema", "manda mensagem à Marta a dizer que chego às 8")
 
 # Home screen
-When Homekey is chosen as the home app, the home screen is the launcher mode as a vertical list above a search field (with the arrow of the suggestion strip), on black, with the keyboard always open.
+When Homekey is chosen as the home app, the home screen is the launcher mode as a vertical list above a search field (with an arrow at its left), on black, with the keyboard always open.
 
 - Tags, or the latest message of a person, under each name
 - A long press opens a panel: name, tags, WhatsApp or Element for a person, uninstall an app, remove a shortcut
@@ -50,8 +52,9 @@ All the features of HeliBoard (see its [wiki](https://github.com/HeliBorg/HeliBo
 - Symbols: `/` as the hint and long press of the period; emoji next to Enter in its alternatives, before the new line where Enter sends
 - Enter without the colored circle, like the other functional keys
 - Ctrl by sliding from shift: shift slid to c sends Ctrl+C (also Tab, arrows, numbers), with "Ctrl" on the shift key while sliding; ignored in the launcher and emoji modes
-- No toolbar: the arrow of the suggestion strip opens the apps instead, and the toolbar of HeliBoard (its keys, pinned keys and settings) is gone; the clipboard history keeps its own row of keys
+- No toolbar: the Homekey icon at the left of the suggestion strip opens the apps instead, and the toolbar of HeliBoard (its keys, pinned keys and settings) is gone; the clipboard history keeps its own row of keys
 - A tap on the left third of the period next to the space bar counts as space, and "word.word" with both words in the dictionary becomes "word word"
+- Terminal fields of [Ecto](https://github.com/lucio-ferrao/termux-ghostty), an SSH terminal, say what runs in them: Portuguese prose for a coding agent; for a shell no corrections, capitals or automatic spaces, and suggestions of the server's commands at the start of a line, of the files and folders of the current folder after it (a folder is picked without a space) and of the words typed before; keys only for a full-screen program like vim
 - Enter sends in Element X, and taps the send button in Claude (through the accessibility service); suggestions and corrections in Instagram messages
 
 <ul>
