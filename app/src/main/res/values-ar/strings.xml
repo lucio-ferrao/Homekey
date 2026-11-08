@@ -96,7 +96,6 @@
     <string name="ime_settings">إعدادات Homekey</string>
     <string name="settings_category_input">الإدخال</string>
     <string name="prefs_force_incognito_mode_summary">تعطيل تعلم الكلمات الجديدة</string>
-    <string name="more_keys_strip_description">المزيد من المفاتيح</string>
     <string name="prefs_keyboard_height_scale">مقياس ارتفاع لوحة المفاتيح</string>
     <string name="day_night_mode">وضع النهار / الوضع الليلي</string>
     <string name="settings_category_correction">التصحيحات</string>
@@ -211,8 +210,6 @@
     <string name="disable_personalized_dicts_message">تحذير: سيؤدي تعطيل هذا الإعداد إلى محُ البيانات التي تم تعلمها</string>
     <string name="add_to_personal_dictionary">أضف كلمات إلى القاموس الشخصي</string>
     <string name="select_color_key_hint">نص تلميح رئيسي</string>
-    <string name="var_toolbar_direction_summary">اعكس الاتجاه عند تحديد نوع فرعي من لوحة المفاتيح من اليمين إلى اليسار</string>
-    <string name="var_toolbar_direction">اتجاه شريط الأدوات المتغير</string>
     <string name="add_to_personal_dictionary_summary">استخدم القاموس الشخصي للجهاز لتخزين الكلمات التي تم تعلمها</string>
     <string name="more_autocorrect_summary">التصحيح التلقائي حتى عندما لا يطلبه حقل الإدخال بشكل صريح</string>
     <string name="backup_restore_message">حفظ أو تحميل من الملف. تحذير: ستؤدي الاستعادة إلى استبدال البيانات الموجودة</string>
@@ -248,7 +245,6 @@
     <string name="language_and_layouts_title">اللغات والتخطيطات</string>
     <string name="hint_source">حدد مصدر التلميح</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">تخطيط</string>
-    <string name="toolbar_keys">حدد مفاتيح شريط الأدوات</string>
     <string name="full_left" tools:keep="@string/full_left">اليسار الكامل</string>
     <string name="full_right" tools:keep="@string/full_right">اليمين الكامل</string>
     <string name="show_popup_hints_summary">أظهر تلميح إذا أدى الضغط المطول على مفتاح وظيفي إلى فتح نافذة منبثقة</string>
@@ -310,15 +306,8 @@
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">مفاتيح وظيفية</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">المفاتيح الوظيفية (المزيد من الرموز)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">المفاتيح الوظيفية (الرموز)</string>
-    <string name="quick_pin_toolbar_keys">تثبيت مفتاح شريط الأدوات عند الضغط لفترة طويلة</string>
-    <string name="quick_pin_toolbar_keys_summary">سيؤدي هذا إلى تعطيل إجراءات الضغط لفترة طويلة الأخرى لمفاتيح شريط الأدوات غير المثبتة</string>
-    <string name="pinned_toolbar_keys">حدد مفاتيح شريط الأدوات المثبتة</string>
     <string name="toast_msg_clipboard_copy">نُسخ المحتوى</string>
     <string name="language_switch_key_behavior">سلوك مفتاح تبديل اللغة</string>
-    <string name="auto_show_toolbar">أظهِر شريط الأدوات تلقائيًا</string>
-    <string name="auto_show_toolbar_summary">أظهِر شريط الأدوات في حالة بدء الإدخال أو تحديد النص</string>
-    <string name="auto_hide_toolbar">أخفِ شريط الأدوات تلقائيًا</string>
-    <string name="auto_hide_toolbar_summary">أخفِ شريط الأدوات عندما تصبح الاقتراحات متاحة</string>
     <string name="settings_screen_toolbar">شريط الأدوات</string>
     <string name="emoji" tools:keep="@string/emoji">رمز تعبيري</string>
     <string name="gesture_fast_typing_cooldown">التباطؤ السريع في الكتابة</string>
@@ -417,12 +406,6 @@
     <string name="use_apps_dict">ابحث عن أسماء التطبيقات</string>
     <string name="use_apps_dict_summary">استخدم أسماء التطبيقات المثبتة للاقتراحات والتصحيحات</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
-    <string name="toolbar_mode">وضع شريط الأدوات</string>
-    <string name="toolbar_mode_expandable">مفاتيح شريط الأدوات والاقتراحات</string>
-    <string name="toolbar_mode_toolbar_keys">مفاتيح شريط الأدوات فقط</string>
-    <string name="toolbar_mode_suggestion_strip">اقتراحات فقط</string>
-    <string name="toolbar_mode_hidden">مخفي</string>
-    <string name="toolbar_hiding_global">أخفِ أشرطة أدوات الحافظة والرموز التعبيرية أيضًا</string>
     <string name="popup_order_and_hint_source">ترتيب مفاتيح النوافذ المنبثقة ومصدر التلميحات</string>
     <string name="landscape">أفقي</string>
     <string name="suggest_emojis">اقترح رموز التعبيرية</string>

@@ -110,7 +110,6 @@
     <string name="prefs_long_press_keyboard_to_change_lang">Endre inndatametode med mellomromstast</string>
     <string name="prefs_force_incognito_mode_summary">Skru av innlæring av nye ord</string>
     <string name="prefs_keyboard_height_scale">Skalering av tastaturhøyde</string>
-    <string name="more_keys_strip_description">Flere taster</string>
     <string name="number_row">Tallrad</string>
     <string name="show_hints">Vis tastaturhint</string>
     <string name="show_hints_summary">Vis langtrykkshint</string>
@@ -128,8 +127,6 @@
     <string name="label_search_key">"Søk"</string>
     <string name="label_pause_key">"Pause"</string>
     <string name="label_wait_key">"Vent"</string>
-    <string name="var_toolbar_direction_summary">Snu retningen når en høyre-til-venstre-tastaturtype er valgt</string>
-    <string name="var_toolbar_direction">Variabel retning på verktøylinjen</string>
     <string name="language_switch_key_switch_both">Bytt begge</string>
     <string name="settings_category_clipboard_history">Utklippstavlehistorikk</string>
     <string name="split_spacer_scale">Delingsmellomrom</string>
@@ -220,7 +217,6 @@
     <string name="show_popup_hints_summary">Vis hint hvis å holde knappen inne utløser tilleggsfunksjonalitet</string>
     <string name="prefs_narrow_key_gaps">Smale tastemellomrom</string>
     <string name="subtype_xdq">Kaitag</string>
-    <string name="toolbar_keys">Velg verktøylinjetaster</string>
     <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
     <string name="about_github_link">Se på GitHub</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
@@ -342,12 +338,6 @@
     <string name="popup_order_and_hint_source">Rekkefølge for popup-taster og kilder for hint</string>
     <string name="show_tld_popup_keys">Vis TLD popup-taster</string>
     <string name="show_tld_popup_keys_summary">Erstatt punktum-popup med toppnivådomenene ved skriving av epost- og nettadresser</string>
-    <string name="toolbar_mode">Verktøylinjemodus</string>
-    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">Verktøylinje med taster og forslag</string>
-    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Kun verktøylinjetaster</string>
-    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Kun forslag</string>
-    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Skjult</string>
-    <string name="toolbar_hiding_global">Skjul verktøylinje for utklippstavle og emoji</string>
     <string name="split" tools:keep="@string/split">Oppdelt tastatur</string>
     <string name="page_start" tools:keep="@string/page_start">Sidestart</string>
     <string name="page_end" tools:keep="@string/page_end">Sideslutt</string>
@@ -358,9 +348,6 @@
     <string name="close_history" tools:keep="@string/close_history">Lukk utklippstavlehistorikk</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="clipboard_toolbar_keys">Velg verktøylinjetaster for utklippstavle</string>
-    <string name="pinned_toolbar_keys">Velg festede verktøylinjetaster</string>
-    <string name="quick_pin_toolbar_keys">Fest verktøylinjetast ved langt trykk</string>
-    <string name="quick_pin_toolbar_keys_summary">Dette deaktiverer andre handlinger med langt trykk for verktøylinjetaster som ikke er festet</string>
     <string name="remove_redundant_popups">Fjern overflødige popup-vinduer</string>
     <string name="remove_redundant_popups_summary">Skjul popup-taster som allerede finnes i hovedoppsettet</string>
     <string name="prefs_long_press_symbol_for_numpad">Langt trykk på symboltast for numerisk tastatur</string>
@@ -436,10 +423,6 @@
     <string name="customize_toolbar_key_code_reset_message">Vil du virkelig slette alle tilpassede tastekoder?</string>
     <string name="key_code">Tastekode</string>
     <string name="long_press_code">Langtrykk-kode</string>
-    <string name="auto_show_toolbar">Vis verktøylinje automatisk</string>
-    <string name="auto_show_toolbar_summary">Vis verktøylinjen når inntasting starter eller tekst er markert</string>
-    <string name="auto_hide_toolbar">Skjul verktøylinje automatisk</string>
-    <string name="auto_hide_toolbar_summary">Skjul verktøylinjen når forslag blir tilgjengelige</string>
     <string name="toast_msg_clipboard_copy">Innhold kopiert</string>
     <string name="customize_icons">Tilpass ikoner</string>
     <string name="customize_icons_reset_message">Vil du virkelig tilbakestille alle tilpassede ikoner?</string>

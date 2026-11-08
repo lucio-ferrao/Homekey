@@ -194,7 +194,6 @@
     <string name="url_detection_summary">Pabandyti aptikti URL viename žodyje</string>
     <string name="incognito">Priverstinai naudoti \"Incognito\" režimą</string>
     <string name="prefs_force_incognito_mode_summary">Išjungti naujų žodžių mokymasi</string>
-    <string name="more_keys_strip_description">Daugiau klavišų</string>
     <string name="language_and_layouts_title">Kalbos ir išdėstymai</string>
     <string name="number_row">Skaičių eilė</string>
     <string name="number_row_summary">Visada rodyti skaičių eilę</string>
@@ -212,13 +211,6 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Kalba (eiliškumas)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Išdėstymas</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simboliai</string>
-    <string name="toolbar_mode">Įrankių juostos režimas</string>
-    <string name="toolbar_mode_expandable">Įrankių juostos klavišai ir pasiūlymai</string>
-    <string name="toolbar_mode_toolbar_keys">Tik įrankių juostos mygtukai</string>
-    <string name="toolbar_mode_suggestion_strip">Tik pasiūlymai</string>
-    <string name="toolbar_mode_hidden">Paslėpta</string>
-    <string name="toolbar_hiding_global">Paslėpti iškarpinę ir jaustukų įrankių juostą</string>
-    <string name="toolbar_keys">Pasirinkti įrankių juostos mygtukus</string>
     <string name="clipboard" tools:keep="@string/clipboard">iškarpinė</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Išvalyti iškarpinę</string>
     <string name="voice" tools:keep="@string/voice">Balso įvestis</string>
@@ -240,8 +232,6 @@
     <string name="close_history" tools:keep="@string/close_history">Užverti iškarpinės istoriją</string>
     <string name="emoji" tools:keep="@string/emoji">Jaustukai</string>
     <string name="clipboard_toolbar_keys">Pasirinkti iškarpinės įrankių juostos mygtukus</string>
-    <string name="pinned_toolbar_keys">Pasirinkti prisegtus įrankių juostos mygtukus</string>
-    <string name="quick_pin_toolbar_keys">Ilgai paspaudus prisegti įrankių juostos mygtuką</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Pakeisti įvesties režimą su tarpo klavišu</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Ilgai paspaudus tarpą atsiras kalbos pasirinkimo meniu</string>
     <string name="prefs_narrow_key_gaps">Sumažinti klavišų tarpus</string>
@@ -295,7 +285,6 @@
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Skaičių eilė</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Skaičių eilė (pagrindinis) \\</string>
     <string name="show_tld_popup_keys_summary">Rašant URL arba el. paštą pakeisti kablelio klavišo iššokantį langą su aukščiausio lygio domenu</string>
-    <string name="quick_pin_toolbar_keys_summary">Bus išjungti kiti(neprisegti) įrankių juostos mygtukai ilgo paspaudimo veiksmai</string>
     <string name="show_popup_hints">Rodyti funkcinius patarimus</string>
     <string name="show_popup_hints_summary">Rodyti patarimus jei ilgas paspaudimas iškviečia kitus veiksmus</string>
     <string name="remove_redundant_popups">Pašalinti pasikartojančius iššokančius langus</string>
@@ -413,17 +402,11 @@
     <string name="space_swipe_move_cursor_entry">Perkelti žymeklį</string>
     <string name="space_swipe_toggle_numpad_entry">Perjungti skaičių įvedimą</string>
     <string name="space_swipe_hide_keyboard_entry">Slėpti klaviatūrą</string>
-    <string name="var_toolbar_direction">Pasirinktinė įrankių juostos kryptis</string>
     <string name="customize_toolbar_key_codes">Derinti įrankių juostos kodus</string>
-    <string name="var_toolbar_direction_summary">Pakeisti kryptį kai pasirenkama klaviatūra iš dešinės į kairę</string>
     <string name="prefs_language_swipe_distance">Kalbos perjungimo perbraukimo ilgis</string>
     <string name="customize_toolbar_key_code_reset_message">Tikrai pašalinti visus pasirinktinius klavišų kodus?</string>
     <string name="key_code">Klavišų kodai</string>
     <string name="long_press_code">Ilgo paspaudimo kodas</string>
-    <string name="auto_show_toolbar">Automatiškai rodyti įrankių juostą</string>
-    <string name="auto_show_toolbar_summary">Rodyti įrankių juostą jei pradedamas rašyti tekstas ar tekstas pasirenkamas</string>
-    <string name="auto_hide_toolbar">Automatiškai slėpti įrankių juostą</string>
-    <string name="auto_hide_toolbar_summary">Paslėpti įrankių juostą kai atsiranda pasiūlymas</string>
     <string name="toast_msg_clipboard_copy">Turinys nukopijuotas</string>
     <string name="customize_icons">Derinti piktogramas</string>
     <string name="customize_icons_reset_message">Tikrai atstatyti visas pasirinktines piktogramas?</string>

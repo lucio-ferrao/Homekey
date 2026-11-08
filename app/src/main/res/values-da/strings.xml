@@ -123,7 +123,6 @@
     <string name="delete_swipe_summary">Udfør et swipe fra slet-tasten for at vælge og fjerne større dele af teksten på én gang</string>
     <string name="incognito">Gennemtving inkognitotilstand</string>
     <string name="prefs_force_incognito_mode_summary">Deaktiver indlæring af nye ord</string>
-    <string name="more_keys_strip_description">Flere taster</string>
     <string name="show_hints_summary">Vis hints ved langt tryk</string>
     <string name="auto_correction_confidence">Tillid til autokorrektion</string>
     <string name="select_input_method">"Vælg inputmetode"</string>
@@ -199,7 +198,6 @@
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Talrække</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Sprog (prioritet)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
-    <string name="toolbar_keys">Vælg taster på værktøjslinje</string>
     <string name="clipboard" tools:keep="@string/clipboard">Udklipsholder</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Ryd udklipsholder</string>
     <string name="voice" tools:keep="@string/voice">Stemmeinput</string>
@@ -270,7 +268,6 @@
     <string name="icon_style">Ikonstil</string>
     <string name="toast_msg_clipboard_copy">Indhold kopieret</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Brugerdefineret</string>
-    <string name="auto_show_toolbar">Auto-vis værktøjslinje</string>
     <string name="dialog_close">Luk</string>
     <string name="settings_screen_appearance">Udseende</string>
     <string name="select_color_key">Tastetekst</string>
@@ -318,9 +315,6 @@
     <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (shifted)</string>
     <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
     <string name="space_swipe_move_cursor_entry">Flyt markør</string>
-    <string name="auto_show_toolbar_summary">Vis værktøjslinjen, hvis input starter, eller tekst er valgt</string>
-    <string name="auto_hide_toolbar">Auto-skjul værktøjslinje</string>
-    <string name="auto_hide_toolbar_summary">Skjul værktøjslinjen, når forslag bliver tilgængelige</string>
     <string name="key_code">Tastekode</string>
     <string name="customize_toolbar_key_code_reset_message">Ryd alle tilpassede tastekoder?</string>
     <string name="name_invalid">Ugyldigt navn</string>

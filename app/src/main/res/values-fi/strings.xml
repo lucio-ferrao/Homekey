@@ -129,7 +129,6 @@
     <string name="clipboard_history_retention_time">Historian säilytysaika</string>
     <string name="url_detection_title">URL-osoitteen havaitseminen</string>
     <string name="internal_dictionary_summary">Sisäinen pääsanakirja</string>
-    <string name="auto_show_toolbar">Näytä työkalupalkki automaattisesti</string>
     <string name="customize_currencies">Mukauta valuuttoja</string>
     <string name="dictionary_settings_category">Sanakirjat</string>
     <string name="button_select_language">Valitse kieli</string>
@@ -160,7 +159,6 @@
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Leikepöydän alarivi</string>
     <string name="user_dict_add_word_button">Lisää sana</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Vaalea</string>
-    <string name="auto_show_toolbar_summary">Näytä työkalupalkki jos syöte aloitetaan tai tekstiä valitaan</string>
     <string name="space_swipe_toggle_numpad_entry">Numeronäppäimistö päällä/pois</string>
     <string name="android_spell_checker_settings">Homekey-oikoluvun asetukset</string>
     <string name="settings_screen_about">Tietoja</string>
@@ -217,8 +215,6 @@
     <string name="more_colors">Näytä enemmän värejä</string>
     <string name="customize_background_image">Aseta taustakuva</string>
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Näytä/piilota työkalupalkki</string>
-    <string name="auto_hide_toolbar">Piilota työkalupalkki automaattisesti</string>
-    <string name="auto_hide_toolbar_summary">Piilota työkalupalkki kun ehdotukset tulevat saataville</string>
     <string name="toast_msg_clipboard_copy">Sisältö kopioitu</string>
     <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Poistu yksikätisestä tilasta</string>
     <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Muuta yksikätisen tilan kokoa</string>
@@ -236,11 +232,9 @@
     <string name="settings_screen_toolbar">Työkalupalkki</string>
     <string name="spell_checker_service_name">Homekey-oikoluku</string>
     <string name="hidden_features_title">Kuvaus piilotetuista ominaisuuksista</string>
-    <string name="toolbar_keys">Valitse työkalupalkin näppäimet</string>
     <string name="ime_settings">Homekey-asetukset</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dynaamiset värit</string>
     <string name="settings_no_limit">Ei rajoitusta</string>
-    <string name="pinned_toolbar_keys">Valitse kiinnitetyt työkalupalkin näppäimet</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Ruskea</string>
     <string name="switch_language">Vaihda kieltä</string>
     <string name="prefs_force_incognito_mode_summary">Poista käytöstä sanojen oppiminen</string>
@@ -293,9 +287,6 @@
     <string name="suggest_emojis_summary">Käytä emojisanastoa normaaleissa ehdotuksissa</string>
     <string name="backup_restored">Varmuuskopio palautettu</string>
     <string name="save_subtype_per_app">Muista kieli sovelluskohtaisesti</string>
-    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Vain ehdotukset</string>
-    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Piilotettu</string>
-    <string name="toolbar_hiding_global">Piilota myös leikepöytä- ja emojipalkit</string>
     <string name="prefs_font_scale">Näppäimistön fontin skaalaus</string>
     <string name="custom_font">Aseta mukautettu fontti tiedostosta</string>
     <string name="custom_emoji_font">Aseta mukautettu emojifontti tiedostosta</string>

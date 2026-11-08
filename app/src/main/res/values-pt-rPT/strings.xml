@@ -112,7 +112,6 @@
     <string name="settings_category_experimental">Experimental</string>
     <string name="settings_category_miscellaneous">Outras</string>
     <string name="prefs_force_incognito_mode_summary">Desativar aprendizagem de palavras</string>
-    <string name="more_keys_strip_description">Mais teclas</string>
     <string name="number_row">Linha de números</string>
     <string name="number_row_summary">Mostrar sempre linha de números</string>
     <string name="show_hints">Mostrar dicas nas teclas</string>
@@ -206,8 +205,6 @@
     <string name="right" tools:keep="@string/right">Direita</string>
     <string name="locales_with_dict">Idiomas com dicionários</string>
     <string name="clipboard" tools:keep="@string/clipboard">Área de transferência</string>
-    <string name="quick_pin_toolbar_keys">Fixar tecla da barra de ferramentas com toque longo</string>
-    <string name="pinned_toolbar_keys">Selecionar teclas fixadas da barra de ferramentas</string>
     <string name="toast_msg_clipboard_copy">Conteúdo copiado</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Mudar o lado do modo de uma mão</string>
     <string name="file_read_error">Não foi possível ler o ficheiro</string>
@@ -232,7 +229,6 @@
     <string name="theme_style">Estilo</string>
     <string name="select_color_functional_key_background">Fundo da tecla funcional</string>
     <string name="auto_user_color">Escolher cor automaticamente</string>
-    <string name="toolbar_keys">Selecionar teclas da barra de ferramentas</string>
     <string name="prefs_narrow_key_gaps">Teclas com espaços estreitos</string>
     <string name="subtype_xdq">Kaitag</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbolos (Árabe)</string>
@@ -256,8 +252,6 @@
     <string name="button_select_language">Selecionar idioma</string>
     <string name="replace_dictionary_message">Substituir mesmo o dicionário \"%1$s\" adicionado pelo utilizador?\n\nDicionário atual:\n%2$s \n\nDicionário novo:\n%3$s</string>
     <string name="add_dictionary">Selecione um dicionário para adicionar. Dicionários no formato .dict podem ser descarregados %s.</string>
-    <string name="var_toolbar_direction_summary">Inverter a direção quando um teclado do subtipo dir.-para-esq. é selecionado</string>
-    <string name="var_toolbar_direction">Direção variável da barra de ferramentas</string>
     <string name="show_vertical_space_swipe">Deslizar vertical na barra de espaço</string>
     <string name="hidden_features_summary">Mostrar funções que podem ser desconhecidas</string>
     <string name="popup_order">Selecionar ordem no menu da tecla</string>
@@ -303,7 +297,6 @@
     <string name="split" tools:keep="@string/split">Teclado dividido</string>
     <string name="page_down" tools:keep="@string/page_down">Página para baixo</string>
     <string name="clipboard_toolbar_keys">Selecionar teclas da barra de ferramentas de área de transferência</string>
-    <string name="quick_pin_toolbar_keys_summary">Desativa outras ações de toque longo para teclas da barra de ferramentas desafixadas</string>
     <string name="show_popup_hints">Mostrar dicas funcionais</string>
     <string name="show_popup_hints_summary">Mostrar dicas se um toque longo numa tecla funcional abre um menu</string>
     <string name="after_numpad_and_space">Premir Enter ou Espaço após outras teclas no teclado númerico</string>
@@ -320,13 +313,10 @@
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Foresta</string>
     <string name="user_dict_word_already_present">Esta palavra já está presente no dicionário do utilizador %s. Digite outra.</string>
     <string name="select_color_spacebar_text">Texto da barra de espaço</string>
-    <string name="auto_show_toolbar_summary">Mostrar a barra de ferramentas ao introduzir texto ou selecionar</string>
     <string name="delete_confirmation">Apagar mesmo %s?</string>
     <string name="button_load_custom">Carregar ficheiro</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definido pelo utilizador</string>
     <string name="all_colors">Mostrar todas as cores</string>
-    <string name="auto_hide_toolbar">Ocultar barra de ferramentas automaticamente</string>
-    <string name="auto_hide_toolbar_summary">Ocultar barra de ferramentas quando sugestões ficam disponíveis</string>
     <string name="voice" tools:keep="@string/voice">Entrada de voz</string>
     <string name="one_handed" tools:keep="@string/one_handed">Modo de uma mão</string>
     <string name="full_left" tools:keep="@string/full_left">Tudo à esquerda</string>
@@ -362,7 +352,6 @@
     <string name="customize_currencies_detail">Defina um símbolo principal e até 6 secundários para moedas, separados com espaço</string>
     <string name="customize_icons_reset_message">Repor mesmo todos os ícones personalizados?</string>
     <string name="long_press_code">Código de pressão contínua</string>
-    <string name="auto_show_toolbar">Mostrar barra de ferramentas automaticamente</string>
     <string name="settings_screen_secondary_layouts">Esquemas secundários</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Teclas funcionais (ecrã grande)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefone</string>
@@ -405,9 +394,6 @@
     <string name="suggest_punctuation">Sugestões de pontuação</string>
     <string name="suggest_punctuation_summary">Mostrar pontuação quando não há outras sugestões</string>
     <string name="backup_restored">A cópia de segurança foi restaurada</string>
-    <string name="toolbar_mode_toolbar_keys">Apenas teclas da barra de ferramentas</string>
-    <string name="toolbar_mode_suggestion_strip">Apenas sugestões</string>
-    <string name="toolbar_mode_hidden">Oculto</string>
     <string name="about_wiki_link">Ir para a Wiki</string>
     <string name="about_wiki_link_description">Qualquer pessoa pode melhorar a wiki no Github!</string>
     <string name="landscape">Horizontal</string>
@@ -416,10 +402,7 @@
     <string name="use_apps_dict_summary">Usar nomes de apps instaladas para sugestões e correções</string>
     <string name="space_swipe_hide_keyboard_entry">Ocultar teclado</string>
     <string name="suggest_emojis_summary">Usar o dicionário de emojis nas sugestões normais</string>
-    <string name="toolbar_mode">Modo da barra de ferramentas</string>
     <string name="popup_order_and_hint_source">Ordem no menu da tecla e fonte de dicas</string>
-    <string name="toolbar_mode_expandable">Teclas da barra de ferramentas e sugestões</string>
-    <string name="toolbar_hiding_global">Ocultar também as barras de ferramentas da área de transferência e de emoji</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="subtype_generic_extended">%s (Extendido)</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>

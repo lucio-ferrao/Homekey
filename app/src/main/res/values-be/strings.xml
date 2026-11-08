@@ -119,7 +119,6 @@
     <string name="load_gesture_library">Загрузіць бібліятэку ўводу жэстамі</string>
     <string name="load_gesture_library_summary">Падайце ўбудаваную бібліятэку для ўключэння ўводу жэстамі</string>
     <string name="incognito">Прымусовы рэжым інкогніта</string>
-    <string name="more_keys_strip_description">Больш клавіш</string>
     <string name="theme_navbar">Колер панэлі навігацыі</string>
     <string name="theme_name_light">Светлая</string>
     <string name="theme_name_dark">Цёмная</string>
@@ -207,7 +206,6 @@
     <string name="right" tools:keep="@string/right">Направа</string>
     <string name="clipboard" tools:keep="@string/clipboard">Буфер абмену</string>
     <string name="down" tools:keep="@string/down">Ўніз</string>
-    <string name="toolbar_keys">Выберыце клавішы панэлі інструментаў</string>
     <string name="full_left" tools:keep="@string/full_left">Ў левы канец</string>
     <string name="select_word" tools:keep="@string/select_word">Выберыце слова</string>
     <string name="left" tools:keep="@string/left">Налева</string>
@@ -228,7 +226,6 @@
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Шэраг з лічбамі</string>
     <string name="popup_order">Выберыце парадак ўсплывальных клавіш</string>
     <string name="hint_source">Выберыце крыніцу падказкі</string>
-    <string name="var_toolbar_direction">Пераменны напрамак панэлі інструментаў</string>
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Шакалад</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Воблачна</string>
     <string name="prefs_long_press_symbol_for_numpad">Доўгі націск клавішы сімвалаў для лічбавай клавіятуры</string>
@@ -286,29 +283,21 @@
     <string name="replace_dictionary_message">Замяніць карыстацкі слоўнік «%1$s»? \n \nБягучы слоўнік: \n%2$s \n \nНовы слоўнік: \n%3$s</string>
     <string name="no_dictionary_message">Без слоўніка вы будзеце атрымліваць прапановы толькі для ўведзенага раней тэксту.&lt;br&gt; \nВы можаце загрузіць слоўнікі %1$s або праверыць, ці можна загрузіць слоўнік для «%2$s» напрамую %3$s.</string>
     <string name="hidden_features_text">сховішча, абароненае прыладай</string>
-    <string name="var_toolbar_direction_summary">Зваротны напрамак, калі выбраны падтып клавіятуры з пісьмом справа налева</string>
     <string name="add_new_dictionary_title">Дадаць слоўнік з файла</string>
     <string name="user_dict_settings_add_weight_value">Вага:</string>
     <string name="label_search_key">Пошук</string>
     <string name="subtype_generic_student">%s (Студэнцкая)</string>
     <string name="gesture_fast_typing_cooldown_instant">Заўсёды пачынаць неадкладна</string>
-    <string name="auto_hide_toolbar_summary">Хаваць панэль інструментаў пры з\'яўленні прапаноў</string>
-    <string name="quick_pin_toolbar_keys">Замацоўваць клавішы панэлі інструментаў пры працяглым націску</string>
     <string name="language_switch_key_behavior">Паводзіны клавішы змены мовы</string>
     <string name="center_suggestion_text_to_enter">Заўсёды выкарыстоўваць сярэднюю прапанову</string>
     <string name="gesture_fast_typing_cooldown">Час аднаўлення хуткага друку</string>
     <string name="clipboard_toolbar_keys">Выбраць клавішы панэлі інструментаў буфера абмену</string>
     <string name="all_colors_warning">Гэтая настройка паказвае ўсе колеры, якія выкарыстоўваюцца ўнутры праграмы. Спіс колераў можа мяняцца. Колер па змаўчанні з\'яўляецца выпадковым, і імёны не будуць перакладзены.</string>
-    <string name="auto_show_toolbar_summary">Паказваць панэль інструментаў пры ўводзе ці пры выбары тэксту</string>
-    <string name="auto_hide_toolbar">Хаваць панэль інструментаў аўтаматычна</string>
     <string name="toast_msg_clipboard_copy">Кантэнт скапіяваны</string>
-    <string name="auto_show_toolbar">Паказваць панэль інструментаў аўтаматычна</string>
     <string name="center_suggestion_text_to_enter_summary">Пры націску кропкі або пунктуацыі будзе выкарыстана сярэдняя прапанова</string>
-    <string name="quick_pin_toolbar_keys_summary">Гэта адключыць астатнія функцыі клавіш панэлі інструментаў пры працяглым націску</string>
     <string name="close_history" tools:keep="@string/close_history">Закрыць буфер абмену</string>
     <string name="subtype_generic_extended">%s (Пашыраная)</string>
     <string name="emoji" tools:keep="@string/emoji">Эмодзі</string>
-    <string name="pinned_toolbar_keys">Выбраць замацаваныя клавішы панэлі інструментаў</string>
     <string name="settings_screen_toolbar">Панэль інструментаў</string>
     <string name="subtype_mns">Мансійская</string>
     <string name="more_colors">Паказаць больш колераў</string>

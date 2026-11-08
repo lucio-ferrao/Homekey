@@ -102,7 +102,6 @@
     <string name="clipboard_history_retention_time">Bewaartijd van de geschiedenis</string>
     <string name="delete_swipe">Verwijderen met veegbeweging</string>
     <string name="enable_clipboard_history">Klembordgeschiedenis inschakelen</string>
-    <string name="more_keys_strip_description">Meer toetsen</string>
     <string name="number_row_summary">Cijferregel altijd weergeven</string>
     <string name="delete_swipe_summary">Veeg vanaf de delete-toets om grotere stukken tekst in één keer te selecteren en verwijderen</string>
     <string name="spell_checker_service_name">Homekey-spellingcontrole</string>
@@ -214,7 +213,6 @@
     <string name="clipboard" tools:keep="@string/clipboard">Klembord</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Klembord wissen</string>
     <string name="select_word" tools:keep="@string/select_word">Woord selecteren</string>
-    <string name="toolbar_keys">Werkbalktoetsen kiezen</string>
     <string name="full_left" tools:keep="@string/full_left">Geheel links</string>
     <string name="full_right" tools:keep="@string/full_right">Geheel rechts</string>
     <string name="left" tools:keep="@string/left">Links</string>
@@ -290,8 +288,6 @@
     <string name="select_color_gesture">Gebaren-invoer</string>
     <string name="action_none">Geen</string>
     <string name="space_swipe_move_cursor_entry">Cursor verplaatsen</string>
-    <string name="var_toolbar_direction">Variabele werkbalkrichting</string>
-    <string name="var_toolbar_direction_summary">Omgekeerde richting wanneer een rechts-naar-links toetsenbord-subtype is geselecteerd</string>
     <string name="show_vertical_space_swipe">Verticaal veeggebaar over spatiebalk</string>
     <string name="load_gesture_library_message">Een bibliotheek is nodig voor \'%s\'. Incompatibele bibliotheken kunnen crashen bij het typen van gebaren.
 \n
@@ -310,15 +306,8 @@
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Functietoetsen</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Functietoetsen (symbolen)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Functietoetsen (meer symbolen)</string>
-    <string name="pinned_toolbar_keys">Vastgezette werkbalktoetsen selecteren</string>
-    <string name="quick_pin_toolbar_keys">Werkbalktoets vastzetten bij lang indrukken</string>
-    <string name="quick_pin_toolbar_keys_summary">Hiermee worden andere lang indrukkenacties uitgeschakeld voor werkbalktoetsen die niet zijn vastgezet</string>
     <string name="settings_screen_toolbar">Werkbalk</string>
     <string name="toast_msg_clipboard_copy">Inhoud gekopieerd</string>
-    <string name="auto_hide_toolbar">Werkbalk automatisch verbergen</string>
-    <string name="auto_show_toolbar">Werkbalk automatisch weergeven</string>
-    <string name="auto_hide_toolbar_summary">Verberg de werkbalk wanneer er suggesties beschikbaar komen</string>
-    <string name="auto_show_toolbar_summary">Toon de werkbalk bij invoer of selectie van tekst</string>
     <string name="language_switch_key_behavior">Gedrag van taalkeuzetoets</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="gesture_fast_typing_cooldown_instant">Altijd direct starten</string>
@@ -417,12 +406,6 @@
     <string name="use_apps_dict">App-namen opzoeken</string>
     <string name="use_apps_dict_summary">Gebruik de namen van geïnstalleerde apps voor suggesties en correcties</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
-    <string name="toolbar_mode">Werkbalk-modus</string>
-    <string name="toolbar_mode_expandable">Werkbalktoetsen en suggesties</string>
-    <string name="toolbar_mode_toolbar_keys">Alleen werkbalktoetsen</string>
-    <string name="toolbar_mode_suggestion_strip">Alleen suggesties</string>
-    <string name="toolbar_mode_hidden">Verborgen</string>
-    <string name="toolbar_hiding_global">Klembord- en emoji-werkbalken ook verbergen</string>
     <string name="popup_order_and_hint_source">Popup toetsvolgorde en bron van hints</string>
     <string name="landscape">Liggend</string>
     <string name="suggest_emojis">Emoji\'s voorstellen</string>

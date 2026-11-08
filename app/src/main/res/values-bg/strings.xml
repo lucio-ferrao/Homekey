@@ -146,7 +146,6 @@
     <string name="show_popup_keys_all">Добавете всички налични варианти</string>
     <string name="url_detection_title">URL откриване</string>
     <string name="url_detection_summary">Опитайте се да откриете URL адреси и подобни като една дума</string>
-    <string name="more_keys_strip_description">Повече клавиши</string>
     <string name="prefs_force_incognito_mode_summary">Деактивирайте изучаването на нови думи</string>
     <string name="incognito">Принудителен режим инкогнито</string>
     <string name="enable_clipboard_history">Активиране историята на клипборда</string>
@@ -187,7 +186,6 @@
     <string name="full_right" tools:keep="@string/full_right">Напълно вдясно</string>
     <string name="close_history" tools:keep="@string/close_history">Затваряне на хронологията на клипборда</string>
     <string name="clipboard_toolbar_keys">Избиране на клавиши от лентата с инструменти за клипборд</string>
-    <string name="quick_pin_toolbar_keys">Закачи клавиш от лентата с инструменти при дълго натискане</string>
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Цифрова клавиатура</string>
     <string name="prefs_space_bar_text">Персонализиран текст в лентата за интервал</string>
     <string name="customize_currencies">Персонализиране на валути</string>
@@ -239,7 +237,6 @@
     <string name="after_symbol_and_space">Натискане на еnter или сpace след други клавиши в изглед на символи</string>
     <string name="after_clip">Избиране на запис в историята на клипборда</string>
     <string name="switch_keyboard_after">Превключете към основната клавиатура след…</string>
-    <string name="toolbar_keys">Избор на клавиши от лентата с инструменти</string>
     <string name="clipboard" tools:keep="@string/clipboard">Клипборд</string>
     <string name="remove_redundant_popups">Премахнете излишните изскачащи прозорци</string>
     <string name="remove_dictionary_message">Наистина ли премахвате добавения от потребителя речник \"%s\"?</string>
@@ -257,8 +254,6 @@
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Функционални клавиши (Още символи)</string>
     <string name="remove_redundant_popups_summary">Потискане на изскачащи клавиши, които вече присъстват в основното оформление</string>
     <string name="no_dictionary_message">"Без речник ще получавате само предложения за текст, който сте въвели преди.&lt;br&gt;\n        Можете да изтеглите речници %1$s, или да проверите дали речник за \"%2$s\" може да бъде изтеглен директно %3$s."</string>
-    <string name="pinned_toolbar_keys">Избиране на прикрепени клавиши от лентата с инструменти</string>
-    <string name="quick_pin_toolbar_keys_summary">Това ще деактивира други действия с дълго натискане за клавишите от лентата с инструменти, които не са закачени</string>
     <string name="internal_dictionary_summary">Вътрешен основен речник</string>
     <string name="space_swipe_toggle_numpad_entry">Превключване на цифровата клавиатура</string>
     <string name="select_color_gesture">Въвеждане с жестове</string>
@@ -281,10 +276,6 @@
     <string name="all_colors_warning">Тази настройка показва всички цветове, които се използват вътрешно. Списъкът с цветове може да се промени по всяко време. Стойността по подразбиране е извлечена от нормалните цветове и имената им няма да бъдат преведени.</string>
     <string name="action_none">Няма</string>
     <string name="space_swipe_move_cursor_entry">Преместване на курсора</string>
-    <string name="var_toolbar_direction">Променлива посока на лентата с инструменти</string>
-    <string name="auto_show_toolbar_summary">Показване на лентата с инструменти, ако започне въвеждане или е избран текст</string>
-    <string name="var_toolbar_direction_summary">Обратна посока, когато е избран подтип клавиатура отдясно наляво</string>
-    <string name="auto_show_toolbar">Автоматично показване на лентата с инструменти</string>
     <string name="dictionary_load_error">Грешка при зареждането на речниковия файл</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Синьо сиво</string>
     <string name="theme_name_brown" tools:keep="@string/theme_name_brown">Кафяво</string>
@@ -296,7 +287,6 @@
     <string name="version">Версия</string>
     <string name="about_github_link">Вижте в GitHub</string>
     <string name="gnu_gpl">Общ публичен лиценз на GNU v3.0</string>
-    <string name="auto_hide_toolbar">Автоматично скриване на лентата с инструменти</string>
     <string name="dictionary_link_text">тук</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Черена</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Динамични цветове</string>
@@ -348,7 +338,6 @@
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Несъединител с нулева ширина</string>
     <string name="user_dict_settings_add_weight_value">Тегло:</string>
     <string name="user_dict_word_already_present">Тази дума вече присъства в %s потребителския речник на. Моля, въведете друга.</string>
-    <string name="auto_hide_toolbar_summary">Скрийте лентата с инструменти, когато предложенията станат налични</string>
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Пространство (оформление с числа)</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Пясък</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Изтриване</string>
@@ -410,12 +399,6 @@
     <string name="use_apps_dict">Търсене на имена на приложения</string>
     <string name="use_apps_dict_summary">Използване на имената на инсталираните приложения за предложения и корекции</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
-    <string name="toolbar_mode">Режим на лентата с инструменти</string>
-    <string name="toolbar_mode_toolbar_keys">Само клавиши в лентата с инструменти</string>
-    <string name="toolbar_mode_suggestion_strip">Само предложения</string>
-    <string name="toolbar_mode_hidden">Скрито</string>
-    <string name="toolbar_mode_expandable">Клавиши и предложения в лентата с инструменти</string>
-    <string name="toolbar_hiding_global">Скриване и на лентите с инструменти за клипборда и емотиконите</string>
     <string name="landscape">Пейзаж</string>
     <string name="popup_order_and_hint_source">Ред на изскачащите клавиши и източник на съвети</string>
     <string name="suggest_emojis">Предлагане на емотикони</string>

@@ -82,7 +82,7 @@ import helium314.keyboard.latin.utils.AppsUtils
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings.getAppExclusions
 import helium314.keyboard.latin.utils.GestureDataGatheringSettings.getAppIncludeByDefault
 import helium314.keyboard.latin.utils.ToolbarKey
-import helium314.keyboard.latin.utils.defaultToolbarPref
+import helium314.keyboard.latin.utils.defaultClipboardToolbarPref
 import helium314.keyboard.latin.utils.getKnownDictHashes
 import helium314.keyboard.settings.dialogs.ConfirmationDialog
 import helium314.keyboard.settings.dialogs.InfoDialog
@@ -315,11 +315,12 @@ fun BackgroundGatheringSettings() {
             cancelButtonText = stringResource(R.string.dialog_close),
             confirmButtonText = stringResource(R.string.gesture_data_add_key),
             onConfirmed = {
-                val toolbar = ctx.prefs().getString(Settings.PREF_TOOLBAR_KEYS, defaultToolbarPref)!!
+                // the key goes into the toolbar of the clipboard history (the toolbar of the suggestion strip is gone)
+                val toolbar = ctx.prefs().getString(Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, defaultClipboardToolbarPref)!!
                     .split(Separators.ENTRY)
                     .filter { ToolbarKey.BACKGROUND_GATHERING.name !in it }
                 val newToolbar = toolbar + (ToolbarKey.BACKGROUND_GATHERING.name + Separators.KV + "true")
-                ctx.prefs().edit { putString(Settings.PREF_TOOLBAR_KEYS, newToolbar.joinToString(Separators.ENTRY)) }
+                ctx.prefs().edit { putString(Settings.PREF_CLIPBOARD_TOOLBAR_KEYS, newToolbar.joinToString(Separators.ENTRY)) }
                 KeyboardSwitcher.getInstance().setThemeNeedsReload()
             },
             content = {

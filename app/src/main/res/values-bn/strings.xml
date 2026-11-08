@@ -79,7 +79,6 @@
     <string name="url_detection_summary">ইউআরএল এবং অনুরূপ একটি একক শব্দ হিসেবে শনাক্ত করার চেষ্টা করবে</string>
     <string name="incognito">ছদ্মবেশী মোড আরোপ</string>
     <string name="prefs_force_incognito_mode_summary">নতুন শব্দ শিখন নিষ্ক্রিয়করণ</string>
-    <string name="more_keys_strip_description">অতিরিক্ত বোতাম</string>
     <string name="number_row">নম্বর সারি</string>
     <string name="number_row_summary">সর্বদা নম্বর সারি প্রদর্শন</string>
     <string name="show_hints">বোতামের ইঙ্গিত প্রদর্শন</string>
@@ -275,7 +274,6 @@
     <string name="show_popup_keys_normal">কিবোর্ডের ভাষায় নির্ধারিত বিকল্প প্রদর্শন (ডিফল্ট)</string>
     <string name="language_and_layouts_title">ভাষা ও লেআউট</string>
     <string name="localized_number_row_summary">ল্যাটিন সংখ্যার চেয়ে স্থানীয় সংখ্যা প্রাধান্য দেবে</string>
-    <string name="toolbar_keys">টুলবার বোতাম নির্বাচন</string>
     <string name="full_right" tools:keep="@string/full_right">সম্পূর্ণ ডান</string>
     <string name="prefs_bottom_padding_scale">নিম্ন প্যাডিং স্কেল</string>
     <string name="message_add_custom_layout">সামঞ্জস্যপূর্ণ ফরম্যাটে ফাইল নির্বাচন করুন। %s ফরম্যাট সম্পর্কিত তথ্য রয়েছে।</string>
@@ -289,18 +287,10 @@
     <string name="show_horizontal_space_swipe">স্পেসবারে অনুভূমিক অভিস্পর্শ অঙ্গুলিহেলন</string>
     <string name="cut" tools:keep="@string/cut">কর্তন</string>
     <string name="prefs_long_press_symbol_for_numpad">নম্বর প্যাডের জন্য প্রতীক বোতামে দীর্ঘ চাপ</string>
-    <string name="var_toolbar_direction">টুলবারের পরিবর্তনশীল দিক</string>
-    <string name="var_toolbar_direction_summary">ডান থেকে বাম কিবোর্ড নির্বাচন করলে দিক বিপরীত হবে</string>
     <string name="prefs_language_swipe_distance">ভাষা পরিবর্তন অভিস্পর্শের দূরত্ব</string>
     <string name="subtype_generic_student">%s (শিক্ষার্থী)</string>
     <string name="language_switch_key_behavior">ভাষা পরিবর্তন বোতামের আচরণ</string>
-    <string name="pinned_toolbar_keys">পিন করে রাখা টুলবার বোতাম নির্বাচন</string>
-    <string name="quick_pin_toolbar_keys">টুলবার বোতামে দীর্ঘ চাপ পিন করবে</string>
     <string name="toast_msg_clipboard_copy">আধেয় অনুলিপি করা হয়েছে</string>
-    <string name="auto_show_toolbar_summary">ইনপুট শুরু হলে বা লেখা সিলেক্ট করা হলে টুলবার প্রদর্শিত হবে</string>
-    <string name="auto_hide_toolbar">টুলবার স্বয়ংক্রিয়ভাবে আড়ালকরণ</string>
-    <string name="auto_hide_toolbar_summary">পরামর্শ উপলব্ধ হলে টুলবার আড়াল হবে</string>
-    <string name="auto_show_toolbar">টুলবার স্বয়ংক্রিয়ভাবে প্রদর্শন</string>
     <string name="close_history" tools:keep="@string/close_history">ক্লিপবোর্ড ইতিহাস বন্ধকরণ</string>
     <string name="clipboard_toolbar_keys">ক্লিপবোর্ড টুলবার বোতাম নির্বাচন</string>
     <string name="subtype_generic_extended">%s (বর্ধিত)</string>
@@ -309,7 +299,6 @@
     <string name="center_suggestion_text_to_enter">সর্বদা মধ্যবর্তী পরামর্শ ব্যবহার করবে</string>
     <string name="center_suggestion_text_to_enter_summary">স্পেস বা বিরামচিহ্ন চাপ দিলে মধ্যবর্তী পরামর্শ সন্নিবেশিত হবে</string>
     <string name="subtype_mns">মানসি</string>
-    <string name="quick_pin_toolbar_keys_summary">পিন করা নেই এমন অন্য টুলবার বোতামের দীর্ঘচাপের কার্যাবলি নিষ্ক্রিয় করবে</string>
     <string name="more_colors">অধিক রং প্রদর্শন</string>
     <string name="all_colors_warning">এই সেটিংস অভ্যন্তরীণভাবে ব্যবহৃত সকল রং প্রকাশ করে। রঙের তালিকা যেকোনো সময় পরিবর্তিত হতে পারে। সাধারণ রং থেকে ডিফল্ট উদ্ভূত এবং রঙের নাম অনুবাদ করা হবে না।</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">ফাংশনাল বোতাম</string>
@@ -409,12 +398,6 @@
     <string name="use_apps_dict">অ্যাপের নাম অনুসন্ধান</string>
     <string name="use_apps_dict_summary">পরামর্শ ও সংশোধনের জন্য ইন্সটলকৃত অ্যাপের নাম ব্যবহার</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
-    <string name="toolbar_mode_expandable">টুলবার বোতাম ও পরামর্শ</string>
-    <string name="toolbar_mode">টুলবার মোড</string>
-    <string name="toolbar_hiding_global">ক্লিপবোর্ড ও ইমোজি টুলবার আড়ালকরণ</string>
-    <string name="toolbar_mode_toolbar_keys">কেবল টুলবার বোতাম</string>
-    <string name="toolbar_mode_suggestion_strip">কেবল পরামর্শ</string>
-    <string name="toolbar_mode_hidden">প্রচ্ছন্ন</string>
     <string name="landscape">ল্যান্ডস্কেপ</string>
     <string name="popup_order_and_hint_source">পপআপ বোতামের ক্রমিক ও ইঙ্গিতের উৎস</string>
     <string name="suggest_emojis">ইমোজির পরামর্শ প্রদান</string>

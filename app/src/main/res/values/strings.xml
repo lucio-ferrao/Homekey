@@ -305,7 +305,6 @@
     <!-- Description for "prefs_force_incognito_mode" option. -->
     <string name="prefs_force_incognito_mode_summary">Disable learning of new words</string>
     <!-- Content description for "popup keys" suggestions view -->
-    <string name="more_keys_strip_description">More keys</string>
     <!-- Title for input language & layout selection screen -->
     <string name="language_and_layouts_title">Languages &amp; Layouts</string>
     <!-- Title of the setting to enable number row -->
@@ -343,19 +342,12 @@
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symbols</string>
     <!-- Title of the setting to set the toolbar mode -->
-    <string name="toolbar_mode">Toolbar mode</string>
     <!-- Option to set the toolbar mode to show an expandable toolbar -->
-    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">Toolbar keys and suggestions</string>
     <!-- Option to set the toolbar mode to show the toolbar keys only -->
-    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Toolbar keys only</string>
     <!-- Option to set the toolbar mode to show the suggestions strip only -->
-    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Suggestions only</string>
     <!-- Option to set the toolbar mode to hidden -->
-    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Hidden</string>
     <!-- Option to hide clipboard and emoji toolbars when main toolbar is hidden -->
-    <string name="toolbar_hiding_global">Hide clipboard and emoji toolbars too</string>
     <!-- Title of the setting to set toolbar keys -->
-    <string name="toolbar_keys">Select toolbar keys</string>
     <!-- Names of the toolbar keys-->
     <string name="paste" tools:keep="@string/paste" translatable="false">@android:string/paste</string>
     <string name="copy" tools:keep="@string/copy" translatable="false">@android:string/copy</string>
@@ -418,11 +410,8 @@
     <!-- Title of the setting to set clipboard toolbar keys -->
     <string name="clipboard_toolbar_keys">Select clipboard toolbar keys</string>
     <!-- Title of the setting to set pinned toolbar keys -->
-    <string name="pinned_toolbar_keys">Select pinned toolbar keys</string>
     <!-- Title of the setting to quick-pin toolbar keys -->
-    <string name="quick_pin_toolbar_keys">Pin toolbar key on long press</string>
     <!-- Description of the setting to quick-pin toolbar keys -->
-    <string name="quick_pin_toolbar_keys_summary">This will disable other long press actions for toolbar keys that are not pinned</string>
     <!-- Title of the setting to show "..." as hints for more functionality on long-press -->
     <string name="show_popup_hints">Show functional hints</string>
     <!-- Description of the show_popup_hints setting -->
@@ -962,9 +951,7 @@ New dictionary:
     <!-- Description for the touchpad edge scrolling option -->
     <string name="touchpad_edge_scroll_description">Automatically scroll when sliding to the edge of the keyboard</string>
     <!-- Title of the setting for variable toolbar direction -->
-    <string name="var_toolbar_direction">Variable toolbar direction</string>
     <!-- Description of the variable toolbar direction setting -->
-    <string name="var_toolbar_direction_summary">Reverse direction when a right-to-left keyboard subtype is selected</string>
     <!-- Title of the setting for showing toolbar only when a hardware keyboard is connected -->
     <string name="toolbar_only_with_hw_keyboard">Show only toolbar with physical keyboard</string>
     <!-- Description of the setting for showing toolbar only when a hardware keyboard is connected -->
@@ -980,13 +967,9 @@ New dictionary:
     <!-- Text for showing / setting long press code -->
     <string name="long_press_code">Long press code</string>
     <!-- Title of the setting for showing the toolbar automatically -->
-    <string name="auto_show_toolbar">Auto show toolbar</string>
     <!-- Description of the setting for showing the toolbar automatically -->
-    <string name="auto_show_toolbar_summary">Show the toolbar if input starts or text is selected</string>
     <!-- Title of the setting for hiding the toolbar automatically -->
-    <string name="auto_hide_toolbar">Auto hide toolbar</string>
     <!-- Description of the setting for hiding the toolbar automatically -->
-    <string name="auto_hide_toolbar_summary">Hide the toolbar when suggestions become available</string>
     <!-- Toast message shown when content is copied to the clipboard -->
     <string name="toast_msg_clipboard_copy">Content copied</string>
     <!-- Title of the setting to customize icons for keyboard and toolbar keys -->

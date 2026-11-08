@@ -106,7 +106,6 @@
     <string name="label_wait_key">"Bíða"</string>
     <string name="toast_msg_clipboard_copy">Efni afritað</string>
     <string name="gesture_floating_preview_static">Fljótandi forskoðun</string>
-    <string name="more_keys_strip_description">Fleiri lyklar</string>
     <string name="user_dict_add_word_button">Bæta við orði</string>
     <string name="layout_number" tools:keep="@string/layout_number">Tölur</string>
     <string name="customize_currencies">Sérsníða gjaldmiðla</string>
@@ -201,7 +200,6 @@
     <string name="delete_swipe">Stroka til að eyða</string>
     <string name="save_log">Vista atvikaskrá</string>
     <string name="prefs_space_bar_text">Sérsniðinn texti á bilslá</string>
-    <string name="auto_show_toolbar">Birta verkfærastiku sjálfvirkt</string>
     <string name="key_borders">Jaðrar lykla</string>
     <string name="abbreviation_unit_minutes">%s mín</string>
     <string name="language_switch_key_behavior">Hegðun lykils til að breyta tungumáli</string>
@@ -232,7 +230,6 @@
     <string name="theme_name_pink" tools:keep="@string/theme_name_pink">Bleikt</string>
     <string name="show_vertical_space_swipe">Bendistroka fyrir lóðrétta bilslá</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Ljósfjólublátt</string>
-    <string name="var_toolbar_direction">Breytileg stefna verkfærastiku</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Skýjað</string>
     <string name="auto_correction_confidence">Nákvæmni sjálfvirkar leiðréttingar</string>
     <string name="gesture_floating_preview_dynamic_summary">Færa forskoðun á meðan bendingu stendur</string>
@@ -293,13 +290,11 @@
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Sýna / fela verkfærastiku</string>
     <string name="prefs_language_swipe_distance">Lengd stroku til að skipta um tungumál</string>
     <string name="customize_toolbar_key_codes">Sérsníða lyklakóða verkfærastiku</string>
-    <string name="auto_hide_toolbar">Fela verkfærastiku sjálfvirkt</string>
     <string name="clipboard_history_retention_time">Tími sem á að geyma breytingaferil</string>
     <string name="subtype_generic_student">%s (námsmanna)</string>
     <string name="autospace_after_punctuation">Sjálfvirkt bil á eftir greinamerkjum</string>
     <string name="custom_font">Velja sérsniðið letur úr skrá</string>
     <string name="hint_source">Veldu uppruna ábendinga</string>
-    <string name="toolbar_keys">Veldu lykla á verkfærastiku</string>
     <string name="clipboard_toolbar_keys">Veldu klippispjaldslykla á verkfærastiku</string>
     <string name="customize_currencies_detail">Stilltu aðal- og allt að 6 viðbótar gjaldmiðlatákn, aðskilin með bilum</string>
     <string name="disable_personalized_dicts_message">Aðvörun: Sé þessi stilling gerð óvirk verða öll lærð gögn hreinsuð</string>
@@ -332,8 +327,6 @@
     <string name="prefs_side_padding_scale">Kvarði fyllingar til hliðar</string>
     <string name="hidden_features_title">Lýsing á földum eiginleikum</string>
     <string name="prefs_force_incognito_mode_summary">Gera óvirkt að læra ný orð</string>
-    <string name="quick_pin_toolbar_keys">Festa verkfærastikulykil við að ýta lengi</string>
-    <string name="quick_pin_toolbar_keys_summary">Þetta mun gera óvirkar aðgerðir þar sem ýtt er lengi fyrir verkfærastikulykla sem ekki eru festir</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Skipta um innsláttaraðferð með bilslá</string>
     <string name="prefs_long_press_symbol_for_numpad">Ýttu lengi á táknalykil til að fá talnaborð</string>
     <string name="center_suggestion_text_to_enter_summary">Við að ýta á bilslá eða greinarmerki verður tillagan í miðjunni sett inn</string>
@@ -341,7 +334,6 @@
     <string name="load_gesture_library_summary">Gefðu upp innfellt aðgerðasafn til að virkja innslátt með bendingum</string>
     <string name="backup_restore_message">Vista eða hlaða inn úr skrá. Aðvörun: endurheimta mun yfirskrifa fyrirliggjandi gögn</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Neðsta röð klippispjalds</string>
-    <string name="auto_hide_toolbar_summary">Fela verkfærastikuna þegar tillögur eru í boði</string>
     <string name="prefs_always_show_suggestions_summary">Hunsa beiðnir frá öðrum forritum um að gera tillögur óvirkar (gæti valdið vandamálum)</string>
     <string name="incognito">Þvinga fram nafnleysisham</string>
     <string name="after_symbol_and_space">Með því að ýta á Enter eða Bil á eftir öðrum lyklum í táknasýn</string>
@@ -362,13 +354,10 @@
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Aðgerðalyklar (tákn)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Aðgerðalyklar (fleiri tákn)</string>
     <string name="select_color_suggestion">Texti á tillöguborða</string>
-    <string name="auto_show_toolbar_summary">Birta verkfærastikuna ef innsláttur byrjar eða texti er valinn</string>
     <string name="number_row_hints">Birta ábendingar á talnaröð</string>
     <string name="popup_order">Veldu röðun sprettlykla</string>
-    <string name="pinned_toolbar_keys">Veldu fasta lykla á verkfærastiku</string>
     <string name="show_popup_hints">Birta ábendingar á aðgerðalyklum</string>
     <string name="load_gesture_library_message">Þú munt þurfa aðgerðasafnið fyrir \'%s\'. Ósamhæfð aðgerðasöfn gætu hrunið þegar notaður er innsláttur með bendingum. \n\nAðvörun: Öryggisáhætta getur fylgt því að hlaða inn utanaðkomandi kóða. Notaðu einungis aðgerðasöfn frá aðilum sem þú treystir.</string>
-    <string name="var_toolbar_direction_summary">Öfug stefna þegar hægri-til-vinstri undirgerð lyklaborðs er valin</string>
     <string name="split" tools:keep="@string/split">Skipt lyklaborð</string>
     <string name="gesture_fast_typing_cooldown">Tafir á hröðum innslætti</string>
     <string name="show_popup_hints_summary">Birtir ábendingar ef það að ýta lengi á aðgerðalykil opnar kvaðningu</string>
@@ -408,12 +397,6 @@
     <string name="number_row_in_symbols">Sýna talnaröð í táknasýn</string>
     <string name="save_subtype_per_app">Muna tungumál fyrir hvert forrit</string>
     <string name="show_tld_popup_keys">Birta TLD-sprettlykla fyrir lénaendingar</string>
-    <string name="toolbar_mode">Verkfærastikuhamur</string>
-    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">Lyklar á verkfærastiku og tillögur</string>
-    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Einungis lyklar á verkfærastiku</string>
-    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Eingöngu tillögur</string>
-    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Falið</string>
-    <string name="toolbar_hiding_global">Fela klippispjald og einnig táknastikur</string>
     <string name="floating" tools:keep="@string/floating">Fljótandi lyklaborð</string>
     <string name="prefs_key_gap_scale">Kvarði bils á milli lykla</string>
     <string name="prefs_bottom_row_scale">Kvarði neðstu raðar</string>

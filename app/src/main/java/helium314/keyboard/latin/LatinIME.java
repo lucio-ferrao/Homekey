@@ -77,7 +77,6 @@ import helium314.keyboard.latin.utils.StatsUtilsManager;
 import helium314.keyboard.latin.utils.SubtypeLocaleUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.SubtypeState;
-import helium314.keyboard.latin.utils.ToolbarMode;
 import helium314.keyboard.settings.SettingsActivity2;
 import kotlin.Unit;
 
@@ -715,7 +714,8 @@ public class LatinIME extends InputMethodService implements
     }
 
     public void updateSuggestionStripView(View view) {
-        mSuggestionStripView = mSettings.getCurrent().mToolbarMode == ToolbarMode.HIDDEN ?
+        // no suggestion strip while the device is locked
+        mSuggestionStripView = mSettings.getCurrent().mIsLocked ?
                         null : view.findViewById(R.id.suggestion_strip_view);
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
@@ -736,6 +736,8 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void onStartInputView(final EditorInfo editorInfo, final boolean restarting) {
         mHandler.onStartInputView(editorInfo, restarting);
+        if (hasSuggestionStripView())
+            mSuggestionStripView.setOnHomeScreen(HomeActivity.Companion.isHomeField(editorInfo));
         // on the home screen of Homekey the keyboard opens in the launcher mode
         mHandler.post(() -> {
             if (HomeActivity.Companion.isHomeField(getCurrentInputEditorInfo()) && !mAppLauncher.isActive())
@@ -833,11 +835,9 @@ public class LatinIME extends InputMethodService implements
         boolean inputTypeChanged = !currentSettingsValues.isSameInputType(editorInfo);
         boolean isDifferentTextField = !restarting || inputTypeChanged;
 
-        // we want to reload the settings before calling updateKeyboardTheme, because updateKeyboardTheme reads SettingsValues.mToolbarMode
+        // we want to reload the settings before calling updateKeyboardTheme, because updateKeyboardTheme reads SettingsValues.mIsLocked
         if (isDifferentTextField || !currentSettingsValues.hasSameOrientation(getResources().getConfiguration())) {
             loadSettings();
-            if (hasSuggestionStripView())
-                mSuggestionStripView.updateVoiceKey();
         }
 
         switcher.updateKeyboardTheme(mDisplayContext);
@@ -945,13 +945,10 @@ public class LatinIME extends InputMethodService implements
             // Space state must be updated before calling updateShiftState
             switcher.updateShiftState(getCurrentAutoCapsState(), getCurrentRecapitalizeState());
         }
-        // Set neutral suggestions and show the toolbar if the "Auto show toolbar" setting is enabled.
+        // Set neutral suggestions
         if (!mHandler.hasPendingResumeSuggestions()) {
             mHandler.cancelUpdateSuggestionStrip();
             setNeutralSuggestionStrip();
-            if (hasSuggestionStripView() && currentSettingsValues.mAutoShowToolbar && !tryShowClipboardSuggestion()) {
-                mSuggestionStripView.setToolbarVisibility(true);
-            }
         }
 
         mainKeyboardView.setMainDictionaryAvailability(mDictionaryFacilitator.hasAtLeastOneInitializedMainDictionary());
@@ -1087,8 +1084,6 @@ public class LatinIME extends InputMethodService implements
     @Override
     public void hideWindow() {
         Log.i(TAG, "hideWindow");
-        if (hasSuggestionStripView() && mSettings.getCurrent().mToolbarMode == ToolbarMode.EXPANDABLE)
-            mSuggestionStripView.setToolbarVisibility(false);
         mKeyboardSwitcher.onHideWindow();
 
         if (TRACE) Debug.stopMethodTracing();
@@ -1533,10 +1528,6 @@ public class LatinIME extends InputMethodService implements
                 || noSuggestionsFromDictionaries) {
             mSuggestionStripView.setSuggestions(suggestedWords,
                     mRichImm.getCurrentSubtype().isRtlSubtype());
-            // Auto hide the toolbar if dictionary suggestions are available
-            if (currentSettingsValues.mAutoHideToolbar && !noSuggestionsFromDictionaries) {
-                mSuggestionStripView.setToolbarVisibility(false);
-            }
         }
     }
 
@@ -1554,13 +1545,6 @@ public class LatinIME extends InputMethodService implements
         // Cache the auto-correction in accessibility code so we can speak it if the user
         // touches a key that will insert it.
         AccessibilityUtils.Companion.getInstance().setAutoCorrection(suggestedWords);
-    }
-
-    @Override
-    public void showSuggestionStrip() {
-        if (hasSuggestionStripView()) {
-            mSuggestionStripView.setToolbarVisibility(false);
-        }
     }
 
     // Called from {@link SuggestionStripView} through the {@link SuggestionStripView#Listener}
@@ -1604,22 +1588,12 @@ public class LatinIME extends InputMethodService implements
         final SettingsValues currentSettings = mSettings.getCurrent();
         if (tryShowClipboardSuggestion()) {
             // clipboard suggestion has been set
-            if (hasSuggestionStripView() && currentSettings.mAutoHideToolbar)
-                mSuggestionStripView.setToolbarVisibility(false);
             return;
         }
         final SuggestedWords neutralSuggestions = currentSettings.mSuggestPunctuation
                 ? currentSettings.mPunctuationSuggestions
                 : SuggestedWords.getEmptyInstance();
         setSuggestedWords(neutralSuggestions);
-        if (hasSuggestionStripView() && currentSettings.mAutoShowToolbar) {
-            final int codePointBeforeCursor = mInputLogic.mConnection.getCodePointBeforeCursor();
-            if (mInputLogic.mConnection.hasSelection()
-                    || codePointBeforeCursor == Constants.NOT_A_CODE
-                    || codePointBeforeCursor == Constants.CODE_ENTER) {
-                mSuggestionStripView.setToolbarVisibility(true);
-            }
-        }
     }
 
     @Override

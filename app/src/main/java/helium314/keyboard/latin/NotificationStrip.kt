@@ -57,7 +57,6 @@ class NotificationStrip(private val latinIME: LatinIME) {
             ScreenAgentService.focusMessageFieldSoon(entry.packageName)
             entry.open()
         }
-        strip.setToolbarVisibility(false)
         strip.setExternalSuggestionView(row, false)
     }
 

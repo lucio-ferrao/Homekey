@@ -161,7 +161,6 @@
     <string name="secondary_locale">Багатомовний набір тексту</string>
     <string name="load_gesture_library">Завантажити бібліотеку введення жестами</string>
     <string name="load_gesture_library_summary">Надайте вбудовану бібліотеку для увімкнення введення жестами</string>
-    <string name="more_keys_strip_description">Більше клавіш</string>
     <string name="prefs_keyboard_height_scale">Масштабування клавіатури по висоті</string>
     <string name="number_row">Рядок цифр</string>
     <string name="number_row_summary">Завжди показувати рядок цифр</string>
@@ -197,8 +196,6 @@
     <string name="theme_name_chocolate" tools:keep="@string/theme_name_chocolate">Шоколад</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Пісок</string>
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Сіро-блакитний</string>
-    <string name="var_toolbar_direction_summary">Зворотній напрямок, якщо вибрано підтип клавіатури з листом праворуч наліво</string>
-    <string name="var_toolbar_direction">Змінний напрямок панелі інструментів</string>
     <string name="prefs_long_press_symbol_for_numpad">Тривале натискання символів для цифрової клавіатури</string>
     <string name="prefs_bottom_padding_scale">Висота нижнього відступу</string>
     <string name="prefs_always_show_suggestions">Завжди показувати пропозиції</string>
@@ -206,7 +203,6 @@
     <string name="show_popup_keys_more">Додати розповсюджені варіанти</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Ряд з цифрами</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Мова (пріоритет)</string>
-    <string name="toolbar_keys">Вибір клавіш панелі інструментів</string>
     <string name="load_gesture_library_message">Вам знадобиться бібліотека для «%s». Несумісні бібліотеки можуть призвести до несправності при використанні набору тексту за допомогою жестів.
 \n
 \nУвага: завантаження зовнішнього коду може становити загрозу безпеці. Використовуйте бібліотеку лише з джерела, якому ви довіряєте.</string>
@@ -292,13 +288,8 @@
     <string name="main_colors">Показувати лише основні кольори</string>
     <string name="replace_dictionary_message">Замінити словник користувача «%1$s»?\n\nПоточний словник:\n%2$s\n\nНовий словник:\n%3$s</string>
     <string name="no_dictionary_message">"Без словника ви отримуватимете пропозиції лише для попередньо введеного тексту.&lt;br&gt;\n        Ви можете завантажити словники %1$s або перевірити, чи може словник для «%2$s» завантажити безпосередньо %3$s."</string>
-    <string name="pinned_toolbar_keys">Вибрати закріплені клавіші панелі інструментів</string>
     <string name="gesture_fast_typing_cooldown">Час відновлення швидкого друку</string>
     <string name="gesture_fast_typing_cooldown_instant">Завжди починати негайно</string>
-    <string name="auto_show_toolbar">Показувати панель інструментів автоматично</string>
-    <string name="auto_show_toolbar_summary">Показувати панель інструментів під час введення або вибору тексту</string>
-    <string name="auto_hide_toolbar">Приховувати панель інструментів автоматично</string>
-    <string name="auto_hide_toolbar_summary">Приховувати панель інструментів з появою пропозицій</string>
     <string name="customize_currencies">Персоналізувати валюти</string>
     <string name="customize_currencies_detail">Встановити головні та до 6 додаткових символів валют, розділених пропуском</string>
     <string name="toast_msg_clipboard_copy">Вміст скопійовано</string>
@@ -318,8 +309,6 @@
     <string name="page_up" tools:keep="@string/page_up">Сторінка вгору</string>
     <string name="page_down" tools:keep="@string/page_down">Сторінка вниз</string>
     <string name="clipboard_toolbar_keys">Вибрати клавіші панелі інструментів буфера обміну</string>
-    <string name="quick_pin_toolbar_keys">Закріплювати клавіші панелі інструментів при тривалому натисканні</string>
-    <string name="quick_pin_toolbar_keys_summary">Це вимикає інші функції клавіш панелі інструментів при тривалому натисканні</string>
     <string name="page_start" tools:keep="@string/page_start">Початок сторінки</string>
     <string name="page_end" tools:keep="@string/page_end">Кінець сторінки</string>
     <string name="space_swipe_toggle_numpad_entry">Перемикати цифрову клавіатуру</string>
@@ -401,12 +390,6 @@
     <string name="popup_order_and_hint_source">Порядок спливних клавіш та джерело підказок</string>
     <string name="show_tld_popup_keys">Показати спливні клавіші TLD</string>
     <string name="show_tld_popup_keys_summary">При утриманні крапки під час введення в полі адреси URL або Email будуть з\'являтися такі підказки як \".com, .ua, .net\". Замість символів які спливають при натисненні крапки зазвичай</string>
-    <string name="toolbar_mode">Режим панелі інструментів</string>
-    <string name="toolbar_mode_expandable">Панель інструментів та підказки</string>
-    <string name="toolbar_mode_toolbar_keys">Лише панель інструментів</string>
-    <string name="toolbar_mode_suggestion_strip">Лише підказки</string>
-    <string name="toolbar_mode_hidden">Приховано</string>
-    <string name="toolbar_hiding_global">Приховати панелі інструментів буфера обміну та емодзі</string>
     <string name="subtype_dag">Дагбані</string>
     <string name="subtype_st">Сесото</string>
     <string name="subtype_with_layout_generic">Мова: %1$s. Розкладка: %2$s</string>

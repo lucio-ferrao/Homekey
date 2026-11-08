@@ -70,7 +70,6 @@
     <string name="show_popup_keys_normal">Vis variantar som er definerte i tastaturspråka</string>
     <string name="incognito">Tving privatmodus</string>
     <string name="prefs_force_incognito_mode_summary">Ikkje lær nye ord</string>
-    <string name="more_keys_strip_description">Fleire knappar</string>
     <string name="language_and_layouts_title">Språk og utformingar</string>
     <string name="number_row">Talrekkje</string>
     <string name="number_row_summary">Alltid vis talrekkja</string>

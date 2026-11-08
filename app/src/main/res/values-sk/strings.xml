@@ -97,7 +97,6 @@
     <string name="settings_no_limit">Bez limitu</string>
     <string name="enable_clipboard_history">Povoliť históriu schránky</string>
     <string name="prefs_force_incognito_mode_summary">Vypnúť učenie nových slov</string>
-    <string name="more_keys_strip_description">Viac kláves</string>
     <string name="spell_checker_service_name">Kontrola pravopisu v Homekey</string>
     <string name="android_spell_checker_settings">Nastavenia kontroly pravopisu v Homekey</string>
     <string name="show_emoji_key">Emoji klávesa</string>
@@ -223,13 +222,6 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Jazyk (priorita)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Rozloženie</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symboly</string>
-    <string name="toolbar_mode">Režim panela nástrojov</string>
-    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">Klávesové skratky a návrhy na paneli nástrojov</string>
-    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Iba klávesy na paneli nástrojov</string>
-    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Iba návrhy</string>
-    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Skryté</string>
-    <string name="toolbar_hiding_global">Skryť aj panely schránky a emodži</string>
-    <string name="toolbar_keys">Vyberte klávesy na paneli nástrojov</string>
     <string name="clipboard" tools:keep="@string/clipboard">Schránka</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Vymazať schránku</string>
     <string name="voice" tools:keep="@string/voice">Hlasové zadávanie</string>
@@ -252,9 +244,6 @@
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="floating" tools:keep="@string/floating">Plávajúca klávesnica</string>
     <string name="clipboard_toolbar_keys">Vybrať klávesy na paneli nástrojov schránky</string>
-    <string name="pinned_toolbar_keys">Vyberte tlačidlá na pripnutom paneli nástrojov</string>
-    <string name="quick_pin_toolbar_keys">Pri dlhom stlačení priradiť klávesu na panel nástrojov</string>
-    <string name="quick_pin_toolbar_keys_summary">Týmto sa deaktivujú ostatné akcie pri dlhom stlačení klávesov na paneli nástrojov, ktoré nie sú pripnuté</string>
     <string name="show_popup_hints">Zobraziť funkčné tipy</string>
     <string name="show_popup_hints_summary">Zobraziť nápovedu, ak dlhým stlačením funkčnej klávesy otvoríte kontextové menu</string>
     <string name="remove_redundant_popups">Odstráňte nepotrebné vyskakovacie okná</string>
@@ -439,8 +428,6 @@
     <string name="touchpad_sensitivity">Citlivosť touchpadu</string>
     <string name="touchpad_edge_scroll">Posúvanie po okraji touchpadu</string>
     <string name="touchpad_edge_scroll_description">Pri posunutí prsta k okraju klávesnice sa obrazovka automaticky posúva</string>
-    <string name="var_toolbar_direction">Nastaviteľný smer panela nástrojov</string>
-    <string name="var_toolbar_direction_summary">Zmeniť smer, ak je zvolený podtyp klávesnice s rozložením zprava doľava</string>
     <string name="toolbar_only_with_hw_keyboard">Zobraziť len panel nástrojov s fyzickou klávesnicou</string>
     <string name="toolbar_only_with_hw_keyboard_summary">V systémových nastaveniach ešte musíte povoliť zobrazenie virtuálnej klávesnice</string>
     <string name="prefs_language_swipe_distance">Zmeniť vzdialenosť potiahnutia pri zmene jazyka</string>
@@ -448,10 +435,6 @@
     <string name="customize_toolbar_key_code_reset_message">Naozaj chcete vymazať všetky vlastné kódy klávesov?</string>
     <string name="key_code">Kód klávesy</string>
     <string name="long_press_code">Kód pre dlhé stlačenie</string>
-    <string name="auto_show_toolbar">Automaticky zobraziť panel nástrojov</string>
-    <string name="auto_show_toolbar_summary">Zobraziť panel nástrojov, ak sa začne zadávať text alebo ak je text označený</string>
-    <string name="auto_hide_toolbar">Automatické skrytie panela nástrojov</string>
-    <string name="auto_hide_toolbar_summary">Skryť panel nástrojov, keď sa zobrazia návrhy</string>
     <string name="toast_msg_clipboard_copy">Obsah bol skopírovaný</string>
     <string name="customize_icons">Prispôsobenie ikon</string>
     <string name="customize_icons_reset_message">Naozaj chcete obnoviť všetky prispôsobené ikony?</string>

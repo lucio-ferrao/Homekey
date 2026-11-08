@@ -103,7 +103,6 @@
     <string name="delete_swipe_summary">Deslice el dedo por la tecla Borrar para seleccionar y eliminar porciones más grandes de texto de una vez</string>
     <string name="prefs_force_incognito_mode_summary">Desactiva el aprendizaje de nuevas palabras</string>
     <string name="incognito">Forzar el modo incógnito</string>
-    <string name="more_keys_strip_description">Más teclas</string>
     <string name="show_emoji_key">Tecla de emoji</string>
     <string name="settings_category_correction">Correcciones</string>
     <string name="settings_category_experimental">Experimental</string>
@@ -234,17 +233,12 @@
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Símbolos</string>
     <string name="layout_symbols_shifted" tools:keep="@string/layout_symbols_shifted">Más símbolos</string>
     <string name="layout_number" tools:keep="@string/layout_number">Números</string>
-    <string name="quick_pin_toolbar_keys_summary">Esto deshabilita otras acciones de pulsación prolongada para teclas de la barra de herramientas que no están fijadas</string>
-    <string name="pinned_toolbar_keys">Seleccionar teclas fijas de la barra de herramientas</string>
-    <string name="quick_pin_toolbar_keys">Fijar tecla de la barra de herramientas con pulsación prolongada</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Teclas funcionales</string>
     <string name="settings_screen_appearance">Apariencia</string>
     <string name="action_none">Ninguna</string>
     <string name="toast_msg_clipboard_copy">Contenido copiado</string>
-    <string name="auto_show_toolbar">Mostrar barra de herramientas automaticamente</string>
     <string name="language_switch_key_behavior">Comportamiento de la tecla de cambio de idioma</string>
     <string name="show_popup_keys_normal">Mostrar variantes definidas en los idiomas del teclado</string>
-    <string name="toolbar_keys">Seleccionar teclas de la barra de herramientas</string>
     <string name="split_spacer_scale">Distancia de separación</string>
     <string name="language_switch_key_switch_both">Cambiar ambos</string>
     <string name="prefs_narrow_key_gaps">Espacio estrecho entre teclas</string>
@@ -263,13 +257,11 @@
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Teclado numérico (horizontal)</string>
     <string name="day_or_night_image">¿Configurar imagen para modo diurno o nocturno?</string>
     <string name="day_or_night_day">Día</string>
-    <string name="var_toolbar_direction">Dirección variable de la barra de herramientas</string>
     <string name="subtype_xdq">Kaitag</string>
     <string name="close_history" tools:keep="@string/close_history">Cerrar historial del portapapeles</string>
     <string name="clipboard_toolbar_keys">Seleccionar teclas de la barra de herramientas del portapapeles</string>
     <string name="show_popup_hints">Mostrar símbolos funcionales</string>
     <string name="show_popup_hints_summary">Mostrar una sugerencia si al mantener pulsada una tecla de función se abre una ventana emergente</string>
-    <string name="var_toolbar_direction_summary">Invertir dirección cuando un subtipo de teclado Derecha-a-Izquierda está seleccionado</string>
     <string name="subtype_generic_student">%s (Estudiante)</string>
     <string name="subtype_generic_extended">%s (Extendido)</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definido por el usuario</string>
@@ -290,8 +282,6 @@
     <string name="show_horizontal_space_swipe">Gesto de deslizar horizontalmente barra espaciadora</string>
     <string name="show_vertical_space_swipe">Gesto de deslizar verticalmente la barra espaciadora</string>
     <string name="space_swipe_move_cursor_entry">Mover cursor</string>
-    <string name="auto_hide_toolbar">Ocultar barra de herramientas automaticamente</string>
-    <string name="auto_hide_toolbar_summary">Ocultar barra de herramientas cuando hay sugerencias disponibles</string>
     <string name="select_color_suggestion">Texto de la tira de sugerencias</string>
     <string name="subtype_probhat_bn_BD">%s (Bengalí)</string>
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
@@ -302,7 +292,6 @@
     <string name="theme_name_forest" tools:keep="@string/theme_name_forest">Bosque</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Índigo</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Océano</string>
-    <string name="auto_show_toolbar_summary">Mostrar la barra de herramientas si se ingresa o selecciona texto</string>
     <string name="subtype_mns">Mansi</string>
     <string name="all_colors_warning">Esta configuración muestra todos los colores que se usan internamente. La lista de colores puede cambiar en cualquier momento. El valor predeterminado se deriva de los colores normales y los nombres no se traducirán.</string>
     <string name="select_color_key_hint">Texto del indicio de tecla</string>
@@ -420,16 +409,10 @@
     <string name="about_wiki_link_description">¡La Wiki puede ser mejorada por cualquier usuario de GitHub!</string>
     <string name="space_swipe_hide_keyboard_entry">Ocultar el teclado</string>
     <string name="landscape">Horizontal</string>
-    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Solo sugerencias</string>
-    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Oculto</string>
-    <string name="toolbar_hiding_global">Oculta también las barras del portapapeles y los emojis</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
     <string name="subtype_mhr">Mari (Este)</string>
     <string name="popup_order_and_hint_source">Orden y origen de los símbolos</string>
-    <string name="toolbar_mode">Modo de la barra de herramientas</string>
-    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">Teclas y sugerencias de la barra de herramientas</string>
-    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Solo teclas de la barra de herramientas</string>
     <string name="number_row_in_symbols">Mostrar la fila de números en la vista de símbolos</string>
     <string name="custom_emoji_font">Aplica una fuente de emoticonos personalizada desde un fichero</string>
     <string name="gesture_data_description_privacy">Privacidad\n\n Los datos que envíes consisten en la palabra objetivo, el diseño y las dimensiones del teclado, el gesto realizado (tiempos y coordenadas), las sugerencias generadas por la biblioteca actual, el hash de los diccionarios utilizados, la versión de la aplicación, el modo de recopilación de datos, si la biblioteca de escritura gestual es la predeterminada de Google y un identificador asociado a cada gesto.\n Los datos enviados se descargarán y se eliminarán del buzón de ProtonMail donde se almacenan tan pronto como nos sea posible. Una vez finalizada la fase de recopilación de datos de gestos, el conjunto de datos acumulado de todos los usuarios se publicará bajo la licencia Creative Commons BY‑SA 4.0.\n\n Como parte de nuestros esfuerzos por proteger tu privacidad, no aparecerás mencionado explícitamente como autor. Tu contribución se acreditará como «Colaboradores del proyecto de datos de gestos de HeliBoard». No debería ser posible vincular los datos que generes en esta pantalla con tu identidad. Sin embargo, podría ser posible determinar qué gestos fueron realizados por la misma persona, por ejemplo, a partir de un diseño de teclado personalizado, las dimensiones del teclado, el idioma o el estilo individual de gesticulación.</string>

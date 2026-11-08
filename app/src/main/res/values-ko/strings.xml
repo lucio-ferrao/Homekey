@@ -114,7 +114,6 @@
     <string name="enable_clipboard_history_summary">비활성화 시 클립보드 키는 클립보드 콘텐츠를 붙여넣습니다</string>
     <string name="clipboard_history_retention_time">기록 보존 시간</string>
     <string name="incognito">강제 시크릿 모드</string>
-    <string name="more_keys_strip_description">더 많은 키</string>
     <string name="number_row_summary">항상 숫자 행 표시</string>
     <string name="show_hints">키 힌트 표시</string>
     <string name="show_hints_summary">길게 누르기 힌트 표시</string>
@@ -220,13 +219,6 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">언어 (우선)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">레이아웃</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">기호</string>
-    <string name="toolbar_mode">도구 모음 모드</string>
-    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">도구 모음 키 및 제안</string>
-    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">도구 모음 키만</string>
-    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">제안만</string>
-    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">숨김</string>
-    <string name="toolbar_hiding_global">클립보드와 이모지 도구 모음도 숨김</string>
-    <string name="toolbar_keys">도구 모음 키 선택</string>
     <string name="clipboard" tools:keep="@string/clipboard">클립보드</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">클립보드 지우기</string>
     <string name="voice" tools:keep="@string/voice">음성 입력</string>
@@ -247,9 +239,6 @@
     <string name="emoji" tools:keep="@string/emoji">이모지</string>
     <string name="floating" tools:keep="@string/floating">플로팅 키보드</string>
     <string name="clipboard_toolbar_keys">클립보드 도구 모음 키 선택</string>
-    <string name="pinned_toolbar_keys">고정할 도구 모음 키 선택</string>
-    <string name="quick_pin_toolbar_keys">길게 눌러 도구 모음 키 고정</string>
-    <string name="quick_pin_toolbar_keys_summary">설정을 켜면 고정하지 않은 도구 모음 키의 길게 누르기 동작이 비활성화됩니다</string>
     <string name="show_popup_hints">기능 힌트 표시</string>
     <string name="show_popup_hints_summary">기능 키를 길게 누르면 팝업이 열리는 경우 힌트 표시</string>
     <string name="remove_redundant_popups">중복 팝업 제거</string>
@@ -410,10 +399,6 @@
     <string name="customize_toolbar_key_code_reset_message">정말로 사용자 지정 키 코드를 모두 지우시겠습니까?</string>
     <string name="key_code">키 코드</string>
     <string name="long_press_code">길게 누르기 키 코드</string>
-    <string name="auto_show_toolbar">도구 모음 자동 표시</string>
-    <string name="auto_show_toolbar_summary">입력을 시작하거나 글자를 선택하면 도구 모음 표시</string>
-    <string name="auto_hide_toolbar">도구 모음 자동 숨김</string>
-    <string name="auto_hide_toolbar_summary">제안이 있는 경우 도구 모음 숨김</string>
     <string name="toast_msg_clipboard_copy">콘텐츠 복사됨</string>
     <string name="customize_icons">사용자 지정 아이콘</string>
     <string name="customize_icons_reset_message">정말로 사용자 지정 아이콘을 초기화하시겠습니까?</string>
@@ -454,7 +439,6 @@
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">기호 (아랍)</string>
     <string name="user_dict_word_already_present">%s 사용자 사전에 이미 있는 단어입니다. 다른 단어를 입력하세요.</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Holo 하양</string>
-    <string name="var_toolbar_direction">가변 도구 모음 방향</string>
     <string name="spell_check_suggestions">맞춤법 제안 표시</string>
     <string name="spell_check_suggestions_summary">빨간 밑줄이 있는 단어를 선택할 때 제안을 표시합니다. 앱을 기본 맞춤법 검사기로 설정해야 합니다.</string>
     <string name="gesture_data_swipe_o_scope">제스처 데이터 시각화 도구: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
@@ -468,7 +452,6 @@
     <string name="toolbar_only_with_hw_keyboard">물리 키보드 사용 시에만 도구 모음 표시</string>
     <string name="toolbar_only_with_hw_keyboard_summary">여전히 시스템 설정에서 가상 키보드를 활성화해야 합니다</string>
     <string name="touchpad_edge_scroll_description">키보드 측면으로 스와이프해 자동으로 스크롤</string>
-    <string name="var_toolbar_direction_summary">우횡서(RTL) 키보드 서브타입 선택 시 방향 반전</string>
     <string name="custom_subtype">사용자 지정 서브타입</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">방향 패드</string>
     <string name="space_swipe_toggle_dpad_entry">방향 패드 전환</string>

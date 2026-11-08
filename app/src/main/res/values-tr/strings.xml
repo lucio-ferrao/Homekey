@@ -113,7 +113,6 @@
     <string name="enable_clipboard_history_summary">Devre dışı bırakılırsa, pano tuşu varsa pano içeriğini yapıştıracaktır</string>
     <string name="clipboard_history_retention_time">Geçmiş saklama süresi</string>
     <string name="number_row_summary">Her zaman sayı satırını göster</string>
-    <string name="more_keys_strip_description">Diğer tuşlar</string>
     <string name="show_hints">Tuş ipuçlarını göster</string>
     <string name="show_hints_summary">Uzun basma ipuçlarını göster</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Boşluk tuşuyla giriş yöntemini değiştir</string>
@@ -168,7 +167,6 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Dil (öncelikli)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Düzen</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Semboller</string>
-    <string name="toolbar_keys">Araç çubuğu tuşlarını seç</string>
     <string name="clipboard" tools:keep="@string/clipboard">Pano</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Panoyu temizle</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">İşlevsel tuşlar</string>
@@ -185,10 +183,6 @@
     <string name="no_dictionary_dont_show_again_button">Bir daha gösterme</string>
     <string name="available_dictionary_experimental">%s (deneysel)</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Siyah</string>
-    <string name="auto_show_toolbar_summary">Giriş başlarsa veya metin seçilirse araç çubuğunu göster</string>
-    <string name="auto_hide_toolbar">Araç çubuğunu otomatik gizle</string>
-    <string name="auto_hide_toolbar_summary">Öneriler mevcut olduğunda araç çubuğunu gizle</string>
-    <string name="auto_show_toolbar">Araç çubuğunu otomatik göster</string>
     <string name="customize_currencies">Para birimlerini özelleştir</string>
     <string name="main_colors">Yalnızca ana renkleri göster</string>
     <string name="all_colors">Tüm renkleri göster</string>
@@ -296,8 +290,6 @@
     <string name="suggest_clipboard_content">Pano içeriğini öner</string>
     <string name="voice" tools:keep="@string/voice">Ses girişi</string>
     <string name="show_horizontal_space_swipe">Yatay boşluk çubuğu kaydırma hareketi</string>
-    <string name="var_toolbar_direction_summary">Sağdan sola klavye alt türü seçildiğinde yönü ters çevir</string>
-    <string name="var_toolbar_direction">Değişken araç çubuğu yönü</string>
     <string name="file_read_error">Dosya okunamıyor</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Açık</string>
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Yuvarlatılmış</string>
@@ -311,10 +303,7 @@
     <string name="full_left" tools:keep="@string/full_left">Tam sol</string>
     <string name="full_right" tools:keep="@string/full_right">Tam sağ</string>
     <string name="page_down" tools:keep="@string/page_down">Sayfa aşağı</string>
-    <string name="quick_pin_toolbar_keys_summary">Bu, sabitlenmemiş araç çubuğu tuşları için diğer uzun basma işlemlerini devre dışı bırakacaktır</string>
     <string name="show_popup_hints">İşlevsel ipuçlarını göster</string>
-    <string name="pinned_toolbar_keys">Sabitlenmiş araç çubuğu tuşlarını seç</string>
-    <string name="quick_pin_toolbar_keys">Uzun basıldığında araç çubuğu tuşunu sabitle</string>
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="theme_style">Stil</string>
@@ -365,16 +354,11 @@
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
     <string name="use_apps_dict">Uygulama adlarında ara</string>
     <string name="use_apps_dict_summary">Öneriler ve düzeltmeler için yüklü uygulamaların adlarını kullan</string>
-    <string name="toolbar_mode">Araç çubuğu kipi</string>
     <string name="number_row_hints">Sayı satırında ipuçlarını göster</string>
     <string name="split" tools:keep="@string/split">Bölünmüş klavye</string>
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Boşluk (sayı düzeni)</string>
     <string name="auto_correct_shortcuts_summary">Etkin kısayolları otomatik düzeltme ile genişlet</string>
     <string name="shift_removes_autospace">Shift basarken otomatik boşluk ekleme</string>
-    <string name="toolbar_mode_toolbar_keys">Yalnızca araç çubuğu tuşları</string>
-    <string name="toolbar_mode_suggestion_strip">Yalnızca öneriler</string>
-    <string name="toolbar_mode_hidden">Gizli</string>
-    <string name="toolbar_hiding_global">Pano ve emoji araç çubuklarını da gizle</string>
     <string name="prefs_font_scale">Klavye yazı tipi boyutu</string>
     <string name="custom_font">Dosyadan özel yazı tipi seç</string>
     <string name="prefs_key_emoji_max_sdk">Emoji sürümünü geçersiz kıl</string>
@@ -396,7 +380,6 @@
     <string name="shift_removes_autospace_summary">Büyük harf tuşu, bekleyen otomatik boşluğu kaldırır</string>
     <string name="popup_order_and_hint_source">Açılır pencere tuş sırası ve ipuçları kaynağı</string>
     <string name="show_tld_popup_keys_summary">URL\'leri ve e-posta adreslerini yazarken nokta tuşunun açılır pencerelerini üst düzey alan adlarıyla değiştirin</string>
-    <string name="toolbar_mode_expandable">Araç çubuğu tuşları ve öneriler</string>
     <string name="prefs_side_padding_scale">Yan dolgu ölçeği</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sotho dili</string>

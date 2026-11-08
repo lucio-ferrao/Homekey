@@ -41,7 +41,6 @@
     <string name="delete_swipe">Deslizar para apagar</string>
     <string name="incognito">Forçar modo privativo</string>
     <string name="prefs_force_incognito_mode_summary">Desativar aprendizagem de novas palavras</string>
-    <string name="more_keys_strip_description">Mais teclas</string>
     <string name="show_hints">Mostrar dicas de teclas</string>
     <string name="show_hints_summary">Mostrar dicas com toque longo</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Segurar na tecla de espaço mostrará um menu de seleção de metódo de entrada</string>
@@ -165,7 +164,6 @@
     <string name="load_gesture_library_button_delete">Apagar biblioteca</string>
     <string name="localized_number_row_summary">Preferir números localizados em vez de latim</string>
     <string name="show_popup_keys_title">Mostrar mais letras com diacríticos no pop-up</string>
-    <string name="var_toolbar_direction">Direção da barra de ferramentas variável</string>
     <string name="split_spacer_scale">Distância de separação</string>
     <string name="language_switch_key_switch_both">Alterar ambos</string>
     <string name="add_to_personal_dictionary">Adicionar palavras ao dicionário pessoal</string>
@@ -198,7 +196,6 @@
     <string name="select_color_spacebar_background">Fundo da barra de espaço</string>
     <string name="hidden_features_summary">Mostrar funções que podem passar despercebido</string>
     <string name="switch_language">Alterar idioma</string>
-    <string name="toolbar_keys">Selecionar teclas da barra de ferramentas</string>
     <string name="full_left" tools:keep="@string/full_left">Inteiramente para a esquerda</string>
     <string name="full_right" tools:keep="@string/full_right">Inteiramente para a direita</string>
     <string name="left" tools:keep="@string/left">Esquerda</string>
@@ -293,7 +290,6 @@
     <string name="label_next_key">Próximo</string>
     <string name="show_vertical_space_swipe">Gesto de deslizar vertical na barra de espaço</string>
     <string name="action_none">Nenhum</string>
-    <string name="var_toolbar_direction_summary">Inverter a direção quando um teclado do subtipo direita-para-esquerda é selecionado</string>
     <string name="prefs_long_press_symbol_for_numpad">Pressione longamente a tecla de símbolos para abrir o teclado numérico</string>
     <string name="cut" tools:keep="@string/cut">Cortar</string>
     <string name="subtype_generic_student">%s (Estudante)</string>
@@ -304,15 +300,9 @@
     <string name="clipboard_toolbar_keys">Selecionar teclas da barra de ferramentas de área de transferência</string>
     <string name="subtype_generic_extended">%s (Extendido)</string>
     <string name="all_colors_warning">Essa configuração expõe todas as cores que são usadas internamente. A lista de cores pode mudar a qualquer momento. A cor padrão é derivada das cores normais, e os nomes não são traduzidos.</string>
-    <string name="pinned_toolbar_keys">Selecionar teclas fixadas da barra de ferramentas</string>
     <string name="gesture_fast_typing_cooldown_instant">Começar instantaneamente sempre</string>
     <string name="gesture_fast_typing_cooldown">Tempo de espera para digitação rápida</string>
-    <string name="quick_pin_toolbar_keys">Fixar tecla da barra de ferramentas em toque longo</string>
     <string name="customize_currencies">Customizar moedas</string>
-    <string name="auto_show_toolbar_summary">Mostrar a barra de ferramentas se a digitação começar ou se o texto é selecionado</string>
-    <string name="auto_show_toolbar">Automaticamente mostrar a barra de ferramentas</string>
-    <string name="auto_hide_toolbar">Ocultar barra de ferramentas automaticamente</string>
-    <string name="auto_hide_toolbar_summary">Esconder a barra de ferramentas quando sugestões ficam disponíveis</string>
     <string name="toast_msg_clipboard_copy">Conteúdo copiado</string>
     <string name="customize_currencies_detail">Configure um símbolo principal e até 6 secundários para moedas, separado com espaço</string>
     <string name="language_switch_key_behavior">Comportamento da tecla de alteração de idioma</string>
@@ -320,7 +310,6 @@
     <string name="button_save_file">Salvar para arquivo</string>
     <string name="copy_to_clipboard">Copiar para a Área de Transferência</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
-    <string name="quick_pin_toolbar_keys_summary">Isto desativará outras ações de toque longo para teclas da barra de ferramentas que não estão fixadas</string>
     <string name="settings_screen_toolbar">Barra de Ferramentas</string>
     <string name="page_start" tools:keep="@string/page_start">Começo da página</string>
     <string name="page_end" tools:keep="@string/page_end">Final da página</string>
@@ -417,12 +406,6 @@
     <string name="use_apps_dict">Procurar nomes de apps</string>
     <string name="use_apps_dict_summary">Usar nomes de apps instalados para sugestões e correções</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
-    <string name="toolbar_mode">Modo da barra de ferramentas</string>
-    <string name="toolbar_hiding_global">Ocultar a área de transferência e as barras de ferramentas de emoji também</string>
-    <string name="toolbar_mode_expandable">Teclas da barra de ferramentas e sugestões</string>
-    <string name="toolbar_mode_toolbar_keys">Somente teclas da barra de ferramentas</string>
-    <string name="toolbar_mode_suggestion_strip">Somente sugestões</string>
-    <string name="toolbar_mode_hidden">Oculta</string>
     <string name="landscape">Paisagem</string>
     <string name="popup_order_and_hint_source">Ordem das teclas de pop-up e fonte de dicas</string>
     <string name="suggest_emojis">Sugerir emojis</string>

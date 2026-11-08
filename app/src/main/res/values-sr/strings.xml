@@ -124,7 +124,6 @@
     <string name="key_borders">Кључне обрисе</string>
     <string name="prefs_force_incognito_mode_summary">Онемогућите учење нових речи</string>
     <string name="autospace_after_punctuation_summary">Аутоматски убаци размак после интерпункције када куцате нову реч</string>
-    <string name="more_keys_strip_description">Додатни кључеви</string>
     <string name="settings_category_suggestions">Предлози</string>
     <string name="settings_category_miscellaneous">Остало</string>
     <string name="undo">"Опозови"</string>

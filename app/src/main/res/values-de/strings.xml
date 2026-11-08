@@ -110,7 +110,6 @@
     <string name="clipboard_history_retention_time">Speicherdauer des Zwischenablage-Verlaufs</string>
     <string name="delete_swipe">Löschen durch Wischen</string>
     <string name="prefs_force_incognito_mode_summary">Deaktiviert das Lernen von neuen Wörtern</string>
-    <string name="more_keys_strip_description">Mehr Tasten</string>
     <string name="number_row_summary">Ziffernzeile immer anzeigen</string>
     <string name="number_row">Ziffernzeile</string>
     <string name="show_hints">Tastenhinweise anzeigen</string>
@@ -216,7 +215,6 @@
     <string name="auto_user_color">Farbe automatisch wählen</string>
     <string name="settings_screen_about">Über</string>
     <string name="down" tools:keep="@string/down">Runter</string>
-    <string name="toolbar_keys">Symbolleistentasten wählen</string>
     <string name="license">Open-Source-Lizenz</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Ozean</string>
     <string name="backup_error">Sicherungsfehler: %s</string>
@@ -286,8 +284,6 @@
     <string name="space_swipe_move_cursor_entry">Cursor bewegen</string>
     <string name="show_horizontal_space_swipe">Horizontale Wischgeste der Leertaste</string>
     <string name="prefs_long_press_symbol_for_numpad">Symbole-Taste für Ziffernblock gedrückt halten</string>
-    <string name="var_toolbar_direction">Variable Symbolleisten-Richtung</string>
-    <string name="var_toolbar_direction_summary">Richtung umkehren, wenn die Tastatur einer Rechts-nach-links-Sprache ausgewählt ist</string>
     <string name="subtype_generic_student">%s (Student)</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="center_suggestion_text_to_enter_summary">Bei Eingabe eines Leerzeichens oder eines Punktes wird der mittlere Vorschlag gewählt</string>
@@ -295,15 +291,8 @@
     <string name="center_suggestion_text_to_enter">Immer mittleren Vorschlag verwenden</string>
     <string name="clipboard_toolbar_keys">Tasten der Symbolleiste für die Zwischenablage auswählen</string>
     <string name="subtype_generic_extended">%s (erweitert)</string>
-    <string name="pinned_toolbar_keys">Angeheftete Tasten der Symbolleiste auswählen</string>
-    <string name="quick_pin_toolbar_keys_summary">Dadurch werden andere Langdruck-Aktionen für Tasten der Symbolleiste, die nicht angeheftet sind, deaktiviert</string>
     <string name="toast_msg_clipboard_copy">Inhalt kopiert</string>
-    <string name="auto_show_toolbar">Symbolleiste automatisch anzeigen</string>
-    <string name="auto_show_toolbar_summary">Symbolleiste anzeigen, wenn die Eingabe beginnt oder Text ausgewählt ist</string>
-    <string name="auto_hide_toolbar">Symbolleiste automatisch ausblenden</string>
-    <string name="auto_hide_toolbar_summary">Ausblenden der Symbolleiste, wenn Vorschläge verfügbar sind</string>
     <string name="language_switch_key_behavior">Verhalten der Sprachwechseltaste</string>
-    <string name="quick_pin_toolbar_keys">Symbolleisten-Taste bei langem Drücken anheften</string>
     <string name="settings_screen_toolbar">Symbolleiste</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="subtype_mns">Mansi</string>
@@ -407,15 +396,9 @@
     <string name="backup_restored">Backup wiederhergestellt</string>
     <string name="use_apps_dict">App-Namen nachschlagen</string>
     <string name="use_apps_dict_summary">Namen der installierten Apps für Vorschläge und Korrekturen verwenden</string>
-    <string name="toolbar_mode_expandable">Symbolleisten-Tasten und Vorschläge</string>
-    <string name="toolbar_mode_toolbar_keys">Nur Symbolleisten-Tasten</string>
     <string name="popup_order_and_hint_source">Popup-Tasten-Reihenfolge und Vorschlagsquelle</string>
-    <string name="toolbar_mode_hidden">Ausgeblendet</string>
-    <string name="toolbar_hiding_global">Auch Zwischenablagen- und Emoji-Symbolleisten ausblenden</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="landscape">Querformat</string>
-    <string name="toolbar_mode_suggestion_strip">Nur Vorschläge</string>
-    <string name="toolbar_mode">Symbolleisten-Modus</string>
     <string name="suggest_emojis">Emojis vorschlagen</string>
     <string name="suggest_emojis_summary">Emoji-Wörterbuch in normalen Vorschlägen verwenden</string>
     <string name="space_swipe_hide_keyboard_entry">Tastatur verstecken</string>

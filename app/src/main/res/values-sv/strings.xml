@@ -119,7 +119,6 @@
     <string name="delete_swipe_summary">Gör en svepning från backstegstangenten för att markera och ta bort större mängder text på en gång</string>
     <string name="autospace_after_punctuation_summary">Infoga automatiskt mellanslag efter skiljetecken när ett nytt ord skrivs</string>
     <string name="autospace_after_punctuation">Automatiskt mellanslag efter skiljetecken</string>
-    <string name="more_keys_strip_description">Fler tangenter</string>
     <string name="prefs_keyboard_height_scale">Skala för tangentbordets höjd</string>
     <string name="subtype_akkhor_bn_BD">%s (akkhor)</string>
     <string name="key_borders">Kantlinjer runt tangenter</string>
@@ -221,7 +220,6 @@
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Sifferrad</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Symboler</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Layout</string>
-    <string name="toolbar_keys">Välj verktygsfältstangenter</string>
     <string name="close_history" tools:keep="@string/close_history">Stäng urklippshistorik</string>
     <string name="clipboard_toolbar_keys">Välj verktygsfältstangenter för urklipp</string>
     <string name="show_popup_hints_summary">Visa ett tips om långtryck på en funktionstangent öppnar en popup</string>
@@ -236,22 +234,13 @@
     <string name="full_left" tools:keep="@string/full_left">Längst åt vänster</string>
     <string name="full_right" tools:keep="@string/full_right">Längst åt höger</string>
     <string name="show_popup_keys_main">Lägg till mycket vanliga varianter (standard)</string>
-    <string name="auto_show_toolbar">Visa verktygsfält automatiskt</string>
-    <string name="auto_show_toolbar_summary">Visa verktygsfältet om inmatning påbörjas eller text markeras</string>
     <string name="language_switch_key_behavior">Språkbytestangentens beteende</string>
     <string name="settings_screen_toolbar">Verktygsfält</string>
-    <string name="var_toolbar_direction">Växlande riktning för verktygsfält</string>
-    <string name="var_toolbar_direction_summary">Vänd på riktningen när en höger-till-vänster-tangentbordsundertyp är vald</string>
     <string name="page_end" tools:keep="@string/page_end">Sidslut</string>
     <string name="word_right" tools:keep="@string/word_right">Ord höger</string>
     <string name="page_up" tools:keep="@string/page_up">Sida upp</string>
     <string name="page_start" tools:keep="@string/page_start">Sidstart</string>
-    <string name="auto_hide_toolbar_summary">Dölj verktygsfältet när förslag blir tillgängliga</string>
     <string name="word_left" tools:keep="@string/word_left">Ord vänster</string>
-    <string name="auto_hide_toolbar">Dölj verktygsfält automatiskt</string>
-    <string name="quick_pin_toolbar_keys_summary">Detta kommer att inaktivera andra långtryckningsåtgärder för verktygsfältstangenter som inte är fästa</string>
-    <string name="pinned_toolbar_keys">Välj fästa verktygsfältstangenter</string>
-    <string name="quick_pin_toolbar_keys">Fäst verktygsfältstangent genom långtryckning</string>
     <string name="setup_step3_action">Konfigurera tangentbordet</string>
     <string name="page_down" tools:keep="@string/page_down">Sida ner</string>
     <string name="remove_redundant_popups">Ta bort överflödiga popuper</string>
@@ -412,12 +401,6 @@
     <string name="use_apps_dict">Slå upp appnamn</string>
     <string name="use_apps_dict_summary">Använd namn på installerade appar för förslag och rättelser</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
-    <string name="toolbar_mode">Verktygsfältsläge</string>
-    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">Verktygsfältstangenter och förslag</string>
-    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Endast verktygsfältstangenter</string>
-    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Endast förslag</string>
-    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Dold</string>
-    <string name="toolbar_hiding_global">Dölj även verktygsfält för urklipp och emoji</string>
     <string name="popup_order_and_hint_source">Källa för popup-tangentordning och tips</string>
     <string name="landscape">Liggande</string>
     <string name="suggest_emojis_summary">Använd emojiordbok i vanliga förslag</string>

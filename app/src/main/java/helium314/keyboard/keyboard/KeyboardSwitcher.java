@@ -57,7 +57,6 @@ import helium314.keyboard.latin.utils.Log;
 import helium314.keyboard.latin.utils.RecapitalizeMode;
 import helium314.keyboard.latin.utils.ResourceUtils;
 import helium314.keyboard.latin.utils.SubtypeUtilsAdditional;
-import helium314.keyboard.latin.utils.ToolbarMode;
 
 public final class KeyboardSwitcher {
     private static final String TAG = KeyboardSwitcher.class.getSimpleName();
@@ -118,8 +117,7 @@ public final class KeyboardSwitcher {
             settings.loadSettings(displayContext, settings.getCurrent().mLocale, settings.getCurrent().mInputAttributes);
             if (mKeyboardView != null)
                 mLatinIME.setInputView(onCreateInputView(displayContext, mIsHardwareAcceleratedDrawingEnabled));
-        } else if (mCurrentInputView != null && mLatinIME.hasSuggestionStripView()
-                    == (Settings.getValues().mToolbarMode == ToolbarMode.HIDDEN)) {
+        } else if (mCurrentInputView != null && mLatinIME.hasSuggestionStripView() == Settings.getValues().mIsLocked) {
             mLatinIME.updateSuggestionStripView(mCurrentInputView);
         }
     }

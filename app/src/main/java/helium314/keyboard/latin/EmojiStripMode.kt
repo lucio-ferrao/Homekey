@@ -63,7 +63,7 @@ class EmojiStripMode(private val latinIME: LatinIME) : StripSearch {
         isActive = false
         query.setLength(0)
         ScreenAgentService.onTapInOtherApp = null
-        latinIME.suggestionStripView?.setLauncherMode(false)
+        latinIME.suggestionStripView?.setEmojiMode(false)
     }
 
     override fun onTapOutside() {
@@ -134,8 +134,7 @@ class EmojiStripMode(private val latinIME: LatinIME) : StripSearch {
     override fun show() {
         if (!isActive) return
         val strip = latinIME.suggestionStripView ?: return
-        strip.setToolbarVisibility(false)
-        strip.setLauncherMode(true)
+        strip.setEmojiMode(true)
         strip.setExternalSuggestionView(createRow(strip.context, results()), false)
     }
 

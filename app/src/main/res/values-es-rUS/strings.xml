@@ -115,7 +115,6 @@
     <string name="number_row">Fila de números</string>
     <string name="prefs_long_press_keyboard_to_change_lang">Cambiar el método de entrada con la barra espaciadora</string>
     <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
-    <string name="more_keys_strip_description">Más teclas</string>
     <string name="show_hints">Mostrar símbolos sugeridos</string>
     <string name="key_borders">Bordes de teclas</string>
     <string name="day_night_mode_summary">Seguir la configuración del sistema</string>
@@ -192,7 +191,6 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Lengua (prioridad)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Diseño</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Símbolos</string>
-    <string name="toolbar_keys">Seleccionar teclas de la barra de herramientas</string>
     <string name="clipboard" tools:keep="@string/clipboard">Portapapeles</string>
     <string name="theme_name_user" tools:keep="@string/theme_name_user">Definido por el usuario</string>
     <string name="select_color_key">Color del texto de tecla</string>
@@ -274,8 +272,6 @@
     <string name="settings_screen_appearance">Apariencia</string>
     <string name="hidden_features_text">almacenamiento protegido del dispositivo</string>
     <string name="hidden_features_summary">Mostrar características que pueden pasar desapercibidas</string>
-    <string name="var_toolbar_direction">Dirección variable de la barra de herramientas</string>
-    <string name="var_toolbar_direction_summary">Invertir la dirección cuando se selecciona un subtipo de teclado de derecha a izquierda</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
@@ -310,15 +306,8 @@
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Teclas funcionales</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Teclas funcionales (Más símbolos)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Teclas funcionales (Símbolos)</string>
-    <string name="pinned_toolbar_keys">Seleccionar teclas ancladas en la barra de herramientas</string>
-    <string name="quick_pin_toolbar_keys">Fijar la tecla en la barra de herramientas con una pulsación larga</string>
-    <string name="quick_pin_toolbar_keys_summary">Esto desactivará otras acciones de pulsación larga para las teclas de la barra de herramientas que no estén ancladas</string>
     <string name="toast_msg_clipboard_copy">Contenido copiado</string>
-    <string name="auto_hide_toolbar">Ocultar automáticamente la barra de herramientas</string>
-    <string name="auto_show_toolbar">Mostrar automáticamente la barra de herramientas</string>
-    <string name="auto_show_toolbar_summary">Mostrar la barra de herramientas si se inicia la entrada o se selecciona el texto</string>
     <string name="language_switch_key_behavior">Comportamiento de la tecla de cambio de idioma</string>
-    <string name="auto_hide_toolbar_summary">Ocultar la barra de herramientas cuando las sugerencias estén disponibles</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="settings_screen_toolbar">Barra de herramientas</string>
     <string name="gesture_fast_typing_cooldown">Enfriamiento de escritura rápida</string>

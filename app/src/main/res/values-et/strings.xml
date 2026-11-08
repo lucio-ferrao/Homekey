@@ -113,7 +113,6 @@
     <string name="ime_settings">Homekeyi seadistused</string>
     <string name="android_spell_checker_settings">Homekeyi õigekirjakontrolli seadistused</string>
     <string name="select_color_background">Klahvistiku taust</string>
-    <string name="var_toolbar_direction_summary">Vastupidine suund, kui klahvistiku paremalt-vasakule alamtüüp on valitud</string>
     <string name="prefs_keyboard_height_scale">Klahvistiku kõrguse proportsioonid</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Pika vajutusega tühikuklahvile avaneb sisestusmeetodite valiku menüü</string>
     <string name="dictionary_file_wrong_script">Viga: märgistik ei ühildu selle klahvistikuga</string>
@@ -138,7 +137,6 @@
     <string name="url_detection_summary">Proovi tuvastada URLe ja muud sarnast ühe sõnana</string>
     <string name="incognito">Kasuta privaatset töörežiimi</string>
     <string name="prefs_force_incognito_mode_summary">Keela uute sõnade õppimine</string>
-    <string name="more_keys_strip_description">Rohkem klahve</string>
     <string name="language_and_layouts_title">Keeled ja paigutused</string>
     <string name="number_row_summary">Alati näita numbririda</string>
     <string name="localized_number_row_summary">Eelista lokaliseeritud numbreid araabia numbritele</string>
@@ -175,7 +173,6 @@
     <string name="more_autocorrect_summary">Käivata automaatne korrektuur ka siis, kui sisendväli seda otseselt ei eelda</string>
     <string name="show_popup_keys_main">Kuva vaid väga levinud variante (vaikimisi väärtus)</string>
     <string name="hint_source">Vali vihjete allikas</string>
-    <string name="toolbar_keys">Vali tööriistariba klahvid</string>
     <string name="one_handed" tools:keep="@string/one_handed">Režiim kasutamiseks ühe käega</string>
     <string name="full_left" tools:keep="@string/full_left">Täis vasak</string>
     <string name="full_right" tools:keep="@string/full_right">Täis parem</string>
@@ -208,7 +205,6 @@
     <string name="word_right" tools:keep="@string/word_right">Sõna paremale</string>
     <string name="page_up" tools:keep="@string/page_up">Lehekülg üles</string>
     <string name="show_hints">Näita klahvide vihjeid</string>
-    <string name="quick_pin_toolbar_keys">Tõsta tööriistariba nupp esile pika vajutusega</string>
     <string name="button_load_custom">Laadi fail</string>
     <string name="subtype_mns">Mansi</string>
     <string name="prefs_space_bar_text">Sinu tekst tühikuklahvil</string>
@@ -222,8 +218,6 @@
     <string name="file_read_error">Faili lugemine ei õnnestu</string>
     <string name="delete_layout">Kas sa kindlasti soovid kustutada sinu tehtud klahvistiku paigutuse „%s“?</string>
     <string name="layout_error">Klahvistiku paigutuse viga: %s</string>
-    <string name="pinned_toolbar_keys">Vali esiletõstetud tööriistariba nupud</string>
-    <string name="quick_pin_toolbar_keys_summary">Selle valiku kasutamisega blokeerid muud pikast vajutusest avanevad tegevused, välja arvatud need mille oled esile tõstnud</string>
     <string name="prefs_narrow_key_gaps">Kitsaste klahvide vahed</string>
     <string name="prefs_bottom_padding_scale">Alumiste veeriste mõõtkava</string>
     <string name="prefs_long_press_symbol_for_numpad">Sümbolklahvi pika vajutusega avaneb numbriline klahvistik</string>
@@ -270,7 +264,6 @@
     <string name="hidden_features_text">seadme turvatud andmekogu</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funktsiooniklahvid (sümbolid)</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefon</string>
-    <string name="auto_show_toolbar">Näita tööriistariba automaatselt</string>
     <string name="select_color_gesture">Viipežest</string>
     <string name="settings_screen_about">Rakenduse teave</string>
     <string name="version">Versioon</string>
@@ -309,9 +302,6 @@
     <string name="show_horizontal_space_swipe">Rõhtse tühikuklahvi viipežest</string>
     <string name="space_swipe_move_cursor_entry">Liiguta kursorit</string>
     <string name="subtype_akkhor_bn_BD">%s (Akkhor)</string>
-    <string name="auto_show_toolbar_summary">Näita tööriistariba niipea, kui hakkad andmeid sisestama või valid teksti</string>
-    <string name="auto_hide_toolbar">Peida tööriistariba automaatselt</string>
-    <string name="auto_hide_toolbar_summary">Peida tööriistariba niipea, kui soovitused on olemas</string>
     <string name="theme_name_light" tools:keep="@string/theme_name_light">Hele</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Tumedam</string>
     <string name="select_color_functional_key_background">Funktsiooniklahvi taust</string>
@@ -344,7 +334,6 @@
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Näita/peida tööriistariba</string>
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Laiuseta ühendusklahv</string>
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Laiuseta mitteühendav tühik</string>
-    <string name="var_toolbar_direction">Tööriistariba muutuv suund</string>
     <string name="customize_toolbar_key_codes">Kohanda tööriistariba klahvide koode</string>
     <string name="key_code">Klahvi kood</string>
     <string name="long_press_code">Pika vajutuse kood</string>
@@ -408,12 +397,6 @@
     <string name="use_apps_dict">Otsi välja rakenduste nimed</string>
     <string name="use_apps_dict_summary">Otsi soovituste ja paranduste jaoks välja paigaldatud rakenduste nimed</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
-    <string name="toolbar_mode">Tööriistariba vaade</string>
-    <string name="toolbar_mode_suggestion_strip">Ainult soovitused</string>
-    <string name="toolbar_mode_expandable">Tööriistariba nupud ja soovitused</string>
-    <string name="toolbar_mode_toolbar_keys">Ainult tööriistariba nupud</string>
-    <string name="toolbar_mode_hidden">Peidetud</string>
-    <string name="toolbar_hiding_global">Peida ka lõikelaud ja emojide rida</string>
     <string name="popup_order_and_hint_source">Klahvide järjestus hüpikaknas ja vihjete allikas</string>
     <string name="landscape">Rõhtvaade</string>
     <string name="suggest_emojis">Soovita emojisid</string>

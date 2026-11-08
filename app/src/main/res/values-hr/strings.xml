@@ -114,7 +114,6 @@
     <string name="autospace_after_punctuation">Automatski dodaj razmak nakon interpunkcije</string>
     <string name="autospace_after_punctuation_summary">Automatski dodaj razmak nakon interpunkcije kad pišeš novu riječ</string>
     <string name="incognito">Prisili anonimni način rada</string>
-    <string name="more_keys_strip_description">Više tipki</string>
     <string name="number_row_summary">Uvijek prikaži redak brojeva</string>
     <string name="show_hints">Pokaži pomoćne oznake tipki</string>
     <string name="show_hints_summary">Pokazuje pomoćne oznake za dugi pritisak tipki</string>
@@ -218,13 +217,6 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Jezik (prioritet)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Raspored</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Simboli</string>
-    <string name="toolbar_mode">Način rada alatne trake</string>
-    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">Prijedlozi i tipke alatne trake</string>
-    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">Samo tipke alatne trake</string>
-    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Samo prijedlozi</string>
-    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Sakriveno</string>
-    <string name="toolbar_hiding_global">Sakrij i alatne trake međuspremnika i emojija</string>
-    <string name="toolbar_keys">Odaberi tipke alatne trake</string>
     <string name="clipboard" tools:keep="@string/clipboard">Međuspremnik</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Očisti međuspremnik</string>
     <string name="voice" tools:keep="@string/voice">Glasovni unos</string>
@@ -238,9 +230,6 @@
     <string name="close_history" tools:keep="@string/close_history">Zatvori povijest međuspremnika</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="clipboard_toolbar_keys">Odaberi tipke alatne trake međuspremnika</string>
-    <string name="pinned_toolbar_keys">Odaberi prikvačene tipke alatne trake</string>
-    <string name="quick_pin_toolbar_keys">Prikvači tipke alatne trake pomoću dugog pritiska</string>
-    <string name="quick_pin_toolbar_keys_summary">Ovo će onemogućiti druge radnje za dugi pritisak tipki alatne trake koje nisu prikvačene</string>
     <string name="remove_redundant_popups">Ukloni suvišne skočne tipke</string>
     <string name="remove_redundant_popups_summary">Sakriva skočne tipke koje se već nalaze na osnovnom rasporedu tipkovnice</string>
     <string name="prefs_always_show_suggestions_except_web_text">Ne prikazuj uvijek prijedloge za web-polja za unos teksta</string>
@@ -409,12 +398,6 @@
     <string name="space_swipe_move_cursor_entry">Pomakni kursor</string>
     <string name="space_swipe_toggle_numpad_entry">Prebaci na brojčanik</string>
     <string name="space_swipe_hide_keyboard_entry">Sakrij tipkovnicu</string>
-    <string name="var_toolbar_direction">Promjenjivi smjer alatne trake</string>
-    <string name="var_toolbar_direction_summary">Mijenja smjer kada je odabran raspored tipkovnice za jezike koji se piše s desna na lijevo</string>
-    <string name="auto_show_toolbar">Automatski prikaz alatne trake</string>
-    <string name="auto_show_toolbar_summary">Prikazuje alatnu traku, ako započne unos ili je označen tekst</string>
-    <string name="auto_hide_toolbar">Automatsko sakrivanje alatne trake</string>
-    <string name="auto_hide_toolbar_summary">Sakriva alatnu traku kada prijedlozi postanu dostupni</string>
     <string name="toast_msg_clipboard_copy">Sadržaj je kopiran</string>
     <string name="customize_icons">Prilagodi ikone</string>
     <string name="customize_icons_reset_message">Zaista ponovno postaviti sve prilagođene ikone?</string>

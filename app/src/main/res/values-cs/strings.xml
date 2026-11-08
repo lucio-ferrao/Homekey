@@ -122,7 +122,6 @@
     <string name="show_emoji_key">Klávesa pro emodži</string>
     <string name="enable_clipboard_history_summary">Pokud vypnuto, tlačítko schránky vloží obsah schránky, pokud nějaký existuje</string>
     <string name="autospace_after_punctuation">Automatická mezera po znaménkách</string>
-    <string name="more_keys_strip_description">Více kláves</string>
     <string name="delete_swipe_summary">Posuňte prstem z tlačítka Delete a mažte větší části textu společně</string>
     <string name="key_borders">Okraje kláves</string>
     <string name="day_night_mode">Automatický denní/noční režim</string>
@@ -172,7 +171,6 @@
     <string name="full_left" tools:keep="@string/full_left">Úplně vlevo</string>
     <string name="prefs_long_press_symbol_for_numpad">Dlouhé stisknutí klávesy se symboly pro numerickou klávesnici</string>
     <string name="popup_order">Zvolit pořadí kláves vyskakovacího okna</string>
-    <string name="toolbar_keys">Výběr kláves na panelu nástrojů</string>
     <string name="prefs_narrow_key_gaps">Zmenšit mezery mezi klávesami</string>
     <string name="button_title_add_custom_layout">Přidat vlastní rozložení</string>
     <string name="setup_step3_action">Konfigurace klávesnice</string>
@@ -238,8 +236,6 @@
     <string name="select_color_gesture">Zadávání gesty</string>
     <string name="about_github_link">Zobrazit na GitHubu</string>
     <string name="save_log">Uložit protokol</string>
-    <string name="var_toolbar_direction_summary">Obrácení směru při výběru podtypu klávesnice zprava doleva</string>
-    <string name="var_toolbar_direction">Proměnlivý směr panelu nástrojů</string>
     <string name="button_backup">Záloha</string>
     <string name="button_restore">Obnovení</string>
     <string name="secondary_locale">Vícejazyčné psaní</string>
@@ -332,7 +328,6 @@
     <string name="number_row_hints">Zobrazit nápovědy na číselném řádku</string>
     <string name="locales_with_dict">Jazyky se slovníky</string>
     <string name="button_save_file">Uložit do souboru</string>
-    <string name="quick_pin_toolbar_keys">Připnout klávesu do panelu nástrojů při dlouhém podržení</string>
     <string name="customize_currencies_detail">Nastavit hlavní a až 6 dalších symbolů měny, oddělených mezerami</string>
     <string name="name_invalid">Neplatný název</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Dolní řádek schránky</string>
@@ -361,10 +356,6 @@
     <string name="label_zwnj_key" tools:keep="@string/label_zwnj_key">Nespojovač s nulovou šířkou</string>
     <string name="space_swipe_toggle_numpad_entry">Přepnout numerickou klávesnici</string>
     <string name="customize_toolbar_key_codes">Přizpůsobit kódy kláves v panelu nástrojů</string>
-    <string name="auto_show_toolbar">Automaticky zobrazit panel nástrojů</string>
-    <string name="auto_show_toolbar_summary">Zobrazit panel nástrojů, když je spuštěn vstup nebo vybrán text</string>
-    <string name="auto_hide_toolbar">Automaticky skrýt panel nástrojů</string>
-    <string name="auto_hide_toolbar_summary">Skrýt panel nástrojů, když jsou dostupné návrhy</string>
     <string name="customize_icons">Přizpůsobit ikony</string>
     <string name="custom_subtype">Vlastní podtyp</string>
     <string name="layout_in_use">Varování: rozložení se aktuálně používá</string>
@@ -398,8 +389,6 @@
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Delete</string>
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
     <string name="prefs_language_swipe_distance">Přepnout vzdálenost přejetí jazyka</string>
-    <string name="pinned_toolbar_keys">Vyberte připnuté klávesy v panelu nástrojů</string>
-    <string name="quick_pin_toolbar_keys_summary">Toto zakáže další akce dlouhého stisknutí pro klávesy panelu nástrojů, které nejsou připnuty</string>
     <string name="remove_redundant_popups_summary">Zakázat vyskakovací klávesy, které se již nacházejí v základním rozložení klávesnice</string>
     <string name="get_colors_message">Barvy můžete najít a sdílet v %s.</string>
     <string name="discussion_section_link">sekci diskuze</string>
@@ -410,12 +399,6 @@
     <string name="use_apps_dict_summary">Používat názvy nainstalovaných aplikací pro návrhy a opravy</string>
     <string name="use_apps_dict">Používat názvy aplikací</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
-    <string name="toolbar_mode_expandable">Klávesy a návrhy panelu nástrojů</string>
-    <string name="toolbar_mode_toolbar_keys">Pouze klávesy panelu nástrojů</string>
-    <string name="toolbar_mode_suggestion_strip">Pouze návrhy</string>
-    <string name="toolbar_mode_hidden">Skryté</string>
-    <string name="toolbar_hiding_global">Skrýt také panely schránky a emoji</string>
-    <string name="toolbar_mode">Režim panelu nástrojů</string>
     <string name="popup_order_and_hint_source">Pořadí vyskakovacích kláves a zdroj tipů</string>
     <string name="landscape">Na šířku</string>
     <string name="suggest_emojis">Navrhovat emodži</string>

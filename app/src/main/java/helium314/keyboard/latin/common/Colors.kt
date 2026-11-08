@@ -277,7 +277,7 @@ class DynamicColors(context: Context, override val themeStyle: String, override 
     }
 
     override fun get(color: ColorType): Int = when (color) {
-        TOOL_BAR_KEY_ENABLED_BACKGROUND, ACTION_KEY_BACKGROUND, CLIPBOARD_PIN -> accent
+        ACTION_KEY_BACKGROUND, CLIPBOARD_PIN -> accent
         SHIFT_KEY_ICON -> if (accentShiftedIcon) accent else keyText
         AUTOFILL_BACKGROUND_CHIP, GESTURE_PREVIEW, POPUP_KEYS_BACKGROUND, MORE_SUGGESTIONS_BACKGROUND, KEY_PREVIEW_BACKGROUND -> adjustedBackground
         TOOL_BAR_EXPAND_KEY_BACKGROUND -> if (!isNight) accent else doubleAdjustedBackground
@@ -475,7 +475,7 @@ class DefaultColors (
     }
 
     override fun get(color: ColorType): Int = when (color) {
-        TOOL_BAR_KEY_ENABLED_BACKGROUND, ACTION_KEY_BACKGROUND, CLIPBOARD_PIN -> accent
+        ACTION_KEY_BACKGROUND, CLIPBOARD_PIN -> accent
         SHIFT_KEY_ICON -> if (accentShiftedIcon) accent else keyText
         AUTOFILL_BACKGROUND_CHIP -> if (themeStyle == STYLE_MATERIAL && !hasKeyBorders) background else adjustedBackground
         GESTURE_PREVIEW, POPUP_KEYS_BACKGROUND, MORE_SUGGESTIONS_BACKGROUND, KEY_PREVIEW_BACKGROUND -> adjustedBackground
@@ -659,7 +659,6 @@ enum class ColorType {
     TOOL_BAR_EXPAND_KEY,
     TOOL_BAR_EXPAND_KEY_BACKGROUND,
     TOOL_BAR_KEY,
-    TOOL_BAR_KEY_ENABLED_BACKGROUND,
     MAIN_BACKGROUND,
 }
 

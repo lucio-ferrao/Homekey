@@ -117,7 +117,6 @@
     <string name="show_emoji_key">Emodzsibillentyű</string>
     <string name="incognito">Inkognitómód kényszerítése</string>
     <string name="prefs_force_incognito_mode_summary">Új szavak tanulásának letiltása</string>
-    <string name="more_keys_strip_description">Több billentyű</string>
     <string name="autospace_after_punctuation">Szóköz automatikus beszúrása az írásjelek után</string>
     <string name="autospace_after_punctuation_summary">Szóköz automatikus beszúrása az írásjelek után új szó beírásakor</string>
     <string name="number_row">Számsor</string>
@@ -158,7 +157,6 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Nyelv (elsőbbség)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">Elrendezés</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Szimbólumok</string>
-    <string name="toolbar_keys">Eszköztárbillentyűk kiválasztása</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Vágólap ürítése</string>
     <string name="voice" tools:keep="@string/voice">Hangbevitel</string>
     <string name="clipboard" tools:keep="@string/clipboard">Vágólap</string>
@@ -287,7 +285,6 @@
     <string name="space_swipe_move_cursor_entry">Kurzor mozgatása</string>
     <string name="popup_order_and_hint_source">Felugró billentyűk sorrendjének és tippek forrása</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funkcióbillentyűk (Szimbólumok)</string>
-    <string name="auto_show_toolbar">Eszköztár automatikus megjelenítése</string>
     <string name="landscape">Fekvő</string>
     <string name="prefs_space_bar_text">Egyéni szöveg a szóközbillentyűn</string>
     <string name="custom_subtype">Egyéni altípus</string>
@@ -315,7 +312,6 @@
     <string name="discussion_section_link">vita rész</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
     <string name="label_bin" tools:keep="@string/label_bin">Törlés</string>
-    <string name="toolbar_mode">Eszköztármód</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Egykezes mód oldalának átváltása</string>
     <string name="prefs_language_swipe_distance">Nyelvváltás húzási távolsága</string>
@@ -328,12 +324,7 @@
     <string name="center_suggestion_text_to_enter_summary">Szóköz vagy írásjel leütésével a középső javaslat beírása</string>
     <string name="number_row_hints">Tippek megjelenítése a számsorban</string>
     <string name="show_tld_popup_keys_summary">Webcímek és e-mail-címek beírásakor a pont billentyű leütésére megjelenő felugró ablakokat cserélje ki felső szintű tartománynevekre</string>
-    <string name="toolbar_mode_expandable">Eszköztárbillentyűk és javaslatok</string>
-    <string name="toolbar_mode_toolbar_keys">Csak eszköztárbillentyűk</string>
-    <string name="toolbar_mode_suggestion_strip">Csak javaslatok</string>
-    <string name="toolbar_mode_hidden">Rejtett</string>
     <string name="page_down" tools:keep="@string/page_down">Lefelé lapozás</string>
-    <string name="quick_pin_toolbar_keys">Eszköztárbillentyű kitűzése nyomva tartáskor</string>
     <string name="prefs_long_press_symbol_for_numpad">Szimbólumbillentyű nyomva tartása a számbillentyűzethez</string>
     <string name="subtype_st">Sesotho</string>
     <string name="subtype_dag">Dagbani</string>
@@ -361,13 +352,11 @@
     <string name="shift_removes_autospace">Shift billentyű leütésekor nincs automatikus szóköz</string>
     <string name="shift_removes_autospace_summary">A Shift billentyű eltávolítja a függőben lévő automatikus szóközt</string>
     <string name="show_popup_keys_main">Nagyon gyakori változatok hozzáadása (alapértelmezés)</string>
-    <string name="toolbar_hiding_global">Vágólap- és emodzsisáv elrejtése</string>
     <string name="split" tools:keep="@string/split">Osztott billentyűzet</string>
     <string name="word_left" tools:keep="@string/word_left">Balra lévő szó</string>
     <string name="word_right" tools:keep="@string/word_right">Jobbra lévő szó</string>
     <string name="close_history" tools:keep="@string/close_history">Vágólapelőzmények bezárása</string>
     <string name="clipboard_toolbar_keys">Vágólapeszköztár billentyűinek kiválasztása</string>
-    <string name="pinned_toolbar_keys">Kitűzött eszköztárbillentyűk kiválasztása</string>
     <string name="prefs_font_scale">Billentyűzet betűmérete</string>
     <string name="subtype_generic_phonetic">%s (Fonetikus)</string>
     <string name="subtype_generic_student">%s (Tanuló)</string>
@@ -400,14 +389,9 @@
     <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">Hangbevitel letiltva</string>
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Eszköztár be/ki</string>
     <string name="space_swipe_hide_keyboard_entry">Billentyűzet elrejtése</string>
-    <string name="var_toolbar_direction">Változtatható eszköztárirány</string>
-    <string name="var_toolbar_direction_summary">Fordított irány, ha jobbról balra író billentyűzet-altípus van kiválasztva</string>
     <string name="customize_toolbar_key_codes">Eszköztár billentyűkódjainak testreszabása</string>
     <string name="customize_toolbar_key_code_reset_message">Biztosan törölni szeretné az összes egyéni billentyűkódot?</string>
     <string name="key_code">Billentyűkód</string>
-    <string name="auto_show_toolbar_summary">Eszköztár megjelenítése a gépelés megkezdésekor vagy szöveg kijelölésekor</string>
-    <string name="auto_hide_toolbar">Eszköztár automatikus elrejtése</string>
-    <string name="auto_hide_toolbar_summary">Eszköztár elrejtése, amikor javaslatok állnak rendelkezésre</string>
     <string name="toast_msg_clipboard_copy">Tartalom másolva</string>
     <string name="customize_icons">Ikonok testreszabása</string>
     <string name="customize_icons_reset_message">Biztosan visszaállít minden testre szabott ikont?</string>
@@ -421,7 +405,6 @@
     <string name="prefs_side_padding_scale">Oldalsó margó mérete</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">A webes szerkesztőmezők (többnyire böngészőkben találhatók) nagyon gyakori problémákat okoznak a „javaslatok mindig jelenjenek meg” beállítással</string>
     <string name="show_tld_popup_keys">TLD felugró billentyűk megjelenítése</string>
-    <string name="quick_pin_toolbar_keys_summary">Ez letiltja a többi nyomva tartásos műveletet a nem rögzített eszköztárbillentyűknél</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Vágólap alsó sorának elrendezése</string>
     <string name="save_subtype_per_app">Emlékezzen a kiválasztott nyelvre alkalmazásonként</string>
     <string name="subtype_khipro_bn">%s (Khipro)</string>

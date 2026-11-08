@@ -106,7 +106,6 @@
     <string name="settings_category_correction">تصحیحات</string>
     <string name="settings_category_suggestions">پیشنهادها</string>
     <string name="clipboard_history_retention_time">زمان نگهداری تاریخچه</string>
-    <string name="more_keys_strip_description">کلیدهای بیشتر</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">لمس طولانی کلید فاصله، منوی انتخاب روش ورودی را باز می‌کند</string>
     <string name="day_night_mode_summary">ظاهر برنامه از تنظیمات سیستم پیروی می‌کند</string>
     <string name="enable_clipboard_history_summary">در صورت غیرفعال بودن، دکمه کلیپ‌بورد فقط آخرین محتوای کپی‌شده را جای‌گذاری (Paste) می‌کند</string>
@@ -223,13 +222,6 @@
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">زبان (اولویت)</string>
     <string name="popup_keys_layout" tools:keep="@string/popup_keys_layout">چیدمان</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">نمادها</string>
-    <string name="toolbar_mode">حالت نوار ابزار</string>
-    <string name="toolbar_mode_expandable" tools:keep="@string/toolbar_mode_expandable">کلیدهای نوار ابزار و پیشنهادها</string>
-    <string name="toolbar_mode_toolbar_keys" tools:keep="@string/toolbar_mode_toolbar_keys">فقط کلیدهای نوار ابزار</string>
-    <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">فقط پیشنهادها</string>
-    <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">پنهان</string>
-    <string name="toolbar_hiding_global">پنهان کردن نوار ابزارهای کلیپ‌بورد و ایموجی</string>
-    <string name="toolbar_keys">انتخاب کلیدهای نوار ابزار</string>
     <string name="clipboard" tools:keep="@string/clipboard">کلیپ‌بورد</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">پاک کردن کلیپ‌بورد</string>
     <string name="voice" tools:keep="@string/voice">ورودی صوتی</string>
@@ -252,9 +244,6 @@
     <string name="emoji" tools:keep="@string/emoji">ایموجی</string>
     <string name="floating" tools:keep="@string/floating">صفحه‌کلید شناور</string>
     <string name="clipboard_toolbar_keys">انتخاب کلیدهای نوار ابزار کلیپ‌بورد</string>
-    <string name="pinned_toolbar_keys">انتخاب کلیدهای سنجاق‌شده نوار ابزار</string>
-    <string name="quick_pin_toolbar_keys">سنجاق کردن کلید نوار ابزار با لمس طولانی</string>
-    <string name="quick_pin_toolbar_keys_summary">این کار سایر عملکردهای لمس طولانی را برای کلیدهای سنجاق‌نشده نوار ابزار غیرفعال می‌کند</string>
     <string name="show_popup_hints">نمایش راهنمای عملکردها</string>
     <string name="show_popup_hints_summary">نمایش راهنما در صورتی که لمس طولانی کلید باعث اجرای عملکردی شود</string>
     <string name="remove_redundant_popups">حذف بازشوهای تکراری</string>
@@ -427,8 +416,6 @@
     <string name="touchpad_sensitivity">حساسیت تاچ‌پد</string>
     <string name="touchpad_edge_scroll">پیمایش در لبه تاچ‌پد</string>
     <string name="touchpad_edge_scroll_description">پیمایش خودکار در صورت کشیدن انگشت تا لبه صفحه‌کلید</string>
-    <string name="var_toolbar_direction">جهت متغیر نوار ابزار</string>
-    <string name="var_toolbar_direction_summary">تغییر جهت نوار ابزار در صورت انتخاب زبان راست‌به‌چپ (RTL)</string>
     <string name="toolbar_only_with_hw_keyboard">نمایش نوار ابزار فقط با صفحه‌کلید فیزیکی</string>
     <string name="toolbar_only_with_hw_keyboard_summary">همچنان باید نمایش صفحه‌کلید مجازی را در تنظیمات سیستم فعال کنید</string>
     <string name="prefs_language_swipe_distance">مسافت کشیدن برای تغییر زبان</string>
@@ -436,10 +423,6 @@
     <string name="customize_toolbar_key_code_reset_message">آیا از پاکسازی تمام کدهای سفارشی کلیدها اطمینان دارید؟</string>
     <string name="key_code">کد کلید</string>
     <string name="long_press_code">کد لمس طولانی</string>
-    <string name="auto_show_toolbar">نمایش خودکار نوار ابزار</string>
-    <string name="auto_show_toolbar_summary">در صورت شروع تایپ یا انتخاب متن، نوار ابزار نمایش داده شود</string>
-    <string name="auto_hide_toolbar">پنهان‌سازی خودکار نوار ابزار</string>
-    <string name="auto_hide_toolbar_summary">هنگامی که پیشنهادات در دسترس هستند، نوار ابزار پنهان شود</string>
     <string name="toast_msg_clipboard_copy">محتوا کپی شد</string>
     <string name="customize_icons">سفارشی‌سازی آیکون‌ها</string>
     <string name="customize_icons_reset_message">آیا از بازنشانی تمام آیکون‌های سفارشی اطمینان دارید؟</string>

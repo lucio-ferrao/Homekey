@@ -89,7 +89,7 @@ object FloatingKeyboardUtils {
     }
 
     private fun getSuggestionStripHeight(resources: Resources) =
-        if (Settings.getValues().mToolbarMode == ToolbarMode.HIDDEN) 0
+        if (Settings.getValues().mIsLocked) 0
         else resources.getDimension(R.dimen.config_suggestions_strip_height).toInt()
 
     @SuppressLint("ClickableViewAccessibility")

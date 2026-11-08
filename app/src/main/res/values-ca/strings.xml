@@ -116,7 +116,6 @@
     <string name="settings_category_experimental">Experimental</string>
     <string name="enable_clipboard_history">Activa l\'historial del porta-retalls</string>
     <string name="autospace_after_punctuation">Espai automàtic després d\'un signe de puntuació</string>
-    <string name="more_keys_strip_description">Més tecles</string>
     <string name="show_hints">Mostra consells de tecles</string>
     <string name="autospace_after_punctuation_summary">Si s\'activa, s\'insereix un espai automàticament després de cada signe de puntuació quan es comença a escriure una paraula nova</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Mantenint premuda la barra espaiadora s\'obrirà el menú de selecció del mètode d\'entrada</string>
@@ -167,13 +166,11 @@
     <string name="one_handed" tools:keep="@string/one_handed">Mode d\'una sola mà</string>
     <string name="full_left" tools:keep="@string/full_left">Tot a l\'esquerra</string>
     <string name="full_right" tools:keep="@string/full_right">Tot a la dreta</string>
-    <string name="pinned_toolbar_keys">Seleccioneu les tecles de la barra d\'eines fixades</string>
     <string name="emoji" tools:keep="@string/emoji">Emojis</string>
     <string name="prefs_space_bar_text">Text personalitzat a la barra espaiadora</string>
     <string name="customize_currencies">Personalitza divises</string>
     <string name="customize_currencies_detail">Estableix símbols de moneda principal i fins a 6 secundaris, separats per espai</string>
     <string name="localized_number_row_summary">Prefereix els localitzats als nombres llatins</string>
-    <string name="quick_pin_toolbar_keys">Fixa la tecla de la barra d\'eines en prémer llargament</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Fila de nombres</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Idioma (prioritat)</string>
     <string name="hint_source">Selecciona l\'origen del consell</string>
@@ -240,7 +237,6 @@
     <string name="page_up" tools:keep="@string/page_up">Pàgina amunt</string>
     <string name="page_down" tools:keep="@string/page_down">Pàgina avall</string>
     <string name="show_popup_hints_summary">Mostra consells si la pressió llarga d\'una tecla activa una funcionalitat addicional</string>
-    <string name="quick_pin_toolbar_keys_summary">Això desactivarà altres accions de pressió llarga per a les tecles de la barra d\'eines que no estiguin fixades</string>
     <string name="prefs_long_press_symbol_for_numpad">Pressió llarga a la tecla de símbols per al teclat numèric</string>
     <string name="prefs_bottom_padding_scale">Escala de farciment inferior</string>
     <string name="load_gesture_library">Carrega la biblioteca d\'escriptura gestual</string>
@@ -249,7 +245,6 @@
     <string name="load_gesture_library_button_delete">Suprimir la biblioteca</string>
     <string name="checksum_mismatch_message">Fitxer de biblioteca desconegut. Segur que l\'heu obtingut d\'una font de confiança i que és per a «%s»?</string>
     <string name="popup_keys_symbols" tools:keep="@string/popup_keys_symbols">Símbols</string>
-    <string name="toolbar_keys">Selecciona les tecles de la barra d\'eines</string>
     <string name="clipboard" tools:keep="@string/clipboard">Porta-retalls</string>
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Esborra el porta-retalls</string>
     <string name="voice" tools:keep="@string/voice">Entrada de veu</string>
@@ -279,14 +274,9 @@
     <string name="theme_name_blue_gray" tools:keep="@string/theme_name_blue_gray">Blau Gris</string>
     <string name="dialog_close">Tancar</string>
     <string name="gnu_gpl">Llicència pública general GNU v3.0</string>
-    <string name="var_toolbar_direction">Direcció variable de la barra d\'eines</string>
-    <string name="auto_hide_toolbar_summary">Amaga la barra d\'eines quan els suggeriments estiguin disponibles</string>
     <string name="dictionary_file_wrong_script">Error: l\'script no és compatible amb aquest teclat</string>
     <string name="no_dictionary_message">"Sense un diccionari, només rebràs suggeriments per al text que has introduït abans.&lt;br&gt;\n         Podeu baixar els diccionaris %1$s o comprovar si un diccionari per a «%2$s» es pot baixar directament %3$s."</string>
     <string name="user_dict_settings_add_weight_value">Pes:</string>
-    <string name="auto_show_toolbar">Mostra automàtica de la barra d\'eines</string>
-    <string name="auto_show_toolbar_summary">Mostra la barra d\'eines si s\'inicia l\'entrada o si selecciona text</string>
-    <string name="var_toolbar_direction_summary">Inverteix la direcció quan es selecciona un subtipus de teclat de dreta a esquerra</string>
     <string name="dictionary_load_error">Error en carregar el fitxer del diccionari</string>
     <string name="theme_style">Estil</string>
     <string name="select_color_background">Fons del teclat</string>
@@ -349,7 +339,6 @@
     <string name="space_swipe_move_cursor_entry">Mou el cursor</string>
     <string name="space_swipe_toggle_numpad_entry">Commuta el teclat numèric</string>
     <string name="customize_toolbar_key_codes">Personalitza els codis de tecles de la barra d\'eines</string>
-    <string name="auto_hide_toolbar">Oculta automàticament la barra d\'eines</string>
     <string name="long_press_code">Codi de pressió llarg</string>
     <string name="toast_msg_clipboard_copy">Contingut copiat</string>
     <string name="dictionary_file_error">Error: el fitxer seleccionat no és un fitxer de diccionari vàlid</string>
@@ -408,12 +397,6 @@
     <string name="use_apps_dict">Cercar noms d\'aplicacions</string>
     <string name="use_apps_dict_summary">Utilitzar els noms de les aplicacions instal·lades per a suggeriments i correccions</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
-    <string name="toolbar_mode_suggestion_strip">Només suggeriments</string>
-    <string name="toolbar_hiding_global">Amagar també el porta-retalls i les barres d\'eines d\'emojis</string>
-    <string name="toolbar_mode">Mode barra d\'eines</string>
-    <string name="toolbar_mode_expandable">Tecles de la barra d\'eines i suggeriments</string>
-    <string name="toolbar_mode_toolbar_keys">Només tecles de la barra d\'eines</string>
-    <string name="toolbar_mode_hidden">Amagat</string>
     <string name="popup_order_and_hint_source">Ordre de les tecles emergents i font de pistes</string>
     <string name="landscape">Apaïsat</string>
     <string name="suggest_emojis_summary">Utilitzar diccionari d\'emojis als suggeriments normals</string>

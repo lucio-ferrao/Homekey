@@ -122,7 +122,6 @@
     <string name="autospace_after_punctuation">Αυτόματο κενό μετά τη στίξη</string>
     <string name="ime_settings">Ρυθμίσεις Homekey</string>
     <string name="settings_category_input">Εισαγωγή</string>
-    <string name="more_keys_strip_description">Περισσότερα πλήκτρα</string>
     <string name="prefs_force_incognito_mode_summary">Απενεργοποιήστε την εκμάθηση νέων λέξεων</string>
     <string name="show_hints">Εμφάνιση βασικών υποδείξεων</string>
     <string name="show_hints_summary">Εμφάνιση υποδείξεων με παρατεταμένο πάτημα</string>

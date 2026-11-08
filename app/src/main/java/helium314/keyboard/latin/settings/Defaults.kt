@@ -15,8 +15,6 @@ import helium314.keyboard.latin.utils.LayoutType
 import helium314.keyboard.latin.utils.POPUP_KEYS_LABEL_DEFAULT
 import helium314.keyboard.latin.utils.POPUP_KEYS_ORDER_DEFAULT
 import helium314.keyboard.latin.utils.defaultClipboardToolbarPref
-import helium314.keyboard.latin.utils.defaultPinnedToolbarPref
-import helium314.keyboard.latin.utils.defaultToolbarPref
 
 object Defaults {
     fun initDynamicDefaults(context: Context) {
@@ -78,7 +76,6 @@ object Defaults {
     const val PREF_LANGUAGE_SWITCH_KEY = "internal"
     const val PREF_SHOW_EMOJI_KEY = false
     const val PREF_SHOW_DPAD_KEY = true
-    const val PREF_VARIABLE_TOOLBAR_DIRECTION = true
     const val PREF_ADDITIONAL_SUBTYPES = "de${Separators.SET}${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN:qwerty${Separators.SETS}" +
             "fr${Separators.SET}${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN:qwertz${Separators.SETS}" +
             "hu${Separators.SET}${ExtraValue.KEYBOARD_LAYOUT_SET}=MAIN:qwerty"
@@ -168,14 +165,7 @@ object Defaults {
     const val PREF_SELECTED_SUBTYPE = ""
     const val PREF_URL_DETECTION = false
     const val PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = false
-    const val PREF_TOOLBAR_MODE = "EXPANDABLE"
-    const val PREF_TOOLBAR_HIDING_GLOBAL = true
     const val PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE = false
-    const val PREF_QUICK_PIN_TOOLBAR_KEYS = false
-    val PREF_PINNED_TOOLBAR_KEYS = defaultPinnedToolbarPref
-    val PREF_TOOLBAR_KEYS = defaultToolbarPref
-    const val PREF_AUTO_SHOW_TOOLBAR = false
-    const val PREF_AUTO_HIDE_TOOLBAR = false
     val PREF_CLIPBOARD_TOOLBAR_KEYS = defaultClipboardToolbarPref
     const val PREF_ABC_AFTER_CLIP = false
     const val PREF_ABC_AFTER_SYMBOL_SPACE = true

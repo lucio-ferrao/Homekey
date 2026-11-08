@@ -155,7 +155,6 @@
     <string name="url_detection_summary">Încearcă să detectezi adrese URL și similare ca un singur cuvânt</string>
     <string name="incognito">Forțează modul incognito</string>
     <string name="prefs_force_incognito_mode_summary">Dezactivează învățarea cuvintelor noi</string>
-    <string name="more_keys_strip_description">Mai multe taste</string>
     <string name="language_and_layouts_title">Limbi și aspecte</string>
     <string name="popup_keys_number" tools:keep="@string/popup_keys_number">Rând de numere</string>
     <string name="popup_keys_language_priority" tools:keep="@string/popup_keys_language_priority">Limbă (prioritate)</string>
@@ -176,12 +175,9 @@
     <string name="load_gesture_library_message">Vei avea nevoie de biblioteca pentru „%s”. Bibliotecile incompatibile se pot bloca atunci când utilizezi tastarea prin gesturi.
 \n
 \nAtenție: încărcarea codului extern poate reprezenta un risc de securitate. Utilizează doar o bibliotecă dintr-o sursă în care ai încredere.</string>
-    <string name="toolbar_keys">Selectează tastele barei de instrumente</string>
     <string name="show_popup_hints">Afișează sugestii funcționale</string>
     <string name="hint_source">Selectează sursa indicilor</string>
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Apăsarea lungă a tastei spațiu va solicita meniul de selectare a metodei de introducere</string>
-    <string name="var_toolbar_direction_summary">Inversează direcția când este selectat un subtip de tastatură de la dreapta la stânga</string>
-    <string name="var_toolbar_direction">Direcție variabilă a barei de instrumente</string>
     <string name="prefs_long_press_symbol_for_numpad">Apasă lung tasta simbol pentru tastatura numerică</string>
     <string name="button_title_add_custom_layout">Adaugă un aspect personalizat</string>
     <string name="message_add_custom_layout">Selectează un fișier într-un format compatibil. Informațiile despre formate sunt disponibile %s.</string>
@@ -293,29 +289,23 @@
     <string name="subtype_generic_student">%s (Student)</string>
     <string name="gesture_fast_typing_cooldown_instant">Începe întotdeauna instantaneu</string>
     <string name="prefs_space_bar_text">Text personalizat pe bara de spațiu</string>
-    <string name="auto_show_toolbar">Afișare automată bară de instrumente</string>
     <string name="customize_currencies">Personalizează monedele</string>
     <string name="customize_currencies_detail">Setează simboluri valutare principale și până la 6 secundare, separate prin spațiu</string>
-    <string name="quick_pin_toolbar_keys_summary">Aceasta va dezactiva alte acțiuni de apăsare lungă pentru tastele barei de instrumente care nu sunt fixate</string>
     <string name="settings_screen_toolbar">Bara de instrumente</string>
     <string name="center_suggestion_text_to_enter">Folosește întotdeauna sugestia de mijloc</string>
     <string name="center_suggestion_text_to_enter_summary">La apăsarea pe spațiu sau pe semnul de punctuație, va fi introdusă sugestia din mijloc</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Rândul de jos al clipboardului</string>
-    <string name="auto_hide_toolbar">Ascundere automată a barei de instrumente</string>
-    <string name="auto_hide_toolbar_summary">Ascunde bara de instrumente când sugestiile devin disponibile</string>
     <string name="subtype_generic_extended">%s (Extins)</string>
     <string name="copy_to_clipboard">Copiază în clipboard</string>
     <string name="load">Încarcă</string>
     <string name="button_save_file">Salvează în fișier</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="page_start" tools:keep="@string/page_start">Începutul paginii</string>
-    <string name="auto_show_toolbar_summary">Afișează bara de instrumente dacă începe introducerea sau este selectat un text</string>
     <string name="vibrate_in_dnd_mode">Vibrare în modul nu deranjați</string>
     <string name="language_switch_key_behavior">Comportamentul tastei comutatorului de limbă</string>
     <string name="gesture_floating_preview_static_summary">Afișează cuvântul sugerat când utilizezi gesturi</string>
     <string name="gesture_floating_preview_dynamic_summary">Mută previzualizarea în timpul unui gest</string>
     <string name="gesture_trail_fadeout_duration">Durata de viață a traseului gesturilor</string>
-    <string name="pinned_toolbar_keys">Selectează tastele fixate din bara de instrumente</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Rând de numere</string>
     <string name="subtype_generic_phonetic">%s (Fonetic)</string>
     <string name="subtype_dru">Dargwa (Urakhi)</string>
@@ -334,7 +324,6 @@
     <string name="word_right" tools:keep="@string/word_right">Cuvântul din dreapta</string>
     <string name="page_up" tools:keep="@string/page_up">Pagină sus</string>
     <string name="page_down" tools:keep="@string/page_down">Pagină jos</string>
-    <string name="quick_pin_toolbar_keys">Fixează tasta din bara de instrumente la apăsarea lungă</string>
     <string name="close_history" tools:keep="@string/close_history">Închide istoricul clipboardului</string>
     <string name="clipboard_toolbar_keys">Selectează tastele barei de instrumente clipboard</string>
     <string name="switch_keyboard_after">Comutare la tastatura principală după…</string>
@@ -411,12 +400,6 @@
     <string name="suggest_punctuation">Sugestii de punctuație</string>
     <string name="suggest_punctuation_summary">Afișează semnele de punctuație când nu sunt disponibile alte sugestii</string>
     <string name="popup_order_and_hint_source">Ordinea tastelor pop-up și sursa de indicii</string>
-    <string name="toolbar_mode">Mod bară de instrumente</string>
-    <string name="toolbar_mode_expandable">Taste bară de instrumente și sugestii</string>
-    <string name="toolbar_mode_toolbar_keys">Doar tastele barei de instrumente</string>
-    <string name="toolbar_mode_suggestion_strip">Doar sugestii</string>
-    <string name="toolbar_mode_hidden">Ascuns</string>
-    <string name="toolbar_hiding_global">Ascunde și barele de instrumente pentru clipboard și emoji-uri</string>
     <string name="about_wiki_link">Mergi la Wiki</string>
     <string name="about_wiki_link_description">Wiki-ul poate fi îmbunătățit de orice utilizator GitHub!</string>
     <string name="landscape">Peisaj</string>

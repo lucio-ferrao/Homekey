@@ -43,7 +43,6 @@ import helium314.keyboard.latin.utils.StatsUtils;
 import helium314.keyboard.latin.utils.SubtypeSettings;
 import helium314.keyboard.latin.utils.ToolbarKey;
 import helium314.keyboard.latin.utils.ToolbarUtilsKt;
-import helium314.keyboard.latin.utils.ToolbarMode;
 
 import java.io.File;
 import java.util.Arrays;
@@ -93,7 +92,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_LANGUAGE_SWITCH_KEY = "language_switch_key";
     public static final String PREF_SHOW_EMOJI_KEY = "show_emoji_key";
     public static final String PREF_SHOW_DPAD_KEY = "show_dpad_key";
-   public static final String PREF_VARIABLE_TOOLBAR_DIRECTION = "var_toolbar_direction";
     public static final String PREF_ADDITIONAL_SUBTYPES = "additional_subtypes";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD = "split_keyboard";
     public static final String PREF_ENABLE_SPLIT_KEYBOARD_LANDSCAPE = "split_keyboard_landscape";
@@ -178,11 +176,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_SELECTED_SUBTYPE = "selected_subtype";
     public static final String PREF_URL_DETECTION = "url_detection";
     public static final String PREF_DONT_SHOW_MISSING_DICTIONARY_DIALOG = "dont_show_missing_dict_dialog";
-    public static final String PREF_QUICK_PIN_TOOLBAR_KEYS = "quick_pin_toolbar_keys";
-    public static final String PREF_PINNED_TOOLBAR_KEYS = "pinned_toolbar_keys";
-    public static final String PREF_TOOLBAR_KEYS = "toolbar_keys";
-    public static final String PREF_AUTO_SHOW_TOOLBAR = "auto_show_toolbar";
-    public static final String PREF_AUTO_HIDE_TOOLBAR = "auto_hide_toolbar";
     public static final String PREF_CLIPBOARD_TOOLBAR_KEYS = "clipboard_toolbar_keys";
     public static final String PREF_ABC_AFTER_CLIP = "abc_after_clip";
     public static final String PREF_ABC_AFTER_SYMBOL_SPACE = "abc_after_symbol_space";
@@ -190,8 +183,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_REMOVE_REDUNDANT_POPUPS = "remove_redundant_popups";
     public static final String PREF_SPACE_BAR_TEXT = "space_bar_text";
     public static final String PREF_TIMESTAMP_FORMAT = "timestamp_format";
-    public static final String PREF_TOOLBAR_MODE = "toolbar_mode";
-    public static final String PREF_TOOLBAR_HIDING_GLOBAL = "toolbar_hiding_global";
     public static final String PREF_TOOLBAR_SWIPE_DOWN_TO_HIDE = "toolbar_swipe_down_to_hide";
     public static final String PREF_SPELLCHECK_SUGGEST = "spellcheck_suggest";
     public static final String PREF_SHOW_ONLY_TOOLBAR_WITH_HARDWARE_KEYBOARD = "only_toolbar_with_hw_keyboard";
@@ -346,9 +337,6 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         mPrefs.edit().putBoolean(Settings.PREF_ALWAYS_INCOGNITO_MODE, !oldValue).apply();
     }
 
-    public static ToolbarMode readToolbarMode(final SharedPreferences prefs) {
-        return ToolbarMode.valueOf(prefs.getString(PREF_TOOLBAR_MODE, Defaults.PREF_TOOLBAR_MODE));
-    }
 
     public static KeyboardActionListener.SwipeAction readHorizontalSpaceSwipe(SharedPreferences prefs) {
         try {

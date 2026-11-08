@@ -160,7 +160,6 @@ Nouveau dictionnaire:
     <string name="settings_category_miscellaneous">Divers</string>
     <string name="prefs_force_incognito_mode_summary">Désactive l\'apprentissage de nouveaux mots</string>
     <string name="language_and_layouts_title">Langues &amp; Dispositions</string>
-    <string name="more_keys_strip_description">Touches supplémentaires</string>
     <string name="number_row_summary">Toujours afficher la ligne de chiffres</string>
     <string name="localized_number_row">Ligne de chiffres en language local</string>
     <string name="localized_number_row_summary">Privilégie les chiffres en language local à la place des chiffres latins</string>
@@ -174,7 +173,6 @@ Nouveau dictionnaire:
     <string name="popup_keys_language_priority">Langue (prioritaire)</string>
     <string name="popup_keys_layout">Disposition</string>
     <string name="popup_keys_symbols">Symboles</string>
-    <string name="toolbar_keys">Sélectionner les touches de la barre d\'outils</string>
     <string name="clipboard">Presse-papier</string>
     <string name="clear_clipboard">Effacer presse-papier</string>
     <string name="voice">Entrée vocale</string>
@@ -277,7 +275,6 @@ Nouveau dictionnaire:
     <string name="file_read_error">Impossible de lire le fichier</string>
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
-    <string name="var_toolbar_direction">Sens variable de la barre d\'outils</string>
     <string name="prefs_long_press_symbol_for_numpad">Appui long sur la touche des symboles pour afficher le pavé numérique</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Pavé téléphonique</string>
     <string name="space_swipe_move_cursor_entry">Déplacer le curseur</string>
@@ -291,7 +288,6 @@ Nouveau dictionnaire:
     <string name="layout_numpad" tools:keep="@string/layout_numpad">Pavé numérique</string>
     <string name="gnu_gpl">Licence publique générale GNU v3.0</string>
     <string name="show_vertical_space_swipe">Balayage vertical de la barre espace</string>
-    <string name="var_toolbar_direction_summary">Inverser le sens de la barre d\'outils lorsqu\'un clavier droite-gauche est sélectionné</string>
     <string name="layout_symbols" tools:keep="@string/layout_symbols">Symboles</string>
     <string name="subtype_generic_student">%s (Étudiant)</string>
     <string name="subtype_probhat_bn_BD">%s (Probhat)</string>
@@ -306,15 +302,8 @@ Nouveau dictionnaire:
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Touches fonctionnelles</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Touches fonctionnelles (Plus de symboles)</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Touches fonctionnelles (Symboles)</string>
-    <string name="quick_pin_toolbar_keys">Épingler les touches de la barre d\'outils lors d\'un appui-long</string>
     <string name="settings_screen_toolbar">Barre d\'outils</string>
-    <string name="pinned_toolbar_keys">Sélectionner les touches épinglées de la barre d\'outils</string>
-    <string name="quick_pin_toolbar_keys_summary">Cela désactivera les autres actions lors d\'un appui-long sur les touches de la barre d\'outils qui ne sont pas épinglées</string>
     <string name="toast_msg_clipboard_copy">Contenu copié</string>
-    <string name="auto_hide_toolbar">Masquer automatiquement la barre d\'outils</string>
-    <string name="auto_hide_toolbar_summary">La barre d\'outils est masquée lorsque les suggestions sont disponibles</string>
-    <string name="auto_show_toolbar_summary">La barre d\'outils s\'affiche si la saisie débute ou si le texte est sélectionné</string>
-    <string name="auto_show_toolbar">Afficher automatiquement la barre d\'outils</string>
     <string name="language_switch_key_behavior">Comportement de la touche de changement de langue</string>
     <string name="emoji" tools:keep="@string/emoji">Emoji</string>
     <string name="gesture_fast_typing_cooldown">Temps de réponse de la saisie rapide</string>
@@ -413,12 +402,6 @@ Nouveau dictionnaire:
     <string name="use_apps_dict">Rechercher les noms des applications</string>
     <string name="use_apps_dict_summary">Utiliser les noms des applications installées pour les suggestions et les corrections</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
-    <string name="toolbar_mode">Mode de la barre d\'outils</string>
-    <string name="toolbar_mode_toolbar_keys">Touches de la barre d\'outils uniquement</string>
-    <string name="toolbar_mode_suggestion_strip">Suggestions uniquement</string>
-    <string name="toolbar_mode_hidden">Masquée</string>
-    <string name="toolbar_hiding_global">Masquer également le presse-papiers et les barres d\'outils émoji</string>
-    <string name="toolbar_mode_expandable">Touches de la barre d\'outil et suggestions</string>
     <string name="landscape">Paysage</string>
     <string name="popup_order_and_hint_source">Ordre des touches popup et source des symboles</string>
     <string name="suggest_emojis_summary">Utiliser le dictionnaire d\'emojis dans les suggestions normales</string>

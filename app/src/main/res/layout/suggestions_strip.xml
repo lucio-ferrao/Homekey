@@ -18,7 +18,7 @@
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
              We just need to ignore the system's audio and haptic feedback settings. -->
         <ImageButton
-            android:id="@+id/suggestions_strip_toolbar_key"
+            android:id="@+id/suggestions_strip_apps_key"
             android:layout_width="@dimen/config_suggestions_strip_edge_key_width"
             android:layout_height="@dimen/config_suggestions_strip_edge_key_width"
             android:layout_gravity="center_vertical"
@@ -26,21 +26,7 @@
             android:layout_marginStart="1dp"
             android:background="@drawable/toolbar_expand_key_background"
             style="?attr/suggestionWordStyle"
-            android:contentDescription="@string/more_keys_strip_description" />
-        <HorizontalScrollView
-            android:id="@+id/toolbar_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbarThumbHorizontal="@color/toolbar_scrollbar"
-            android:visibility="gone">
-            <LinearLayout
-                android:id="@+id/toolbar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                style="?attr/suggestionWordStyle">
-            </LinearLayout>
-        </HorizontalScrollView>
+            android:contentDescription="@string/apps" />
         <!-- Provide audio and haptic feedback by ourselves based on the keyboard settings.
              We just need to ignore the system's audio and haptic feedback settings. -->
         <!-- todo: sth is fishy with that maxwidth
@@ -55,13 +41,5 @@
             android:gravity="center_horizontal"
             android:hapticFeedbackEnabled="false"
             android:soundEffectsEnabled="false" />
-        <LinearLayout
-            android:id="@+id/pinned_keys"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:minWidth="0dp"
-            style="?attr/suggestionWordStyle">
-        </LinearLayout>
     </LinearLayout>
 </merge>

@@ -14,5 +14,4 @@ import helium314.keyboard.latin.SuggestedWords;
 public interface SuggestionStripViewAccessor {
     void setNeutralSuggestionStrip();
     void setSuggestions(final SuggestedWords suggestedWords);
-    void showSuggestionStrip();
 }

@@ -113,7 +113,6 @@
     <string name="secondary_locale">Многоязычный набор текста</string>
     <string name="load_gesture_library">Загрузить библиотеку ввода жестами</string>
     <string name="load_gesture_library_summary">Предоставьте встроенную библиотеку для обеспечения поддержки ввода с помощью жестов</string>
-    <string name="more_keys_strip_description">Больше клавиш</string>
     <string name="incognito">Режим инкогнито</string>
     <string name="prefs_force_incognito_mode_summary">Отключить запоминание новых слов</string>
     <string name="show_emoji_key">Клавиша эмодзи</string>
@@ -220,7 +219,6 @@
     <string name="hint_source">Выберите источник подсказки</string>
     <string name="button_select_language">Выберите язык</string>
     <string name="day_or_night_image">Установить изображение для дневного или ночного режима?</string>
-    <string name="toolbar_keys">Выбрать клавиши панели инструментов</string>
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Океан</string>
     <string name="show_popup_hints_summary">Показывать подсказку, если долгое нажатие на функциональную клавишу открывает всплывающее окно</string>
     <string name="theme_name_sand" tools:keep="@string/theme_name_sand">Песок</string>
@@ -283,8 +281,6 @@
     <string name="layout_phone" tools:keep="@string/layout_phone">Телефон</string>
     <string name="layout_phone_symbols" tools:keep="@string/layout_phone_symbols">Символы телефона</string>
     <string name="hidden_features_message">► Долгое нажатие на закреплённые клавиши панели инструментов открывает дополнительные функции: &lt;br&gt; \n\t• буфер обмена &amp;#65515; вставить &lt;br&gt; \n\t• перемещение влево/вправо &amp;#65515; на слово влево/вправо &lt;br&gt; \n\t• перемещение вверх/вниз &amp;#65515; на страницу вверх/вниз &lt;br&gt; \n\t• на слово влево/вправо &amp;#65515; в начало/конец строки &lt;br&gt; \n\t• на страницу вверх/вниз &amp;#65515; в начало/конец страницы &lt;br&gt; \n\t• копировать &amp;#65515; вырезать &lt;br&gt; \n\t• выделить слово &amp;#8596; выделить всё &lt;br&gt; \n\t• отменить &amp;#8596; повторить &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на клавиши в панели инструментов над списком подсказок закрепляет их на панели подсказок. &lt;br&gt; &lt;br&gt; \n► Удерживайте клавишу с запятой для доступа к буферу обмена, меню эмодзи, одноручному режиму, настройкам или переключению языка: &lt;br&gt; \n\t• Клавиши эмодзи и переключения языка исчезнут из этого меню, если для них включены отдельные клавиши на клавиатуре; &lt;br&gt; \n\t• В некоторых раскладках это не клавиша с запятой, а клавиша в той же позиции (например, \'q\' в раскладке Дворака). &lt;br&gt; &lt;br&gt; \n► В режиме инкогнито новые слова не сохраняются в словаре, а использованные эмодзи не добавляются в список недавних. &lt;br&gt; &lt;br&gt; \n► Нажмите на значок инкогнито, чтобы открыть панель инструментов. &lt;br&gt; &lt;br&gt; \n► Непрерывный ввод (скольжением): проведите от клавиши \"Shift\" к любой другой клавише, чтобы ввести одну заглавную букву: &lt;br&gt; \n\t• Это также работает с клавишами \'?123\' для быстрого ввода одного символа и других подобных клавиш. &lt;br&gt; &lt;br&gt; \n► Удерживайте \"Shift\" или клавишу символов, введите один или несколько знаков, а затем отпустите удерживаемую клавишу, чтобы автоматически вернуться к предыдущей раскладке. &lt;br&gt; &lt;br&gt; \n► Удерживайте подсказку на панели подсказок, чтобы увидеть дополнительные варианты или клавишу удаления, позволяющую убрать это слово из словаря. &lt;br&gt; &lt;br&gt; \n► Проведите вверх от подсказки, чтобы открыть расширенный список вариантов, и отпустите палец на нужном слове, чтобы выбрать его. &lt;br&gt; &lt;br&gt; \n► Удерживайте запись в истории буфера обмена, чтобы закрепить её (она останется в буфере, пока вы её не открепите). &lt;br&gt; &lt;br&gt; \n► Смахните влево в окне буфера обмена, чтобы удалить запись (кроме закреплённых) &lt;br&gt; &lt;br&gt; \n► Выделите текст и нажимайте \"Shift\", чтобы переключать регистр: \"все строчные\", \"ВСЕ ПРОПИСНЫЕ\" или \"С Заглавной Буквы\". &lt;br&gt; &lt;br&gt; \n► Вы можете добавлять словари, открывая их через файловый менеджер: &lt;br&gt; \n\t• Эта функция работает только с &lt;i&gt;content-uris&lt;/i&gt; и не поддерживает &lt;i&gt;file-uris&lt;/i&gt;, поэтому она может быть недоступна в некоторых проводниках. &lt;br&gt; &lt;br&gt; \n► Для пользователей, выполняющих резервное копирование вручную с root-доступом: &lt;br&gt; \n\t• Начиная с Android 7, файл настроек (shared preferences) находится не в стандартном каталоге, так как приложение использует %s. Это необходимо для того, чтобы настройки можно было прочитать до разблокировки устройства, например, при загрузке системы; &lt;br&gt; \n\t• Файл находится по пути /data/user_de/0/package_id/shared_prefs/ хотя это может зависеть от конкретного устройства и версии Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Режим отладки / Debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Долгое нажатие на подсказку покажет словарь, из которого она была взята. &lt;br&gt; &lt;br&gt; \n► При использовании отладочной версии (debug APK) вы можете найти Debug Settings в разделе Дополнительные, хотя их польза ограничена выгрузкой данных словарей в журнал. &lt;br&gt; \n\t• Для релизной версии (release APK) необходимо несколько раз нажать на номер версии в разделе &lt;i&gt;О приложении&lt;/i&gt; после чего в &lt;i&gt;Дополнительных&lt;/i&gt; появятся настройки отладки. &lt;br&gt; \n\t• При включении настройки &lt;i&gt;Показывать сведения о подсказках&lt;/i&gt;, над словами будут отображаться мелкие цифры - внутренний рейтинг слова и словарь-источник. &lt;br&gt; &lt;br&gt; \n► В случае сбоя приложения при следующем открытии настроек вам будет предложено сохранить или отправить журналы ошибок &lt;br&gt; &lt;br&gt; \n► При использовании многоязычного ввода на клавише пробела будет отображаться коэффициент вероятности, используемый для определения текущего языка. &lt;br&gt; &lt;br&gt; \n► Над подсказками могут отображаться мелкие цифры, указывающие на внутренний рейтинг и словарь-источник (эту функцию можно отключить).</string>
-    <string name="var_toolbar_direction_summary">Менять направление панели инструментов для языков с письмом справа налево</string>
-    <string name="var_toolbar_direction">Адаптивное направление панели инструментов</string>
     <string name="subtype_probhat_bn_BD">%s (Пробхат)</string>
     <string name="show_horizontal_space_swipe">Горизонтальное смахивание по пробелу</string>
     <string name="show_vertical_space_swipe">Вертикальное смахивание по пробелу</string>
@@ -294,20 +290,13 @@
     <string name="subtype_generic_student">%s (Студенческая)</string>
     <string name="language_switch_key_behavior">Действие клавиши смены языка</string>
     <string name="emoji" tools:keep="@string/emoji">Эмодзи</string>
-    <string name="pinned_toolbar_keys">Выбрать закреплённые клавиши панели инструментов</string>
-    <string name="quick_pin_toolbar_keys_summary">При этом отключатся остальные функции долгого нажатия для незакреплённых клавиш панели</string>
-    <string name="quick_pin_toolbar_keys">Закреплять клавиши панели инструментов при долгом нажатии</string>
     <string name="toast_msg_clipboard_copy">Контент скопирован</string>
-    <string name="auto_show_toolbar">Показывать панель инструментов автоматически</string>
-    <string name="auto_hide_toolbar">Скрывать панель инструментов автоматически</string>
     <string name="center_suggestion_text_to_enter">Всегда использовать среднюю подсказку</string>
     <string name="center_suggestion_text_to_enter_summary">При нажатии пробела или знака препинания будет выбран средний вариант подсказки</string>
     <string name="close_history" tools:keep="@string/close_history">Закрыть историю буфера обмена</string>
     <string name="clipboard_toolbar_keys">Выбрать клавиши панели буфера обмена</string>
     <string name="subtype_generic_extended">%s (Расширенная)</string>
-    <string name="auto_hide_toolbar_summary">Скрывать панель инструментов при появлении подсказок</string>
     <string name="settings_screen_toolbar">Панель инструментов</string>
-    <string name="auto_show_toolbar_summary">Показывать панель инструментов при начале ввода или выделении текста</string>
     <string name="more_colors">Показать больше цветов</string>
     <string name="all_colors_warning">Эта настройка предоставляет доступ ко всем цветам, используемым внутри приложения. Список цветов может быть изменён в любой момент. Значения по умолчанию формируются на основе стандартных цветов, а их названия не переводятся.</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Функциональные клавиши (Дополнительные символы)</string>
@@ -408,12 +397,6 @@
     <string name="use_apps_dict">Поиск по названиям приложений</string>
     <string name="use_apps_dict_summary">Использовать названия установленных приложений для подсказок и исправлений</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
-    <string name="toolbar_mode_expandable">Клавиши панели и подсказки</string>
-    <string name="toolbar_mode">Режим панели инструментов</string>
-    <string name="toolbar_mode_toolbar_keys">Только клавиши</string>
-    <string name="toolbar_mode_suggestion_strip">Только подсказки</string>
-    <string name="toolbar_mode_hidden">Скрыть</string>
-    <string name="toolbar_hiding_global">Скрыть панели инструментов буфера обмена и эмодзи</string>
     <string name="popup_order_and_hint_source">Порядок всплывающих клавиш и источник подсказок</string>
     <string name="landscape">Альбомный режим</string>
     <string name="suggest_emojis">Предлагать эмодзи</string>

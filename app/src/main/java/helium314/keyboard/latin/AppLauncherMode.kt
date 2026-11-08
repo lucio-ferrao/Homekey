@@ -54,7 +54,6 @@ import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.graphics.drawable.toBitmap
 import helium314.keyboard.event.Event
@@ -381,7 +380,6 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             return
         }
         val strip = latinIME.suggestionStripView ?: return
-        strip.setToolbarVisibility(false)
         strip.setLauncherMode(true)
         strip.setExternalSuggestionView(createRow(strip), false)
     }
@@ -511,17 +509,11 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         row.orientation = LinearLayout.HORIZONTAL
         row.gravity = Gravity.CENTER_VERTICAL
 
-        // the icon of the apps key, which leaves the launcher mode
-        val searchIcon = ImageView(context)
-        searchIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_apps)?.mutate()?.apply { setTint(color) })
-        searchIcon.setPadding(8.dpToPx(res), 0, 4.dpToPx(res), 0)
-        searchIcon.setOnClickListener { stop() }
-        row.addView(searchIcon, LinearLayout.LayoutParams(32.dpToPx(res), ViewGroup.LayoutParams.MATCH_PARENT))
         val queryView = TextView(context)
         queryView.text = query
         queryView.setTextColor(color)
         queryView.textSize = 16f
-        queryView.setPadding(0, 0, 12.dpToPx(res), 0)
+        queryView.setPadding(4.dpToPx(res), 0, 12.dpToPx(res), 0)
         row.addView(queryView, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
             .apply { gravity = Gravity.CENTER_VERTICAL })
         queryView.gravity = Gravity.CENTER_VERTICAL

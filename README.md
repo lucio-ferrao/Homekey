@@ -15,7 +15,7 @@ It is a personal project, made for one phone (a Pixel 8 Pro) and Portuguese (Por
 - [Credits](#credits)
 
 # Launcher mode
-A double tap on the space bar (or the Apps key of the toolbar) turns the suggestion strip into a search: the keys type into it instead of the app, and another double tap, the Apps icon or a tap in the app leaves it.
+A double tap on the space bar, or the arrow at the left of the suggestion strip, turns the suggestion strip into a search: the keys type into it instead of the app, and another double tap, the arrow (now pointing the other way) or a tap in the app leaves it.
 
 - Apps of the main profile, the work profile and the private space; an app of a locked private space unlocks it first and opens once it is unlocked
 - Monochrome icons in the text color (themed layer, or the icon reduced to two shades with its background removed), cached between sessions
@@ -48,6 +48,7 @@ All the features of HeliBoard (see its [wiki](https://github.com/HeliBorg/HeliBo
 - Notifications arriving while typing show in the suggestion strip until the next key or 10 s; a tap opens them
 - Symbols: `/` as the hint and long press of the period; emoji next to Enter in its alternatives, before the new line where Enter sends
 - Enter without the colored circle, like the other functional keys
+- No toolbar: the arrow of the suggestion strip opens the apps instead, and the toolbar of HeliBoard (its keys, pinned keys and settings) is gone; the clipboard history keeps its own row of keys
 - A tap on the left third of the period next to the space bar counts as space, and "word.word" with both words in the dictionary becomes "word word"
 - Enter sends in Element X, and taps the send button in Claude (through the accessibility service); suggestions and corrections in Instagram messages
 
@@ -105,11 +106,10 @@ See repo's [LICENSE](/LICENSE) file.
 
 Since the app is based on Apache 2.0 licensed AOSP Keyboard, an [Apache 2.0](LICENSE-Apache-2.0) license file is provided.
 The names of the emojis (`assets/emoji/nomes.txt`) come from the CLDR annotations, under the [Unicode License v3](https://www.unicode.org/license.txt).
-The icon is licensed under [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). A [license file](LICENSE-CC-BY-SA-4.0) is also included.
+The icon of Homekey (two keys leaning in for a kiss: the KISS launcher and the keyboard) is its own; the icon of HeliBoard, no longer used, was licensed under [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) ([license file](LICENSE-CC-BY-SA-4.0)).
 
 # Credits
 - [HeliBoard](https://github.com/HeliBorg/HeliBoard), which Homekey is a fork of, and its [contributors](https://github.com/HeliBorg/HeliBoard/graphs/contributors)
-- Icon by [Fabian OvrWrt](https://github.com/FabianOvrWrt) with contributions from [The Eclectic Dyslexic](https://github.com/the-eclectic-dyslexic)
 - [OpenBoard](https://github.com/openboard-team/openboard)
 - [AOSP Keyboard](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/)
 - [LineageOS](https://review.lineageos.org/admin/repos/LineageOS/android_packages_inputmethods_LatinIME)
