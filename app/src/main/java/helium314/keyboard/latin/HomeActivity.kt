@@ -45,7 +45,7 @@ class HomeActivity : Activity() {
         val dp = resources.displayMetrics.density
         // the search: a normal text field (cursor, selection, paste), with the arrow of the apps
         field = EditText(this).apply {
-            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+            inputType = InputType.TYPE_CLASS_TEXT
             privateImeOptions = PRIVATE_IME_OPTIONS
             imeOptions = EditorInfo.IME_ACTION_GO or EditorInfo.IME_FLAG_NO_EXTRACT_UI or EditorInfo.IME_FLAG_NO_FULLSCREEN
             isSingleLine = true
@@ -53,7 +53,9 @@ class HomeActivity : Activity() {
             textSize = 18f
             setBackgroundColor(Color.argb(170, 20, 20, 20))
             setPadding((12 * dp).toInt(), (10 * dp).toInt(), (12 * dp).toInt(), (10 * dp).toInt())
-            // the arrow that opens the apps from the suggestion strip
+            // the arrow that opens the apps from the suggestion strip; the icons are loaded here too, as the home
+            // screen can start before the keyboard (after an update, for instance)
+            KeyboardIconsSet.instance.loadIcons(this@HomeActivity)
             setCompoundDrawablesRelativeWithIntrinsicBounds(KeyboardIconsSet.instance
                 .getNewDrawable(KeyboardIconsSet.NAME_TOOLBAR_KEY, this@HomeActivity)?.mutate()?.apply { setTint(Color.WHITE) },
                 null, null, null)
