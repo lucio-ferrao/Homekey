@@ -329,7 +329,6 @@
     <string name="suggest_clipboard_content">Inhalte der Zwischenablage vorschlagen</string>
     <string name="after_symbol_and_space">Drücken der Eingabetaste oder der Leertaste nach anderen Tasten in der Symbolansicht</string>
     <string name="after_clip">Auswählen eines Eintrags des Zwischenablagenverlaufs</string>
-    <string name="after_emoji">Auswählen eines Emojis in der Emojiansicht</string>
     <string name="switch_keyboard_after">Zur Haupttastatur zurückkehren nach …</string>
     <string name="space_swipe_toggle_numpad_entry">Ziffernblock umschalten</string>
     <string name="show_popup_keys_main">Sehr häufige Varianten hinzufügen (Standard)</string>
@@ -341,7 +340,6 @@
     <string name="gesture_trail_fadeout_duration">Anzeigedauer der Gestenspur</string>
     <string name="prefs_space_bar_text">Benutzerdefinierter Text auf der Leertaste</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Ziffernzeile</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Untere Emoji-Zeile</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Untere Zwischenablage-Zeile</string>
     <string name="icon_style">Symbolstil</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Eingabe</string>
@@ -375,7 +373,6 @@
     <string name="number_row_hints">Hinweise auf der Ziffernzeile zeigen</string>
     <string name="split" tools:keep="@string/split">Getrennte Tastatur</string>
     <string name="prefs_font_scale">Tastatur-Schriftgrad</string>
-    <string name="prefs_emoji_font_scale">Emoji-Ansicht-Schriftgrad</string>
     <string name="prefs_language_swipe_distance">Wischabstand zum Wechseln der Sprache</string>
     <string name="locales_with_dict">Sprachen mit Wörterbüchern</string>
     <string name="get_colors_message">Du kannst Farben im %s finden und teilen.</string>
@@ -407,12 +404,9 @@
     <string name="subtype_st">Sesotho</string>
     <string name="backspace_reverts_autocorrect">Rücktaste macht Autokorrektur rückgängig</string>
     <string name="autospace_after_suggestion">Automatische Leerzeichen nach Auswählen eines Vorschlags</string>
-    <string name="prefs_emoji_key_fit">Emoji-Tastengröße an Schriftgröße anpassen</string>
     <string name="backup_restored">Backup wiederhergestellt</string>
     <string name="use_apps_dict">App-Namen nachschlagen</string>
     <string name="use_apps_dict_summary">Namen der installierten Apps für Vorschläge und Korrekturen verwenden</string>
-    <string name="prefs_emoji_skin_tone">Standardhautton für Emojis</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutral</string>
     <string name="toolbar_mode_expandable">Symbolleisten-Tasten und Vorschläge</string>
     <string name="toolbar_mode_toolbar_keys">Nur Symbolleisten-Tasten</string>
     <string name="popup_order_and_hint_source">Popup-Tasten-Reihenfolge und Vorschlagsquelle</string>
@@ -422,7 +416,6 @@
     <string name="landscape">Querformat</string>
     <string name="toolbar_mode_suggestion_strip">Nur Vorschläge</string>
     <string name="toolbar_mode">Symbolleisten-Modus</string>
-    <string name="show_emoji_descriptions">Emoji-Beschreibung bei langem Drücken anzeigen</string>
     <string name="suggest_emojis">Emojis vorschlagen</string>
     <string name="suggest_emojis_summary">Emoji-Wörterbuch in normalen Vorschlägen verwenden</string>
     <string name="space_swipe_hide_keyboard_entry">Tastatur verstecken</string>
@@ -434,7 +427,6 @@
     <string name="inline_emoji_search_summary">Emojis werden nur vorgeschlagen, wenn ein Wort direkt auf einen Doppelpunkt folgt</string>
     <string name="emoji_dictionary_required">Ein Emoji-Wörterbuch wird für diese Funktion benötigt. Wörterbücher im .dict-Format können %s heruntergeladen werden.</string>
     <string name="save_subtype_per_app">Sprache pro App merken</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Untere Emoji-Zeile mit Aktionstaste</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Untere Zwischenablage-Zeile mit Aktiontaste</string>
     <string name="custom_emoji_font">Benutzerdefinierte Emoji-Schriftart aus Datei festlegen</string>
     <string name="number_row_in_symbols">Ziffernzeile in Symbolansicht anzeigen</string>
@@ -445,9 +437,7 @@
     <string name="toolbar_swipe_down_to_hide">Tastatur durch Wischen ausblenden</string>
     <string name="toolbar_swipe_down_to_hide_summary">Auf Symbolleiste nach unten wischen, um Tastatur zu schließen</string>
     <string name="ask_later">Später fragen</string>
-    <string name="search_field_placeholder">Suchen</string>
     <string name="folded">Eingeklappt</string>
-    <string name="emoji_search_title">Emojis suchen</string>
     <string name="auto_correct_capitalized_suggestions">Vorgeschlagene Großschreibung automatisch korrigieren</string>
     <string name="auto_correct_capitalized_suggestions_description">Nachdem die Umschalttaste für die Großschreibung gedrückt wurde, wird die Autokorrektur aktiviert</string>
     <string name="custom_punctuation_suggestions">Satzzeichenvorschläge festlegen</string>
@@ -547,7 +537,6 @@
     <string name="gesture_data_no_known_dict">Die Hintergrund-Erfassung sammelt nur Wörter aus Wörterbüchern, die integriert oder im &lt;a href=%s&gt;Wörterbuch-Repository&lt;/a&gt; verfügbar sind. Derzeit hast du kein solches Wörterbuch aktiviert.</string>
     <string name="gesture_data_swipe_o_scope">Werkzeug zur Visualisierung von Gestendaten: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
     <string name="show_dpad_key">Steuerkreuztaste</string>
-    <string name="recent_emojis_cleared">Zuletzt verwendete Emojis gelöscht</string>
     <string name="prefs_enable_hardware_keyboard">Unterstützung für Hardwaretastaturen</string>
     <string name="accent_shifted_icon">Akzentfarbe für das Umschaltsymbol</string>
 </resources>

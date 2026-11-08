@@ -341,7 +341,6 @@
     <string name="remove_redundant_popups">Retirar emerxentes redundantes</string>
     <string name="remove_redundant_popups_summary">Retira as letras emerxentes que xa están presentes na disposición base</string>
     <string name="after_symbol_and_space">Premer no enter o espazo despois doutras teclas na vista de símbolos</string>
-    <string name="after_emoji">Seleccionar emoji na vista de emojis</string>
     <string name="after_clip">Seleccionar entrada no historial do portapapeis</string>
     <string name="gesture_floating_preview_static_summary">Ver a palabra suxerida ao facer o xesto</string>
     <string name="gesture_floating_preview_dynamic_summary">Mover a vista previa durante o xesto</string>
@@ -350,7 +349,6 @@
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Número de fila</string>
     <string name="icon_style">Estilo da icona</string>
     <string name="prefs_space_bar_text">Texto persoal na barra de espazo</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Liña inferior de emoji</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Liña inferior de portapapeis</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Eliminar</string>
@@ -382,7 +380,6 @@
     <string name="summary_customize_background_image_landscape">Se non se establece usarase a imaxe como retrato</string>
     <string name="split" tools:keep="@string/split">Telcado separado</string>
     <string name="prefs_font_scale">Escala do tamaño da letra</string>
-    <string name="prefs_emoji_font_scale">Escala da visualización de emoji</string>
     <string name="prefs_side_padding_scale">Escala da marxe lateral</string>
     <string name="number_row_hints">Mostrar suxestións na fila de números</string>
     <string name="layout_in_use">Aviso: xa se está usando a disposición</string>
@@ -414,7 +411,6 @@
     <string name="autospace_before_gesture_typing">Espazo automatico antes do xesto escribindo palabra</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
-    <string name="prefs_emoji_key_fit">Escalar tamaño da tecla emoji ao tamaño da letra</string>
     <string name="backspace_reverts_autocorrect">Retroceso reverte a autocorrección</string>
     <string name="popup_order_and_hint_source">Orde das teclas emerxentes e orixe das suxestións</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
@@ -427,9 +423,6 @@
     <string name="toolbar_mode_toolbar_keys">Só teclas da barra de ferramentas</string>
     <string name="toolbar_mode_suggestion_strip">Só suxestións</string>
     <string name="toolbar_mode_hidden">Oculta</string>
-    <string name="prefs_emoji_skin_tone">Tono de pel por defecto para emojis</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutro</string>
-    <string name="show_emoji_descriptions">Mostrar descrición do emoji con pulsación longa</string>
     <string name="toolbar_hiding_global">Ocultar tamén as barras de ferramentas de emoji e portapapeis</string>
     <string name="suggest_emojis">Suxerir emojis</string>
     <string name="suggest_emojis_summary">Usar dicionario de emoji nas suxestións normais</string>
@@ -447,13 +440,10 @@
     <string name="subtype_khipro_bn">%s (Khipro)</string>
     <string name="number_row_in_symbols">Mostrar fila de número na vista de símbolos</string>
     <string name="custom_emoji_font">Escoller emojis persoais desde ficheiro</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emojis coa tecla de acción</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior do portapapeis coa tecla de acción</string>
     <string name="timestamp_description">Podes engadir a telca de marca de tempo usando unha disposición persoal coa tecla \'marca de tempo\', ou código de tecla -10043</string>
     <string name="prefs_bottom_row_scale">Escala da fila inferior</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Teclas de función (Khipro)</string>
-    <string name="emoji_search_title">Buscar emoji</string>
-    <string name="search_field_placeholder">Buscar</string>
     <string name="ask_later">Preguntar máis tarde</string>
     <string name="gesture_data_screen">Obtendo datos dos xestos</string>
     <string name="gesture_data_description">&lt;b&gt;Esta é a pantalla de obtención dos datos para os xestos de escritura!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; É parte dun &lt;a href=https://nlnet.nl/project/GestureTyping&gt;proxecto financiado por NLnet&lt;/a&gt; que intenta producir unha biblioteca de escritura por xestos totalmente de código aberto e capaz de substituír a biblioteca de código oculto de Google.&lt;b/&gt; O resultado proxectado pretende ser unha substitución simple para teclados baseados en AOSP, pero tamén utilizable por outros teclados, ex. FloriBoard.&lt;br/&gt;&lt;br/&gt; Para desenvolver a biblioteca, é tremendamente útil ter datos de xestos en diferentes idiomas e diferentes persoas usuarias.&lt;br/&gt; Ao obter e enviar datos de xestos ao escribir contribúes ao conxunto de datos aberto que se usarán para o desenvolvemento. O conxunto de datos vaise publicar con licenza CC BY-SA 4.0 cando finalice a etapa de obtención de datos en %s. Unha vez recollidos os datos, podes envialos usando a icona compartir ao pé desta pantalla.</string>
@@ -554,7 +544,6 @@
     <string name="gesture_data_add_key">Engadir tecla á barra de ferramentas</string>
     <string name="gesture_data_no_known_dict">A obtención en segundo plano só recolle palabras procedentes de dicionarios incluídos na app ou dispoñibles no &lt;a href=%s&gt;repositorio de dicionarios&lt;/a&gt;. Actualmente non tes activado ningún dicionario dese tipo.</string>
     <string name="gesture_data_swipe_o_scope">Ferramenta para visualizar os datos de xestos: &lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
-    <string name="recent_emojis_cleared">Limpáronse os emojis recentes</string>
     <string name="show_dpad_key">Tecla D-pad</string>
     <string name="prefs_enable_hardware_keyboard">Compatibilidade con teclado físico</string>
     <string name="accent_shifted_icon">Icona das maiúsculas destacada</string>

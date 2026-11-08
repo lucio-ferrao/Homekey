@@ -15,8 +15,6 @@ import android.provider.ContactsContract
 import android.provider.UserDictionary.Words
 import androidx.core.content.ContextCompat
 import helium314.keyboard.dictionarypack.DictionaryPackConstants
-import helium314.keyboard.keyboard.KeyboardSwitcher
-import helium314.keyboard.keyboard.emoji.EmojiSearchActivity
 import helium314.keyboard.latin.dictionary.ExpandableDictionaryUtils
 import helium314.keyboard.latin.dictionary.UserBinaryDictionary
 import helium314.keyboard.latin.dictionary.contacts.ContactsUtils
@@ -39,30 +37,6 @@ class StuffReceiver(latinIME: LatinIME) {
         }
     }
 
-    private val emojiSearchReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        private fun isImeClosed(intent: Intent) = intent.getBooleanExtra(EmojiSearchActivity.IME_CLOSED_KEY, false)
-
-        private fun getSelectedEmoji(intent: Intent) = intent.getStringExtra(EmojiSearchActivity.EMOJI_KEY)
-
-        private fun isEmojiSearch() = EmojiSearchActivity.decodePrivateImeOptions(latinIME.currentInputEditorInfo).height > 0
-
-        override fun onReceive(context: Context?, intent: Intent?) {
-            Log.d(
-                TAG, "after activity closing. isEmojiSearch: ${isEmojiSearch()}. Intent: $intent" +
-                    intent?.let { ". imeClosed: ${isImeClosed(intent)}. selected emoji: ${getSelectedEmoji(intent)}" }
-            )
-            if (intent?.action != EmojiSearchActivity.EMOJI_SEARCH_DONE_ACTION || !isEmojiSearch()) return
-            if (isImeClosed(intent)) {
-                latinIME.requestHideSelf(0)
-            } else {
-                latinIME.mHandler.postDelayed({ KeyboardSwitcher.getInstance().setEmojiKeyboard() }, 100)
-                if (intent.hasExtra(EmojiSearchActivity.EMOJI_KEY)) {
-                    latinIME.onTextInput(intent.getStringExtra(EmojiSearchActivity.EMOJI_KEY))
-                }
-            }
-        }
-    }
-
     private var appsReceiver: BroadcastReceiver? = null
     private var foldableObserver: FoldableObserver? = null
     private var personalDictObserver: ContentObserver? = null
@@ -75,8 +49,6 @@ class StuffReceiver(latinIME: LatinIME) {
         // RECEIVER_EXPORTED is necessary because apparently Android 15 (and others?) don't recognize
         // if the sender and receiver are the same app, see https://github.com/HeliBorg/HeliBoard/pull/1756
         ContextCompat.registerReceiver(context, dictionaryChangeReceiver, dictFilter, ContextCompat.RECEIVER_EXPORTED)
-
-        ContextCompat.registerReceiver(context, emojiSearchReceiver, IntentFilter(EmojiSearchActivity.EMOJI_SEARCH_DONE_ACTION), ContextCompat.RECEIVER_NOT_EXPORTED)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             context.registerReceiver(restartAfterDeviceUnlockReceiver, IntentFilter(Intent.ACTION_USER_UNLOCKED))
@@ -94,7 +66,6 @@ class StuffReceiver(latinIME: LatinIME) {
         context.unregisterReceiver(dictionaryChangeReceiver)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             context.unregisterReceiver(restartAfterDeviceUnlockReceiver)
-        context.unregisterReceiver(emojiSearchReceiver)
         unregisterAppsReceiver(context)
         unregisterPersonalDictObserver(context)
         unregisterContactsObserver(context)

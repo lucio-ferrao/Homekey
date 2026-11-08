@@ -284,7 +284,6 @@
     <string name="select_color_key_background">Klahvi taust</string>
     <string name="theme_name_cloudy" tools:keep="@string/theme_name_cloudy">Pilvine</string>
     <string name="theme_name_indigo" tools:keep="@string/theme_name_indigo">Indigosinine</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emojide alumine rida</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Lõikelaua alumine rida</string>
     <string name="day_night_mode_summary">Välimus järgib süsteemi seadistusi</string>
     <string name="theme_navbar">Navigatsiooniriba värv</string>
@@ -324,7 +323,6 @@
     <string name="space_swipe_toggle_numpad_entry">Lülita numbriklahvistik sisse/välja</string>
     <string name="switch_keyboard_after">Vaheta põhiklahvistikule peale…</string>
     <string name="after_clip">Valides kirje lõikelaua ajaloost</string>
-    <string name="after_emoji">Valides emojide vaatest emoji</string>
     <string name="after_symbol_and_space">Vajutades sümbolites vaates sisestusklahvi või tühikuklahvi peale muid klahve</string>
     <string name="theme_name_dynamic" tools:keep="@string/theme_name_dynamic">Dünaamilised värvid</string>
     <string name="hidden_features_message">► Tööriistaribale kinnitatud klahvide pikalt vajutamine võimaldab kasutada lisafunktsionaalsust: &lt;br&gt;\n• lõikelaud ￫ kleebi &lt;br&gt;\n• liiguta vasakule/paremale ￫ sõna vasakule/paremale &lt;br&gt;\n• liiguta üles/alla ￫ lehekülg üles/alla &lt;br&gt;\n• sõna vasakule/paremale ￫ rea algus/lõpp &lt;br&gt;\n• lehekülg üles/alla ￫ lehekülje algus/lõpp &lt;br&gt;\n• kopeeri ￫ lõika &lt;br&gt;\n• vali sõna ↔ vali kõik &lt;br&gt;\n• võta tagasi ↔ tee uuesti &lt;br&gt; &lt;br&gt;\n► Soovitusriba tööriistaribal olevate klahvide pikalt vajutamine kinnitab need soovitusribale. &lt;br&gt; &lt;br&gt;\n► Vajuta pikalt komaklahvi, et avada lõikelaua vaade, emojivaade, ühe käe režiim, seadistused või keele vahetamine: &lt;br&gt;\n• emojivaade ja keele vahetamine kaovad, kui vastav klahv on lubatud; &lt;br&gt;\n• mõne paigutuse puhul ei ole see komaklahv, vaid samas asukohas olev klahv (nt Dvoraki paigutuses on see „q”). &lt;br&gt; &lt;br&gt;\n► Kui inkognito režiim on lubatud, ei õpita uusi sõnu ega lisata emojisid hiljutiste hulka. &lt;br&gt; &lt;br&gt;\n► Vajuta inkognito ikooni, et avada tööriistariba. &lt;br&gt; &lt;br&gt;\n► Viipamisegasisestus: viipa Shift-klahvilt teisele klahvile, et sisestada üks suurtäht: &lt;br&gt;\n• see toimib ka klahviga „?123”, et sisestada üks sümbol sümbolite klaviatuurilt, ning seotud klahvidega. &lt;br&gt; &lt;br&gt;\n► Hoia Shift- või sümboliklahvi all, vajuta ühte või mitut klahvi ning vabasta siis Shift- või sümboliklahv, et naasta eelmisele klahvistikule. &lt;br&gt; &lt;br&gt;\n► Vajuta soovitusribal soovitust pikalt, et näha rohkem soovitusi ja kustutamisnuppu selle soovituse eemaldamiseks. &lt;br&gt; &lt;br&gt;\n► Viipa soovituselt üles, et avada rohkem soovitusi, ning vabasta soovituse peal selle valimiseks. &lt;br&gt; &lt;br&gt;\n► Vajuta lõikelaua ajaloo kirjet pikalt, et see kinnitada (hoida seda lõikelaual kuni kinnituse eemaldamiseni). &lt;br&gt; &lt;br&gt;\n► Viipa lõikelaua vaates vasakule, et kirje eemaldada (välja arvatud juhul, kui see on kinnitatud). &lt;br&gt; &lt;br&gt;\n► Vali tekst ja vajuta Shift-klahvi, et vahetada suurtähtede, väiketähtede ja sõnade algustähtede suureks tegemise vahel. &lt;br&gt; &lt;br&gt;\n► Sõnastikke saad lisada, avades need failihalduris: &lt;br&gt;\n• see toimib ainult &lt;i&gt;content-uri&lt;/i&gt;-dega, mitte &lt;i&gt;file-uri&lt;/i&gt;-dega, mis tähendab, et mõne failihalduriga ei pruugi see töötada. &lt;br&gt; &lt;br&gt;\n► Kasutajatele, kes teevad käsitsi varukoopiaid root-juurdepääsuga: &lt;br&gt;\n• alates Android 7-st ei asu jagatud eelistuste fail vaikimisi asukohas, kuna rakenduses on kasutusel %s. See on vajalik, et seadistusi saaks lugeda enne seadme avamist, näiteks käivitamisel; &lt;br&gt;\n• fail asub kaustas /data/user_de/0/package_id/shared_prefs/, kuid see võib sõltuda seadmest ja Androidi versioonist. &lt;br&gt; &lt;br&gt;\n&lt;i&gt;&lt;b&gt;Silumisrežiim / debug APK&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt;\n► Vajuta soovitust pikalt, et näha lähte-sõnastikku. &lt;br&gt; &lt;br&gt;\n► Silimisrežiimis APK kasutamisel leiad silumisseadistused täpsemate eelistuste alt, kuigi nende kasulikkus on piiratud, välja arvatud sõnastike logisse väljastamine. &lt;br&gt;\n• põhiversiooni APK puhul tuleb mitu korda vajutada menüüs &lt;i&gt;Teave&lt;/i&gt; olevale versiooninumbrile, seejärel leiad silumisseadistused menüüst &lt;i&gt;Täiendavad eelistused&lt;/i&gt;. &lt;br&gt;\n• kui lubad valiku &lt;i&gt;Näita soovituste infot&lt;/i&gt;, kuvatakse soovituste kohal väikesed numbrid, mis näitavad sisemist skoori ja lähte-sõnastikku. &lt;br&gt; &lt;br&gt;\n► Rakenduse kokkujooksmise korral küsitakse seadistuste avamisel, kas soovid krahhiloge. &lt;br&gt; &lt;br&gt;\n► Mitmekeelse sisestuse kasutamisel näitab tühikuklahv usaldusväärtuse väärtust, mida kasutatakse hetkel aktiivse keele määramiseks. &lt;br&gt; &lt;br&gt;\n► Soovituste kohal kuvatakse väikesed numbrid, mis näitavad sisemist skoori ja lähte-sõnastikku (saad selle ka keelata).</string>
@@ -375,7 +373,6 @@
     <string name="customize_toolbar_key_code_reset_message">Kas tõesti eemaldame kõik sinu loodud klahvide koodid?</string>
     <string name="custom_font">Vali oma kirjatüübi fail</string>
     <string name="prefs_font_scale">Klahvistiku kirjatüüpide mõõtkava</string>
-    <string name="prefs_emoji_font_scale">Emojide vaate kirjatüüpide mõõtkava</string>
     <string name="prefs_side_padding_scale">Külgmiste veeriste mõõtkava</string>
     <string name="number_row_hints">Näita numbrireas vihjeid</string>
     <string name="prefs_language_swipe_distance">Vaheta keele viipamiskaugust</string>
@@ -407,12 +404,9 @@
     <string name="timestamp_format_title">Ajatempli klahvi vorming</string>
     <string name="subtype_dag">dagbani</string>
     <string name="subtype_st">sotho</string>
-    <string name="prefs_emoji_key_fit">Kohenda emoji klahvi suurust tavateksti klahvide suuruste järgi</string>
     <string name="backup_restored">Varukoopiast taastamine õnnestus</string>
     <string name="use_apps_dict">Otsi välja rakenduste nimed</string>
     <string name="use_apps_dict_summary">Otsi soovituste ja paranduste jaoks välja paigaldatud rakenduste nimed</string>
-    <string name="prefs_emoji_skin_tone">Emoji vaikimisi taustavärv</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutraalne</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="toolbar_mode">Tööriistariba vaade</string>
     <string name="toolbar_mode_suggestion_strip">Ainult soovitused</string>
@@ -422,7 +416,6 @@
     <string name="toolbar_hiding_global">Peida ka lõikelaud ja emojide rida</string>
     <string name="popup_order_and_hint_source">Klahvide järjestus hüpikaknas ja vihjete allikas</string>
     <string name="landscape">Rõhtvaade</string>
-    <string name="show_emoji_descriptions">Näita emojide kirjeldusi pika vajutusega</string>
     <string name="suggest_emojis">Soovita emojisid</string>
     <string name="suggest_emojis_summary">Kasuta tavaliste soovituste jaoks emojide sõnastikku</string>
     <string name="space_swipe_hide_keyboard_entry">Peida klahvistik</string>
@@ -437,7 +430,6 @@
     <string name="inline_emoji_search">Emojide lõimitud otsing</string>
     <string name="inline_emoji_search_summary">Soovita emojisid vaid siis, kui sõna ees on koolon</string>
     <string name="emoji_dictionary_required">Et see funktsionaalsus toimiks, vajada emojide sõnastikku. Nõutavas .dict vormingus sõnastikke saad alla laadida siit: %s.</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Alumine emojide rida tegevusnupu vajutamisel</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Lõikelaua kirjete alumine rida tegevusnupu vajutamisel</string>
     <string name="number_row_in_symbols">Näita sümbolite vaates numbririda</string>
     <string name="custom_emoji_font">Lisa failist endavalitud emojid</string>
@@ -446,8 +438,6 @@
     <string name="toolbar_swipe_down_to_hide_summary">Klahvistiku peitmiseks viipa tööriistaribal ülalt alla</string>
     <string name="timestamp_description">Kasutades kohandatud paigutust võid lisada ajatempli klahvi, mille väärtus on võti „timestamp“ või võtmekood -10043</string>
     <string name="prefs_bottom_row_scale">Alumise rea mõõtkava</string>
-    <string name="emoji_search_title">Otsi emojit</string>
-    <string name="search_field_placeholder">Otsi</string>
     <string name="ask_later">Küsi minult hiljem</string>
     <string name="folded">Kokkulapatud</string>
     <string name="gesture_data_screen">Viipamisandmete kogumine</string>
@@ -547,7 +537,6 @@
     <string name="layout_dpad" tools:keep="@string/layout_dpad">Suunaklahvistik</string>
     <string name="space_swipe_toggle_dpad_entry">Lülita suunaklahvistik sisse/välja</string>
     <string name="show_dpad_key">D-klahvistiku klahv</string>
-    <string name="recent_emojis_cleared">Hiljutikasutatud emojid on eemaldatud</string>
     <string name="prefs_enable_hardware_keyboard">Raudvaralise klahvistiku tugi</string>
     <string name="accent_shifted_icon">Rõhutatud Shift-ikoon</string>
 </resources>

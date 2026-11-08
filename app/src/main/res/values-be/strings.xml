@@ -329,7 +329,6 @@
     <string name="suggest_clipboard_content">Прапанаваць змесціва буфера абмену</string>
     <string name="suggest_clipboard_content_summary">Паказаць нядаўна скапіяваны змесціва буфера абмену ў якасці прапановы</string>
     <string name="switch_keyboard_after">Вярнуцца да асноўнай клавіятуры пасля…</string>
-    <string name="after_emoji">Выбар эмодзі ў рэжыме прагляду</string>
     <string name="after_clip">Выбар запісы з гісторыі буфера абмену</string>
     <string name="after_symbol_and_space">Націск Enter або прабелу пасля іншых клавіш у рэжыме сімвалаў</string>
     <string name="space_swipe_toggle_numpad_entry">Пераключыць лічбавую клавіятуру</string>
@@ -348,7 +347,6 @@
     <string name="number_row_hints">Паказваць падказкі ў шэрагу з лічбамі</string>
     <string name="locales_with_dict">Мовы са слоўнікамі</string>
     <string name="custom_subtype">Карыстацкі падтып</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Радок эмодзі ўнізе</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Радок буфера абмену ўнізе</string>
     <string name="layout_in_use">Папярэджанне: раскладка ў дадзены момант выкарыстоўваецца</string>
     <string name="customize_icons">Наладзіць значкі</string>
@@ -375,7 +373,6 @@
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Табуляцыя</string>
     <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">Shift (націснута)</string>
     <string name="prefs_font_scale">Маштаб шрыфта клавіятуры</string>
-    <string name="prefs_emoji_font_scale">Маштаб шрыфта адлюстравання эмодзі</string>
     <string name="long_press_code">Код доўгага націску</string>
     <string name="prefs_language_swipe_distance">Адлегласць змахвання для пераключэння мовы</string>
     <string name="customize_toolbar_key_codes">Наладзіць коды клавіш панэлі інструментаў</string>
@@ -403,7 +400,6 @@
     <string name="use_apps_dict_summary">Выкарыстоўваць назвы ўсталяваных праграм для прапаноў і выпраўленняў</string>
     <string name="autospace_after_suggestion">Аўтапрабел пасля ручнога выбару прапановы</string>
     <string name="shift_removes_autospace">Аўтапрабел адключаецца пры націску Shift</string>
-    <string name="prefs_emoji_key_fit">Маштабаваць памер клавіш эмодзі разам з памерам шрыфта</string>
     <string name="backspace_reverts_autocorrect">Націск Backspace адмяняе аўтавыпраўленне</string>
     <string name="subtype_dag">Дагбані</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
@@ -411,8 +407,6 @@
     <string name="autospace_before_gesture_typing">Аўтапрабел перад наборам слова жэстамі</string>
     <string name="show_tld_popup_keys">Паказаць усплывальныя клавішы TLD</string>
     <string name="show_tld_popup_keys_summary">Пры ўводзе URL і адрасоў электроннай пошты замяніць усплывальныя падказкі клавішы кропкі на падказкі з даменамі верхняга ўзроўню</string>
-    <string name="prefs_emoji_skin_tone">Тон скуры эмоджы па змаўчанні</string>
-    <string name="prefs_emoji_skin_tone_neutral">Нейтральны</string>
     <string name="subtype_generic_phonetic">%s (Фанетыка)</string>
     <string name="after_numpad_and_space">Націску Enter або прабелу пасля іншых клавіш на лічбавай клавіятуры</string>
 </resources>

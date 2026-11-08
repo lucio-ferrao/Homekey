@@ -337,7 +337,6 @@
     <string name="suggest_clipboard_content_summary">Mostrar como sugerencia el contenido del portapapeles copiado recientemente</string>
     <string name="customize_currencies_detail">Establezca el símbolo de divisa principal y hasta 6 secundarios, separados por un espacio</string>
     <string name="switch_keyboard_after">Cambiar al teclado principal después de…</string>
-    <string name="after_emoji">Seleccionar un emoji en la vista de emojis</string>
     <string name="after_clip">Seleccionar una entrada en el historial del portapapeles</string>
     <string name="after_symbol_and_space">Presionar Ingresar o Espacio después de otras teclas en la vista de símbolos</string>
     <string name="space_swipe_toggle_numpad_entry">Alternar al diseño numérico</string>
@@ -350,7 +349,6 @@
     <string name="gesture_trail_fadeout_duration">Duración del rastro gestual</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Fila numérica</string>
     <string name="prefs_space_bar_text">Texto personalizado en la barra espaciadora</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Fila inferior de emojis</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Fila inferior del portapapeles</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Eliminar</string>

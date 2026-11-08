@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"קלט הקול"</string>
     <string name="spoken_description_emoji">"אמוג\'י"</string>
     <string name="spoken_description_return">"Enter"</string>
-    <string name="spoken_description_search">"חיפוש"</string>
     <string name="spoken_description_dot">"נקודה"</string>
     <string name="spoken_description_language_switch">"החלף שפה"</string>
     <string name="spoken_description_action_next">"הבא"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"טקסט"</string>
     <string name="keyboard_mode_time">"זמן"</string>
     <string name="keyboard_mode_url">"כתובות אתרים"</string>
-    <string name="spoken_description_emoji_category_recents">"אחרונים"</string>
-    <string name="spoken_description_emoji_category_objects">"אובייקטים"</string>
-    <string name="spoken_description_emoji_category_symbols">"סמלים"</string>
-    <string name="spoken_description_emoji_category_flags">"דגלים"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"סמיילי ואנשים"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"בעלי חיים וטבע"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"מזון ומשקאות"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"נסיעות ומקומות"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"פעילות"</string>
-    <string name="spoken_description_emoji_category_emoticons">"רגשונים"</string>
     <string name="spoken_description_upper_case">"<xliff:g id="LOWER_LETTER">%s</xliff:g> גדולה"</string>
     <string name="spoken_letter_0049">"‏I גדולה"</string>
     <string name="spoken_letter_0130">"‏I גדולה, נקודה מעל"</string>

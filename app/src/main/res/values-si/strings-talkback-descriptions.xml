@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"හඬ ආදානය"</string>
     <string name="spoken_description_emoji">"ඉමොජි"</string>
     <string name="spoken_description_return">"ආපසු එවන්න"</string>
-    <string name="spoken_description_search">"සොයන්න"</string>
     <string name="spoken_description_dot">"තිත"</string>
     <string name="spoken_description_language_switch">"භාෂාව මාරු කරන්න"</string>
     <string name="spoken_description_action_next">"මීළඟ"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"පෙළ"</string>
     <string name="keyboard_mode_time">"කාලය"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"මෑත"</string>
-    <string name="spoken_description_emoji_category_objects">"වස්තුව"</string>
-    <string name="spoken_description_emoji_category_symbols">"සංකේත"</string>
-    <string name="spoken_description_emoji_category_flags">"ලකුණු කිරීම්"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"භාව සහ පුද්ගලයන්"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"සතුන් සහ ස්වභාව ධර්මය"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"ආහාරපාන"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"සංචාර සහ ස්ථාන"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"ක්‍රියාකාරකම"</string>
-    <string name="spoken_description_emoji_category_emoticons">"ඉමෝටිකොන්"</string>
     <string name="spoken_description_upper_case">"ලොකු <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"ලොකු I"</string>
     <string name="spoken_letter_0130">"ලොකු I, ඉහළින් තිත"</string>

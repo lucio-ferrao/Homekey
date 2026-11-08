@@ -289,7 +289,6 @@
     <string name="theme_name_user" tools:keep="@string/theme_name_user">用户自定义</string>
     <string name="select_color_gesture">滑行输入法</string>
     <string name="switch_keyboard_after">切换到主键盘后…</string>
-    <string name="after_emoji">在表情符号视图中选择表情符号</string>
     <string name="after_clip">选择剪贴板历史条目</string>
     <string name="after_symbol_and_space">在符号视图输入内容后按回车键或空格键</string>
     <string name="add_new_dictionary_title">从文件添加字典</string>
@@ -344,7 +343,6 @@
     <string name="icon_style">图标样式</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">数字行</string>
     <string name="prefs_space_bar_text">空格键上的自定义文本</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">表情符号底行</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">剪贴板底行</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Delete</string>
     <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
@@ -378,7 +376,6 @@
     <string name="auto_correct_shortcuts_summary">启用后，快捷方式可能会通过自动更正扩展</string>
     <string name="customize_background_image_landscape">设置背景图片（横屏）</string>
     <string name="prefs_font_scale">键盘字体比例</string>
-    <string name="prefs_emoji_font_scale">表情符号视图字体比例</string>
     <string name="prefs_side_padding_scale">侧边距比例</string>
     <string name="number_row_hints">在数字行显示提示</string>
     <string name="prefs_language_swipe_distance">切换语言滑动距离</string>
@@ -410,12 +407,9 @@
     <string name="timestamp_format_title">时间戳键的格式</string>
     <string name="subtype_st">索托语</string>
     <string name="subtype_dag">达巴尼语</string>
-    <string name="prefs_emoji_key_fit">根据字体大小缩放表情符号键大小</string>
     <string name="backup_restored">备份已还原</string>
     <string name="use_apps_dict">查找应用名称</string>
     <string name="use_apps_dict_summary">使用已安装应用的名称进行建议和更正</string>
-    <string name="prefs_emoji_skin_tone_neutral">中性</string>
-    <string name="prefs_emoji_skin_tone">默认表情符号肤色</string>
     <string name="subtype_with_layout_generic">%1$s（%2$s）</string>
     <string name="toolbar_mode">工具栏模式</string>
     <string name="toolbar_mode_expandable">工具栏键与建议</string>
@@ -425,7 +419,6 @@
     <string name="toolbar_hiding_global">同时隐藏剪贴板和表情符号工具栏</string>
     <string name="popup_order_and_hint_source">弹出键顺序和提示源</string>
     <string name="landscape">横屏</string>
-    <string name="show_emoji_descriptions">长按时显示表情符号描述</string>
     <string name="suggest_emojis">建议表情符号</string>
     <string name="suggest_emojis_summary">在常规建议中使用表情符号字典</string>
     <string name="suggest_punctuation">标点建议</string>
@@ -440,13 +433,10 @@
     <string name="inline_emoji_search">内联表情符号搜索</string>
     <string name="inline_emoji_search_summary">仅当字词以冒号开头时建议表情符号</string>
     <string name="emoji_dictionary_required">此功能需要表情符号字典才能使用。可以在 %s 下载 .dict 格式的字典。</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">带操作键的表情符号底行</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">带操作键的剪贴板底行</string>
     <string name="number_row_in_symbols">在符号视图中显示数字行</string>
     <string name="custom_emoji_font">从文件设置自定义表情符号字体</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">功能键（Khipro）</string>
-    <string name="emoji_search_title">搜索表情符号</string>
-    <string name="search_field_placeholder">搜索</string>
     <string name="gesture_data_screen">滑行输入数据收集</string>
     <string name="gesture_data_info">这是什么？</string>
     <string name="gesture_data_privacy">隐私</string>
@@ -550,5 +540,4 @@
     <string name="gesture_data_no_known_dict">后台收集只会收集来自内置字典或&lt;a href=%s&gt;字典仓库&lt;/a&gt;中可用字典的字词。您当前没有启用任何此类字典。</string>
     <string name="gesture_data_swipe_o_scope">滑行输入数据可视化工具：&lt;a href=%s&gt;Swipe-O-Scope&lt;/a&gt;</string>
     <string name="show_dpad_key">方向键</string>
-    <string name="recent_emojis_cleared">已清除最近使用的表情符号</string>
 </resources>

@@ -323,7 +323,6 @@
     <string name="gesture_fast_typing_cooldown_instant">Iniciar siempre al instante</string>
     <string name="prefs_space_bar_text">Texto personalizado en la barra de espacio</string>
     <string name="customize_currencies">Personalizar divisas</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Fila inferior de Emoji</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Fila inferior del portapapeles</string>
     <string name="button_save_file">Guardar en un archivo</string>
     <string name="copy_to_clipboard">Copiar al portapapeles</string>
@@ -336,7 +335,6 @@
     <string name="page_up" tools:keep="@string/page_up">Página arriba</string>
     <string name="customize_currencies_detail">Establecer símbolos de moneda principales y hasta 6 secundarios, separados con espacio</string>
     <string name="switch_keyboard_after">Cambiar al teclado principal después de…</string>
-    <string name="after_emoji">Seleccionar emoji en las vista de emojis</string>
     <string name="after_clip">Seleccionar entrada del historial del portapapeles</string>
     <string name="after_symbol_and_space">Al presionar Intro o espacio después de otras teclas en la vista de símbolos</string>
     <string name="space_swipe_toggle_numpad_entry">Alternar teclado numérico</string>
@@ -374,7 +372,6 @@
     <string name="summary_customize_background_image_landscape">Si no se establece, se utilizará la imagen vertical</string>
     <string name="customize_toolbar_key_code_reset_message">¿Realmente borrar todos los códigos clave personalizados?</string>
     <string name="prefs_font_scale">Tamaño de la fuente del teclado</string>
-    <string name="prefs_emoji_font_scale">Tamaño de fuente de la vista Emoji</string>
     <string name="prefs_side_padding_scale">Escala de relleno lateral</string>
     <string name="custom_subtype">Subtipo personalizado</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Los campos de edición web (presentes sobre todo en los navegadores) suelen causar problemas con la opción de mostrar siempre sugerencias</string>
@@ -409,7 +406,6 @@
     <string name="inline_emoji_search">Búsqueda integrada de emojis</string>
     <string name="inline_emoji_search_summary">Sugiere solo emojis cuando una palabra vaya precedida por dos puntos</string>
     <string name="emoji_dictionary_required">Se necesita un diccionario de emojis para usar esta función. Los diccionarios en formato .dict se pueden descargar %s.</string>
-    <string name="show_emoji_descriptions">Muestra la descripción del emoji al mantener pulsado</string>
     <string name="use_apps_dict">Buscar nombres de aplicaciones</string>
     <string name="use_apps_dict_summary">Utiliza los nombres de las aplicaciones instaladas para sugerencias y correcciones</string>
     <string name="suggest_punctuation">Sugerencias de puntuación</string>
@@ -419,7 +415,6 @@
     <string name="save_subtype_per_app">Recordar el idioma por aplicación</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="subtype_khipro_bn">%s (Khipro)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Sección inferior de emoticonos con tecla de acción</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Sección inferior de portapapeles con tecla de acción</string>
     <string name="about_wiki_link">Ir a la Wiki</string>
     <string name="about_wiki_link_description">¡La Wiki puede ser mejorada por cualquier usuario de GitHub!</string>
@@ -428,9 +423,6 @@
     <string name="toolbar_mode_suggestion_strip" tools:keep="@string/toolbar_mode_suggestion_strip">Solo sugerencias</string>
     <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Oculto</string>
     <string name="toolbar_hiding_global">Oculta también las barras del portapapeles y los emojis</string>
-    <string name="prefs_emoji_key_fit">Escala el tamaño de las teclas de emoticono al tamaño de la fuente</string>
-    <string name="prefs_emoji_skin_tone">Tono de piel de emoticonos por defecto</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutral</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
     <string name="subtype_mhr">Mari (Este)</string>
@@ -447,8 +439,6 @@
     <string name="prefs_bottom_row_scale">Escala de la fila inferior</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Teclas de función (Khipro)</string>
     <string name="hidden_features_message">► Presionar prolongadamente las teclas fijadas en la barra de herramientas ofrece funciones adicionales: &lt;br&gt; \n\t• portapapeles &amp;#65515; pegar &lt;br&gt; \n\t• mover izquierda/derecha &amp;#65515; palabra izquierda/derecha &lt;br&gt; \n\t• mover arriba/abajo &amp;#65515; página arriba/abajo &lt;br&gt; \n\t• palabra izquierda/derecha &amp;#65515; inicio/fin de línea &lt;br&gt; \n\t• página arriba/abajo &amp;#65515; inicio/fin de página &lt;br&gt; \n\t• copiar &amp;#65515; cortar &lt;br&gt; \n\t• seleccionar palabra &amp;#8596; seleccionar todo &lt;br&gt; \n\t• deshacer &amp;#8596; rehacer &lt;br&gt; &lt;br&gt; \n► Presionar prolongadamente las teclas en la barra de la franja de sugerencias las fija en dicha franja. &lt;br&gt; &lt;br&gt; \n► Presiona prolongadamente la tecla de la Coma para acceder a la Vista del portapapeles, Vista de emojis, Modo a una mano, Ajustes o Cambiar idioma: &lt;br&gt; \n\t• La Vista de emojis y el Cambio de idioma desaparecerán si tienes activada su tecla correspondiente; &lt;br&gt; \n\t• Para algunos diseños de teclado no es la tecla de la Coma, sino la tecla en esa misma posición (por ejemplo, es la \'q\' en el diseño Dvorak). &lt;br&gt; &lt;br&gt; \n► Cuando el modo incógnito está activado, no se aprenderá ninguna palabra y no se añadirán emojis a los recientes. &lt;br&gt; &lt;br&gt; \n► Presiona el icono de Incógnito para acceder a la barra de herramientas. &lt;br&gt; &lt;br&gt; \n► Entrada deslizando teclas: Desliza desde la tecla shift hacia otra tecla para escribir una sola letra en mayúscula: &lt;br&gt; \n\t• Esto también funciona con la tecla \'?123\' para escribir un solo símbolo desde el teclado de símbolos, y con teclas relacionadas. &lt;br&gt; &lt;br&gt; \n► Mantén presionada la tecla shift o de símbolos, presiona una o más teclas y luego suelta la tecla shift o de símbolos para volver al teclado anterior. &lt;br&gt; &lt;br&gt; \n► Presiona prolongadamente una sugerencia en la franja de sugerencias para mostrar más sugerencias y un botón de eliminar para quitar esta sugerencia. &lt;br&gt; &lt;br&gt; \n► Desliza hacia arriba desde una sugerencia para abrir más sugerencias y suelta sobre la sugerencia para seleccionarla. &lt;br&gt; &lt;br&gt; \n► Presiona prolongadamente una entrada en el historial del portapapeles para fijarla (mantenerla en el portapapeles hasta que la desfijes). &lt;br&gt; &lt;br&gt; \n► Desliza hacia la izquierda en la vista del portapapeles para eliminar una entrada (excepto cuando esté fijada) &lt;br&gt; &lt;br&gt; \n► Selecciona texto y presiona shift para cambiar entre mayúsculas, minúsculas y mayúsculas iniciales. &lt;br&gt; &lt;br&gt; \n► Puedes añadir diccionarios abriéndolos en un explorador de archivos: &lt;br&gt; \n\t• Esto solo funciona con &lt;i&gt;content-uris&lt;/i&gt; y no con &lt;i&gt;file-uris&lt;/i&gt;, lo que significa que puede no funcionar con algunos exploradores de archivos. &lt;br&gt; &lt;br&gt; \n► Para usuarios que realizan copias de seguridad manuales con acceso root: &lt;br&gt; \n\t• A partir de Android 7, el archivo de preferencias compartidas (shared preferences) no está en la ubicación predeterminada porque la aplicación utiliza %s. Esto es necesario para que los ajustes se puedan leer antes de que el dispositivo se desbloquee, por ejemplo, al arrancar; &lt;br&gt; \n\t• El archivo se encuentra en /data/user_de/0/package_id/shared_prefs/ aunque esto puede depender del dispositivo y de la versión de Android. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Modo de depuración / APK de depuración&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Presiona prolongadamente una sugerencia para mostrar el diccionario de origen. &lt;br&gt; &lt;br&gt; \n► Al usar la APK de depuración, puedes encontrar los Ajustes de depuración dentro de las Preferencias avanzadas, aunque su utilidad es limitada excepto para volcar diccionarios en el registro (log). &lt;br&gt; \n\t• Para una APK de lanzamiento (release), debes tocar varias veces la versión en &lt;i&gt;Acerca de&lt;/i&gt;, luego podrás encontrar los ajustes de depuración en &lt;i&gt;Preferencias avanzadas&lt;/i&gt;. &lt;br&gt; \n\t• Al activar &lt;i&gt;Mostrar información de sugerencias&lt;/i&gt;, las sugerencias tendrán unos números pequeños en la parte superior que muestran una puntuación interna y el diccionario de origen. &lt;br&gt; &lt;br&gt; \n► En caso de que la aplicación se cierre inesperadamente, se te preguntará si deseas los registros de errores (crash logs) when cuando abras los Ajustes. &lt;br&gt; &lt;br&gt; \n► Al usar la escritura bilingüe/multilingüe, la barra espaciadora mostrará un valor de confianza utilizado para determinar el idioma que se está usando actualmente. &lt;br&gt; &lt;br&gt; \n► Las sugerencias tendrán unos números pequeños en la parte superior que muestran una puntuación interna y el diccionario de origen (se puede desactivar).</string>
-    <string name="emoji_search_title">Buscar emoji</string>
-    <string name="search_field_placeholder">Buscar</string>
     <string name="ask_later">Pregúntame más tarde</string>
     <string name="gesture_data_screen">Recopilación de datos de gestos</string>
     <string name="gesture_data_description">&lt;b&gt;¡Te damos la bienvenida a la pantalla de recopilación de datos de gestos!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Esto forma parte de un &lt;a href=https://nlnet.nl/project/GestureTyping&gt;proyecto financiado por NLnet&lt;/a&gt; que busca crear una biblioteca de escritura por gestos completamente de código abierto, capaz de sustituir a la biblioteca de Google, que es de código cerrado.&lt;br/&gt;El resultado está pensado como un reemplazo sencillo para teclados basados en AOSP, pero también será compatible con otros teclados, como FlorisBoard.&lt;br/&gt;&lt;br/&gt;Para desarrollar la biblioteca, es de enorme ayuda disponer de datos detallados de gestos en diferentes idiomas y realizados por distintos usuarios.&lt;br/&gt;Al recopilar y enviar datos de escritura por gestos, contribuyes a un conjunto de datos abierto que se utilizará para el desarrollo de la biblioteca. El conjunto de datos se publicará bajo la licencia CC BY-SA 4.0 algún tiempo después de que finalice la fase de recopilación de datos, el %s.&lt;br/&gt;Una vez que hayas recopilado datos, puedes enviarlos usando el icono de compartir situado en la parte inferior de esta pantalla.</string>
@@ -547,7 +537,6 @@
     <string name="layout_dpad" tools:keep="@string/layout_dpad">Cruceta</string>
     <string name="space_swipe_toggle_dpad_entry">Alternar cruceta</string>
     <string name="show_dpad_key">Botón de la cruceta</string>
-    <string name="recent_emojis_cleared">Borrados los emojis recientes</string>
     <string name="prefs_enable_hardware_keyboard">Compatibilidad con teclado físico</string>
     <string name="accent_shifted_icon">Icono de mayúsculas resaltado</string>
 </resources>

@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Φωνητική είσοδος"</string>
     <string name="spoken_description_emoji">"Emoticon"</string>
     <string name="spoken_description_return">"Επιστροφή"</string>
-    <string name="spoken_description_search">"Αναζήτηση"</string>
     <string name="spoken_description_dot">"Κουκκίδα"</string>
     <string name="spoken_description_language_switch">"Εναλλαγή γλώσσας"</string>
     <string name="spoken_description_action_next">"Επόμενο"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"κείμενο"</string>
     <string name="keyboard_mode_time">"ώρα"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Πρόσφατα"</string>
-    <string name="spoken_description_emoji_category_objects">"Αντικείμενα"</string>
-    <string name="spoken_description_emoji_category_symbols">"Σύμβολα"</string>
-    <string name="spoken_description_emoji_category_flags">"Επισημάνσεις"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Εικονίδια smiley και άτομα"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Ζώα και φύση"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Φαγητό &amp; ποτό"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Ταξίδια και μέρη"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Δραστηριότητα"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Emoticon"</string>
     <string name="spoken_description_upper_case">"Κεφαλαίο <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"Κεφαλαίο I"</string>
     <string name="spoken_letter_0130">"Κεφαλαίο I, κουκκίδα από πάνω"</string>

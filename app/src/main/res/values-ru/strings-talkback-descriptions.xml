@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Голосовой ввод."</string>
     <string name="spoken_description_emoji">"Смайлики."</string>
     <string name="spoken_description_return">"Ввод."</string>
-    <string name="spoken_description_search">"Поиск."</string>
     <string name="spoken_description_dot">"Маркер списка."</string>
     <string name="spoken_description_language_switch">"Сменить язык."</string>
     <string name="spoken_description_action_next">"Далее."</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"ввода текста"</string>
     <string name="keyboard_mode_time">"ввода времени"</string>
     <string name="keyboard_mode_url">"ввода URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Недавно использованные."</string>
-    <string name="spoken_description_emoji_category_objects">"Объекты."</string>
-    <string name="spoken_description_emoji_category_symbols">"Символы."</string>
-    <string name="spoken_description_emoji_category_flags">"Флаги."</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Смайлики и люди."</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Природа и животные."</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Еда и напитки."</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Путешествия и достопримечательности."</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Действия."</string>
-    <string name="spoken_description_emoji_category_emoticons">"Смайлики."</string>
     <string name="spoken_description_upper_case">"Заглавная <xliff:g id="LOWER_LETTER">%s</xliff:g>."</string>
     <string name="spoken_letter_0049">"Заглавная латинская I."</string>
     <string name="spoken_letter_0130">"Заглавная латинская I с точкой сверху."</string>

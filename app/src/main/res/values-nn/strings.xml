@@ -11,7 +11,6 @@
     <string name="inline_emoji_search">Integrert emoji-søk</string>
     <string name="inline_emoji_search_summary">Berre føreslå emojiar når eit ord byrjar med eit kolon</string>
     <string name="emoji_dictionary_required">Du treng ei emoji-ordliste for at denne funksjonen skal verka. Last ned ordbøker i .dict-format her: %s.</string>
-    <string name="show_emoji_descriptions">Skildra emoji når du trykkjer lenge</string>
     <string name="popup_on_keypress">Sprett-opp ved tastetrykk</string>
     <string name="toolbar_swipe_down_to_hide">Gøym tastatur med sveip</string>
     <string name="toolbar_swipe_down_to_hide_summary">Sveip nedover på verktøylina for å lukka tastaturet</string>

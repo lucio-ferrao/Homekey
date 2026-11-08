@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"बोलकर फ़ोन को निर्देश"</string>
     <string name="spoken_description_emoji">"ईमोजी"</string>
     <string name="spoken_description_return">"रिटर्न"</string>
-    <string name="spoken_description_search">"सर्च करें"</string>
     <string name="spoken_description_dot">"डॉट"</string>
     <string name="spoken_description_language_switch">"भाषा स्विच करें"</string>
     <string name="spoken_description_action_next">"आगे बढ़ें"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"लेख"</string>
     <string name="keyboard_mode_time">"समय"</string>
     <string name="keyboard_mode_url">"यूआरएल"</string>
-    <string name="spoken_description_emoji_category_recents">"हाल ही के"</string>
-    <string name="spoken_description_emoji_category_objects">"ऑब्जेक्ट"</string>
-    <string name="spoken_description_emoji_category_symbols">"प्रतीक"</string>
-    <string name="spoken_description_emoji_category_flags">"फ़्लैग"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"स्माइली और लोग"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"प्राणी और प्रकृति"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"भोजन और पेय"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"यात्रा और जगह"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"गतिविधि"</string>
-    <string name="spoken_description_emoji_category_emoticons">"इमोटिकॉन्स"</string>
     <string name="spoken_description_upper_case">"बड़ा <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"बड़ा आई"</string>
     <string name="spoken_letter_0130">"बड़ा आई, बिंदु ऊपर"</string>

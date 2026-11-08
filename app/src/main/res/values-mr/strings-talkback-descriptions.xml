@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"व्हॉइस इनपुट"</string>
     <string name="spoken_description_emoji">"इमोजी"</string>
     <string name="spoken_description_return">"परत"</string>
-    <string name="spoken_description_search">"शोधा"</string>
     <string name="spoken_description_dot">"बिंदू"</string>
     <string name="spoken_description_language_switch">"भाषा स्विच करा"</string>
     <string name="spoken_description_action_next">"पुढील"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"मजकूर"</string>
     <string name="keyboard_mode_time">"वेळ"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"अलीकडील"</string>
-    <string name="spoken_description_emoji_category_objects">"ऑब्जेक्टस्"</string>
-    <string name="spoken_description_emoji_category_symbols">"चिन्हे"</string>
-    <string name="spoken_description_emoji_category_flags">"झेंडे"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"हसरा आणि लोक"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"प्राणी आणि निसर्ग"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"भोजन आणि पेय"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"प्रवास आणि ठिकाणे"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"अॅक्टिव्हिटी"</string>
-    <string name="spoken_description_emoji_category_emoticons">"इमोटिकॉन"</string>
     <string name="spoken_description_upper_case">"कॅपिटल <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"कॅपिटल आय"</string>
     <string name="spoken_letter_0130">"कॅपिटल आय, वर बिंदू"</string>

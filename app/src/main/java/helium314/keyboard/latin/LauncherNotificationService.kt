@@ -18,6 +18,11 @@ class LauncherNotificationService : NotificationListenerService() {
     class Entry(val key: String, val packageName: String, val title: String, val text: String, val time: Long,
                 /** a message in a group chat (not from one person only) */
                 val isGroup: Boolean, private val notification: Notification) {
+        /** "title: text", with the sender once (Element's title is "misty: misty", conversation: sender, in a one-to-one chat) */
+        val label get() = listOf(title, text).filter { it.isNotBlank() }.joinToString(": ").replace('\n', ' ')
+            .split(": ").fold(listOf<String>()) { parts, part -> if (parts.lastOrNull() == part) parts else parts + part }
+            .joinToString(": ")
+
         /** opens what the notification points to, like a tap on it; removes it if it is meant to go away when opened */
         fun open(): Boolean {
             val intent = notification.contentIntent ?: return false
@@ -46,8 +51,10 @@ class LauncherNotificationService : NotificationListenerService() {
 
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         // a message from a person moves their entry forward, as if just opened
-        AppLauncherMode.bump(this, entries())
+        val entries = entries()
+        AppLauncherMode.bump(this, entries)
         onChange?.invoke()
+        entries.firstOrNull { it.key == sbn?.key }?.let { entry -> onPosted?.invoke(entry) }
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification?) {
@@ -61,6 +68,9 @@ class LauncherNotificationService : NotificationListenerService() {
 
         /** called (on the main thread) when a notification arrives, changes or goes away, set while the launcher mode is open */
         var onChange: (() -> Unit)? = null
+
+        /** called (on the main thread) with a notification that arrives or changes, set while the keyboard service lives */
+        var onPosted: ((Entry) -> Unit)? = null
 
         /** takes a notification away from the status bar, like a swipe there */
         fun dismiss(key: String) {

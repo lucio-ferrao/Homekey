@@ -144,7 +144,6 @@
     <string name="inline_emoji_search_summary">Predlaže emojije samo kada se ispred riječi nalazi dvotočka</string>
     <string name="inline_emoji_search">Pretraživanje emojija unutar teksta</string>
     <string name="emoji_dictionary_required">Za ovu značajku je potreban rječnik emojija. Rječnici u formatu .dict mogu se preuzeti %s.</string>
-    <string name="show_emoji_descriptions">Prikaži opis emojija dugim pritiskom</string>
     <string name="settings_category_space">Razmak</string>
     <string name="split_spacer_scale">Razmak razdvajanja</string>
     <string name="switch_language">Prebaci jezik</string>
@@ -261,10 +260,6 @@
     <string name="prefs_bottom_padding_scale">Veličina odmaka dna</string>
     <string name="prefs_side_padding_scale">Veličina odmaka strana</string>
     <string name="prefs_font_scale">Veličina fonta tipkovnice</string>
-    <string name="prefs_emoji_font_scale">Veličina fonta emojija</string>
-    <string name="prefs_emoji_key_fit">Skaliraj veličinu tipke emojija s veličinom fonta</string>
-    <string name="prefs_emoji_skin_tone">Zadani ton kože emojija</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutralno</string>
     <string name="prefs_space_bar_text">Prilagođeni tekst na razmaknici</string>
     <string name="custom_font">Postavi prilagođeni font iz datoteke</string>
     <string name="custom_emoji_font">Postavi prilagođeni font emojija iz datoteke</string>
@@ -309,8 +304,6 @@
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Brojčanik (horizontalno)</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Redak brojeva</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Redak brojeva (osnovno)</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Donji redak emojija</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Donji redak emojija s tipkom za radnju</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Donji redak međuspremnika</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Donji redak međuspremnika s tipkom za radnju</string>
     <string name="customize_background_image">Postavi pozadinsku sliku</string>
@@ -319,7 +312,6 @@
     <string name="customize_currencies">Prilagodi valute</string>
     <string name="customize_currencies_detail">Postavite glavni i do 6 sporednih simbola valuta, odvojenih razmakom</string>
     <string name="switch_keyboard_after">Prebaci se na glavnu tipkovnicu nakon…</string>
-    <string name="after_emoji">odabira emojija u prikazu emojija</string>
     <string name="after_clip">odabira stavke iz povijesti međuspremnika</string>
     <string name="after_symbol_and_space">pritiska entera ili razmaka nakon drugih tipki u prikazu simbola</string>
     <string name="after_numpad_and_space">pritiska entera ili razmaka nakon drugih tipki u brojčaniku</string>
@@ -442,8 +434,6 @@
     <string name="hidden_features_text">zaštićenu pohranu uređaja</string>
     <string name="hidden_features_message">► Dugim pritiskom na prikvačene tipke alatne trake daje dodatne funkcije: &lt;br&gt; \n\t• međuspremnik &amp;#65515; lijepljenje &lt;br&gt; \n\t• pomicanje lijevo/desno &amp;#65515; riječ lijevo/desno &lt;br&gt; \n\t• pomicanje gore/dolje &amp;#65515; stranica gore/dolje &lt;br&gt; \n\t• riječ lijevo/desno &amp;#65515; početak/kraj retka &lt;br&gt; \n\t• stranica gore/dolje &amp;#65515; početak/kraj stranice &lt;br&gt; \n\t• kopiranje &amp;#65515; izrezivanje &lt;br&gt; \n\t• označi riječ &amp;#65515; označi sve &lt;br&gt; \n\t• poništi &amp;#65515; ponovi &lt;br&gt; &lt;br&gt; \n► Dugim pritiskom tipki u alatnoj traci prijedloga prikvači ih u traku prijedloga. &lt;br&gt; &lt;br&gt; \n► Dugim pritiskom tipke zareza možete pristupiti međuspremniku, emojijima, jednoručnom načinu rada, postavkama i prebacivanju između jezika: &lt;br&gt; \n\t• prikaz emojija i promjena jezika neće se pojaviti, ako imate uključene njihove tipke u glavnoj tipkovnici; &lt;br&gt; \n\t• za neke rasporede to nije tipka zareza, nego tipka koja se nalazi na istome mjestu (npr. za raspored Dvorak to je tipka q). &lt;br&gt; &lt;br&gt; \n► Kada je omogućen anonimni način, ni jedna riječ neće se naučiti niti će se emojiji pojaviti među nedavnima. &lt;br&gt; &lt;br&gt; \n► Pritisnite ikonu anonimnog načina za pristup alatnoj traci. &lt;br&gt; &lt;br&gt; \n► Unos potezom od tipke: potegnite prstom od tipke Shift do neke druge tipke unijet će jedno veliko slovo: &lt;br&gt; \n\t• ovo funkcionira i za tipku „?123” čime će se unijeti jedan simbol, te i za druge slične tipke. &lt;br&gt; &lt;br&gt; \n► Držite tipku Shift ili tipku simbola, pritisnite jednu ili više tipki i pustite tipku koju ste držali pa ćete se vratiti na prethodnu tipkovnicu. &lt;br&gt; &lt;br&gt; \n► Dugo pritisnite prijedlog u traci prijedloga da biste vidjeli više prijedloga i tipku za brisanje tog prijedloga. &lt;br&gt; &lt;br&gt; \n► Povucite prijedlog prema gore da biste vidjeli više prijedloga i otpustite prst iznad prijedloga koji želite odabrati. &lt;br&gt; &lt;br&gt; \n► Dugo pritisnite stavku u povijesti međuspremnika da biste ju prikvačili (ostat će u međuspremniku do kad ju ne otkvačite). &lt;br&gt; &lt;br&gt; \n► Povucite stavku iz međuspremnika ulijevo da biste ju uklonili (osim ako je prikvačena). &lt;br&gt; &lt;br&gt; \n► Označite tekst i pritišćite Shift da biste mijenjali mala i velika slova. &lt;br&gt; &lt;br&gt; \n► Možete dodati rječnike tako da ih otvorite u pregledniku datoteka: &lt;br&gt; \n\t• ovo funkcionira samo za &lt;i&gt;content-uri&lt;/i&gt;, ali ne i za &lt;i&gt;file_uri&lt;/i&gt;, što znači da ovo možda neće funkcionirati u nekim preglednicima datoteka. &lt;br&gt; &lt;br&gt; \n► Za korisnike koji ručno izrađuju sigurnosne kopije pomoću root pristupa: &lt;br&gt; \n\t• Počevši od Androida 7, dijeljene datoteke postavki ne nalaze se u standardnoj lokaciji jer aplikacija koristi %s. Ovo je nužno kako bi se postavke mogle pročitati prije nego se uređaj otključa, npr. tijekom pokretanja uređaja. &lt;br&gt; \n\t• Datoteka se nalazi u /data/user_de/0/package_id/shared_prefs/ no to može ovisiti o uređaju i verziji Androida. &lt;br&gt; &lt;br&gt; \n&lt;i&gt;&lt;b&gt;Način otklanjanja grešaka/ APK za otklanjanje grešaka&lt;/b&gt;&lt;/i&gt; &lt;br&gt; &lt;br&gt; \n► Dugo pritisnite prijedlog za prikaz izvornog rječnika. &lt;br&gt; &lt;br&gt; \n► Kada koristite APK za otklanjanje grešaka, morate nekoliko puta dotaknuti verziju u &lt;i&gt;O aplikaciji&lt;/i&gt;, nakon čega možete pronaći postavke za otklanjanje grešaka u &lt;i&gt;Naprednim postavkama&lt;/i&gt;. &lt;br&gt; \n\t• Kada omogućite &lt;i&gt;Prikaži informacije o prijedlogu&lt;/i&gt;, prijedlozi će imati sitne brojeve na vrhu koji pokazuju njihovu internu vrijednost i izvorni rječnik. &lt;br&gt; &lt;br&gt; \n► Ako se aplikacija sruši, bit ćete upitani želite li zapisnik o rušenju kada otvorite postavke. &lt;br&gt; &lt;br&gt; \n► Kada koristite višejezični unos, razmaknica će prikazati vrijednost pouzdanosti koja se koristi za određivanje korištenog jezika. &lt;br&gt; &lt;br&gt; \n► Prijedlozi će imati sitne brojeve na vrhu koji pokazuju njihovu internu vrijednost i izvorni rječnik (može se onemogućiti).</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funkcionalne tipke (Khipro)</string>
-    <string name="emoji_search_title">Traži emoji</string>
-    <string name="search_field_placeholder">Traži</string>
     <string name="gesture_data_screen">Prikupljanje podataka gesti</string>
     <string name="gesture_data_info">Što je ovo?</string>
     <string name="gesture_data_privacy">Privatnost</string>

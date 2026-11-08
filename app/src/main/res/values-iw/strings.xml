@@ -291,7 +291,6 @@
     <string name="day_or_night_image">להגדיר תמונה למצב יום או לילה?</string>
     <string name="day_or_night_night">לילה</string>
     <string name="switch_keyboard_after">מעבר למקלדת הראשית כעבור…</string>
-    <string name="after_emoji">בחירת אימוג\'י בתצוגת האימוג\'י</string>
     <string name="after_clip">בחירת רשומה בהיסטוריית הלוח</string>
     <string name="after_symbol_and_space">לחיצה על enter או רווח אחרי תווים אחרים בתצוגת הסימנים</string>
     <string name="setup_step3_action">הגדרות המקלדת</string>
@@ -342,7 +341,6 @@
     <string name="layout_number_row" tools:keep="@string/layout_number_row">שורת המספרים</string>
     <string name="prefs_space_bar_text">מלל מותאם על מקש הרווח</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">שורת הלוח התחתונה</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">שורת האמוג\'ים התחתונה</string>
     <string name="label_shortcut_key_disabled" tools:keep="@string/label_shortcut_key_disabled">קלט קולי מושבת</string>
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">הצגה / הסתרה של סרגל הכלים</string>
     <string name="label_shift_key_shifted" tools:keep="@string/label_shift_key_shifted">שיפט (לחוץ)</string>
@@ -373,7 +371,6 @@
     <string name="custom_font">הגדרת גופן מותאם מקובץ</string>
     <string name="summary_customize_background_image_landscape">אם לא הוגדרה תמונת רקע במצב אופקי, תוצג תמונת הרקע של מצב אנכי</string>
     <string name="prefs_font_scale">קנה-מידה של גופן המקלדת</string>
-    <string name="prefs_emoji_font_scale">קנה-מידה של גופן תצוגת האמוג\'י</string>
     <string name="prefs_side_padding_scale">קנה-מידה של המרווח הצדדי</string>
     <string name="number_row_hints">הצגת רמזים על שורת המספרים</string>
     <string name="prefs_language_swipe_distance">אורך מחוות ההחלקה להחלפת שפה</string>
@@ -406,11 +403,8 @@
     <string name="timestamp_format_title">פורמט למקש חתימת הזמן</string>
     <string name="subtype_dag">דאגבני</string>
     <string name="subtype_st">ססוטו</string>
-    <string name="prefs_emoji_key_fit">התאמת גודל מקש האמוג\'י לגודל הגופן</string>
     <string name="backup_restored">הגיבוי שוחזר</string>
     <string name="use_apps_dict">רשימת שמות יישומים לאיתור</string>
-    <string name="prefs_emoji_skin_tone">גוון עור ברירת-מחדל לאמוג\'י</string>
-    <string name="prefs_emoji_skin_tone_neutral">נייטרלי</string>
     <string name="use_apps_dict_summary">שימוש בשמות יישומים מותקנים להצעות ולתיקונים</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="popup_order_and_hint_source">סדר הסימנים בחלון צץ ומקור הרמזים</string>
@@ -421,7 +415,6 @@
     <string name="toolbar_mode">מצב סרגל הכלים</string>
     <string name="toolbar_mode_expandable">פקדי סרגל הכלים והצעות</string>
     <string name="toolbar_mode_toolbar_keys">פקדי סרגל הכלים בלבד</string>
-    <string name="show_emoji_descriptions">הצגת תיאור אמוג\'י בלחיצה ממושכת</string>
     <string name="suggest_emojis">הצעות אמוג׳י</string>
     <string name="suggest_emojis_summary">שימוש במילון האמוג\'ים בהצעות רגילות</string>
     <string name="space_swipe_hide_keyboard_entry">הסתרת המקלדת</string>
@@ -433,7 +426,6 @@
     <string name="save_subtype_per_app">שיוך שפה ליישום</string>
     <string name="clipboard_history_pinned_first">הצגת פריטים נעוצים תחילה</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">שורה תחתונה בלוח עם פקד פעולה</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">שורת אמוג\'י תחתונה עם פקד פעולה</string>
     <string name="subtype_mhr">מארי (מזרח אורל)</string>
     <string name="emoji_dictionary_required">דרוש מילון אמוג\'י כדי שתכולה זו תפעל. מילונים בפורמט .dict ניתן להוריד ב %s.</string>
     <string name="inline_emoji_search_summary">הצעת אמוג\'י בלבד כאשר לפני המילה מופיעות נקודתיים</string>
@@ -441,8 +433,6 @@
     <string name="custom_emoji_font">הגדרת גופן אמוג\'י מותאם מקובץ</string>
     <string name="number_row_in_symbols">הצגת שורת מספרים בתצוגת הסמלים</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">פקדים פונקציונליים (Khipro)</string>
-    <string name="emoji_search_title">חיפוש אמוג׳י</string>
-    <string name="search_field_placeholder">חיפוש</string>
     <string name="gesture_data_screen">איסוף נתוני מחוות</string>
     <string name="gesture_data_description">ברוך בואך אל מסך איסוף נתוני המחוות!&lt;br/&gt;&lt;br/&gt; זהו חלק מפרויקט &lt;a href=https://nlnet.nl/project/GestureTyping&gt; ממומן-NLnet&lt;/a&gt; החותר ליצור ספריית הקלדה במחוות בקוד פתוח מלא שתוכל להחליף את הספרייה של Google שהיא בקוד סגור.&lt;br/&gt; התוצר מתוכנן להוות חלופה פשוטה למקלדות מבוססות-AOSP, אך גם ניתנת לשימוש במקלדות אחרות, כדוגמת FlorisBoard.&lt;br/&gt;&lt;br/&gt; לצורך פיתוח הספרייה מאד עוזר שתהיה זמינות של נתוני שימוש במחוות בשפות שונות וע\"י משתמשים שונים.&lt;br/&gt; ע\"י איסוף והגשה של נתוני הקלדה במחוות באפשרותך לתרום למאגר פתוח של נתוני מחוות שישמש בפיתוח הספרייה. ערכת הנתונים תפורסם בהתאם לרישיון CC BY-SA 4.0 זמן מה לאחר סיום שלב איסוף הנתונים ב-%s. לאחר שביצעת איסוף של הנתונים, באפשרותך להגיש אותם באמצעות סמל השיתוף בתחתית מסך זה.</string>
     <string name="gesture_data_info">מה זה?</string>
@@ -548,7 +538,6 @@
     <string name="subtype_probhat_bn_BD">%s (פרובהאט)</string>
     <string name="subtype_generic_sebeolsik_390">%s (Sebeolsik 390)</string>
     <string name="subtype_generic_student">%s (סטודנט)</string>
-    <string name="recent_emojis_cleared">היסטוריית האמוג\'ים נמחקה</string>
     <string name="show_dpad_key">מקש D-pad (מקשי כיוון)</string>
     <string name="accent_shifted_icon">סמל shift מודגש</string>
     <string name="prefs_enable_hardware_keyboard">תמיכה במקלדת חומרה</string>

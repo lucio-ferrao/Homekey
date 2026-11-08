@@ -27,7 +27,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import helium314.keyboard.keyboard.emoji.EmojiPageKeyboardView;
 import helium314.keyboard.keyboard.internal.KeyDrawParams;
 import helium314.keyboard.keyboard.internal.KeyVisualAttributes;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
@@ -191,10 +190,7 @@ public class KeyboardView extends View {
         mKeyDrawParams.updateParams(scaledKeySize, keyboard.mKeyVisualAttributes);
         invalidateAllKeys();
         requestLayout();
-        mFontSizeMultiplier = mKeyboard.mId.getElement().isEmojiLayout()
-                // In the case of EmojiKeyFit, the size of emojis is taken care of by the size of the keys
-                ? (Settings.getValues().mEmojiKeyFit ? 1 : Settings.getValues().mFontSizeMultiplierEmoji)
-                : Settings.getValues().mFontSizeMultiplier;
+        mFontSizeMultiplier = Settings.getValues().mFontSizeMultiplier;
         mHintFontSizeMultiplier = Settings.getValues().mHintFontSizeMultiplier;
     }
 
@@ -430,8 +426,6 @@ public class KeyboardView extends View {
                     paint.setColor(key.selectTextColor(params) | 0xFF000000); // ignore alpha for emojis (though actually color isn't applied anyway and we could just set white)
                 else if (key.hasActionKeyBackground())
                     paint.setColor(mColors.get(ColorType.ACTION_KEY_ICON));
-                else if (this instanceof EmojiPageKeyboardView)
-                    paint.setColor(mColors.get(ColorType.EMOJI_KEY_TEXT));
                 else if (this instanceof PopupKeysKeyboardView)
                     paint.setColor(mColors.get(ColorType.POPUP_KEY_TEXT));
                 else

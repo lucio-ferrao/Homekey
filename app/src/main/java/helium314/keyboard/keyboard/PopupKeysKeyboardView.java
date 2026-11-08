@@ -27,8 +27,6 @@ import helium314.keyboard.latin.R;
 import helium314.keyboard.latin.RichInputMethodManager;
 import helium314.keyboard.latin.common.Constants;
 import helium314.keyboard.latin.common.CoordinateUtils;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 
 /**
  * A view that renders a virtual {@link PopupKeysKeyboard}. It handles rendering of keys and
@@ -41,7 +39,6 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
     protected final KeyDetector mKeyDetector;
     private Controller mController = EMPTY_CONTROLLER;
     protected KeyboardActionListener mListener;
-    protected Function1<Key, Unit> mOnReleaseKey;
     private int mOriginX;
     private int mOriginY;
     private Key mCurrentKey;
@@ -124,18 +121,6 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
     public void showPopupKeysPanel(View parentView, Controller controller,
             int pointX, int pointY, KeyboardActionListener listener) {
         mListener = listener;
-        mOnReleaseKey = null;
-        showPopupKeysPanelInternal(parentView, controller, pointX, pointY);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void showPopupKeysPanel(View parentView, Controller controller,
-            int pointX, int pointY, Function1<Key, Unit> onReleaseKey) {
-        mListener = null;
-        mOnReleaseKey = onReleaseKey;
         showPopupKeysPanelInternal(parentView, controller, pointX, pointY);
     }
 
@@ -243,8 +228,6 @@ public class PopupKeysKeyboardView extends KeyboardView implements PopupKeysPane
                             false /* isKeyRepeat */);
                 }
             }
-        } else if (mOnReleaseKey != null) {
-            mOnReleaseKey.invoke(key);
         }
     }
 

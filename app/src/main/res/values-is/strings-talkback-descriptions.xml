@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Raddinntak"</string>
     <string name="spoken_description_emoji">"Emoji-tákn"</string>
     <string name="spoken_description_return">"Venda"</string>
-    <string name="spoken_description_search">"Leita"</string>
     <string name="spoken_description_dot">"Kúla"</string>
     <string name="spoken_description_language_switch">"Skipta um tungumál"</string>
     <string name="spoken_description_action_next">"Næsta"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"texti"</string>
     <string name="keyboard_mode_time">"tími"</string>
     <string name="keyboard_mode_url">"vefslóð"</string>
-    <string name="spoken_description_emoji_category_recents">"Nýlegt"</string>
-    <string name="spoken_description_emoji_category_objects">"Hlutir"</string>
-    <string name="spoken_description_emoji_category_symbols">"Tákn"</string>
-    <string name="spoken_description_emoji_category_flags">"Fánar"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Broskarlar og fólk"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Dýr og náttúra"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Matur og drykkur"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Ferðalög og staðir"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Hreyfing"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Broskarlar"</string>
     <string name="spoken_description_upper_case">"Hástafurinn <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"Hástafurinn I"</string>
     <string name="spoken_letter_0130">"Hástafurinn I með depli"</string>

@@ -35,9 +35,6 @@ import helium314.keyboard.compat.ImeCompat;
 import helium314.keyboard.event.HapticEvent;
 import helium314.keyboard.keyboard.KeyboardActionListener;
 import helium314.keyboard.keyboard.KeyboardActionListenerImpl;
-import helium314.keyboard.keyboard.emoji.EmojiPalettesView;
-import helium314.keyboard.keyboard.emoji.EmojiSearchActivity;
-import helium314.keyboard.keyboard.emoji.EmojiSearchActivityKt;
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.common.InsetsOutlineProvider;
@@ -125,6 +122,15 @@ public class LatinIME extends InputMethodService implements
     private static final int EMAIL_CONTEXT_LENGTH = 256;
     private final VoiceDictation mVoiceDictation = new VoiceDictation(this);
     private final AppLauncherMode mAppLauncher = new AppLauncherMode(this);
+    private final EmojiStripMode mEmojiStrip = new EmojiStripMode(this);
+    private final NotificationStrip mNotificationStrip = new NotificationStrip(this);
+
+    /** the mode of the suggestion strip that takes the typing now (emojis or apps), or null */
+    @Nullable private StripSearch capturingSearch() {
+        if (mEmojiStrip.capturesInput()) return mEmojiStrip;
+        if (mAppLauncher.capturesInput()) return mAppLauncher;
+        return null;
+    }
     private final EmailSuggestions mEmailSuggestions = new EmailSuggestions(this);
 
     // TODO: Move these {@link View}s to {@link KeyboardSwitcher}.
@@ -230,10 +236,11 @@ public class LatinIME extends InputMethodService implements
                 case MSG_UPDATE_TAIL_BATCH_INPUT_COMPLETED:
                     final SuggestedWords suggestedWords = (SuggestedWords) msg.obj;
                     // in the launcher mode the gestured word goes to the search, not to the text field
-                    if (latinIme.mAppLauncher.capturesInput()) {
+                    final StripSearch search = latinIme.capturingSearch();
+                    if (search != null) {
                         latinIme.mInputLogic.discardBatchInput();
                         if (!suggestedWords.isEmpty())
-                            latinIme.mAppLauncher.onTextInput(latinIme.mAppLauncher.gestureSeparator() + suggestedWords.getWord(0));
+                            search.onTextInput(search.gestureSeparator() + suggestedWords.getWord(0));
                         break;
                     }
                     latinIme.mInputLogic.onUpdateTailBatchInputCompleted(
@@ -524,6 +531,13 @@ public class LatinIME extends InputMethodService implements
         mReceiver.register(this);
 
         StatsUtils.onCreate(mSettings.getCurrent(), mRichImm);
+        // the list of the launcher mode is ready before it is first opened
+        AppLauncherMode.Companion.preload(this);
+        // notifications arriving while typing show up in the suggestion strip
+        LauncherNotificationService.Companion.setOnPosted(entry -> {
+            mNotificationStrip.onPosted(entry, capturingSearch() == null && !mVoiceDictation.isListening());
+            return kotlin.Unit.INSTANCE;
+        });
     }
 
     private void loadSettings() {
@@ -623,9 +637,6 @@ public class LatinIME extends InputMethodService implements
         mDictionaryFacilitator.resetDictionaries(this, mDictionaryFacilitator.getMainLocale(),
                 settingsValues.mUseContactsDictionary, settingsValues.mUseAppsDictionary,
                 settingsValues.mUsePersonalizedDicts, true, "", this);
-        mKeyboardSwitcher.setThemeNeedsReload(); // necessary for emoji search
-        EmojiPalettesView.closeDictionaryFacilitator();
-        EmojiSearchActivity.Companion.closeDictionaryFacilitator();
     }
 
     // used for debug
@@ -635,6 +646,7 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public void onDestroy() {
+        LauncherNotificationService.Companion.setOnPosted(null);
         mVoiceDictation.cancel();
         mClipboardHistoryManager.onDestroy();
         mDictionaryFacilitator.closeDictionaries();
@@ -703,7 +715,7 @@ public class LatinIME extends InputMethodService implements
     }
 
     public void updateSuggestionStripView(View view) {
-        mSuggestionStripView = mSettings.getCurrent().mToolbarMode == ToolbarMode.HIDDEN || isEmojiSearch()?
+        mSuggestionStripView = mSettings.getCurrent().mToolbarMode == ToolbarMode.HIDDEN ?
                         null : view.findViewById(R.id.suggestion_strip_view);
         if (hasSuggestionStripView()) {
             mSuggestionStripView.setRtl(mRichImm.getCurrentSubtype().isRtlSubtype());
@@ -736,6 +748,8 @@ public class LatinIME extends InputMethodService implements
     public void onFinishInputView(final boolean finishingInput) {
         mVoiceDictation.cancel();
         mAppLauncher.reset();
+        mEmojiStrip.reset();
+        mNotificationStrip.forget();
         learnEmailField();
         StatsUtils.onFinishInputView();
         mHandler.onFinishInputView(finishingInput);
@@ -1009,8 +1023,8 @@ public class LatinIME extends InputMethodService implements
         super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
                 composingSpanStart, composingSpanEnd);
         // a tap in the text field of the app moves the cursor: that leaves the launcher mode
-        if (mAppLauncher.capturesInput() && (oldSelStart != newSelStart || oldSelEnd != newSelEnd))
-            mAppLauncher.onTapOutside();
+        if (capturingSearch() != null && (oldSelStart != newSelStart || oldSelEnd != newSelEnd))
+            capturingSearch().onTapOutside();
         if (DebugFlags.DEBUG_ENABLED) {
             Log.i(TAG, "onUpdateSelection: oss=" + oldSelStart + ", ose=" + oldSelEnd
                     + ", nss=" + newSelStart + ", nse=" + newSelEnd
@@ -1177,9 +1191,6 @@ public class LatinIME extends InputMethodService implements
             outInsets.touchableInsets = InputMethodService.Insets.TOUCHABLE_INSETS_REGION;
             outInsets.touchableRegion.set(touchLeft, touchTop, touchRight, touchBottom);
         }
-
-        // Has to be subtracted after calculating touchableRegion
-        visibleTopY -= getEmojiSearchActivityHeight();
 
         outInsets.contentTopInsets = visibleTopY;
         outInsets.visibleTopInsets = visibleTopY;
@@ -1365,6 +1376,8 @@ public class LatinIME extends InputMethodService implements
     // This method is public for testability of LatinIME, but also in the future it should
     // completely replace #onCodeInput.
     public void onEvent(@NonNull final Event event) {
+        // a key gives the suggestion strip back from a notification shown in it
+        mNotificationStrip.hide();
         // in the launcher mode, voice input (long press on space) is a spoken command
         if (mAppLauncher.capturesInput() && KeyCode.VOICE_INPUT == event.getKeyCode()) {
             mAppLauncher.onVoiceInput();
@@ -1389,18 +1402,23 @@ public class LatinIME extends InputMethodService implements
             }
             mVoiceDictation.cancel();
         }
-        // in the launcher mode, typing searches apps instead of going to the text field
-        if (mAppLauncher.capturesInput() && mAppLauncher.onEvent(event)) {
+        // the emoji key (or emoji in the alternatives of Enter) shows the emojis in the suggestion strip, with the
+        // keyboard still there
+        if (event.getKeyCode() == KeyCode.EMOJI) {
+            if (mAppLauncher.capturesInput()) mAppLauncher.stop();
+            mInputLogic.commitTyped(mSettings.getCurrent(), LastComposedWord.NOT_A_SEPARATOR);
+            mEmojiStrip.start();
+            return;
+        }
+        // in the launcher or emoji mode, typing searches apps or emojis instead of going to the text field
+        if (capturingSearch() != null && capturingSearch().onEvent(event)) {
             mKeyboardSwitcher.onEvent(event, Constants.TextUtils.CAP_MODE_OFF, null);
             return;
         }
-        // double tap on space enters the launcher mode (and leaves the emoji palette); on the home screen of Homekey,
-        // whose text field is the search, spaces are just typed
+        // double tap on space enters the launcher mode; on the home screen of Homekey, whose text field is the search,
+        // spaces are just typed
         if (!HomeActivity.Companion.isHomeField(getCurrentInputEditorInfo()) && mInputLogic.takeBackSpaceOnDoubleTap(event)) {
-            if (mKeyboardSwitcher.isShowingEmojiPalettes())
-                onCodeInput(KeyCode.ALPHA, Constants.NOT_A_COORDINATE, Constants.NOT_A_COORDINATE, false);
-            else
-                mAppLauncher.start();
+            mAppLauncher.start();
             return;
         }
         InputTransaction completeInputTransaction =
@@ -1411,9 +1429,10 @@ public class LatinIME extends InputMethodService implements
 
     public void onTextInput(@Nullable String rawText) {
         if (rawText == null) return;
+        mNotificationStrip.hide();
         mVoiceDictation.cancel();
-        if (mAppLauncher.capturesInput()) {
-            mAppLauncher.onTextInput(rawText);
+        if (capturingSearch() != null) {
+            capturingSearch().onTextInput(rawText);
             return;
         }
         // TODO: have the keyboard pass the correct key code when we need it.
@@ -1426,8 +1445,10 @@ public class LatinIME extends InputMethodService implements
     }
 
     public void onStartBatchInput() {
-        // in the launcher mode the gesture is recognized as usual, but nothing is committed or inserted in the text field
-        if (mAppLauncher.capturesInput()) {
+        mNotificationStrip.hide();
+        // in the launcher and emoji modes the gesture is recognized as usual, but nothing is committed or inserted in the
+        // text field
+        if (capturingSearch() != null) {
             mInputLogic.onStartBatchInputDetached(mHandler);
             return;
         }
@@ -1441,13 +1462,13 @@ public class LatinIME extends InputMethodService implements
 
     public void onEndBatchInput(final InputPointers batchPointers) {
         mInputLogic.onEndBatchInput(batchPointers);
-        if (mAppLauncher.capturesInput()) return;
+        if (capturingSearch() != null) return;
         mGestureConsumer.onGestureCompleted(batchPointers);
     }
 
     public void onCancelBatchInput() {
         mInputLogic.onCancelBatchInput(mHandler);
-        if (mAppLauncher.capturesInput()) return;
+        if (capturingSearch() != null) return;
         mGestureConsumer.onGestureCanceled();
     }
 
@@ -1483,8 +1504,8 @@ public class LatinIME extends InputMethodService implements
     }
 
     private void setSuggestedWords(final SuggestedWords wordSuggestions) {
-        if (mAppLauncher.capturesInput()) {
-            mAppLauncher.show();
+        if (capturingSearch() != null) {
+            capturingSearch().show();
             return;
         }
         // email fields get suggestions from the addresses typed before instead of words
@@ -1576,8 +1597,8 @@ public class LatinIME extends InputMethodService implements
     // and there is a selection of text or it's the start of a line.
     @Override
     public void setNeutralSuggestionStrip() {
-        if (mAppLauncher.capturesInput()) {
-            mAppLauncher.show();
+        if (capturingSearch() != null) {
+            capturingSearch().show();
             return;
         }
         final SettingsValues currentSettings = mSettings.getCurrent();
@@ -1790,22 +1811,8 @@ public class LatinIME extends InputMethodService implements
         startActivity(intent);
     }
 
-    public void launchEmojiSearch() {
-        Log.d(EmojiSearchActivityKt.TAG, "before activity launch");
-        startActivity(new Intent().setClass(this, EmojiSearchActivity.class)
-                          .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_MULTIPLE_TASK));
-    }
-
     public void toggleAppLauncher() {
         mAppLauncher.toggle();
-    }
-
-    public boolean isEmojiSearch() {
-        return getEmojiSearchActivityHeight() > 0;
-    }
-
-    private int getEmojiSearchActivityHeight() {
-        return EmojiSearchActivity.Companion.decodePrivateImeOptions(getCurrentInputEditorInfo()).height();
     }
 
     // slightly modified from Simple Keyboard: https://github.com/rkkr/simple-keyboard/blob/master/app/src/main/java/rkr/simplekeyboard/inputmethod/latin/LatinIME.java
@@ -1868,7 +1875,6 @@ public class LatinIME extends InputMethodService implements
         switch (level) {
             case TRIM_MEMORY_RUNNING_LOW, TRIM_MEMORY_RUNNING_CRITICAL, TRIM_MEMORY_COMPLETE -> {
                 KeyboardLayoutSet.Companion.onSystemLocaleChanged(); // clears caches, nothing else
-                mKeyboardSwitcher.trimMemory();
             }
             // deallocateMemory always called on hiding, and should not be called when showing
         }

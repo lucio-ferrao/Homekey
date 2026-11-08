@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Hangbevitel"</string>
     <string name="spoken_description_emoji">"Hangulatjel"</string>
     <string name="spoken_description_return">"Enter"</string>
-    <string name="spoken_description_search">"Keresés"</string>
     <string name="spoken_description_dot">"Pont"</string>
     <string name="spoken_description_language_switch">"Nyelvváltás"</string>
     <string name="spoken_description_action_next">"Következő"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"szöveg"</string>
     <string name="keyboard_mode_time">"idő"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Legutóbbiak"</string>
-    <string name="spoken_description_emoji_category_objects">"Objektumok"</string>
-    <string name="spoken_description_emoji_category_symbols">"Szimbólumok"</string>
-    <string name="spoken_description_emoji_category_flags">"Zászlók"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Hangulatjelek és emberek"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Állatvilág és természet"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Étel-ital"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Utazás és helyek"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Tevékenység"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Hangulatjelek"</string>
     <string name="spoken_description_upper_case">"Nagy <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"Nagy I"</string>
     <string name="spoken_letter_0130">"Nagy I, felette ponttal"</string>

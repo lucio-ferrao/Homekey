@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"ການປ້ອນ​ຂໍ້ມູນ​ດ້ວຍສຽງ"</string>
     <string name="spoken_description_emoji">"ອີໂມຈິ"</string>
     <string name="spoken_description_return">"ກັບຄືນ"</string>
-    <string name="spoken_description_search">"ຊອກຫາ"</string>
     <string name="spoken_description_dot">"ຈ້ຳ"</string>
     <string name="spoken_description_language_switch">"ສະລັບ​ພາສາ"</string>
     <string name="spoken_description_action_next">"ຕໍ່ໄປ"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"ຂໍ້ຄວາມ"</string>
     <string name="keyboard_mode_time">"ເວລາ"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"ຫາ​ກໍ​ໃຊ້"</string>
-    <string name="spoken_description_emoji_category_objects">"​ວັດ​ຖຸ"</string>
-    <string name="spoken_description_emoji_category_symbols">"ສັນຍາລັກ"</string>
-    <string name="spoken_description_emoji_category_flags">"ໝາຍ​ຄະ​ແນນ"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"ຮອຍ​ຍິ້ມ ແລະ ຜູ້​ຄົນ"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"ສັດ ແລະ ທຳ​ມະ​ຊາດ"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"ອາ​ຫານ ແລະ ເຄື່ອງດື່ມ"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"ການ​ເດີນ​ທາງ ແລະ ສະ​ຖານ​ທີ່"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"ກິດຈະກໍາ"</string>
-    <string name="spoken_description_emoji_category_emoticons">"​ອີ​ໂມ​ຕິ​ຄອນ"</string>
     <string name="spoken_description_upper_case">"ໂຕ​ພິມ​ໃຫຍ່ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"ໂຕ​ພິມ​ໃຫຍ່ I"</string>
     <string name="spoken_letter_0130">"​ໂຕພິມ​ໃຫຍ່ I ມີ​ຈ້ຳ​ເມັດ​ຢູ່​ເທິງ"</string>

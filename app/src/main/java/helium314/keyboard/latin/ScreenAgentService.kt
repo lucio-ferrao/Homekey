@@ -83,6 +83,20 @@ class ScreenAgentService : AccessibilityService() {
             return true
         }
 
+        /** tries for a few seconds to tap the message box of the chat being opened in [packageName] */
+        fun focusMessageFieldSoon(packageName: String) {
+            val handler = Handler(Looper.getMainLooper())
+            var tries = 0
+            val attempt = object : Runnable {
+                override fun run() {
+                    val service = instance ?: return
+                    if (service.focusMessageField(packageName) || ++tries >= 10) return
+                    handler.postDelayed(this, 300)
+                }
+            }
+            handler.postDelayed(attempt, 500)
+        }
+
         /** called on a click in another app, set while the launcher mode is open (to leave it) */
         var onTapInOtherApp: (() -> Unit)? = null
 

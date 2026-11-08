@@ -174,7 +174,8 @@ class StringUtilsTest {
     @Test fun isEmojiDetectsAllAvailableEmojis() {
         val ctx = ApplicationProvider.getApplicationContext<App>()
         val allEmojis = ctx.assets.list("emoji")!!.flatMap {
-            if (it == "minApi.txt" || it == "EMOTICONS.txt") return@flatMap emptyList()
+            // nomes.txt has the names of the emojis (emoji mode of the suggestion strip), not only emojis
+            if (it == "minApi.txt" || it == "EMOTICONS.txt" || it == "nomes.txt") return@flatMap emptyList()
             ctx.assets.open("emoji/$it").reader().readLines()
         }.flatMap { it.splitOnWhitespace() }
 

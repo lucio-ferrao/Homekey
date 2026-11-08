@@ -13,8 +13,6 @@
         <attr name="keyboardViewStyle" format="reference" />
         <!-- MainKeyboardView style -->
         <attr name="mainKeyboardViewStyle" format="reference" />
-        <!-- EmojiPalettesView style -->
-        <attr name="emojiPalettesViewStyle" format="reference" />
         <!-- ClipboardHistoryView style -->
         <attr name="clipboardHistoryViewStyle" format="reference" />
         <!-- PopupKeysKeyboard style -->
@@ -151,21 +149,6 @@
 
     <declare-styleable name="PopupKeysKeyboardView">
         <attr name="divider" format="reference" />
-    </declare-styleable>
-
-    <declare-styleable name="EmojiPalettesView">
-        <attr name="categoryPageIndicatorBackground" format="color" />
-        <attr name="iconEmojiRecentsTab" format="reference" />
-        <attr name="iconEmojiSmileysTab" format="reference" />
-        <attr name="iconEmojiPeopleTab" format="reference" />
-        <attr name="iconEmojiNatureTab" format="reference" />
-        <attr name="iconEmojiFoodTab" format="reference" />
-        <attr name="iconEmojiTravelPlacesTab" format="reference" />
-        <attr name="iconEmojiActivitiesTab" format="reference" />
-        <attr name="iconEmojiObjectsTab" format="reference" />
-        <attr name="iconEmojiSymbolsTab" format="reference" />
-        <attr name="iconEmojiFlagsTab" format="reference" />
-        <attr name="iconEmojiEmoticonsTab" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="ClipboardHistoryView">

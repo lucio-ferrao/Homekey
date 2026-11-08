@@ -114,7 +114,6 @@
     <string name="inline_emoji_search">Jaustukų paieška</string>
     <string name="inline_emoji_search_summary">Siūlyti jaustuką tik tada kai žodis prasideda kabliataškiu</string>
     <string name="emoji_dictionary_required">Šiai galimybei reikia jaustukų žodyno. Žodyną .dict formate galite parsisiųsti iš %s.</string>
-    <string name="show_emoji_descriptions">Ilgai paspaudus rodyti jaustuko aprašymą</string>
     <string name="settings_category_input">Įvestis</string>
     <string name="settings_category_additional_keys">Papildomi klavišai</string>
     <string name="settings_category_clipboard_history">Iškarpinės istorija</string>
@@ -264,7 +263,6 @@
     <string name="setup_step3_action">Konfigūruoti klaviatūrą</string>
     <string name="landscape">Gulsčias</string>
     <string name="prefs_font_scale">Klaviatūros šrifto dydis</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutralūs</string>
     <string name="subtype_mns">Mansi</string>
     <string name="subtype_xdq">Kaitag</string>
     <string name="subtype_dag">Dagbani</string>
@@ -304,21 +302,16 @@
     <string name="remove_redundant_popups_summary">Paslėpti iššokančius mygtukus kurie jau yra</string>
     <string name="prefs_long_press_symbol_for_numpad">Skaičių įvesčiai ilgai paspausti simbolių mygtuką</string>
     <string name="prefs_side_padding_scale">Šono dydis</string>
-    <string name="prefs_emoji_font_scale">Jaustukų peržiūros šrifto dydis</string>
-    <string name="prefs_emoji_key_fit">Keisti jaustukų mygtuko dydį kartu su šrifto dydžiu</string>
-    <string name="prefs_emoji_skin_tone">Numatytasis jaustukų temos tonas</string>
     <string name="prefs_space_bar_text">Pasirinktinis tekstas ant tarpo klavišo</string>
     <string name="custom_font">Pasirinkti pasirinktinį šriftą iš failo</string>
     <string name="layout_functional_keys_symbols" tools:keep="@string/layout_functional_keys_symbols">Funkciniai klavišai (Simboliai)</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funkciniai klavišai (Daugiau simbolių)</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Jaustukų apatinė eilė</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Iškarpinės apatinė eilė</string>
     <string name="customize_background_image_landscape">Nustatyti fono paveikslėlį (horizontaliai)</string>
     <string name="summary_customize_background_image_landscape">Jei nenustatyta, bus naudojamas vertikalus paveikslėlis</string>
     <string name="customize_currencies">Derinti valiutas</string>
     <string name="customize_currencies_detail">Pasirinkite pagrindinę ir iki 6 papildomų valiutų simbolius, atskirkite tarpu</string>
     <string name="switch_keyboard_after">Perjungti į pagrindinę klaviatūrą po…</string>
-    <string name="after_emoji">Jaustuko pasirinkimas jaustukų peržiūroje</string>
     <string name="after_clip">Pasirinkti iškarpinės istorijos elementą</string>
     <string name="after_symbol_and_space">Paspaudus enter arba tarpą po kitų klavišų simbolių peržiūroje</string>
     <string name="after_numpad_and_space">Paspaudus enter arba tarpą po kitų klavišų skaičių įvestyje</string>

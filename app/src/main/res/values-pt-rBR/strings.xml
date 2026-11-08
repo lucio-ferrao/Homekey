@@ -337,7 +337,6 @@
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Teclas funcionais (Mais símbolos)</string>
     <string name="switch_keyboard_after">Altere para o teclado principal depois…</string>
     <string name="after_clip">Selecionando entrada do histórico da área de transferência</string>
-    <string name="after_emoji">Selecionando emoji na tela de emoji</string>
     <string name="after_symbol_and_space">Pressionando enter ou espaço após outras teclas na tela de símbolos</string>
     <string name="space_swipe_toggle_numpad_entry">Ativar teclado numérico</string>
     <string name="show_popup_keys_main">Adicionar variantes muito comuns (padrão)</string>
@@ -350,7 +349,6 @@
     <string name="icon_style">Estilo do ícone</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Linha de números</string>
     <string name="prefs_space_bar_text">Texto customizado na barra de espaço</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Linha inferior de emojis</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Linha inferior da área de transferência</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
@@ -384,7 +382,6 @@
     <string name="summary_customize_background_image_landscape">Se não configurado, a imagem de retrato será usada</string>
     <string name="subtype_dru">Dargínico (Urakhi)</string>
     <string name="prefs_font_scale">Escala da fonte do teclado</string>
-    <string name="prefs_emoji_font_scale">Escala da fonte na visualização de emoji</string>
     <string name="prefs_side_padding_scale">Escala do espaço lateral</string>
     <string name="number_row_hints">Mostrar dicas na linha de números</string>
     <string name="prefs_language_swipe_distance">Distância do deslize para alterar idioma</string>
@@ -416,12 +413,9 @@
     <string name="timestamp_format_title">Formato da tecla de horário</string>
     <string name="subtype_dag">Dagani</string>
     <string name="subtype_st">Sesoto</string>
-    <string name="prefs_emoji_key_fit">Redimensionar tamanho da tecla de emoji com o tamanho da fonte</string>
     <string name="backup_restored">O backup foi restaurado</string>
     <string name="use_apps_dict">Procurar nomes de apps</string>
     <string name="use_apps_dict_summary">Usar nomes de apps instalados para sugestões e correções</string>
-    <string name="prefs_emoji_skin_tone">Cor de pele padrão para os emojis</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutra</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="toolbar_mode">Modo da barra de ferramentas</string>
     <string name="toolbar_hiding_global">Ocultar a área de transferência e as barras de ferramentas de emoji também</string>
@@ -431,7 +425,6 @@
     <string name="toolbar_mode_hidden">Oculta</string>
     <string name="landscape">Paisagem</string>
     <string name="popup_order_and_hint_source">Ordem das teclas de pop-up e fonte de dicas</string>
-    <string name="show_emoji_descriptions">Mostrar descrição do emoji ao pressionar</string>
     <string name="suggest_emojis">Sugerir emojis</string>
     <string name="suggest_emojis_summary">Usar dicionário de emojis em sugestões normais</string>
     <string name="space_swipe_hide_keyboard_entry">Ocultar teclado</string>
@@ -446,7 +439,6 @@
     <string name="inline_emoji_search_summary">Sugerir apenas emojis quando uma palavra for precedida por dois pontos</string>
     <string name="emoji_dictionary_required">Um dicionário de emoji é necessário para esta funcionalidade. Dicionários no formato .dict podem ser baixados %s.</string>
     <string name="subtype_mhr">Mari (Oriental)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fileira inferior de emojis com tecla de ação</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fileira inferior da área de transferência com tecla de ação</string>
     <string name="number_row_in_symbols">Mostrar linha de números no modo de símbolos</string>
     <string name="custom_emoji_font">Definir fonte de emojis personalizada a partir de um arquivo</string>
@@ -488,8 +480,6 @@
     <string name="gesture_data_screen">Coleta de dados de gestos</string>
     <string name="ask_later">Me Pergunte depois</string>
     <string name="gesture_data_take_me_there">Leve-me até lá</string>
-    <string name="search_field_placeholder">Busca</string>
-    <string name="emoji_search_title">Buscar emoji</string>
     <string name="timestamp_description">­Você pode adicionar a tecla de carimbo de data/hora usando um layout personalizado com a tecla ‘timestamp’ ou o código de tecla -10043.</string>
     <string name="prefs_bottom_row_scale">Escala da linha inferior</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Teclas funcionais (Khipro)</string>

@@ -343,7 +343,6 @@
     <string name="suggest_clipboard_content_summary">Erakutsi duela gutxi kopiatutako arbeleko edukia iradokizun gisa</string>
     <string name="gesture_floating_preview_dynamic_summary">Mugitu aurrebista keinu egitean</string>
     <string name="switch_keyboard_after">Aldatu teklatu nagusira…</string>
-    <string name="after_emoji">Emoji hautatzen emoji ikuspegian</string>
     <string name="after_clip">Arbeleko historiako sarrera hautatzen</string>
     <string name="after_symbol_and_space">Sartu edo zuriune sakatuta ikurren ikuspegiko beste tekla batzuen ondoren</string>
     <string name="show_popup_keys_main">Gehitu oso ohikoak diren aldaerak (lehenetsia)</string>
@@ -352,7 +351,6 @@
     <string name="space_swipe_toggle_numpad_entry">Aktibatu/desaktibatu zenbaki-teklatua</string>
     <string name="prefs_space_bar_text">Testu pertsonalizatua zuriune-barran</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Arbelaren beheko errenkada</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emojien beheko errenkada</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Zenbakien errenkada</string>
     <string name="icon_style">Ikonoen estiloa</string>
     <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Block Maius</string>
@@ -396,14 +394,12 @@
     <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
     <string name="get_colors_message">%s-n koloreak aurki eta parteka ditzakezu.</string>
     <string name="prefs_key_emoji_max_sdk">Ez jaramonik egin Emoji bertsioari</string>
-    <string name="prefs_emoji_skin_tone">Emojien azalaren tonu lehenetsia</string>
     <string name="subtype_generic_phonetic">%s (Phonetic)</string>
     <string name="after_numpad_and_space">Sartu edo zuriunea sakatuta, numpad-eko beste teklen ondoren</string>
     <string name="delete_confirmation">Seguru %s ezabatu nahi duzula?</string>
     <string name="custom_font">Ezarri letra-tipo pertsonalizatua fitxategitik</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
-    <string name="prefs_emoji_key_fit">Eskalatu emojiak karaktereen tamainarekin</string>
     <string name="settings_screen_secondary_layouts">Bigarren mailako diseinuak</string>
     <string name="layout_in_use">Abisua: hori da une honetan erabiltzen ari den diseinua</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Tekla funtzionalak (pantaila handia)</string>
@@ -413,13 +409,10 @@
     <string name="customize_icons_reset_message">Seguru berrezarri nahi duzula ikono pertsonalizatu guztiak?</string>
     <string name="split" tools:keep="@string/split">Banatu teklatua</string>
     <string name="prefs_font_scale">Teklatuko karaktereen eskala</string>
-    <string name="prefs_emoji_font_scale">Emojien eskala</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutroa</string>
     <string name="subtype_dru">Darginera (Urakhi)</string>
     <string name="get_layouts_message">%s-n diseinuak aurki eta parteka ditzakezu.</string>
     <string name="discussion_section_link">eztabaiden atala</string>
     <string name="name_invalid">Izen baliogabea</string>
-    <string name="show_emoji_descriptions">Erakutsi emojiaren deskribapena luze sakatzean</string>
     <string name="suggest_emojis_summary">Erabili emoji hiztegia iradokizun normaletan</string>
     <string name="suggest_emojis">Iradokitako emojiak</string>
     <string name="toolbar_hiding_global">Ezkutatu arbela eta emojien tresna-barrak ere</string>
@@ -448,7 +441,6 @@
     <string name="custom_emoji_font">Ezarri emoji iturria fitxategitik</string>
     <string name="subtype_mhr">Mari (ekialdekoa)</string>
     <string name="subtype_khipro_bn">%s (Khipro)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emojien beheko errenkada ekintza-teklarekin</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Arbelaren beheko errenkada ekintza-teklarekin</string>
     <string name="prefs_bottom_row_scale">Beheko lerroaren eskala</string>
     <string name="toolbar_swipe_down_to_hide">Ezkutatu teklatua irristatuz</string>
@@ -481,8 +473,6 @@
     <string name="toolbar_only_with_hw_keyboard">Erakutsi tresna-barra soilik teklatu fisikoarekin</string>
     <string name="toolbar_only_with_hw_keyboard_summary">Hala ere, teklatu birtuala erakustea gaitu behar duzu sistemaren ezarpenetan</string>
     <string name="folded">Tolestuta</string>
-    <string name="emoji_search_title">Bilatu emojiak</string>
-    <string name="search_field_placeholder">Bilatu</string>
     <string name="ask_later">Galdetu geroago</string>
     <string name="spell_check_suggestions">Erakutsi ortografia zuzentzailearen iradokizunak</string>
     <string name="spell_check_suggestions_summary">Erakutsi iradokizunak azpimarra gorria duen hitz bat hautatzean. Aplikazioa ortografia zuzentzaile lehenetsi gisa ezarri behar da.</string>

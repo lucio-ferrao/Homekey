@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Ahozko idazketa"</string>
     <string name="spoken_description_emoji">"Emojiak"</string>
     <string name="spoken_description_return">"Itzuli"</string>
-    <string name="spoken_description_search">"Bilatu"</string>
     <string name="spoken_description_dot">"Puntua"</string>
     <string name="spoken_description_language_switch">"Aldatu hizkuntza"</string>
     <string name="spoken_description_action_next">"Hurrengoa"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"testua"</string>
     <string name="keyboard_mode_time">"ordua"</string>
     <string name="keyboard_mode_url">"URLak"</string>
-    <string name="spoken_description_emoji_category_recents">"Azkenak"</string>
-    <string name="spoken_description_emoji_category_objects">"Objektuak"</string>
-    <string name="spoken_description_emoji_category_symbols">"Ikurrak"</string>
-    <string name="spoken_description_emoji_category_flags">"Banderak"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Aurpegierak eta pertsonak"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Animaliak eta natura"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Jan-edanak"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Bidaiak eta tokiak"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Jarduerak"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Emotikonoak 2"</string>
     <string name="spoken_description_upper_case">"<xliff:g id="LOWER_LETTER">%s</xliff:g> maiuskula"</string>
     <string name="spoken_letter_0049">"I maiuskula"</string>
     <string name="spoken_letter_0130">"I maiuskula goi-puntuduna"</string>

@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"ਵੌਇਸ ਇਨਪੁਟ"</string>
     <string name="spoken_description_emoji">"ਇਮੋਜੀ"</string>
     <string name="spoken_description_return">"ਵਾਪਸ ਜਾਓ"</string>
-    <string name="spoken_description_search">"ਖੋਜੋ"</string>
     <string name="spoken_description_dot">"ਬਿੰਦੀ"</string>
     <string name="spoken_description_language_switch">"ਭਾਸ਼ਾ ਸਵਿੱਚ ਕਰੋ"</string>
     <string name="spoken_description_action_next">"ਅੱਗੇ"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"ਟੈਕਸਟ"</string>
     <string name="keyboard_mode_time">"ਸਮਾਂ"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"ਹਾਲੀਆ"</string>
-    <string name="spoken_description_emoji_category_objects">"ਵਸਤਾਂ"</string>
-    <string name="spoken_description_emoji_category_symbols">"ਚਿੰਨ੍ਹ"</string>
-    <string name="spoken_description_emoji_category_flags">"ਫਲੈਗ"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"ਸਮਾਈਲੀ &amp; ਲੋਕ"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"ਜਾਨਵਰ &amp; ਕੁਦਰਤ"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"ਖਾਣਾ &amp; ਪੀਣਾ"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"ਯਾਤਰਾ &amp; ਥਾਂਵਾਂ"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"ਸਰਗਰਮੀ"</string>
-    <string name="spoken_description_emoji_category_emoticons">"ਇਮੋਟੀਕੋਨਸ"</string>
     <string name="spoken_description_upper_case">"ਕੈਪੀਟਲ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"ਕੈਪੀਟਲ I"</string>
     <string name="spoken_letter_0130">"ਕੈਪੀਟਲ I, ਉੱਪਰ ਬਿੰਦੀ"</string>

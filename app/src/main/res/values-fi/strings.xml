@@ -297,9 +297,6 @@
     <string name="toolbar_mode_hidden" tools:keep="@string/toolbar_mode_hidden">Piilotettu</string>
     <string name="toolbar_hiding_global">Piilota myös leikepöytä- ja emojipalkit</string>
     <string name="prefs_font_scale">Näppäimistön fontin skaalaus</string>
-    <string name="prefs_emoji_font_scale">Emojinäkymän fontin skaalaus</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutraali</string>
-    <string name="prefs_emoji_skin_tone">Emojien oletusarvoinen ihonsävy</string>
     <string name="custom_font">Aseta mukautettu fontti tiedostosta</string>
     <string name="custom_emoji_font">Aseta mukautettu emojifontti tiedostosta</string>
     <string name="subtype_mns">Mansi</string>

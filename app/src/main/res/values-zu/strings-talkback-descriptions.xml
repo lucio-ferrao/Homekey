@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Okungenayo kwezwi"</string>
     <string name="spoken_description_emoji">"I-Emoji"</string>
     <string name="spoken_description_return">"Buyela"</string>
-    <string name="spoken_description_search">"Sesha"</string>
     <string name="spoken_description_dot">"Icashazi"</string>
     <string name="spoken_description_language_switch">"Shintsha ulimi"</string>
     <string name="spoken_description_action_next">"Okulandelayo"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"umbhalo"</string>
     <string name="keyboard_mode_time">"isikhathi"</string>
     <string name="keyboard_mode_url">"I-URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Okwakamuva"</string>
-    <string name="spoken_description_emoji_category_objects">"Izinto"</string>
-    <string name="spoken_description_emoji_category_symbols">"Amasimbuli"</string>
-    <string name="spoken_description_emoji_category_flags">"Ukuhlaba umkhosi"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Ismayili nabantu"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Izilwane nemvelo"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Awokudla neziphuzo"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Ukuhamba nezindawo"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Umsebenzi"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Izithombe-mzwelo"</string>
     <string name="spoken_description_upper_case">"Ufeleba <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"Ufeleba I"</string>
     <string name="spoken_letter_0130">"Ufeleba I, icashazi ngenhla"</string>

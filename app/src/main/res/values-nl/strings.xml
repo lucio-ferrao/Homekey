@@ -337,7 +337,6 @@
     <string name="suggest_clipboard_content">Inhoud van het klembord voorstellen</string>
     <string name="suggest_clipboard_content_summary">Recent gekopieerde inhoud van het klembord tonen als suggestie</string>
     <string name="space_swipe_toggle_numpad_entry">Numpad omschakelen</string>
-    <string name="after_emoji">Emoji selecteren in de emoji-weergave</string>
     <string name="after_clip">Vermelding in de klembordgeschiedenis selecteren</string>
     <string name="switch_keyboard_after">Schakel over naar het hoofdtoetsenbord na…</string>
     <string name="after_symbol_and_space">Drukken op enter of spatie na andere toetsen in de symbolenweergave</string>
@@ -352,7 +351,6 @@
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Cijferregel</string>
     <string name="prefs_space_bar_text">Aangepaste tekst op spatiebalk</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Klembord onderste regel</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji onderste rij</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tab</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Del</string>
@@ -384,7 +382,6 @@
     <string name="summary_customize_background_image_landscape">Als deze niet is ingesteld, wordt de staande afbeelding gebruikt</string>
     <string name="customize_toolbar_key_code_reset_message">Alle aangepaste toetscodes wissen?</string>
     <string name="prefs_font_scale">Schaal van toetsenbordlettertype</string>
-    <string name="prefs_emoji_font_scale">Schaal van Emoji-weergave</string>
     <string name="prefs_side_padding_scale">Schaal van vulling zijkanten</string>
     <string name="number_row_hints">Hints weergeven bij cijferregel</string>
     <string name="prefs_language_swipe_distance">Veegafstand voor taal wisselen</string>
@@ -416,12 +413,9 @@
     <string name="timestamp_format_title">Formaat voor tijdstempeltoetd</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
-    <string name="prefs_emoji_key_fit">Emoji-toetsgrootte schalen met lettergrootte</string>
     <string name="backup_restored">Back-up hersteld</string>
     <string name="use_apps_dict">App-namen opzoeken</string>
     <string name="use_apps_dict_summary">Gebruik de namen van geïnstalleerde apps voor suggesties en correcties</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutraal</string>
-    <string name="prefs_emoji_skin_tone">Standaard emoji-huidskleur</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="toolbar_mode">Werkbalk-modus</string>
     <string name="toolbar_mode_expandable">Werkbalktoetsen en suggesties</string>
@@ -431,7 +425,6 @@
     <string name="toolbar_hiding_global">Klembord- en emoji-werkbalken ook verbergen</string>
     <string name="popup_order_and_hint_source">Popup toetsvolgorde en bron van hints</string>
     <string name="landscape">Liggend</string>
-    <string name="show_emoji_descriptions">Toon emoji-beschrijving bij lang indrukken</string>
     <string name="suggest_emojis">Emoji\'s voorstellen</string>
     <string name="suggest_emojis_summary">Emoji-woordenboek gebruiken in normale suggesties</string>
     <string name="space_swipe_hide_keyboard_entry">Toetsenbord verbergen</string>
@@ -440,7 +433,6 @@
     <string name="about_wiki_link">Ga naar Wiki</string>
     <string name="about_wiki_link_description">De Wiki kan door elke GitHub-gebruiker worden verbeterd!</string>
     <string name="gesture_data_privacy">Privacy</string>
-    <string name="search_field_placeholder">Zoeken</string>
     <string name="gesture_data_info">Waar gaat dit over?</string>
     <string name="gesture_data_next">Woord over­slaan</string>
     <string name="gesture_data_words_selected">%s woorden</string>
@@ -456,9 +448,7 @@
     <string name="subtype_mhr">Mari (Eastern)</string>
     <string name="subtype_khipro_bn">%s (Khipro)</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Functionele toetsen (Khipro)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emoji onderste rij met actietoets</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Klembord onderste rij met actietoets</string>
-    <string name="emoji_search_title">Emoji zoeken</string>
     <string name="ask_later">Vraag het me later</string>
     <string name="gesture_data_screen">Verzameling van gebaren</string>
     <string name="gesture_data_description">&lt;b&gt;Welkom op het scherm voor het verzamelen van gebarengegevens!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Dit maakt deel uit van een &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet-funded project&lt;/a&gt; dat streeft naar het produceren van een volledig open source bibliotheek voor gebatentypen die in staat is om de gesloten source Google-bibliotheek te vervangen.&lt;br/&gt; Het resultaat is gepland om een eenvoudige vervanging te zijn voor AOSP-gebaseerde toetsenborden, maar ook bruikbaar met andere toetsenborden, bijv. FlorisBoard.&lt;br/&gt;&lt;br/&gt; Voor het ontwikkelen van de bibliotheek is het enorm nuttig om gedetailleerde gebarengegevens in verschillende talen en door verschillende gebruikers beschikbaar te hebben.&lt;br/&gt; Door gebaartypgegevens te verzamelen en in te dienen, kunt u bijdragen aan een open set gebarengegevens die zullen worden gebruikt voor bibliotheekontwikkeling. De dataset zal worden gepubliceerd onder een CC BY-SA 4.0-licentie enige tijd nadat de fase van gegevensverzameling op %s is voltooid. Zodra u gegevens hebt verzameld, kunt u deze indienen met behulp van het pictogram Delen onderaan dit scherm.</string>
@@ -555,7 +545,6 @@
     <string name="subtype_tok">Toki Pona</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
     <string name="space_swipe_toggle_dpad_entry">D-pad omschakelen</string>
-    <string name="recent_emojis_cleared">Recente emoji\'s gewist</string>
     <string name="show_dpad_key">D-pad sneltoets</string>
     <string name="prefs_enable_hardware_keyboard">Ondersteuning voor fysiek toetsenbord</string>
     <string name="accent_shifted_icon">Geaccentueerd Shift-pictogram</string>

@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"குரல் உள்ளீடு"</string>
     <string name="spoken_description_emoji">"ஈமோஜி"</string>
     <string name="spoken_description_return">"திரும்பு"</string>
-    <string name="spoken_description_search">"தேடல்"</string>
     <string name="spoken_description_dot">"புள்ளி"</string>
     <string name="spoken_description_language_switch">"மொழியை மாற்று"</string>
     <string name="spoken_description_action_next">"அடுத்து"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"உரை"</string>
     <string name="keyboard_mode_time">"நேரம்"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"சமீபத்தியவை"</string>
-    <string name="spoken_description_emoji_category_objects">"பொருட்கள்"</string>
-    <string name="spoken_description_emoji_category_symbols">"சின்னங்கள்"</string>
-    <string name="spoken_description_emoji_category_flags">"கொடிகள்"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"ஸ்மைலியும் மக்களும்"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"விலங்குகளும் இயற்கையும்"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"உணவும் பானமும்"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"பயணமும் இடங்களும்"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"செயல்பாடு"</string>
-    <string name="spoken_description_emoji_category_emoticons">"எமோடிகான்ஸ்"</string>
     <string name="spoken_description_upper_case">"பேரெழுத்து <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"பேரெழுத்து I"</string>
     <string name="spoken_letter_0130">"பேரெழுத்து I, மேல் புள்ளி"</string>

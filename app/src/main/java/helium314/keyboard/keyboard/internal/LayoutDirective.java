@@ -32,7 +32,6 @@ public sealed interface LayoutDirective {
     enum Utility implements LayoutDirective {
         SYMBOLS(KeyboardState.Mode.SYMBOLS),
         SYMBOLS_SHIFTED(KeyboardState.Mode.SYMBOLS_SHIFTED),
-        EMOJI(KeyboardState.Mode.EMOJI),
         CLIPBOARD(KeyboardState.Mode.CLIPBOARD),
         NUMPAD(KeyboardState.Mode.NUMPAD),
         DPAD(KeyboardState.Mode.DPAD),

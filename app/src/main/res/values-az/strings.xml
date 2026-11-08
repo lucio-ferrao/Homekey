@@ -114,7 +114,6 @@
     <string name="suggest_emojis">Emojilər təklif et</string>
     <string name="suggest_emojis_summary">Normal təkliflərdə emoji lüğətini işlət</string>
     <string name="inline_emoji_search">Sətriçi emoji axtarışı</string>
-    <string name="show_emoji_descriptions">Basıb saxladıqda emoji izahını göstər</string>
     <string name="toolbar_swipe_down_to_hide">Klaviaturanı sürüşdürərək gizlət</string>
     <string name="settings_category_correction">Düzəlişlər</string>
     <string name="settings_category_space">Boşluq</string>

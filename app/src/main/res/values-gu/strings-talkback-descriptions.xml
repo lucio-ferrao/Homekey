@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"વોઇસ ઇનપુટ"</string>
     <string name="spoken_description_emoji">"ઇમોજી"</string>
     <string name="spoken_description_return">"પાછા ફરો"</string>
-    <string name="spoken_description_search">"શોધ"</string>
     <string name="spoken_description_dot">"ડોટ"</string>
     <string name="spoken_description_language_switch">"ભાષા સ્વિચ કરો"</string>
     <string name="spoken_description_action_next">"આગલું"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"ટેક્સ્ટ કરો"</string>
     <string name="keyboard_mode_time">"સમય"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"તાજેતરના"</string>
-    <string name="spoken_description_emoji_category_objects">"પદાર્થો"</string>
-    <string name="spoken_description_emoji_category_symbols">"પ્રતીકો"</string>
-    <string name="spoken_description_emoji_category_flags">"ફ્લેગ્સ"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"સ્માઇલી અને લોકો"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"પ્રાણીઓ અને કુદરત"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"ભોજન અને પીણાં"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"મુસાફરી અને જગ્યાઓ"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"પ્રવૃત્તિ"</string>
-    <string name="spoken_description_emoji_category_emoticons">"ઇમોટિકન્સ"</string>
     <string name="spoken_description_upper_case">"કેપિટલ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"કેપિટલ I"</string>
     <string name="spoken_letter_0130">"કેપિટલ I, ઉપર ડોટ"</string>

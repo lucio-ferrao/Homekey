@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Häälsisend"</string>
     <string name="spoken_description_emoji">"Emotikon"</string>
     <string name="spoken_description_return">"Tagasi"</string>
-    <string name="spoken_description_search">"Otsing"</string>
     <string name="spoken_description_dot">"Punkt"</string>
     <string name="spoken_description_language_switch">"Keele vahetamine"</string>
     <string name="spoken_description_action_next">"Järgmine"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"tekst"</string>
     <string name="keyboard_mode_time">"aeg"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Hiljutised"</string>
-    <string name="spoken_description_emoji_category_objects">"Objektid"</string>
-    <string name="spoken_description_emoji_category_symbols">"Sümbolid"</string>
-    <string name="spoken_description_emoji_category_flags">"Lipud"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Naerunägu ja inimesed"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Loomad ja loodus"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Söök ja jook"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Reisimine ja kohad"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Tegevused"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Emotikonid"</string>
     <string name="spoken_description_upper_case">"Suurtäht <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"Suurtäht I"</string>
     <string name="spoken_letter_0130">"Suurtäht I, ülapunkt"</string>

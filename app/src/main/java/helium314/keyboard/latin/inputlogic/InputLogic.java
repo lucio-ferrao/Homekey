@@ -861,10 +861,6 @@ public final class InputLogic {
             case KeyCode.TIMESTAMP:
                 mLatinIME.onTextInput(TimestampKt.getTimestamp(mLatinIME));
                 break;
-            case KeyCode.EMOJI_SEARCH:
-                commitTyped(sv, LastComposedWord.NOT_A_SEPARATOR);
-                mLatinIME.launchEmojiSearch();
-                break;
             case KeyCode.APP_SEARCH:
                 commitTyped(sv, LastComposedWord.NOT_A_SEPARATOR);
                 mLatinIME.toggleAppLauncher();
@@ -2757,7 +2753,7 @@ public final class InputLogic {
         for (var suggestion: suggestions) {
             if (suggestion.isEmoji()) {
                 Suggest.addDebugInfo(suggestion, input);
-                suggestedWordInfos.add(Suggest.useDefaultEmojiSkinTone(suggestion));
+                suggestedWordInfos.add(suggestion);
             }
         }
         callback.onGetSuggestedWords(new SuggestedWords(suggestedWordInfos, suggestions.mRawSuggestions, typedWordInfo,
@@ -2830,7 +2826,7 @@ public final class InputLogic {
     }
 
     public void updateEmojiDictionary(Locale locale) {
-        if (Settings.getValues().mInlineEmojiSearch && Settings.getValues().needsToLookupSuggestions() && ! mLatinIME.isEmojiSearch()) {
+        if (Settings.getValues().mInlineEmojiSearch && Settings.getValues().needsToLookupSuggestions()) {
             if (mEmojiDictionaryFacilitator == null || ! mEmojiDictionaryFacilitator.isForLocale(locale)) {
                 closeEmojiDictionary();
                 var dictFile = DictionaryInfoUtils.getCachedDictForLocaleAndType(locale, "emoji", mLatinIME);

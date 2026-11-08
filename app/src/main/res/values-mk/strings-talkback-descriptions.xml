@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Гласовен запис"</string>
     <string name="spoken_description_emoji">"Емотикони"</string>
     <string name="spoken_description_return">"Враќање"</string>
-    <string name="spoken_description_search">"Пребарување"</string>
     <string name="spoken_description_dot">"Точка"</string>
     <string name="spoken_description_language_switch">"Смени јазик"</string>
     <string name="spoken_description_action_next">"Следно"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"текст"</string>
     <string name="keyboard_mode_time">"време"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Неодамнешни"</string>
-    <string name="spoken_description_emoji_category_objects">"Предмети"</string>
-    <string name="spoken_description_emoji_category_symbols">"Симболи"</string>
-    <string name="spoken_description_emoji_category_flags">"Знаменца"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Емотикони и луѓе"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Животни и природа"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Храна и пијалак"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Патување и места"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Активност"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Емотикони"</string>
     <string name="spoken_description_upper_case">"Голема буква <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"Голема буква I"</string>
     <string name="spoken_letter_0130">"Голема буква I, со точка одозгора"</string>

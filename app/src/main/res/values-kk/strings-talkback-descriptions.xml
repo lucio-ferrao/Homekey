@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Дауыспен енгізу"</string>
     <string name="spoken_description_emoji">"Эмодзи"</string>
     <string name="spoken_description_return">"Қайтару"</string>
-    <string name="spoken_description_search">"Іздеу"</string>
     <string name="spoken_description_dot">"Нүкте"</string>
     <string name="spoken_description_language_switch">"Тілді ауыстыру"</string>
     <string name="spoken_description_action_next">"Келесі"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"мәтін"</string>
     <string name="keyboard_mode_time">"уақыт"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Жақындағылар"</string>
-    <string name="spoken_description_emoji_category_objects">"Заттар"</string>
-    <string name="spoken_description_emoji_category_symbols">"Таңбалар"</string>
-    <string name="spoken_description_emoji_category_flags">"Жалаушалар"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Жымимақтар және адамдар"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Жануарлар және табиғат"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Азық-түлік және сусындар"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Саяхат және орындар"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Әрекет"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Эмотикондар"</string>
     <string name="spoken_description_upper_case">"Бас <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"Бас I"</string>
     <string name="spoken_letter_0130">"Үстінде нүктесі бар бас I"</string>

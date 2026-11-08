@@ -300,7 +300,6 @@
     <string name="settings_screen_toolbar">Bara de instrumente</string>
     <string name="center_suggestion_text_to_enter">Folosește întotdeauna sugestia de mijloc</string>
     <string name="center_suggestion_text_to_enter_summary">La apăsarea pe spațiu sau pe semnul de punctuație, va fi introdusă sugestia din mijloc</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Rândul Emoji de jos</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Rândul de jos al clipboardului</string>
     <string name="auto_hide_toolbar">Ascundere automată a barei de instrumente</string>
     <string name="auto_hide_toolbar_summary">Ascunde bara de instrumente când sugestiile devin disponibile</string>
@@ -339,7 +338,6 @@
     <string name="close_history" tools:keep="@string/close_history">Închide istoricul clipboardului</string>
     <string name="clipboard_toolbar_keys">Selectează tastele barei de instrumente clipboard</string>
     <string name="switch_keyboard_after">Comutare la tastatura principală după…</string>
-    <string name="after_emoji">Se selectează emoji în vizualizarea emoji</string>
     <string name="after_clip">Selectarea unei intrări din istoricul clipboardului</string>
     <string name="after_symbol_and_space">Apăsând enter sau spațiu după alte taste în vizualizarea simbolurilor</string>
     <string name="space_swipe_toggle_numpad_entry">Comută tastatura numerică</string>
@@ -384,7 +382,6 @@
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Taste funcționale (ecran mare)</string>
     <string name="settings_screen_secondary_layouts">Aspecte secundare</string>
     <string name="prefs_font_scale">Scală font tastatură</string>
-    <string name="prefs_emoji_font_scale">Scală font vizualizare emoji</string>
     <string name="label_bin" tools:keep="@string/label_bin">Coș</string>
     <string name="prefs_side_padding_scale">Scală umplutură laterală</string>
     <string name="number_row_hints">Afișează indicii pe rândul cu numere</string>
@@ -404,16 +401,12 @@
     <string name="settings_category_space">Spațiu</string>
     <string name="autospace_before_gesture_typing">Spațiu automat înainte de tastarea unui cuvânt prin gesturi</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Rândul cu numere (de bază)</string>
-    <string name="prefs_emoji_key_fit">Scalarea dimensiunii tastelor emoji împreună cu dimensiunea fontului</string>
     <string name="backup_restored">Copie de rezervă restabilită</string>
     <string name="after_numpad_and_space">Apăsarea tastei Enter sau a barei de spațiu după alte taste de pe tastatura numerică</string>
     <string name="use_apps_dict_summary">Utilizează numele aplicațiilor instalate pentru sugestii și corecții</string>
-    <string name="prefs_emoji_skin_tone">Tonul implicit al pielii pentru emoji</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutru</string>
     <string name="space_swipe_hide_keyboard_entry">Ascunde tastatura</string>
     <string name="show_tld_popup_keys_summary">Înlocuiește pop-up-urile tastei punct cu domenii de nivel superior atunci când scrii URL-uri și adrese de e-mail</string>
     <string name="suggest_emojis">Sugerează emoji-uri</string>
-    <string name="show_emoji_descriptions">Afișează descrierea emoji-urilor la apăsare lungă</string>
     <string name="suggest_emojis_summary">Utilizează dicționarul de emoji-uri în sugestiile normale</string>
     <string name="suggest_punctuation">Sugestii de punctuație</string>
     <string name="suggest_punctuation_summary">Afișează semnele de punctuație când nu sunt disponibile alte sugestii</string>
@@ -442,14 +435,12 @@
     <string name="timestamp_description">Puteți adăuga tasta pentru marcă temporală folosind un format personalizat conținând tasta „timestamp” sau folosind codul -10043</string>
     <string name="save_subtype_per_app">Reține limba pentru aplicație</string>
     <string name="floating" tools:keep="@string/floating">Tastatură plutitoare</string>
-    <string name="recent_emojis_cleared">Emojiuri șterse recent</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
     <string name="subtype_mhr">Mari (estic)</string>
     <string name="subtype_tok">Toki Pona</string>
     <string name="subtype_generic_4row">%s (4 rânduri)</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Taste funcționale (Khipro)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Rând de jos emoji cu tastă de acțiune</string>
     <string name="prefs_enable_hardware_keyboard">Compatibilitate cu tastatură fizică</string>
     <string name="about_community_links">Linkuri către comunitate</string>
     <string name="about_community_links_description">Teme, editor aspecte, discuții, …</string>
@@ -461,8 +452,6 @@
     <string name="toolbar_only_with_hw_keyboard">Afișare doar bară de instrumente la conectarea unei tastaturi fizice</string>
     <string name="toolbar_only_with_hw_keyboard_summary">Încă trebuie să activați afișarea tastaturii virtuale din setările sistemului</string>
     <string name="folded">Pliat</string>
-    <string name="emoji_search_title">Căutare emoji</string>
-    <string name="search_field_placeholder">Căutare</string>
     <string name="ask_later">Întreabă mai târziu</string>
     <string name="spell_check_suggestions">Afișare sugestii corectare ortografică</string>
     <string name="spell_check_suggestions_summary">Afișare sugestii la selectarea unui cuvânt subliniat cu roșu. Necesită setarea aplicației drept corector ortografic implicit.</string>

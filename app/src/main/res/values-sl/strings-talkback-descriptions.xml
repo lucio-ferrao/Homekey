@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Glasovni vnos"</string>
     <string name="spoken_description_emoji">"Emodžiji"</string>
     <string name="spoken_description_return">"Return"</string>
-    <string name="spoken_description_search">"Iskanje"</string>
     <string name="spoken_description_dot">"Pika"</string>
     <string name="spoken_description_language_switch">"Preklop jezika"</string>
     <string name="spoken_description_action_next">"Naprej"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"besedilo"</string>
     <string name="keyboard_mode_time">"ura"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Nedavni"</string>
-    <string name="spoken_description_emoji_category_objects">"Predmeti"</string>
-    <string name="spoken_description_emoji_category_symbols">"Simboli"</string>
-    <string name="spoken_description_emoji_category_flags">"Zastave"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Čustveni simboli in ljudje"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Živali in narava"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Hrana in pijača"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Potovanje in mesta"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Dejavnost"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Čustveni simboli"</string>
     <string name="spoken_description_upper_case">"Velika črka <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"Velika črka I"</string>
     <string name="spoken_letter_0130">"Velika črka I s piko zgoraj"</string>

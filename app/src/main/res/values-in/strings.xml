@@ -312,7 +312,6 @@
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Tombol fungsi (Lebih banyak simbol)</string>
     <string name="center_suggestion_text_to_enter">Selalu gunakan saran pertengahan</string>
     <string name="center_suggestion_text_to_enter_summary">Saat menekan spasi atau tanda baca, saran tengah akan dimasukkan</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji baris bawah</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Baris bawah papan klip</string>
     <string name="customize_currencies_detail">Tetapkan simbol mata uang utama dan hingga 6 simbol mata uang sekunder, dipisahkan dengan spasi</string>
     <string name="var_toolbar_direction">Arah bilah alat variabel</string>
@@ -356,7 +355,6 @@
     <string name="auto_hide_toolbar">Sembunyikan bilah alat secara otomatis</string>
     <string name="after_symbol_and_space">Menekan enter atau spasi setelah tombol lain dalam tampilan simbol</string>
     <string name="switch_keyboard_after">Beralih ke keyboard utama setelah…</string>
-    <string name="after_emoji">Memilih emoji dalam tampilan emoji</string>
     <string name="after_clip">Memilih entri riwayat papan klip</string>
     <string name="show_popup_keys_main">Tambahkan varian yang sangat umum (default)</string>
     <string name="remove_redundant_popups_summary">Tekan tombol popup yang sudah ada pada tata letak dasar</string>
@@ -392,7 +390,6 @@
     <string name="delete_confirmation">Benaran mau dihapus %s?</string>
     <string name="name_invalid">Nama invalid</string>
     <string name="prefs_font_scale">Skala font keyboard</string>
-    <string name="prefs_emoji_font_scale">Skala font tampilan emoji</string>
     <string name="prefs_side_padding_scale">Skala bantalan samping</string>
     <string name="number_row_hints">Tampilkan petunjuk pada baris nomor</string>
     <string name="prefs_language_swipe_distance">Beralih Jarak Gesek Bahasa</string>
@@ -413,14 +410,11 @@
     <string name="after_numpad_and_space">Menekan enter atau spasi setelah tombol lain di papan nomor</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
-    <string name="prefs_emoji_key_fit">Menskala ukuran tombol emoji dengan ukuran font</string>
     <string name="autospace_after_suggestion">Spasi otomatis setelah memilih saran</string>
     <string name="backup_restored">Cadangan dipulihkan</string>
     <string name="use_apps_dict">Cari nama aplikasi</string>
     <string name="use_apps_dict_summary">Gunakan nama aplikasi yang terinstal untuk saran dan koreksi</string>
     <string name="backspace_reverts_autocorrect">Backspace mengembalikan koreksi otomatis</string>
-    <string name="prefs_emoji_skin_tone">Warna kulit emoji bawaan</string>
-    <string name="prefs_emoji_skin_tone_neutral">Netral</string>
     <string name="suggest_emojis">Sarankan emoji</string>
     <string name="toolbar_swipe_down_to_hide">Sembunyikan papan ketik dengan mengusap</string>
     <string name="toolbar_swipe_down_to_hide_summary">Usap ke bawah pada bilah alat untuk menutup papan tik</string>
@@ -448,8 +442,6 @@
     <string name="toolbar_only_with_hw_keyboard">Tampilkan hanya bilah alat saat menggunakan papan tik fisik</string>
     <string name="toolbar_only_with_hw_keyboard_summary">Anda tetap perlu mengaktifkan tampilan papan tik maya di pengaturan sistem</string>
     <string name="landscape">Lanskap</string>
-    <string name="emoji_search_title">Cari emoji</string>
-    <string name="search_field_placeholder">Cari</string>
     <string name="ask_later">Tanya saya nanti</string>
     <string name="spell_check_suggestions">Tampilkan saran pengecekan ejaan</string>
 </resources>

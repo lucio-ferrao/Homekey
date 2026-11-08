@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Голосовий ввід"</string>
     <string name="spoken_description_emoji">"Cмайли Emoji"</string>
     <string name="spoken_description_return">"Повернутися"</string>
-    <string name="spoken_description_search">"Пошук"</string>
     <string name="spoken_description_dot">"Крапка"</string>
     <string name="spoken_description_language_switch">"Змінити мову"</string>
     <string name="spoken_description_action_next">"Далі"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"текст"</string>
     <string name="keyboard_mode_time">"час"</string>
     <string name="keyboard_mode_url">"URL-адреси"</string>
-    <string name="spoken_description_emoji_category_recents">"Останні"</string>
-    <string name="spoken_description_emoji_category_objects">"Об’єкти"</string>
-    <string name="spoken_description_emoji_category_symbols">"Символи"</string>
-    <string name="spoken_description_emoji_category_flags">"Прапори"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Усмішки та люди"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Тварини та природа"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Їжа та напої"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Подорожі та місця"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Активність"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Смайли"</string>
     <string name="spoken_description_upper_case">"Велика <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"Велика I"</string>
     <string name="spoken_letter_0130">"Велика I, крапка вгорі"</string>

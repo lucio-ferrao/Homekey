@@ -307,7 +307,6 @@
     <string name="page_start" tools:keep="@string/page_start">Oldal tetejére</string>
     <string name="page_end" tools:keep="@string/page_end">Oldal aljára</string>
     <string name="page_up" tools:keep="@string/page_up">Felfelé lapozás</string>
-    <string name="prefs_emoji_font_scale">Emodzsinézet betűmérete</string>
     <string name="subtype_baishakhi_bn_IN">%s (Baishakhi)</string>
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Funkcióbillentyűk</string>
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funkcióbillentyűk (Több szimbólum)</string>
@@ -320,7 +319,6 @@
     <string name="subtype_dru">Dargwa (Urakhi)</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Egykezes mód oldalának átváltása</string>
     <string name="prefs_language_swipe_distance">Nyelvváltás húzási távolsága</string>
-    <string name="prefs_emoji_skin_tone">Alapértelmezett emodzsibőrszín</string>
     <string name="suggest_emojis">Emodzsik ajánlása</string>
     <string name="suggest_emojis_summary">Emodzsiszótár használata a normál javaslatokban</string>
     <string name="language_switch_key_behavior">Nyelvválasztó billentyű viselkedése</string>
@@ -338,17 +336,14 @@
     <string name="quick_pin_toolbar_keys">Eszköztárbillentyű kitűzése nyomva tartáskor</string>
     <string name="prefs_long_press_symbol_for_numpad">Szimbólumbillentyű nyomva tartása a számbillentyűzethez</string>
     <string name="subtype_st">Sesotho</string>
-    <string name="prefs_emoji_key_fit">Emodzsibillentyű méretének beállítása a betűmérettel</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="subtype_generic_extended">%s (Kiterjesztett)</string>
     <string name="customize_background_image_landscape">Háttérkép beállítása (fekvő)</string>
     <string name="summary_customize_background_image_landscape">Ha nincs beállítva, akkor állókép lesz használva</string>
     <string name="customize_currencies">Pénznemek testreszabása</string>
-    <string name="after_emoji">Emodzsi kiválasztása az emodzsinézetben</string>
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Shift</string>
     <string name="vibrate_in_dnd_mode">Rezgés ne zavarjanak módban is</string>
-    <string name="show_emoji_descriptions">Emodzsi leírásának megjelenítése nyomva tartáskor</string>
     <string name="settings_category_space">Szóköz</string>
     <string name="use_apps_dict">Alkalmazásnevek keresése</string>
     <string name="use_apps_dict_summary">Telepített alkalmazások neveinek használata a javaslatokhoz és javításokhoz</string>
@@ -374,7 +369,6 @@
     <string name="clipboard_toolbar_keys">Vágólapeszköztár billentyűinek kiválasztása</string>
     <string name="pinned_toolbar_keys">Kitűzött eszköztárbillentyűk kiválasztása</string>
     <string name="prefs_font_scale">Billentyűzet betűmérete</string>
-    <string name="prefs_emoji_skin_tone_neutral">Semleges</string>
     <string name="subtype_generic_phonetic">%s (Fonetikus)</string>
     <string name="subtype_generic_student">%s (Tanuló)</string>
     <string name="load">Betöltés</string>
@@ -428,7 +422,6 @@
     <string name="prefs_always_show_suggestions_except_web_text_summary">A webes szerkesztőmezők (többnyire böngészőkben találhatók) nagyon gyakori problémákat okoznak a „javaslatok mindig jelenjenek meg” beállítással</string>
     <string name="show_tld_popup_keys">TLD felugró billentyűk megjelenítése</string>
     <string name="quick_pin_toolbar_keys_summary">Ez letiltja a többi nyomva tartásos műveletet a nem rögzített eszköztárbillentyűknél</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emodzsi alsó sorának elrendezése</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Vágólap alsó sorának elrendezése</string>
     <string name="save_subtype_per_app">Emlékezzen a kiválasztott nyelvre alkalmazásonként</string>
     <string name="subtype_khipro_bn">%s (Khipro)</string>
@@ -437,13 +430,10 @@
     <string name="inline_emoji_search_summary">Emodzsik javaslása csak akkor, ha a szó kettősponttal kezdődik</string>
     <string name="emoji_dictionary_required">Ehhez a funkcióhoz emodzsi-szótár szükséges. A .dict formátumú szótárak letölthetők a következő helyről: %s.</string>
     <string name="subtype_mhr">Mari (keleti)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emodzsik alsó sora akciógombbal</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Vágólap alsó sora akciógombbal</string>
     <string name="number_row_in_symbols">Számsor megjelenítése a szimbólumnézetben</string>
     <string name="custom_emoji_font">Egyéni emodzsi-betűtípus beállítása fájlból</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funkcióbillentyűk (Khipro)</string>
-    <string name="emoji_search_title">Emodzsi keresése</string>
-    <string name="search_field_placeholder">Keresés</string>
     <string name="gesture_data_screen">Kézmozdulat-adatok gyűjtése</string>
     <string name="gesture_data_description">&lt;b&gt;Üdvözöljük az ujjmozdulat-adatgyűjtési képernyőn!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Ez egy &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet által finanszírozott projekt&lt;/a&gt; része, amelynek célja egy teljesen nyílt forráskódú ujjmozdulat-gépelési könyvtár létrehozása, amely képes kiváltani a Google zárt forráskódú megoldását.&lt;br/&gt; Az eredmény a tervek szerint az AOSP-alapú billentyűzetek egyszerű helyettesítője lesz, de más billentyűzetekkel (pl. FlorisBoard) is használható lesz.&lt;br/&gt;&lt;br/&gt; A könyvtár fejlesztéséhez rendkívül hasznos, ha különböző nyelvű és különböző felhasználóktól származó részletes ujjmozdulat-adatok állnak rendelkezésre.&lt;br/&gt; Az adatok gyűjtésével és beküldésével Ön is hozzájárulhat egy nyílt adatkészlethez, amelyet a könyvtár fejlesztéséhez használunk fel. Az adatkészletet a gyűjtési fázis %s időpontban történő lezárása után CC BY-SA 4.0 licenc alatt tesszük közzé. A gyűjtött adatokat a képernyő alján található megosztás ikonnal küldheti be.</string>
     <string name="gesture_data_info">Mi ez?</string>
@@ -547,7 +537,6 @@
     <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
     <string name="space_swipe_toggle_dpad_entry">D-pad be/ki</string>
     <string name="show_dpad_key">D-pad-gomb</string>
-    <string name="recent_emojis_cleared">Legutóbbi emodzsik törlése</string>
     <string name="prefs_enable_hardware_keyboard">Hardveres billentyűzet-támogatás</string>
     <string name="accent_shifted_icon">Kiemelt Shift billentyűikon</string>
 </resources>

@@ -65,12 +65,6 @@
     <dimen name="config_gesture_floating_preview_vertical_padding">19dp</dimen>
     <dimen name="config_gesture_floating_preview_round_radius">3dp</dimen>
 
-    <!-- Emoji keyboard -->
-    <fraction name="config_emoji_keyboard_key_width">11.11%p</fraction>
-    <fraction name="config_emoji_keyboard_row_height">28%p</fraction>
-    <fraction name="config_emoji_keyboard_key_letter_size">78%p</fraction>
-    <fraction name="config_emoji_keyboard_key_label_size">78%p</fraction>
-
     <!-- Clipboard keyboard -->
     <integer name="config_clipboard_keyboard_col_count">3</integer>
 </resources>

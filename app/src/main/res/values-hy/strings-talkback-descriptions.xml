@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Ձայնային մուտքագրում"</string>
     <string name="spoken_description_emoji">"Զմայլիկներ"</string>
     <string name="spoken_description_return">"Վերադառնալ"</string>
-    <string name="spoken_description_search">"Որոնել"</string>
     <string name="spoken_description_dot">"Կետ"</string>
     <string name="spoken_description_language_switch">"Փոխել լեզուն"</string>
     <string name="spoken_description_action_next">"Հաջորդը"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"տեքստ"</string>
     <string name="keyboard_mode_time">"ժամանակ"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Վերջինները"</string>
-    <string name="spoken_description_emoji_category_objects">"Օբյեկտներ"</string>
-    <string name="spoken_description_emoji_category_symbols">"Նշաններ"</string>
-    <string name="spoken_description_emoji_category_flags">"Դրոշներ"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Ժպիտներ և մարդիկ"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Կենդանիներ և բնություն"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Սնունդ և խմիչք"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Ճամփորդություն և տեսարժան վայրեր"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Գործունեություն"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Զմայլիկներ"</string>
     <string name="spoken_description_upper_case">"Մեծատառ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"Մեծատառ I"</string>
     <string name="spoken_letter_0130">"Մեծատառ I, վերևում կետիկ"</string>

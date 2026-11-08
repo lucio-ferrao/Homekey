@@ -8,7 +8,6 @@ import android.net.Uri
 import android.content.Context
 import android.content.pm.LauncherActivityInfo
 import android.content.pm.LauncherApps
-import android.content.pm.ShortcutInfo
 import android.content.pm.PackageManager
 import android.content.pm.verify.domain.DomainVerificationUserState
 import android.content.pm.verify.domain.DomainVerificationManager
@@ -69,7 +68,9 @@ import helium314.keyboard.latin.utils.dpToPx
 import helium314.keyboard.latin.utils.prefs
 import java.io.File
 import java.util.Locale
+import org.json.JSONArray
 import org.json.JSONObject
+import java.util.concurrent.atomic.AtomicBoolean
 import java.security.MessageDigest
 import java.text.Normalizer
 
@@ -78,7 +79,7 @@ import java.text.Normalizer
  * to the text field, and the results are shown in the suggestion strip. Toggled by a double tap on space or by the
  * apps toolbar key. Without a search text, the apps launched most often from here come first.
  */
-class AppLauncherMode(private val latinIME: LatinIME) {
+class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     var isActive = false
         private set
     private val query = StringBuilder()
@@ -148,13 +149,8 @@ class AppLauncherMode(private val latinIME: LatinIME) {
             show()
         }
         // refresh the list every time, apps may have been installed or removed
-        Thread {
-            val loaded = loadApps(latinIME)
-            Handler(Looper.getMainLooper()).post {
-                apps = loaded
-                show()
-            }
-        }.start()
+        onAppsChanged = { show() }
+        reload(latinIME)
     }
 
     /** leaves the mode and restores the normal suggestion strip */
@@ -191,13 +187,13 @@ class AppLauncherMode(private val latinIME: LatinIME) {
      * A tap outside the keyboard, in the app below: leaves the mode. Ignored just after starting, because the double tap
      * on space that starts it takes back a space from the text field, which moves the cursor.
      */
-    fun onTapOutside() {
+    override fun onTapOutside() {
         // not on the home screen: there the system's text menu (Paste) counts as a click in another app
         if (capturesInput() && SystemClock.uptimeMillis() - startTime > 600) stop()
     }
 
     /** handles a key while the mode is active, returns false for keys that should be handled normally (e.g. shift) */
-    fun onEvent(event: Event): Boolean {
+    override fun onEvent(event: Event): Boolean {
         stopListening()
         actionsFor = null
         val codePoint = event.codePoint
@@ -233,11 +229,11 @@ class AppLauncherMode(private val latinIME: LatinIME) {
     }
 
     /** a space before a gestured word if the search already has a word, so gestures make sentences */
-    fun gestureSeparator(): String {
+    override fun gestureSeparator(): String {
         return if (query.isNotEmpty() && !query.endsWith(' ')) " " else ""
     }
 
-    fun onTextInput(text: String) {
+    override fun onTextInput(text: String) {
         stopListening()
         lastSpaceTapTime = 0
         message = null
@@ -358,7 +354,7 @@ class AppLauncherMode(private val latinIME: LatinIME) {
     }
 
     /** shows the search text and the results in the suggestion strip, or a message */
-    fun show() {
+    override fun show() {
         if (!isActive) return
         // messages that arrived while the mode was closed (before the apps were loaded, for instance) count too
         if (bump(latinIME, LauncherNotificationService.entries())) lastUsed = readLastUsed(latinIME)
@@ -413,22 +409,22 @@ class AppLauncherMode(private val latinIME: LatinIME) {
      */
     private fun removeShortcut(app: App) {
         val shortcut = app.shortcut ?: return
-        if (shortcut.isDynamic || shortcut.isDeclaredInManifest) latinIME.prefs().edit {
+        if (shortcut.isOffered) latinIME.prefs().edit {
             putStringSet(PREF_REMOVED_SHORTCUTS, latinIME.prefs().getStringSet(PREF_REMOVED_SHORTCUTS, emptySet())!! + app.kissId)
         }
-        if (shortcut.isPinned) unpin(shortcut)
+        if (shortcut.isPinned) unpin(shortcut, app.user)
         actionsFor = null
         apps = apps - app
         show()
     }
 
-    private fun unpin(shortcut: ShortcutInfo) {
+    private fun unpin(shortcut: Shortcut, user: UserHandle) {
         val launcherApps = latinIME.getSystemService(LauncherApps::class.java)
         try {
-            val query = LauncherApps.ShortcutQuery().setPackage(shortcut.`package`)
+            val query = LauncherApps.ShortcutQuery().setPackage(shortcut.packageName)
                 .setQueryFlags(LauncherApps.ShortcutQuery.FLAG_MATCH_PINNED)
-            val pinned = launcherApps.getShortcuts(query, shortcut.userHandle).orEmpty().map { it.id } - shortcut.id
-            launcherApps.pinShortcuts(shortcut.`package`, pinned, shortcut.userHandle)
+            val pinned = launcherApps.getShortcuts(query, user).orEmpty().map { it.id } - shortcut.id
+            launcherApps.pinShortcuts(shortcut.packageName, pinned, user)
         } catch (e: Exception) {
             Log.w(TAG, "can't unpin ${shortcut.id}", e)
         }
@@ -442,7 +438,7 @@ class AppLauncherMode(private val latinIME: LatinIME) {
     }
 
     /** the mode takes the keys, gestures and voice instead of the text field: everywhere but on the home screen */
-    fun capturesInput() = isActive && !isOnHome
+    override fun capturesInput() = isActive && !isOnHome
 
     /** the keyboard is in the text field of the home screen of Homekey, where typing goes to the field and not to the mode */
     val isOnHome get() = HomeActivity.isHomeField(latinIME.currentInputEditorInfo)
@@ -586,7 +582,7 @@ class AppLauncherMode(private val latinIME: LatinIME) {
         }
         app.intent?.let {
             // an SMS conversation: tap its message box once open, so the keyboard stays
-            if (app.key.startsWith("sms|")) focusMessageField(app.component.packageName)
+            if (app.key.startsWith("sms|")) ScreenAgentService.focusMessageFieldSoon(app.component.packageName)
             startActivity(it)
             return
         }
@@ -597,7 +593,7 @@ class AppLauncherMode(private val latinIME: LatinIME) {
         }
         // a person with a message: the chat where it came (WhatsApp or Element), with the message box tapped
         app.unread?.let {
-            focusMessageField(it.packageName)
+            ScreenAgentService.focusMessageFieldSoon(it.packageName)
             if (it.open()) {
                 recordUse(app)
                 stop()
@@ -607,7 +603,7 @@ class AppLauncherMode(private val latinIME: LatinIME) {
         try {
             // a chat: tap its message box once it is open, so the keyboard stays
             if (app.element != null || app.whatsAppDataId != null)
-                focusMessageField(if (app.element != null) ELEMENT_PACKAGE else "com.whatsapp")
+                ScreenAgentService.focusMessageFieldSoon(if (app.element != null) ELEMENT_PACKAGE else "com.whatsapp")
             if (app.element != null)
                 latinIME.startActivity(elementIntent(app.element!!))
             else if (app.whatsAppDataId != null)
@@ -615,7 +611,7 @@ class AppLauncherMode(private val latinIME: LatinIME) {
                     .setDataAndType(ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, app.whatsAppDataId), WHATSAPP_MIME_TYPE)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             else if (app.shortcut != null)
-                latinIME.getSystemService(LauncherApps::class.java).startShortcut(app.shortcut, null, null)
+                latinIME.getSystemService(LauncherApps::class.java).startShortcut(app.shortcut.packageName, app.shortcut.id, null, null, app.user)
             else if (latinIME.getSystemService(UserManager::class.java).isQuietModeEnabled(app.user)) launchWhenUnlocked(app)
             else latinIME.getSystemService(LauncherApps::class.java).startMainActivity(app.component, app.user, null, null)
             recordUse(app)
@@ -947,11 +943,7 @@ class AppLauncherMode(private val latinIME: LatinIME) {
             val app = apps.firstOrNull { it.component.packageName == entry.packageName && it.user == Process.myUserHandle() }
             val searched = normalize(listOf(entry.title, entry.text, app?.label.orEmpty()).joinToString(" "))
             if (q.isNotEmpty() && !searched.contains(q)) return@mapNotNull null
-            // chats repeat the sender: Element's title is "misty: misty" (conversation: sender) in a one-to-one chat
-            val label = listOf(entry.title, entry.text).filter { it.isNotBlank() }.joinToString(": ").replace('\n', ' ')
-                .split(": ").fold(listOf<String>()) { parts, part -> if (parts.lastOrNull() == part) parts else parts + part }
-                .joinToString(": ")
-            App("notification|${entry.key}", "notification://${entry.key}", label.take(50),
+            App("notification|${entry.key}", "notification://${entry.key}", entry.label.take(50),
                 app?.component ?: ComponentName(entry.packageName, ""), Process.myUserHandle(),
                 app?.icon ?: return@mapNotNull null, null, emptyList(), notification = entry)
         }
@@ -1000,21 +992,10 @@ class AppLauncherMode(private val latinIME: LatinIME) {
         }
     }
 
-    /** tries for a few seconds to tap the message box of the chat being opened in [packageName] */
-    private fun focusMessageField(packageName: String) {
-        val handler = Handler(Looper.getMainLooper())
-        var tries = 0
-        val attempt = object : Runnable {
-            override fun run() {
-                val service = ScreenAgentService.instance ?: return
-                if (service.focusMessageField(packageName) || ++tries >= 10) return
-                handler.postDelayed(this, 300)
-            }
-        }
-        handler.postDelayed(attempt, 500)
-    }
-
     /** an app with the name and tags given in the launcher mode (or in KISS), [kissId] identifying it as KISS does */
+    /** a shortcut of an app: what starts or removes it; offered = by the app itself (not only pinned) */
+    class Shortcut(val packageName: String, val id: String, val isPinned: Boolean, val isOffered: Boolean)
+
     class App(val key: String, val kissId: String, val originalLabel: String, val component: ComponentName,
               val user: UserHandle, val icon: Drawable, label: String?, tags: List<String>,
               /** for a WhatsApp chat: the id of the WhatsApp row of the contact (ContactsContract.Data) */
@@ -1028,7 +1009,9 @@ class AppLauncherMode(private val latinIME: LatinIME) {
               /** for an action of the keyboard itself, like unlocking the private space */
               val run: (() -> Unit)? = null,
               /** for a shortcut of an app (a long press on its icon) or one pinned to Homekey */
-              val shortcut: ShortcutInfo? = null) {
+              val shortcut: Shortcut? = null) {
+        /** the file of the processed icon in the cache, to show the list at once after a restart of the keyboard */
+        var iconFile: String? = null
         /** for a person: the newest message from them in the status bar, shown in their entry and opened by it */
         var unread: LauncherNotificationService.Entry? = null
         /** for an event of the calendar: its id and begin ("id|begin"), to dismiss it from the list */
@@ -1132,9 +1115,125 @@ class AppLauncherMode(private val latinIME: LatinIME) {
             }
         }
         private const val NAMES_FILE = "nomes.json"
+        /** the list of apps of the last load (see [saveApps]) */
+        private const val SAVED_APPS_FILE = "lista.json"
         /** the intermediate shade of the icons: the text color with this opacity */
         private const val MID_ALPHA = 0.45f
         private var apps = emptyList<App>()
+
+        /** the icon of an app of the main profile as in the list, or null if the list does not have it (yet) */
+        fun iconOf(packageName: String): Drawable? =
+            apps.firstOrNull { it.component.packageName == packageName && it.user == Process.myUserHandle() && it.shortcut == null }?.icon
+
+        /** called on the main thread when the list of apps changes, set by the launcher mode */
+        private var onAppsChanged: (() -> Unit)? = null
+        private val loading = AtomicBoolean(false)
+
+        /**
+         * Gets the list ready when the keyboard starts, so the first search after a restart of the keyboard is not
+         * empty: the list saved last time at once, then the current one.
+         */
+        fun preload(context: Context) = reload(context)
+
+        /**
+         * Loads the list of apps again in the background (apps installed or removed, names changed in the contacts),
+         * first from the file of the last load when there is no list yet; [onAppsChanged] after each.
+         */
+        private fun reload(context: Context) {
+            if (!loading.compareAndSet(false, true)) return
+            val main = Handler(Looper.getMainLooper())
+            Thread {
+                try {
+                    if (apps.isEmpty()) {
+                        val saved = readSavedApps(context)
+                        if (saved.isNotEmpty()) main.post {
+                            if (apps.isEmpty()) {
+                                apps = saved
+                                onAppsChanged?.invoke()
+                            }
+                        }
+                    }
+                    val loaded = loadApps(context)
+                    saveApps(context, loaded)
+                    main.post {
+                        apps = loaded
+                        onAppsChanged?.invoke()
+                    }
+                } catch (e: Exception) {
+                    Log.w(TAG, "can't load the apps", e)
+                } finally {
+                    loading.set(false)
+                }
+            }.start()
+        }
+
+        /** the list of apps, without the names and tags (read anew) and with the cache files of the icons */
+        private fun saveApps(context: Context, list: List<App>) {
+            val userManager = context.getSystemService(UserManager::class.java)
+            val array = JSONArray()
+            for (app in list) {
+                val icon = app.iconFile ?: continue
+                array.put(JSONObject().apply {
+                    put("key", app.key)
+                    put("kissId", app.kissId)
+                    put("label", app.originalLabel)
+                    put("package", app.component.packageName)
+                    put("class", app.component.className)
+                    put("user", userManager.getSerialNumberForUser(app.user))
+                    put("icon", icon)
+                    app.whatsAppDataId?.let { put("whatsApp", it) }
+                    app.shortcut?.let {
+                        put("shortcut", it.id)
+                        put("shortcutPackage", it.packageName)
+                        put("pinned", it.isPinned)
+                        put("offered", it.isOffered)
+                    }
+                })
+            }
+            try {
+                File(context.filesDir, "launcher").mkdirs()
+                File(context.filesDir, "launcher/$SAVED_APPS_FILE").writeText(array.toString())
+            } catch (e: Exception) {
+                Log.w(TAG, "can't save the apps", e)
+            }
+        }
+
+        /** the list saved by [saveApps], with the current names, tags and Element links; empty if there is none */
+        private fun readSavedApps(context: Context): List<App> {
+            val file = File(context.filesDir, "launcher/$SAVED_APPS_FILE")
+            if (!file.isFile) return emptyList()
+            val userManager = context.getSystemService(UserManager::class.java)
+            val tags = readStringMap(context, TAGS_FILE).mapValues { (_, v) -> v.split(' ').filter { it.isNotBlank() } }
+            val names = readStringMap(context, NAMES_FILE)
+            val elementLinks = readStringMap(context, ELEMENT_FILE)
+            val list = mutableListOf<App>()
+            try {
+                val array = JSONArray(file.readText())
+                for (i in 0 until array.length()) {
+                    val o = array.getJSONObject(i)
+                    val user = userManager.getUserForSerialNumber(o.getLong("user")) ?: continue
+                    val iconFile = o.getString("icon")
+                    val icon = synchronized(iconMemory) { iconMemory[iconFile] }
+                        ?: BitmapFactory.decodeFile(File(iconCacheDir(context), iconFile).path)
+                            ?.let { BitmapDrawable(context.resources, it) }
+                            ?.also { synchronized(iconMemory) { iconMemory[iconFile] = it } }
+                        ?: continue
+                    val kissId = o.getString("kissId")
+                    val whatsApp = if (o.has("whatsApp")) o.getLong("whatsApp") else null
+                    val shortcut = if (o.has("shortcut")) Shortcut(o.getString("shortcutPackage"), o.getString("shortcut"),
+                        o.getBoolean("pinned"), o.getBoolean("offered")) else null
+                    list.add(App(o.getString("key"), kissId, o.getString("label"),
+                        ComponentName(o.getString("package"), o.getString("class")), user, icon, names[kissId],
+                        tags[kissId].orEmpty(), whatsApp, if (whatsApp != null) elementLinks[kissId] else null,
+                        shortcut = shortcut).also { it.iconFile = iconFile })
+                }
+            } catch (e: Exception) {
+                Log.w(TAG, "can't read the saved apps", e)
+                return emptyList()
+            }
+            elementIcon = list.firstOrNull { it.component.packageName == ELEMENT_PACKAGE && it.shortcut == null }?.icon
+            return list.sortedBy { it.normalizedLabel }
+        }
 
         private fun loadApps(context: Context): List<App> {
             val launcherApps = context.getSystemService(LauncherApps::class.java)
@@ -1149,8 +1248,9 @@ class AppLauncherMode(private val latinIME: LatinIME) {
                     // KISS writes app://package/class, with /serial for other profiles
                     val kissId = "app://${it.componentName.packageName}/${it.componentName.className}" +
                         if (user == Process.myUserHandle()) "" else "/$serial"
+                    val (icon, iconFile) = cachedIcon(context, it, serial, usedIconFiles)
                     App("${it.componentName.flattenToShortString()}|$serial", kissId, it.label.toString(), it.componentName, user,
-                        cachedIcon(context, it, serial, usedIconFiles), names[kissId], tags[kissId].orEmpty())
+                        icon, names[kissId], tags[kissId].orEmpty()).also { app -> app.iconFile = iconFile }
                 }
             }
             val shortcuts = appShortcuts(context, launchable, names, tags, usedIconFiles)
@@ -1187,12 +1287,13 @@ class AppLauncherMode(private val latinIME: LatinIME) {
                     val kissId = "shortcut://${info.`package`}/${info.id}" + if (user == Process.myUserHandle()) "" else "/$serial"
                     if (kissId in removed && !info.isPinned) return@mapNotNull null
                     val iconKey = "shortcut|${info.`package`}|${info.id}|$serial|${info.lastChangedTimestamp}"
-                    val icon = cachedIcon(context, iconKey, usedIconFiles) {
+                    val (icon, iconFile) = cachedIcon(context, iconKey, usedIconFiles) {
                         launcherApps.getShortcutIconDrawable(info, context.resources.displayMetrics.densityDpi)
                             ?.let { processedIcon(context, it, user, info.id) } ?: app.icon
                     }
                     App("shortcut|${info.`package`}|${info.id}|$serial", kissId, label, app.component, user, icon,
-                        names[kissId], tags[kissId].orEmpty(), shortcut = info)
+                        names[kissId], tags[kissId].orEmpty(), shortcut = Shortcut(info.`package`, info.id, info.isPinned,
+                            info.isDynamic || info.isDeclaredInManifest)).also { it.iconFile = iconFile }
                 }
             }
         }
@@ -1220,7 +1321,8 @@ class AppLauncherMode(private val latinIME: LatinIME) {
                         if (!seen.add(cursor.getLong(1))) continue // one chat per contact
                         val kissId = "whatsapp://$name"
                         chats.add(App("whatsapp|$name", kissId, name, whatsApp.component, whatsApp.user, whatsApp.icon,
-                            names[kissId], tags[kissId].orEmpty(), cursor.getLong(0), elementLinks[kissId]))
+                            names[kissId], tags[kissId].orEmpty(), cursor.getLong(0), elementLinks[kissId])
+                            .also { it.iconFile = whatsApp.iconFile })
                     }
                 }
             } catch (e: SecurityException) {
@@ -1263,18 +1365,18 @@ class AppLauncherMode(private val latinIME: LatinIME) {
          * The key changes when the app is updated (time of its APK), when the text color changes (theme) or when the
          * processing changes ([ICON_VERSION]), so only those icons are computed again.
          */
-        private fun cachedIcon(context: Context, info: LauncherActivityInfo, serial: Long, used: MutableSet<String>): Drawable {
+        private fun cachedIcon(context: Context, info: LauncherActivityInfo, serial: Long, used: MutableSet<String>): Pair<Drawable, String> {
             val apkTime = try { File(info.applicationInfo.sourceDir).lastModified() } catch (e: Exception) { 0L }
             return cachedIcon(context, "${info.componentName.flattenToString()}|$serial|$apkTime", used) { appIcon(context, info) }
         }
 
-        /** the icon cached under [id] (with the text color and [ICON_VERSION]), made by [make] when missing */
-        private fun cachedIcon(context: Context, id: String, used: MutableSet<String>, make: () -> Drawable): Drawable {
+        /** the icon cached under [id] (with the text color and [ICON_VERSION]), made by [make] when missing; and its file */
+        private fun cachedIcon(context: Context, id: String, used: MutableSet<String>, make: () -> Drawable): Pair<Drawable, String> {
             val color = Settings.getValues().mColors.get(ColorType.KEY_TEXT)
             val key = "$id|$color|$ICON_VERSION"
             val name = MessageDigest.getInstance("SHA-1").digest(key.toByteArray()).joinToString("") { "%02x".format(it) } + ".png"
             used.add(name)
-            iconMemory[name]?.let { return it }
+            synchronized(iconMemory) { iconMemory[name] }?.let { return it to name }
             val file = File(iconCacheDir(context), name)
             val drawable = BitmapFactory.decodeFile(file.path)?.let { BitmapDrawable(context.resources, it) } ?: run {
                 val icon = make()
@@ -1287,8 +1389,8 @@ class AppLauncherMode(private val latinIME: LatinIME) {
                 }
                 BitmapDrawable(context.resources, bitmap)
             }
-            iconMemory[name] = drawable
-            return drawable
+            synchronized(iconMemory) { iconMemory[name] = drawable }
+            return drawable to name
         }
 
         /**

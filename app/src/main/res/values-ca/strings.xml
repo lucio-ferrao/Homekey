@@ -181,7 +181,6 @@
     <string name="popup_order">Selecciona l\'ordre de les tecles ampliades</string>
     <string name="select_word" tools:keep="@string/select_word">Selecciona la paraula</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Fila inferior del porta-retalls</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Fila inferior d\'emojis</string>
     <string name="setup_step3_action">Configura el teclat</string>
     <string name="internal_dictionary_summary">Diccionari principal intern</string>
     <string name="add_new_dictionary_title">Afegeix diccionari des de fitxer</string>
@@ -268,7 +267,6 @@
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="switch_keyboard_after">Canvia al teclat principal després de…</string>
     <string name="after_clip">Seleccionar l\'entrada de l\'historial del porta-retalls</string>
-    <string name="after_emoji">Seleccionar emoji a la visualització d\'emojis</string>
     <string name="dictionary_settings_category">Diccionaris</string>
     <string name="show_popup_keys_main">Afegeix variants molt habituals (per defecte)</string>
     <string name="remove_redundant_popups_summary">Suprimeix les ampliacions de tecla que ja estan presents a la disposició base</string>
@@ -375,7 +373,6 @@
     <string name="customize_icons_reset_message">Restablir realment totes les icones personalitzades?</string>
     <string name="label_bin" tools:keep="@string/label_bin">Paperera</string>
     <string name="prefs_font_scale">Escala de lletra del teclat</string>
-    <string name="prefs_emoji_font_scale">Escala de lletra de visualització d\'emoji</string>
     <string name="prefs_side_padding_scale">Escala de farciment lateral</string>
     <string name="number_row_hints">Mostra suggeriments a la fila de nombres</string>
     <string name="prefs_language_swipe_distance">Canvia la distància de lliscament d\'idioma</string>
@@ -407,12 +404,9 @@
     <string name="timestamp_format_title">Format de la clau de marca de temps</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
-    <string name="prefs_emoji_key_fit">Escala la mida de la tecla emoji amb la de la font</string>
-    <string name="prefs_emoji_skin_tone">Tema d\'emoji predeterminat</string>
     <string name="backup_restored">Còpia de seguretat restaurada</string>
     <string name="use_apps_dict">Cercar noms d\'aplicacions</string>
     <string name="use_apps_dict_summary">Utilitzar els noms de les aplicacions instal·lades per a suggeriments i correccions</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutre</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="toolbar_mode_suggestion_strip">Només suggeriments</string>
     <string name="toolbar_hiding_global">Amagar també el porta-retalls i les barres d\'eines d\'emojis</string>
@@ -422,7 +416,6 @@
     <string name="toolbar_mode_hidden">Amagat</string>
     <string name="popup_order_and_hint_source">Ordre de les tecles emergents i font de pistes</string>
     <string name="landscape">Apaïsat</string>
-    <string name="show_emoji_descriptions">Mostra descripció d\'emoji en prémer llarg</string>
     <string name="suggest_emojis_summary">Utilitzar diccionari d\'emojis als suggeriments normals</string>
     <string name="suggest_emojis">Suggerir emojis</string>
     <string name="space_swipe_hide_keyboard_entry">Amaga el teclat</string>
@@ -437,14 +430,11 @@
     <string name="inline_emoji_search_summary">Suggerir emojis només quan una paraula va precedida de dos punts</string>
     <string name="emoji_dictionary_required">Cal un diccionari d\'emojis per a aquesta funció. Els diccionaris en format .dict es poden descarregar %s.</string>
     <string name="subtype_mhr">Mari (Oriental)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior d\'emojis amb tecla d\'acció</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior del porta-retalls amb tecla d\'acció</string>
     <string name="number_row_in_symbols">Mostra una línia de nombres a la vista de símbols</string>
     <string name="custom_emoji_font">Aplica una font d\'emoticones personalitzada des d\'un fitxer</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Tecles funcionals (Khipro)</string>
     <string name="timestamp_description">Podeu afegir la tecla de marca de temps mitjançant un disseny personalitzat amb la tecla «timestamp» o el codi de tecla -10043</string>
-    <string name="emoji_search_title">Cerca emojis</string>
-    <string name="search_field_placeholder">Cerca</string>
     <string name="gesture_data_screen">Recopilació de dades gestuals</string>
     <string name="gesture_data_description">Benvinguts a la pantalla de recopilació de dades de gestos!&lt;br/&gt;&lt;br/&gt; Això forma part d\'un &lt;a href=https://nlnet.nl/project/GestureTyping&gt;projecte finançat per NLnet&lt;/a&gt; que s\'esforça per produir una biblioteca de mecanografia gestual de codi obert completament capaç de substituir la biblioteca de codi tancat de Google.&lt;br/&gt; Es preveu que el resultat sigui un substitut senzill per als teclats basats en AOSP, però també utilitzable amb altres teclats, p. ex. FlorisBoard.&lt;br/&gt;&lt;br/&gt; Per desenvolupar la biblioteca, és tremendament útil tenir disponibles dades gestuals detallades en diferents idiomes i per diferents usuaris.&lt;br/&gt; En recopilar i enviar dades de mecanografia gestual, podeu contribuir a un conjunt obert de dades gestuals que s\'utilitzaran per al desenvolupament de la biblioteca. El conjunt de dades es publicarà sota una llicència CC BY-SA 4.0 un temps després que la fase de recopilació de dades s\'hagi finalitzat el %s. Un cop hàgiu recopilat les dades, les podeu enviar mitjançant la icona de compartir a la part inferior d\'aquesta pantalla.</string>
     <string name="toolbar_swipe_down_to_hide">Amaga el teclat amb un lliscament</string>

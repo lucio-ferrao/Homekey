@@ -21,7 +21,6 @@
     <color name="key_shifted_letter_hint_inactivated_color_holo">#66E0E4E5</color>
     <color name="key_shifted_letter_hint_activated_color_holo">@android:color/white</color>
     <color name="spacebar_text_shadow_color_holo">#80000000</color>
-    <color name="emoji_tab_page_indicator_background_holo">#111111</color>
 
     <!-- Color resources for the old LXX_Light theme, now used for THEME_LIGHT. -->
     <color name="key_hint_letter_color_lxx_light">#B337474F</color>
@@ -43,13 +42,11 @@
     <color name="keyboard_background_lxx_base">@android:color/white</color>
     <color name="key_background_lxx_base">@android:color/white</color>
     <color name="action_key_background_lxx_base">@android:color/white</color>
-    <color name="emoji_tab_page_indicator_background_lxx_base">@android:color/white</color>
 
     <!-- Color resources for LXX_Base_Border theme. -->
     <color name="keyboard_background_lxx_base_border">@android:color/white</color>
     <color name="key_background_normal_lxx_base_border">@android:color/white</color>
     <color name="key_bottom_bevel_lxx_base">#A9ABAD</color>
-    <color name="emoji_tab_page_indicator_background_lxx_base_border">@android:color/white</color>
 
     <!-- Color resources for setup wizard, tutorial and settings -->
     <color name="accent">@color/highlight_color_lxx_light</color>

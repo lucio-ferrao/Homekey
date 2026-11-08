@@ -336,7 +336,6 @@
     <string name="customize_currencies_detail">Nastavit hlavní a až 6 dalších symbolů měny, oddělených mezerami</string>
     <string name="name_invalid">Neplatný název</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Dolní řádek schránky</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Dolní řádek emodži</string>
     <string name="after_numpad_and_space">Stisknutí klávesy Enter nebo mezerníku po ostatních klávesách v numerické klávesnici</string>
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Mezerník (číselné rozložení)</string>
     <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Změnit velikost režimu jedné ruky</string>
@@ -377,7 +376,6 @@
     <string name="long_press_code">Kód dlouhého stisknutí</string>
     <string name="label_switch_onehanded_key" tools:keep="@string/label_switch_onehanded_key">Přepnout stranu režimu jedné ruky</string>
     <string name="label_zwj_key" tools:keep="@string/label_zwj_key">Spojovač s nulovou šířkou</string>
-    <string name="after_emoji">Výběr emodži v zobrazení emodži</string>
     <string name="remove_redundant_popups">Odstranit přebytečné vyskakovací klávesy</string>
     <string name="customize_toolbar_key_code_reset_message">Opravdu chcete vymazat všechny přizpůsobené kódy kláves?</string>
     <string name="settings_screen_secondary_layouts">Sekundární rozložení</string>
@@ -394,7 +392,6 @@
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Enter</string>
     <string name="icon_style">Styl ikon</string>
     <string name="prefs_font_scale">Měřítko písma klávesnice</string>
-    <string name="prefs_emoji_font_scale">Měřítko písma v zobrazení emodži</string>
     <string name="prefs_side_padding_scale">Měřítko postranního odsazení</string>
     <string name="label_bin" tools:keep="@string/label_bin">Koš</string>
     <string name="key_code">Kód klávesy</string>
@@ -409,12 +406,9 @@
     <string name="get_layouts_message">Rozložení můžete najít a sdílet v %s.</string>
     <string name="subtype_st">Sesothština</string>
     <string name="subtype_dag">Dagbani</string>
-    <string name="prefs_emoji_key_fit">Škálovat velikost kláves emodži velikostí s velikostí písma</string>
     <string name="backup_restored">Záloha obnovena</string>
     <string name="use_apps_dict_summary">Používat názvy nainstalovaných aplikací pro návrhy a opravy</string>
     <string name="use_apps_dict">Používat názvy aplikací</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutrální</string>
-    <string name="prefs_emoji_skin_tone">Výchozí barva pokožky emodži</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="toolbar_mode_expandable">Klávesy a návrhy panelu nástrojů</string>
     <string name="toolbar_mode_toolbar_keys">Pouze klávesy panelu nástrojů</string>
@@ -424,7 +418,6 @@
     <string name="toolbar_mode">Režim panelu nástrojů</string>
     <string name="popup_order_and_hint_source">Pořadí vyskakovacích kláves a zdroj tipů</string>
     <string name="landscape">Na šířku</string>
-    <string name="show_emoji_descriptions">Při dlouhém podržení zobrazit popis emodži</string>
     <string name="suggest_emojis">Navrhovat emodži</string>
     <string name="suggest_emojis_summary">Použít slovník emodži v normálních návrzích</string>
     <string name="suggest_punctuation">Návrhy interpunkce</string>
@@ -439,13 +432,10 @@
     <string name="inline_emoji_search_summary">Navrhovat emodži pouze, pokud je na začátku slova dvojtečka</string>
     <string name="emoji_dictionary_required">Aby tato funkce fungovala, je nutný slovník emodži. Slovníky ve formátu .dict lze stáhnout %s.</string>
     <string name="subtype_mhr">Mari (východní)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Spodní řádek emodži s akční klávesou</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Spodní řádek schránky s akční klávesou</string>
     <string name="number_row_in_symbols">Zobrazit číselný řádek na obrazovce znaků</string>
     <string name="custom_emoji_font">Nastavit vlastní písmo emodži ze souboru</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Funkční klávesy (Khipro)</string>
-    <string name="emoji_search_title">Hledat emodži</string>
-    <string name="search_field_placeholder">Hledat</string>
     <string name="gesture_data_screen">Sbírání dat o gestech</string>
     <string name="gesture_data_info">Co je to?</string>
     <string name="gesture_data_privacy">Soukromí</string>
@@ -549,7 +539,6 @@
     <string name="layout_dpad" tools:keep="@string/layout_dpad">Směrové klávesy</string>
     <string name="space_swipe_toggle_dpad_entry">Přepnout směrové klávesy</string>
     <string name="show_dpad_key">Klávesa pro D-pad</string>
-    <string name="recent_emojis_cleared">Vymazané nedávné emodži</string>
     <string name="prefs_enable_hardware_keyboard">Podpora hardwarové klávesnice</string>
     <string name="accent_shifted_icon">Zvýrazněná ikona Shift</string>
 </resources>

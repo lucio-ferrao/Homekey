@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Айтып киргизүү"</string>
     <string name="spoken_description_emoji">"Эмодзи"</string>
     <string name="spoken_description_return">"Кайтуу"</string>
-    <string name="spoken_description_search">"Издөө"</string>
     <string name="spoken_description_dot">"Чекит"</string>
     <string name="spoken_description_language_switch">"Тилди которуштуруу"</string>
     <string name="spoken_description_action_next">"Кийинки"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"текст"</string>
     <string name="keyboard_mode_time">"убакыт"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Акыркылар"</string>
-    <string name="spoken_description_emoji_category_objects">"Объекттер"</string>
-    <string name="spoken_description_emoji_category_symbols">"Символдор"</string>
-    <string name="spoken_description_emoji_category_flags">"Желектер"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Быйтыкча жана адамдар"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Жаныбарлар жана жаратылыш"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Тамак жана суусундуктар"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Саякат жана жерлер"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Көнүгүү"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Жымыңдар"</string>
     <string name="spoken_description_upper_case">"Баш тамга <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"Баш тамга I"</string>
     <string name="spoken_letter_0130">"Баш тамга I, төбөсүндө чекити бар"</string>

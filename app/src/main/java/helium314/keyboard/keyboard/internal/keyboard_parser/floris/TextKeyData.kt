@@ -153,10 +153,11 @@ sealed interface KeyData : AbstractKeyData {
 
         private fun getActionKeyPopupKeys(params: KeyboardParams): SimplePopups? {
             val popupKeys = getActionKeyPopupKeyString(params.mId)
-            // Enter sends in these apps, so the new line also goes into the popup
+            // Enter sends in these apps, so the new line also goes into the popup, after the emoji (which stays next to
+            // the enter key)
             val withNewLine = if (popupKeys == POPUP_KEYS_NAVIGATE_EMOJI && params.mId.isMultiLine
                     && params.mId.sendsOnEnter)
-                "$POPUP_KEYS_NEW_LINE,$popupKeys"
+                "$POPUP_KEYS_EMOJI,$POPUP_KEYS_NEW_LINE,$POPUP_KEYS_CLIPBOARD"
             else popupKeys
             return withNewLine?.let { createActionPopupKeys(it, params) }
         }
@@ -219,8 +220,7 @@ sealed interface KeyData : AbstractKeyData {
                 }
             }
             // remove emoji shortcut on enter in tablet mode (like original, because bottom row always has an emoji key)
-            // (probably not necessary, but whatever) and in emoji mode
-            if ((Settings.getInstance().isTablet || params.mId.element == KeyboardElement.EMOJI_BOTTOM_ROW)
+            if (Settings.getInstance().isTablet
                 && popupKeys.remove("!icon/emoji_action_key|!code/key_emoji")) {
                 val i = popupKeys.indexOfFirst { it.startsWith(Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
                 if (i > -1) {
@@ -262,8 +262,10 @@ sealed interface KeyData : AbstractKeyData {
         private const val POPUP_KEYS_NAVIGATE_PREVIOUS_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
         private const val POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
         private const val POPUP_KEYS_NEW_LINE = "!icon/enter_key|!code/key_shift_enter"
+        private const val POPUP_KEYS_EMOJI = "!icon/emoji_action_key|!code/key_emoji"
+        private const val POPUP_KEYS_CLIPBOARD = "!icon/clipboard_action_key|!code/key_clipboard"
         // emoji first: the first popup key goes next to the enter key, at the right
-        private const val POPUP_KEYS_NAVIGATE_EMOJI = "!icon/emoji_action_key|!code/key_emoji,!icon/clipboard_action_key|!code/key_clipboard"
+        private const val POPUP_KEYS_NAVIGATE_EMOJI = "$POPUP_KEYS_EMOJI,$POPUP_KEYS_CLIPBOARD"
         private const val POPUP_KEYS_NAVIGATE_EMOJI_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
         private const val POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
     }
@@ -421,7 +423,7 @@ sealed interface KeyData : AbstractKeyData {
         when (label) { // or use code?
             KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL, KeyLabel.ALPHA, KeyLabel.COMMA, KeyLabel.PERIOD, KeyLabel.DELETE,
             KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.DPAD, KeyLabel.CTRL, KeyLabel.ALT,
-            KeyLabel.FN, KeyLabel.META, KeyLabel.EMOJI_SEARCH, toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
+            KeyLabel.FN, KeyLabel.META, toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
             // the enter key looks like the other functional keys, without the colored circle behind its icon
             KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_FUNCTIONAL

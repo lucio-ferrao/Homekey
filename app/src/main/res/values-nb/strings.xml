@@ -301,7 +301,6 @@
     <string name="inline_emoji_search">Innebygd emojisøk</string>
     <string name="inline_emoji_search_summary">Foreslå kun emojier når et ord starter med kolon</string>
     <string name="emoji_dictionary_required">En emoji-ordbok kreves for at denne funksjonen skal fungere. Ordbøker i .dict-format kan lastes ned %s.</string>
-    <string name="show_emoji_descriptions">Vis emoji-beskrivelse ved langt trykk</string>
     <string name="toolbar_swipe_down_to_hide">Skjul tastaturet ved å sveipe ned</string>
     <string name="toolbar_swipe_down_to_hide_summary">Sveip ned på verktøylinjen for å lukke tastaturet</string>
     <string name="settings_category_space">Mellomrom</string>
@@ -368,10 +367,6 @@
     <string name="prefs_bottom_row_scale">Skalering av nederste rad</string>
     <string name="prefs_side_padding_scale">Skalering av sideutfylling</string>
     <string name="prefs_font_scale">Skriftstørrelse for tastatur</string>
-    <string name="prefs_emoji_font_scale">Skriftstørrelse for emoji-visning</string>
-    <string name="prefs_emoji_key_fit">Tilpass emoji-taststørrelse til skriftstørrelse</string>
-    <string name="prefs_emoji_skin_tone">Standard hudtone for emoji</string>
-    <string name="prefs_emoji_skin_tone_neutral">Nøytral</string>
     <string name="prefs_space_bar_text">Tilpasset tekst på mellomromstasten</string>
     <string name="custom_font">Angi tilpasset skrifttype fra fil</string>
     <string name="custom_emoji_font">Angi tilpasset emoji-skrifttype fra fil</string>
@@ -397,8 +392,6 @@
     <string name="layout_functional_keys_symbols_shifted" tools:keep="@string/layout_functional_keys_symbols_shifted">Funksjonstaster (flere symboler)</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Tallrad</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Tallrad (grunnleggende)</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Nedre emoji-rad</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Nedre emoji-rad med handlingstast</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Nedre utklippstavlerad</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Nedre utklippstavlerad med handlingstast</string>
     <string name="customize_background_image_landscape">Angi bakgrunnsbilde (liggende)</string>
@@ -406,7 +399,6 @@
     <string name="customize_currencies">Tilpass valutaer</string>
     <string name="customize_currencies_detail">Angi hovedvaluta og opptil 6 sekundære valutasymboler, adskilt med mellomrom</string>
     <string name="switch_keyboard_after">Bytt til hovedtastatur etter…</string>
-    <string name="after_emoji">Etter valg av emoji i emoji-visning</string>
     <string name="after_clip">Etter valg av tekst i utklippstavlen</string>
     <string name="after_symbol_and_space">Trykk på enter eller mellomrom etter andre taster i symbolvisning</string>
     <string name="after_numpad_and_space">Trykk på enter eller mellomrom etter andre taster i numerisk tastatur</string>
@@ -456,8 +448,6 @@
     <string name="custom_subtype">Tilpasset undertype</string>
     <string name="landscape">Liggende</string>
     <string name="folded">Sammenfoldet</string>
-    <string name="emoji_search_title">Søk etter emoji</string>
-    <string name="search_field_placeholder">Søk</string>
     <string name="ask_later">Spør meg senere</string>
     <string name="gesture_data_screen">Innsamling av bevegelsesdata</string>
     <string name="gesture_data_description">Innsamling av bevegelsesdata&lt;br/&gt;&lt;br/&gt; Dette er en del av et &lt;a href=https://nlnet.nl/project/GestureTyping&gt;NLnet-finansiert prosjekt&lt;/a&gt; som har som mål å utvikle et helt åpen kildekode-bibliotek for sveipeskriving som kan erstatte Googles lukkede bibliotek.&lt;br/&gt; Målet er å lage en enkel erstatning for AOSP-baserte tastaturer, men også et bibliotek som kan brukes med andre tastaturer, for eksempel FlorisBoard.&lt;br/&gt;&lt;br/&gt; For utviklingen av biblioteket er det svært nyttig å ha detaljerte bevegelsesdata fra ulike språk og brukere.&lt;br/&gt; Ved å samle inn og sende inn bevegelsesdata kan du bidra til et åpent datasett som brukes i utviklingen av biblioteket. Datasettet vil bli publisert under lisensen CC BY-SA 4.0 en gang etter at innsamlingsfasen er ferdig på %s. Når du har samlet data, kan du sende det inn via delingsikonet nederst på skjermen.</string>

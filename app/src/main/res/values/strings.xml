@@ -30,8 +30,6 @@
     <string name="inline_emoji_search_summary">Suggest only emojis when a word is preceded by a colon</string>
     <!-- Warning text for when enabling inline emoji search with no emoji dictionary. The %s will be replaced by dictionary_link_text. -->
     <string name="emoji_dictionary_required">An emoji dictionary is required for this feature to work. Dictionaries in .dict format can be downloaded %s.</string>
-    <!-- Option to show emoji descriptions on long press -->
-    <string name="show_emoji_descriptions">Show emoji description on long press</string>
     <!-- Option to control whether or not to show a popup with a larger font on each key press. -->
     <string name="popup_on_keypress">Popup on keypress</string>
     <!-- Option whether the keyboard can be hidden by swiping down on the toolbar -->
@@ -455,22 +453,12 @@
     <string name="prefs_font_scale">Keyboard font scale</string>
     <!-- Title of the setting for adjusting font size of the long-press hints -->
     <string name="prefs_hint_font_scale">Key hint font scale</string>
-    <!-- Title of the setting for adjusting font size in emoji view -->
-    <string name="prefs_emoji_font_scale">Emoji view font scale</string>
-    <!-- Title of the setting for adjusting emoji key size to fit emoji size in emoji view -->
-    <string name="prefs_emoji_key_fit">Scale emoji key size with font size</string>
-    <!-- Title of the setting for setting default emoji skin tone -->
-    <string name="prefs_emoji_skin_tone">Default emoji skin tone</string>
-    <!-- Name of the neutral / yellow skin tone -->
-    <string name="prefs_emoji_skin_tone_neutral">Neutral</string>
     <!-- Title of the setting for customizing space bar text -->
     <string name="prefs_space_bar_text">Custom text on space bar</string>
     <!-- Title of the setting for adding / removing custom font file -->
     <string name="custom_font">Set custom font from file</string>
     <!-- Title of the setting for adding / removing custom font file used only for emojis -->
     <string name="custom_emoji_font">Set custom emoji font from file</string>
-    <!-- Message when clearing recent emojis by long pressing the recents tab icon -->
-    <string name="recent_emojis_cleared">Cleared recent emojis</string>
     <!-- Description for English (UK) keyboard subtype
          (UK) should be an abbreviation of United Kingdom. -->
     <string name="subtype_en_GB">English (UK)</string>
@@ -596,10 +584,6 @@ language, hence "No language". -->
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Number row</string>
     <!-- Name for number row basic layout -->
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Number row (basic)</string>
-    <!-- Name for bottom row layout in emoji view -->
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji bottom row</string>
-    <!-- Name for bottom row layout with action key in emoji view -->
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Emoji bottom row with action key</string>
     <!-- Name for bottom row layout in clipboard view -->
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Clipboard bottom row</string>
     <!-- Name for bottom row layout with action key in clipboard view -->
@@ -616,8 +600,6 @@ language, hence "No language". -->
     <string name="customize_currencies_detail">Set main and up to 6 secondary currency symbols, separated with space</string>
     <!-- Title setting / dialog for selecting when to switch to main keyboard -->
     <string name="switch_keyboard_after">Switch to main keyboard after…</string>
-    <!-- Switch to main keyboard after selecting emoji from emoji view -->
-    <string name="after_emoji">Selecting emoji in emoji view</string>
     <!-- Switch to main keyboard after selecting clipboard history entry -->
     <string name="after_clip">Selecting clipboard history entry</string>
     <!-- Switch to main keyboard after entering a symbol in symbols layout and then pressing space or enter -->
@@ -1021,10 +1003,6 @@ New dictionary:
     <string name="landscape">Landscape</string>
     <!-- When a foldable phone is folded -->
     <string name="folded">Folded</string>
-    <!-- Emoji search title bar text -->
-    <string name="emoji_search_title">Search emoji</string>
-    <!-- Placeholder text for search field -->
-    <string name="search_field_placeholder">Search</string>
     <!-- Button to show later -->
     <string name="ask_later">Ask me later</string>
     <!-- Switch to toggle suggestions when using the spell checker -->

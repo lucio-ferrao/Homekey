@@ -336,7 +336,6 @@ Nouveau dictionnaire:
     <string name="switch_keyboard_after">Passer au clavier principal après avoir…</string>
     <string name="after_clip">Sélectionné une entrée dans l\'historique du presse-papiers</string>
     <string name="after_symbol_and_space">Appuyé sur Entrée ou sur la barre d\'espace après la sélection d\'un symbole dans la vue des symboles</string>
-    <string name="after_emoji">Sélectionné un émoji dans la vue des émojis</string>
     <string name="show_popup_keys_main">Ajouter les variantes les plus courantes (par défaut)</string>
     <string name="remove_redundant_popups_summary">Supprimer les touches pop-up déjà présentes dans la disposition de base</string>
     <string name="remove_redundant_popups">Supprimer les pop-ups redondants</string>
@@ -348,7 +347,6 @@ Nouveau dictionnaire:
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Rangée de chiffres</string>
     <string name="prefs_space_bar_text">Texte personnalisé sur la barre d\'espace</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Rangée inférieure du presse-papier</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Rangée inférieure des émojis</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Tabulation</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">Supprimer</string>
     <string name="label_shift_key" tools:keep="@string/label_shift_key">Majuscule</string>
@@ -380,7 +378,6 @@ Nouveau dictionnaire:
     <string name="customize_background_image_landscape">Définir l\'image d\'arrière-plan (paysage)</string>
     <string name="customize_toolbar_key_code_reset_message">Effacer tous les codes clés personnalisés ?</string>
     <string name="prefs_font_scale">Échelle de police du clavier</string>
-    <string name="prefs_emoji_font_scale">Échelle de police de la vue Emoji</string>
     <string name="prefs_side_padding_scale">Espacement latéral</string>
     <string name="number_row_hints">Afficher les symboles sur la rangée numérique</string>
     <string name="prefs_language_swipe_distance">Distance de balayage pour changer de langue</string>
@@ -412,12 +409,9 @@ Nouveau dictionnaire:
     <string name="timestamp_format_title">Format de la clé d\'horodatage</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
-    <string name="prefs_emoji_key_fit">Ajuster la taille des touches emoji à la taille de la police</string>
     <string name="backup_restored">Sauvegarde restaurée</string>
     <string name="use_apps_dict">Rechercher les noms des applications</string>
     <string name="use_apps_dict_summary">Utiliser les noms des applications installées pour les suggestions et les corrections</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutre</string>
-    <string name="prefs_emoji_skin_tone">Teint de peau par défaut des emojis</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="toolbar_mode">Mode de la barre d\'outils</string>
     <string name="toolbar_mode_toolbar_keys">Touches de la barre d\'outils uniquement</string>
@@ -427,7 +421,6 @@ Nouveau dictionnaire:
     <string name="toolbar_mode_expandable">Touches de la barre d\'outil et suggestions</string>
     <string name="landscape">Paysage</string>
     <string name="popup_order_and_hint_source">Ordre des touches popup et source des symboles</string>
-    <string name="show_emoji_descriptions">Afficher la description de l\'emoji en appuyant longuement</string>
     <string name="suggest_emojis_summary">Utiliser le dictionnaire d\'emojis dans les suggestions normales</string>
     <string name="suggest_emojis">Suggérer des émojis</string>
     <string name="space_swipe_hide_keyboard_entry">Masquer le clavier</string>
@@ -442,13 +435,10 @@ Nouveau dictionnaire:
     <string name="inline_emoji_search_summary">Proposer uniquement des émojis lorsqu\'un mot est précédé de deux points</string>
     <string name="emoji_dictionary_required">Un dictionnaire d\'émojis est nécessaire pour que cette fonctionnalité soit opérationnelle. Les dictionnaires au format .dict peuvent être téléchargés ici : %s.</string>
     <string name="subtype_mhr">Mari (Eastern)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Rangée inférieure (emoji) avec touche d\'action</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Rangée inférieure du presse-papiers avec touche d\'action</string>
     <string name="number_row_in_symbols">Afficher la ligne numérique en mode symboles</string>
     <string name="custom_emoji_font">Définir une police d\'emoji personnalisée à partir d\'un fichier</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Touches fonctionnelles (Khipro)</string>
-    <string name="emoji_search_title">Rechercher des emojis</string>
-    <string name="search_field_placeholder">Rechercher</string>
     <string name="gesture_data_screen">Collecte de données gestuelles</string>
     <string name="gesture_data_description">&lt;b&gt;Bienvenue sur l\'écran de collecte de données gestuelles !&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Ceci fait partie d\'un &lt;a href=https://nlnet.nl/project/GestureTyping&gt;projet financé par NLnet&lt;/a&gt; visant à créer une bibliothèque de saisie gestuelle entièrement open source capable de remplacer la bibliothèque propriétaire de Google.&lt;br/&gt; Le résultat sera une alternative simple aux claviers AOSP, mais également compatible avec d\'autres claviers, comme FlorisBoard.&lt;br/&gt;&lt;br/&gt; Pour le développement de la bibliothèque, il est extrêmement utile de disposer de données gestuelles détaillées dans différentes langues et provenant de différents utilisateurs.&lt;br/&gt; En collectant et en soumettant des données de saisie gestuelle, vous contribuez à un ensemble de données ouvert qui sera utilisé pour le développement de la bibliothèque. Cet ensemble de données sera publié sous licence CC BY-SA 4.0 après la fin de la phase de collecte, le %s. Une fois vos données collectées, vous pouvez les soumettre à l\'aide de l\'icône de partage en bas de cet écran.</string>
     <string name="gesture_data_info">Qu\'est-ce que c\'est ?</string>
@@ -552,7 +542,6 @@ Nouveau dictionnaire:
     <string name="layout_dpad" tools:keep="@string/layout_dpad">Pavé directionnel</string>
     <string name="space_swipe_toggle_dpad_entry">Basculer vers le pavé directionnel</string>
     <string name="show_dpad_key">Touche D-pad</string>
-    <string name="recent_emojis_cleared">Émojis récents effacés</string>
     <string name="prefs_enable_hardware_keyboard">Prise en charge du clavier physique</string>
     <string name="accent_shifted_icon">Icône de majuscule accentuée</string>
 </resources>

@@ -14,7 +14,6 @@ import helium314.keyboard.keyboard.Key.KeyParams
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardElement
 import helium314.keyboard.keyboard.KeyboardId
-import helium314.keyboard.keyboard.internal.keyboard_parser.EmojiParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.KeyboardParser
 import helium314.keyboard.keyboard.internal.keyboard_parser.LocaleKeyboardInfos
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
@@ -45,21 +44,15 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     fun load(id: KeyboardId): KeyboardBuilder<KP> {
         mParams.mId = id
-        if (id.element.isEmojiLayout) {
-            mParams.mAllowRedundantPopupKeys = true
-            readAttributes(R.xml.kbd_emoji)
-            keysInRows = EmojiParser(mParams, mContext).parse()
-        } else {
-            try {
-                setupParams()
-                keysInRows = KeyboardParser(mParams, mContext).parseLayout()
-                if (keysInRows.size != 4) // that was effectively the default for OpenBoard
-                    mParams.mTouchPositionCorrection.load(mContext.resources.getStringArray(R.array.touch_position_correction_data_default))
-                determineAbsoluteValues()
-            } catch (e: Exception) {
-                Log.e(TAG, "error parsing layout $id ${id.element}", e)
-                throw e
-            }
+        try {
+            setupParams()
+            keysInRows = KeyboardParser(mParams, mContext).parseLayout()
+            if (keysInRows.size != 4) // that was effectively the default for OpenBoard
+                mParams.mTouchPositionCorrection.load(mContext.resources.getStringArray(R.array.touch_position_correction_data_default))
+            determineAbsoluteValues()
+        } catch (e: Exception) {
+            Log.e(TAG, "error parsing layout $id ${id.element}", e)
+            throw e
         }
         return this
     }
@@ -242,9 +235,6 @@ open class KeyboardBuilder<KP : KeyboardParams>(protected val mContext: Context,
 
     private fun endKeyboard() {
         mParams.removeRedundantPopupKeys()
-        if (!mParams.mId.element.isEmojiLayout) return
-        val actualHeight = mCurrentY - mParams.mVerticalGap + mParams.mBottomPadding
-        mParams.mOccupiedHeight = mParams.mOccupiedHeight.coerceAtLeast(actualHeight)
     }
 
     private fun addKeysToParams() {

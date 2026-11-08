@@ -96,10 +96,6 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </activity>
 
-        <activity android:name="helium314.keyboard.keyboard.emoji.EmojiSearchActivity" android:exported="false"
-            android:theme="@style/TransparentActivityTheme" android:excludeFromRecents="true" android:noHistory="true"
-            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" android:configChanges="orientation|screenSize"/>
-
         <!-- Accessibility service of the launcher mode (taps the message box of chats), enabled in the settings -->
         <service android:name="helium314.keyboard.latin.ScreenAgentService"
             android:label="@string/screen_agent_label"

@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Nhập bằng giọng nói"</string>
     <string name="spoken_description_emoji">"Biểu tượng cảm xúc"</string>
     <string name="spoken_description_return">"Quay lại"</string>
-    <string name="spoken_description_search">"Tìm kiếm"</string>
     <string name="spoken_description_dot">"Dấu chấm"</string>
     <string name="spoken_description_language_switch">"Chuyển ngôn ngữ"</string>
     <string name="spoken_description_action_next">"Tiếp theo"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"văn bản"</string>
     <string name="keyboard_mode_time">"giờ"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Gần đây"</string>
-    <string name="spoken_description_emoji_category_objects">"Đồ vật"</string>
-    <string name="spoken_description_emoji_category_symbols">"Biểu tượng"</string>
-    <string name="spoken_description_emoji_category_flags">"Cờ"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Mặt cười và mọi người"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Động vật và thiên nhiên"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Thực phẩm và đồ uống"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Du lịch và địa danh"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Hoạt động"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Biểu tượng cảm xúc"</string>
     <string name="spoken_description_upper_case">"<xliff:g id="LOWER_LETTER">%s</xliff:g> hoa"</string>
     <string name="spoken_letter_0049">"I hoa"</string>
     <string name="spoken_letter_0130">"I hoa, dấu chấm phía trên"</string>

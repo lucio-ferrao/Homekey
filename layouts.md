@@ -91,7 +91,7 @@ Usually the label is what is displayed on the key. However, there are some speci
   * _symbol_alpha_: toggle alpha / symbol keyboard
   * _numpad_: toggle numpad layout
   * _dpad_: toggle D-pad layout
-  * _emoji_: switch to emoji view
+  * _emoji_: show the emojis in the suggestion strip
   * _com_: display common TLDs (.com and similar, localized)
   * _language_switch_: language switch key
   * _action_: the action (enter) key

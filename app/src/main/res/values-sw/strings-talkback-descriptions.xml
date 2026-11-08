@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Kuweka data kwa kutamka"</string>
     <string name="spoken_description_emoji">"Emoji"</string>
     <string name="spoken_description_return">"Rudi"</string>
-    <string name="spoken_description_search">"Utafutaji"</string>
     <string name="spoken_description_dot">"Nukta"</string>
     <string name="spoken_description_language_switch">"Badilisha lugha"</string>
     <string name="spoken_description_action_next">"Linalofuata"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"maandishi"</string>
     <string name="keyboard_mode_time">"wakati"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Zilizotumika majuzi"</string>
-    <string name="spoken_description_emoji_category_objects">"Vitu"</string>
-    <string name="spoken_description_emoji_category_symbols">"Alama"</string>
-    <string name="spoken_description_emoji_category_flags">"Bendera"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Kicheshi na Watu"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Wanyama na Asili"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Vyakula na Vinywaji"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Usafiri na Maeneo"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Shughuli"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Vikaragosi"</string>
     <string name="spoken_description_upper_case">"Herufi kubwa <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"Herufi I kubwa"</string>
     <string name="spoken_letter_0130">"Herufi I kubwa, alama ya kitone inayowekwa sehemu ya juu ya herufi katika alfabeti za Kilatini na Kivietnamu"</string>

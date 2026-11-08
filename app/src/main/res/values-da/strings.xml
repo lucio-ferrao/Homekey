@@ -234,7 +234,6 @@
     <string name="style_name_Rounded" tools:keep="@string/style_name_Rounded">Afrundet</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Funktionelle taster (stor skærm)</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Symboler (arabisk)</string>
-    <string name="after_emoji">Valg af emoji i emoji-visning</string>
     <string name="after_clip">Valg af post i udklipsholderens historik</string>
     <string name="after_symbol_and_space">Tryk på enter eller mellemrum efter andre taster i symbolvisning</string>
     <string name="dictionary_settings_category">Ordbøger</string>
@@ -251,7 +250,6 @@
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Mørkere</string>
     <string name="theme_name_black" tools:keep="@string/theme_name_black">Sort</string>
     <string name="prefs_font_scale">Tastaturets skriftstørrelse</string>
-    <string name="prefs_emoji_font_scale">Skriftstørrelse i emoji-visning</string>
     <string name="replace_dictionary_message">Erstat brugertilføjet ordbog \"%1$s\"?\n\nNuværende ordbog:\n%2$s\n\nNy ordbog:\n%3$s</string>
     <string name="number_row_hints">Vis hints på talrækken</string>
     <string name="left" tools:keep="@string/left">Venstre</string>

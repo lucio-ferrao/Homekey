@@ -139,7 +139,6 @@
     <string name="label_search_key">"Pesquisar"</string>
     <string name="label_pause_key">"Pausa"</string>
     <string name="label_wait_key">"Esp."</string>
-    <string name="prefs_emoji_key_fit">Escalar tamanho da tecla emoji com o do tipo de letra</string>
     <string name="button_backup">Backup</string>
     <string name="center_suggestion_text_to_enter">Sempre usar a sugestão do meio</string>
     <string name="backup_restore_title">Backup e restauração</string>
@@ -178,7 +177,6 @@
     <string name="prefs_always_show_suggestions_except_web_text">Nunca mostrar sugestões para campos de edição de web</string>
     <string name="auto_correct_shortcuts_summary">Quando ativado, atalhos poderão ser expandidos pelo autocorretor</string>
     <string name="suggest_emojis">Sugerir emojis</string>
-    <string name="show_emoji_descriptions">Mostrar descrição do emoji ao pressionar</string>
     <string name="center_suggestion_text_to_enter_summary">Ao clicar espaço ou pontuação, a sugestão do meio será inserida</string>
     <string name="suggest_clipboard_content">Sugerir conteúdo da área de transferência</string>
     <string name="gesture_floating_preview_dynamic_summary">Mover a pré-visualização durante um gesto</string>
@@ -247,7 +245,6 @@
     <string name="layout_functional_keys" tools:keep="@string/layout_functional_keys">Teclas funcionais</string>
     <string name="layout_error">Erro de layout: %s</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Última fila da área de transferência</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Última fila de emojis</string>
     <string name="prefs_bottom_padding_scale">Espaçamento em baixo</string>
     <string name="subtype_generic_sebeolsik_final">%s (Sebeolsik Final)</string>
     <string name="subtype_generic_student">%s (Estudante)</string>
@@ -260,8 +257,6 @@
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Linha de números</string>
     <string name="summary_customize_background_image_landscape">Se não definido, a imagem de retrato será usada</string>
     <string name="layout_phone" tools:keep="@string/layout_phone">Telefone</string>
-    <string name="prefs_emoji_skin_tone">Cor de pele padrão para emojis</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutro</string>
     <string name="prefs_space_bar_text">Texto personalizado na barra de espaço</string>
     <string name="custom_font">Definir fonte personalizada de ficheiro</string>
     <string name="subtype_mns">Mansi</string>
@@ -296,11 +291,9 @@
     <string name="customize_currencies">Personalizar moedas</string>
     <string name="customize_currencies_detail">Definir o símbolo principal e até 6 secundários para a moeda, separadas com espaços</string>
     <string name="switch_keyboard_after">Mudar o teclado principal depois…</string>
-    <string name="after_emoji">Selecionar emojis da vista de emojis</string>
     <string name="after_clip">Selecionando entrada do histórico da área de transferência</string>
     <string name="after_symbol_and_space">Pressionando espaço ou enter após outras teclas no modo de símbolos</string>
     <string name="prefs_font_scale">Tamanho da fonte do teclado</string>
-    <string name="prefs_emoji_font_scale">Tamanho da fonte dos emojis</string>
     <string name="add_new_dictionary_title">Adicionar dicionário de ficheiro</string>
     <string name="no_dictionary_dont_show_again_button">Não mostrar novamente</string>
     <string name="available_dictionary_experimental">%s (experimental)</string>
@@ -437,7 +430,6 @@
     <string name="save_subtype_per_app">Lembrar idioma por app</string>
     <string name="subtype_mhr">Mari (Oriental)</string>
     <string name="subtype_khipro_bn">%s (Khipro)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emojis com tecla de ação</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior da área de transferência com tecla de ação</string>
     <string name="number_row_in_symbols">Mostrar fila de números no modo de símbolos</string>
     <string name="custom_emoji_font">Definir fonte de emojis personalizada de ficheiro</string>
@@ -470,8 +462,6 @@
     <string name="toolbar_only_with_hw_keyboard">Mostrar só a barra de ferramentas com teclado físico</string>
     <string name="toolbar_only_with_hw_keyboard_summary">Ainda precisa de ativar a exibição do teclado virtual nas definições do sistema</string>
     <string name="folded">Dobrado</string>
-    <string name="emoji_search_title">Pesquisar emojis</string>
-    <string name="search_field_placeholder">Pesquisar</string>
     <string name="ask_later">Perguntar mais tarde</string>
     <string name="spell_check_suggestions">Mostrar sugestões do verificador ortográfico</string>
     <string name="spell_check_suggestions_summary">Mostrar sugestões ao selecionar uma palavra sublinhada a vermelho. Requer definir a app como verificador ortográfico padrão.</string>

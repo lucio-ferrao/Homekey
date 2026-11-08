@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Balso įvestis"</string>
     <string name="spoken_description_emoji">"Jaustukai"</string>
     <string name="spoken_description_return">"Grįžti"</string>
-    <string name="spoken_description_search">"Paieška"</string>
     <string name="spoken_description_dot">"Taškas"</string>
     <string name="spoken_description_language_switch">"Keisti kalbą"</string>
     <string name="spoken_description_action_next">"Kitas"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"teksto"</string>
     <string name="keyboard_mode_time">"laiko"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Naujausi"</string>
-    <string name="spoken_description_emoji_category_objects">"Objektai"</string>
-    <string name="spoken_description_emoji_category_symbols">"Simboliai"</string>
-    <string name="spoken_description_emoji_category_flags">"Žymos"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Jaustukai ir žmonės"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Gyvūnai ir gamta"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Maistas ir gėrimai"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Kelionės ir vietos"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Veikla"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Jaustukai"</string>
     <string name="spoken_description_upper_case">"Didžioji <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"Didžioji I"</string>
     <string name="spoken_letter_0130">"Didžioji I su tašku viršuje"</string>

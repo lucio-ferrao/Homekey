@@ -336,7 +336,6 @@
     <string name="page_down" tools:keep="@string/page_down">الصفحة للأسفل</string>
     <string name="suggest_clipboard_content_summary">أظهِر محتوى الحافظة الذي نُسخ مؤخرًا كاقتراح</string>
     <string name="suggest_clipboard_content">اقترح محتوى الحافظة</string>
-    <string name="after_emoji">اختيار الرموز التعبيرية في عرض الرموز التعبيرية</string>
     <string name="after_clip">تحديد إدخال سجل الحافظة</string>
     <string name="space_swipe_toggle_numpad_entry">بدّل لوحة الأرقام</string>
     <string name="after_symbol_and_space">الضغط على مفتاح الإدخال أو مسافة بعد المفاتيح الأخرى في عرض الرموز</string>
@@ -352,7 +351,6 @@
     <string name="layout_number_row" tools:keep="@string/layout_number_row">صف الأرقام</string>
     <string name="prefs_space_bar_text">نص مخصص على شريط المسافة</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">الصف السفلي للحافظة</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">الصف السفلي من الرموز التعبيرية</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">تبويب</string>
     <string name="label_delete_key" tools:keep="@string/label_delete_key">احذف</string>
     <string name="label_shift_key" tools:keep="@string/label_shift_key">تحويل</string>
@@ -384,7 +382,6 @@
     <string name="customize_toolbar_key_code_reset_message">أتريد محُ جميع رموز المفاتيح المخصّصة؟</string>
     <string name="label_bin" tools:keep="@string/label_bin">سلة</string>
     <string name="prefs_font_scale">مقياس الخط في لوحة المفاتيح</string>
-    <string name="prefs_emoji_font_scale">مقياس الخط لعرض الرموز التعبيرية</string>
     <string name="prefs_side_padding_scale">مقياس الحشو الجانبي</string>
     <string name="delete_confirmation">هل تريد حذف %s حقًا؟</string>
     <string name="split" tools:keep="@string/split">تقسيم لوحة المفاتيح</string>
@@ -417,11 +414,8 @@
     <string name="subtype_dag">دغبانية</string>
     <string name="subtype_st">السوتية</string>
     <string name="backup_restored">استُعيدت النسخة الاحتياطية</string>
-    <string name="prefs_emoji_key_fit">حجّم مفتاح الإيموجي مع حجم الخط</string>
     <string name="use_apps_dict">ابحث عن أسماء التطبيقات</string>
     <string name="use_apps_dict_summary">استخدم أسماء التطبيقات المثبتة للاقتراحات والتصحيحات</string>
-    <string name="prefs_emoji_skin_tone">لون بشرة الرموز التعبيرية الافتراضي</string>
-    <string name="prefs_emoji_skin_tone_neutral">طبيعي</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="toolbar_mode">وضع شريط الأدوات</string>
     <string name="toolbar_mode_expandable">مفاتيح شريط الأدوات والاقتراحات</string>
@@ -431,7 +425,6 @@
     <string name="toolbar_hiding_global">أخفِ أشرطة أدوات الحافظة والرموز التعبيرية أيضًا</string>
     <string name="popup_order_and_hint_source">ترتيب مفاتيح النوافذ المنبثقة ومصدر التلميحات</string>
     <string name="landscape">أفقي</string>
-    <string name="show_emoji_descriptions">أظهر وصف الرموز التعبيرية عند الضغط مطولاً</string>
     <string name="suggest_emojis">اقترح رموز التعبيرية</string>
     <string name="suggest_emojis_summary">استخدم قاموس الرموز التعبيرية في الاقتراحات العادية</string>
     <string name="suggest_punctuation">اقتراحات علامات الترقيم</string>
@@ -447,7 +440,6 @@
     <string name="emoji_dictionary_required">مطلوب قاموس رموز تعبيرية لكي تعمل هذه الميزة. يمكن تنزيل القواميس بتنسيق .dict %s.</string>
     <string name="subtype_mhr">ماري (شرقي)</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">الصف السفلي للحافظة مع مفتاح الإجراء</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">صف الرموز التعبيرية السفلي مع مفتاح الإجراء</string>
     <string name="custom_emoji_font">عيِّن خط رموز التعبيرية مخصّص من ملف</string>
     <string name="number_row_in_symbols">أظهر صف الأرقام في عرض الرموز</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">المفاتيح الوظيفية (خِيبرو)</string>
@@ -484,8 +476,6 @@
     <string name="gesture_data_delete_dialog_submitted">احذف %s من الكلمات المُرسلة</string>
     <string name="gesture_data_many_not_shared_words">لديك أكثر من %s كلمة بانتظار الإرسال</string>
     <string name="gesture_data_email_body">هام:\n\nأهلاً بك!\nنود تذكيرك بأن هذه البيانات ستتم مشاركتها علنًا بموجب رخصة المشاع الإبداعي (CC BY-SA 4.0)، ولن يتم إدراج اسمك كمؤلف وذلك لحماية خصوصيتك.\n\nشكرًا لمشاركتنا حقوق بياناتك. سنحرص على استخدامها بشكل جيد!\n\nيُرجى ملاحظة أن تغيير صياغة هذا الإشعار لا يغير ما سنفعله ببياناتك. هذا ليس عقدًا للتعديل، بل هو مجرد تذكير ودي!\nإذا كنت ترغب في إرسال رسالة إلينا مع بياناتك، فاكتبها أسفل الخط هنا.\n---------------------------------------------</string>
-    <string name="emoji_search_title">ابحث في الرموز التعبيرية</string>
-    <string name="search_field_placeholder">ابحث</string>
     <string name="gesture_data_promotion_message">أهلاً بك!\nبما أنك ثبَّت مكتبة الكتابة بالإيماءات، فقد يهمك مشروع HeliBoard لإنشاء مكتبة كتابة بالإيماءات مفتوحة المصدر بالكامل. يمكنك المساعدة من خلال المساهمة ببيانات الإيماءات. لمزيد من المعلومات، تفضل بزيارة شاشة جمع بيانات الإيماءات.</string>
     <string name="gesture_data_reminder_message">أهلاً بك!\nلقد سبق لك استخدام خاصية جمع بيانات الإيماءات، ولكنك لم تضف أي بيانات منذ فترة طويلة. أترغب في المساهمة مجددًا؟</string>
     <string name="ask_later">اسألني لاحقًا</string>
@@ -556,7 +546,6 @@
     <string name="layout_dpad" tools:keep="@string/layout_dpad">لوحة الاتجاهات</string>
     <string name="space_swipe_toggle_dpad_entry">بدّل لوحة الاتجاهات</string>
     <string name="show_dpad_key">مفتاح D-pad</string>
-    <string name="recent_emojis_cleared">مُحت الرموز التعبيرية الحديثة</string>
     <string name="prefs_enable_hardware_keyboard">دعم لوحات المفاتيح المادية</string>
     <string name="accent_shifted_icon">رمز «shift» مع علامة التشديد</string>
 </resources>

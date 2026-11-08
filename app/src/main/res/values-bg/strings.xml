@@ -202,7 +202,6 @@
     <string name="clear_clipboard" tools:keep="@string/clear_clipboard">Изчистване на клипборда</string>
     <string name="prefs_long_press_symbol_for_numpad">Продължителното натискане на клавиш със символи за цифровата клавиатура</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Клипборда долен ред</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Емотикони долен ред</string>
     <string name="customize_background_image">Задаване на фоново изображение</string>
     <string name="button_select_language">Изберете език</string>
     <string name="file_read_error">Файлът не може да се прочете</string>
@@ -238,7 +237,6 @@
     <string name="replace_dictionary_message">Наистина ли да замените добавения от потребителя речник \"%1$s\"?\n\nТекущ речник:\n%2$s\n\nНов речник:\n%3$s</string>
     <string name="replace_dictionary">Замяна на речника</string>
     <string name="after_symbol_and_space">Натискане на еnter или сpace след други клавиши в изглед на символи</string>
-    <string name="after_emoji">Избиране на емотикони в изглед на емотикони</string>
     <string name="after_clip">Избиране на запис в историята на клипборда</string>
     <string name="switch_keyboard_after">Превключете към основната клавиатура след…</string>
     <string name="toolbar_keys">Избор на клавиши от лентата с инструменти</string>
@@ -377,7 +375,6 @@
     <string name="summary_customize_background_image_landscape">Ако не е зададено, ще се използва портретно изображение</string>
     <string name="customize_toolbar_key_code_reset_message">Наистина ли изчиствате всички персонализирани ключови кодове?</string>
     <string name="prefs_font_scale">Мащаб на шрифта на клавиатурата</string>
-    <string name="prefs_emoji_font_scale">Мащаб на шрифта за изглед на емотикони</string>
     <string name="prefs_side_padding_scale">Мащаб на страничната подложка</string>
     <string name="number_row_hints">Показване на съвети в реда с числа</string>
     <string name="prefs_language_swipe_distance">Разстояние на плъзгане за превключване на езика</string>
@@ -409,12 +406,9 @@
     <string name="timestamp_format_title">Формат на клавиша за времево клеймо</string>
     <string name="subtype_st">Сото</string>
     <string name="subtype_dag">Дагбани</string>
-    <string name="prefs_emoji_key_fit">Мащабиране на размера на клавишите за емотикони с размера на шрифта</string>
     <string name="backup_restored">Резервното копие е възстановено</string>
     <string name="use_apps_dict">Търсене на имена на приложения</string>
     <string name="use_apps_dict_summary">Използване на имената на инсталираните приложения за предложения и корекции</string>
-    <string name="prefs_emoji_skin_tone">Тон на кожата на емотиконите по подразбиране</string>
-    <string name="prefs_emoji_skin_tone_neutral">Неутрален</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="toolbar_mode">Режим на лентата с инструменти</string>
     <string name="toolbar_mode_toolbar_keys">Само клавиши в лентата с инструменти</string>
@@ -424,7 +418,6 @@
     <string name="toolbar_hiding_global">Скриване и на лентите с инструменти за клипборда и емотиконите</string>
     <string name="landscape">Пейзаж</string>
     <string name="popup_order_and_hint_source">Ред на изскачащите клавиши и източник на съвети</string>
-    <string name="show_emoji_descriptions">Показване на описание на емотикони при продължително натискане</string>
     <string name="suggest_emojis">Предлагане на емотикони</string>
     <string name="suggest_emojis_summary">Използване на речник за емотикони в нормални предложения</string>
     <string name="suggest_punctuation">Предложения за пунктуация</string>
@@ -439,13 +432,10 @@
     <string name="inline_emoji_search_summary">Предлагай емотикони само когато думата е предшествана от двоеточие</string>
     <string name="emoji_dictionary_required">За да работи тази функция, е необходим речник с емотикони. Речници във формат .dict могат да бъдат изтеглени %s.</string>
     <string name="subtype_mhr">Мари (Източен)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Долен ред емотикони с клавиш за действие</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Долен ред на клипборда с клавиш за действие</string>
     <string name="number_row_in_symbols">Показване на числовия ред в изглед със символи</string>
     <string name="custom_emoji_font">Задаване на персонализиран шрифт за емтикони от файл</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Функционални клавиши (Khipro)</string>
-    <string name="emoji_search_title">Търсене на емотикони</string>
-    <string name="search_field_placeholder">Търсене</string>
     <string name="gesture_data_screen">Събиране на данни за жестове</string>
     <string name="gesture_data_description">&lt;b&gt;Добре дошли в екрана за събиране на данни за жестове!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Това е част от &lt;a href=https://nlnet.nl/project/GestureTyping&gt;проект, финансиран от NLnet&lt;/a&gt;, чиято цел е да създаде напълно отворена библиотека за въвеждане на жестове, способна да замени библиотеката на Google със затворен код.&lt;br/&gt; Планирано е резултатът да бъде лесен заместител на клавиатури, базирани на AOSP, но също така може да се използва и с други клавиатури, например FlorisBoard.&lt;br/&gt;&lt;br/&gt; За разработването на библиотеката е изключително полезно да имате на разположение подробни данни за въвеждане на жестове на различни езици и от различни потребители.&lt;br/&gt; Чрез събиране и изпращане на данни за въвеждане на жестове можете да допринесете за отворен набор от данни за жестове, които ще бъдат използвани за разработване на библиотеката. Наборът от данни ще бъде публикуван под лиценз CC BY-SA 4.0 известно време след приключване на фазата на събиране на данни на %s. След като съберете данни, можете да ги изпратите, като използвате иконата за споделяне в долната част на този екран.</string>
     <string name="gesture_data_info">Какво е това?</string>
@@ -549,7 +539,6 @@
     <string name="space_swipe_toggle_dpad_entry">Превключване на D-pad</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
     <string name="show_dpad_key">D-pad клавиш</string>
-    <string name="recent_emojis_cleared">Изчистени са скорошни емоджита</string>
     <string name="prefs_enable_hardware_keyboard">Поддръжка на хардуерна клавиатура</string>
     <string name="accent_shifted_icon">Икона за акцентирана смяна</string>
 </resources>

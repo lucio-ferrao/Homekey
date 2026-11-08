@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"Entrada de voz"</string>
     <string name="spoken_description_emoji">"Emoji"</string>
     <string name="spoken_description_return">"Volver"</string>
-    <string name="spoken_description_search">"Búsqueda"</string>
     <string name="spoken_description_dot">"Punto"</string>
     <string name="spoken_description_language_switch">"Cambiar idioma"</string>
     <string name="spoken_description_action_next">"Siguiente"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"texto"</string>
     <string name="keyboard_mode_time">"hora"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"Recientes"</string>
-    <string name="spoken_description_emoji_category_objects">"Objetos"</string>
-    <string name="spoken_description_emoji_category_symbols">"Símbolos"</string>
-    <string name="spoken_description_emoji_category_flags">"Banderas"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"Emoticones y personas"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"Animales y naturaleza"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"Alimentos y bebidas"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"Viajes y lugares"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"Actividad"</string>
-    <string name="spoken_description_emoji_category_emoticons">"Emoticones"</string>
     <string name="spoken_description_upper_case">"<xliff:g id="LOWER_LETTER">%s</xliff:g> mayúscula"</string>
     <string name="spoken_letter_0049">"I mayúscula"</string>
     <string name="spoken_letter_0130">"I mayúscula, con punto superior"</string>

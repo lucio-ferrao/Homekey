@@ -334,7 +334,6 @@
     <string name="suggest_clipboard_content_summary">Propone l\'ultimo testo copiato nella barra dei suggerimenti</string>
     <string name="copy_to_clipboard">Copia negli appunti</string>
     <string name="switch_keyboard_after">Torna alla tastiera principale…</string>
-    <string name="after_emoji">Dopo l\'inserimento di un\'emoji dalla schermata emoji</string>
     <string name="after_symbol_and_space">Dopo l\'inserimento di un carattere dalla schermata simboli, seguito da uno spazio o un \'a capo\'</string>
     <string name="after_clip">Dopo l\'inserimento di un testo dalla cronologia appunti</string>
     <string name="show_popup_keys_main">Aggiungi varianti molto comuni (impostazione predefinita)</string>
@@ -349,7 +348,6 @@
     <string name="gesture_floating_preview_dynamic_summary">Sposta l\'anteprima seguendo il gesto</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Riga dei numeri</string>
     <string name="prefs_space_bar_text">Testo personalizzato sulla barra spaziatrice</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Selettore emoji (ultima riga in basso)</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Cronologia appunti (ultima riga in basso)</string>
     <string name="label_stop_onehanded_mode_key" tools:keep="@string/label_stop_onehanded_mode_key">Esci dalla modalità a una mano</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Invio</string>
@@ -386,7 +384,6 @@
     <string name="settings_screen_secondary_layouts">Layout secondari</string>
     <string name="layout_functional_keys_tablet" tools:keep="@string/layout_functional_keys_tablet">Tasti funzione (schermi grandi)</string>
     <string name="prefs_font_scale">Dimensione dei caratteri della tastiera</string>
-    <string name="prefs_emoji_font_scale">Dimensione delle emoji</string>
     <string name="prefs_side_padding_scale">Spaziatura laterale</string>
     <string name="number_row_hints">Mostra suggerimenti sulla riga dei numeri</string>
     <string name="auto_correct_shortcuts">Correggi automaticamente le scorciatoie</string>
@@ -415,13 +412,10 @@
     <string name="timestamp_format_title">Formato per il tasto data/ora</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
-    <string name="prefs_emoji_key_fit">Ridimensiona il tasto emoji in base alla dimensione dei caratteri</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="backup_restored">Backup ripristinato</string>
     <string name="use_apps_dict">Suggerisci nomi delle app installate</string>
     <string name="use_apps_dict_summary">Aggiunge i nomi delle app installate alla lista di suggerimenti e correzioni</string>
-    <string name="prefs_emoji_skin_tone">Tonalità di pelle predefinita per le emoji</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutro (giallo)</string>
     <string name="toolbar_mode_expandable">Tasti funzione e suggerimenti</string>
     <string name="toolbar_mode_toolbar_keys">Solo tasti funzione</string>
     <string name="toolbar_mode_hidden">Nascosta</string>
@@ -435,7 +429,6 @@
     <string name="about_wiki_link_description">Il Wiki può essere integrato e migliorato da qualsiasi utente GutHub!</string>
     <string name="suggest_emojis">Suggerisci emoji</string>
     <string name="suggest_emojis_summary">Usa i dizionari emoji nei suggerimenti standard</string>
-    <string name="show_emoji_descriptions">Tocca a lungo un\'emoji per visualizzare la descrizione</string>
     <string name="suggest_punctuation">Suggerisci punteggiatura</string>
     <string name="suggest_punctuation_summary">Mostra segni di interpunzione quando non sono disponibili altri suggerimenti</string>
     <string name="inline_emoji_search">Ricerca emoji inline</string>
@@ -445,13 +438,10 @@
     <string name="save_subtype_per_app">Ricorda lingua/sottotipo di input per ogni applicazione</string>
     <string name="subtype_mhr">Mari orientale</string>
     <string name="subtype_khipro_bn">%s (Khipro)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Riga emoji inferiore con tasto azione</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Riga appunti inferiore con tasto azione</string>
     <string name="number_row_in_symbols">Mostra la riga dei numeri nel layout simboli</string>
     <string name="custom_emoji_font">Scegli un font emoji personalizzato</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Tasti funzione (Khipro)</string>
-    <string name="emoji_search_title">Trova emoji</string>
-    <string name="search_field_placeholder">Cerca</string>
     <string name="gesture_data_screen">Raccolta dati input gestuale</string>
     <string name="gesture_data_description">Benvenuto nella schermata di raccolta dati sulla digitazione gestuale!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Questa funzionalità fa parte di un &lt;a href=https://nlnet.nl/project/GestureTyping&gt;progetto finanziato da NLnet&lt;/a&gt; che mira a realizzare una libreria per la digitazione gestuale completamente open source, in grado di sostituire la libreria proprietaria di Google. Il risultato finale sarà una libreria pensata come alternativa per le tastiere basate su AOSP, ma potrà essere utilizzata anche con altre tastiere, come ad esempio FlorisBoard.&lt;br/&gt;&lt;br/&gt;Per lo sviluppo della libreria, è estremamente utile disporre di dati dettagliati sull\'interazione con l\'input gestuale, raccolti da diversi utenti e in varie lingue. Raccogliendo e inviando dati sulla digitazione gestuale, puoi contribuire a creare un set aperto di dati che sarà utilizzato per lo sviluppo della libreria. Il&lt;b&gt; set di dati sarà pubblicato con licenza CC BY-SA 4.0 qualche tempo dopo la fine della fase di raccolta, prevista per %s. Una volta raccolti i dati, puoi inviarli utilizzando il tasto di condivisione nella parte inferiore di questa schermata.</string>
     <string name="gesture_data_info">Di cosa si tratta?</string>
@@ -555,7 +545,6 @@
     <string name="about_community_links_description">Temi, editor di layout, discussioni, …</string>
     <string name="space_swipe_toggle_dpad_entry">Passa al D-pad</string>
     <string name="show_dpad_key">Tasto d-pad</string>
-    <string name="recent_emojis_cleared">Emoji recenti cancellate</string>
     <string name="prefs_enable_hardware_keyboard">Supporto tastiera fisica</string>
     <string name="accent_shifted_icon">Icona shift con accento</string>
 </resources>

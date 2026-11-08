@@ -8,7 +8,6 @@ package helium314.keyboard.latin
 import android.text.TextUtils
 import com.android.inputmethod.latin.utils.BinaryDictionaryUtils
 import helium314.keyboard.keyboard.Keyboard
-import helium314.keyboard.keyboard.internal.keyboard_parser.getEmojiDefaultVersion
 import helium314.keyboard.latin.SuggestedWords.SuggestedWordInfo
 import helium314.keyboard.latin.common.ComposedData
 import helium314.keyboard.latin.common.Constants
@@ -125,8 +124,6 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         } else {
             inputStyleIfNotPrediction
         }
-
-        useDefaultEmojiSkinTone(suggestionsList)
 
         // If there is an incoming autocorrection, make sure typed word is shown, so user is able to override it.
         // Otherwise, if the relevant setting is enabled, show the typed word in the middle.
@@ -322,8 +319,6 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
             )
         }
 
-        useDefaultEmojiSkinTone(suggestionsContainer)
-
         // In the batch input mode, the most relevant suggested word should act as a "typed word"
         // (typedWordValid=true), not as an "auto correct word" (willAutoCorrect=false).
         // Exception is when using shift to change capitalization of suggestions.
@@ -348,12 +343,6 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
         val autocorrectCapitalization = addCapitalizedSuggestion && Settings.getValues().mAutoCorrectCapitalizedSuggestion && isCorrectionEnabled && !wordComposer.isCursorFrontOrMiddleOfComposingWord
         return SuggestedWords(suggestionsList, suggestionResults.mRawSuggestions, pseudoTypedWordInfo, true,
             autocorrectCapitalization, false, inputStyle, sequenceNumber)
-    }
-
-    private fun useDefaultEmojiSkinTone(suggestionsList: ArrayList<SuggestedWordInfo>) {
-        for (i in suggestionsList.indices) {
-            suggestionsList[i] = useDefaultEmojiSkinTone(suggestionsList[i])
-        }
     }
 
     /** get suggestions based on the current ngram context, with an empty typed word (that's what next word suggestions do)  */
@@ -440,17 +429,6 @@ class Suggest(private val mDictionaryFacilitator: DictionaryFacilitator) {
                 String.format(Locale.ROOT, "%d, %s", wordInfo.mScore, dict)
             }
             wordInfo.debugString = scoreInfoString
-        }
-
-        @JvmStatic
-        fun useDefaultEmojiSkinTone(suggestion: SuggestedWordInfo): SuggestedWordInfo {
-            val defaultVersion = getEmojiDefaultVersion(suggestion.mWord)
-            if (defaultVersion == suggestion.mWord) {
-                return suggestion
-            }
-
-            return SuggestedWordInfo(defaultVersion, suggestion.mPrevWordsContext, suggestion.mScore, suggestion.mKindAndFlags,
-                suggestion.mSourceDict, suggestion.mIndexOfTouchPointOfSecondWord, suggestion.mAutoCommitFirstWordConfidence)
         }
 
         /**

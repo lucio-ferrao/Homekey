@@ -118,7 +118,6 @@
     <string name="button_backup">Öryggisafrit</string>
     <string name="load_gesture_library_button_load">Hlaða inn orðasafni</string>
     <string name="load_gesture_library_button_delete">Eyða orðasafni</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Tjáningartákn í neðstu röð</string>
     <string name="dictionary_settings_category">Orðasöfn</string>
     <string name="internal_dictionary_summary">Innra aðalorðasafn</string>
     <string name="button_select_language">Veldu tungumál</string>
@@ -321,7 +320,6 @@
     <string name="dictionary_load_error">Villa við að hlaða inn orðasafnsskrá</string>
     <string name="prefs_bottom_padding_scale">Kvarði fyllingar neðst</string>
     <string name="after_clip">Velja færslu í ferilskrá klippispjalds</string>
-    <string name="after_emoji">Velja tjáningartákn í tjáningartáknasýn</string>
     <string name="remove_dictionary_message">Á í alvörunni að skipta út notanda-viðbætta orðasafninu \"%s\"?</string>
     <string name="add_dictionary">Veldu orðasafn til að bæta við. Orðasöfn á .dict sniði er hægt að sækja %s.</string>
     <string name="theme_name_holo_white" tools:keep="@string/theme_name_holo_white">Geislandi hvítt</string>
@@ -331,7 +329,6 @@
     <string name="text_tap_languages">Ýttu á tungumálið til að opna stillingar</string>
     <string name="theme_navbar">Lita leiðsagnarstikuna</string>
     <string name="prefs_font_scale">Kvarði leturs á lyklaborði</string>
-    <string name="prefs_emoji_font_scale">Kvarði leturs í tjáningartáknasýn</string>
     <string name="prefs_side_padding_scale">Kvarði fyllingar til hliðar</string>
     <string name="hidden_features_title">Lýsing á földum eiginleikum</string>
     <string name="prefs_force_incognito_mode_summary">Gera óvirkt að læra ný orð</string>
@@ -420,8 +417,6 @@
     <string name="floating" tools:keep="@string/floating">Fljótandi lyklaborð</string>
     <string name="prefs_key_gap_scale">Kvarði bils á milli lykla</string>
     <string name="prefs_bottom_row_scale">Kvarði neðstu raðar</string>
-    <string name="prefs_emoji_skin_tone">Sjálfgefinn húðlitur tjáningartákna</string>
-    <string name="prefs_emoji_skin_tone_neutral">Hlutlaust</string>
     <string name="custom_emoji_font">Velja sérsniðið táknaletur úr skrá</string>
     <string name="subtype_dag">Dagbani</string>
     <string name="subtype_st">Sesotho</string>
@@ -435,7 +430,6 @@
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Aðgerðalyklar (Khipro)</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">D-platti</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Talnaröð (einfölduð)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Tjáningartákn í neðstu röð með aðgerðalykli</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Klippispjald í neðstu röð með aðgerðalykli</string>
     <string name="after_numpad_and_space">Með því að ýta á Enter eða Bil á eftir öðrum lyklum á talnaborði</string>
     <string name="about_wiki_link">Fara á wiki-síðuna</string>
@@ -450,8 +444,6 @@
     <string name="custom_subtype">Sérsniðin undirtegund</string>
     <string name="landscape">Lárétt</string>
     <string name="folded">Samanbrotið</string>
-    <string name="emoji_search_title">Leita að tákni</string>
-    <string name="search_field_placeholder">Leita</string>
     <string name="ask_later">Spyrja síðar</string>
     <string name="spell_check_suggestions">Birta tillögur um stafsetningu</string>
     <string name="gesture_data_screen">Söfnun bendingagagna</string>
@@ -505,14 +497,12 @@
     <string name="suggest_emojis_summary">Nota emoji-táknasafn í venjulegum tillögum</string>
     <string name="inline_emoji_search">Leit innan texta að emoji-táknum</string>
     <string name="emoji_dictionary_required">Orðasafn með emoji-táknum er nauðsynlegt til að þessi eiginleiki virki. Orðasöfn á .dict sniði er hægt að sækja %s.</string>
-    <string name="show_emoji_descriptions">Birta lýsingu á tákni við að ýta lengi</string>
     <string name="prefs_always_show_suggestions_except_web_text">Ekki birta alltaf tillögur fyrir innfyllingarreiti á vefsíðum</string>
     <string name="prefs_always_show_suggestions_except_web_text_summary">Innfyllingarreitir á vefsíðum (finnast oftast í vöfrum) eru algeng ástæða vandamála þegar stillt er á að birta alltaf tillögur</string>
     <string name="auto_correct_capitalized_suggestions">Sjálfvirk leiðrétting á tillögum í hástöfum</string>
     <string name="timestamp_format_title">Snið fyrir tímamerkislykil</string>
     <string name="popup_order_and_hint_source">Röðun sprettlykla og uppruni ábendinga</string>
     <string name="prefs_hint_font_scale">Kvarði leturlykils</string>
-    <string name="prefs_emoji_key_fit">Kvarða stærð táknalykils með stærð leturs</string>
     <string name="get_colors_message">Þú getur fundið nýja liti og deilt þínum á %s.</string>
     <string name="get_layouts_message">Þú getur fundið nýjar framsetningar og deilt þínum á %s.</string>
     <string name="discussion_section_link">umræðusvæðinu</string>

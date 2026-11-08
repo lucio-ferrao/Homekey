@@ -224,7 +224,6 @@ public final class Constants {
             case KeyCode.SPLIT_LAYOUT -> "splitLayout";
             case KeyCode.NUMPAD -> "numpad";
             case KeyCode.DPAD -> "dpad";
-            case KeyCode.EMOJI_SEARCH -> "emojiSearch";
             case KeyCode.APP_SEARCH -> "appSearch";
             default -> {
                 if (code < CODE_SPACE) yield String.format("\\u%02X", code);

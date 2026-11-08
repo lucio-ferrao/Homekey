@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"ಧ್ವನಿ ಇನ್‌ಪುಟ್‌"</string>
     <string name="spoken_description_emoji">"ಎಮೋಜಿ"</string>
     <string name="spoken_description_return">"ಹಿಂತಿರುಗು"</string>
-    <string name="spoken_description_search">"ಹುಡುಕಿ"</string>
     <string name="spoken_description_dot">"ಚುಕ್ಕೆ"</string>
     <string name="spoken_description_language_switch">"ಭಾಷೆ ಬದಲಾಯಿಸಿ"</string>
     <string name="spoken_description_action_next">"ಮುಂದೆ"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"ಪಠ್ಯ"</string>
     <string name="keyboard_mode_time">"ಸಮಯ"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"ಇತ್ತೀಚಿನವುಗಳು"</string>
-    <string name="spoken_description_emoji_category_objects">"ವಸ್ತುಗಳು"</string>
-    <string name="spoken_description_emoji_category_symbols">"ಸಂಕೇತಗಳು"</string>
-    <string name="spoken_description_emoji_category_flags">"ಫ್ಲ್ಯಾಗ್‌ಗಳು"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"ಸ್ಮೈಲಿ ಮತ್ತು ಜನರು"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"ಪ್ರಾಣಿಗಳು ಮತ್ತು ಪ್ರಕೃತಿ"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"ಆಹಾರ ಮತ್ತು ಪಾನೀಯ"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"ಪ್ರಯಾಣ ಮತ್ತು ಸ್ಥಳಗಳು"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"ಚಟುವಟಿಕೆ"</string>
-    <string name="spoken_description_emoji_category_emoticons">"ಎಮೋಟಿಕಾನ್‌ಗಳು"</string>
     <string name="spoken_description_upper_case">"ಕ್ಯಾಪಿಟಲ್ <xliff:g id="LOWER_LETTER">%s</xliff:g>"</string>
     <string name="spoken_letter_0049">"ಕ್ಯಾಪಿಟಲ್ I"</string>
     <string name="spoken_letter_0130">"ಕ್ಯಾಪಿಟಲ್ I, ಮೇಲೆ ಡಾಟ್"</string>

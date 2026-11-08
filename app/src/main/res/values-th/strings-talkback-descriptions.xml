@@ -26,7 +26,6 @@
     <string name="spoken_description_mic">"การป้อนข้อมูลด้วยเสียง"</string>
     <string name="spoken_description_emoji">"อีโมจิ"</string>
     <string name="spoken_description_return">"ส่งคืน"</string>
-    <string name="spoken_description_search">"ค้นหา"</string>
     <string name="spoken_description_dot">"จุด"</string>
     <string name="spoken_description_language_switch">"เปลี่ยนภาษา"</string>
     <string name="spoken_description_action_next">"ถัดไป"</string>
@@ -49,16 +48,6 @@
     <string name="keyboard_mode_text">"ข้อความ"</string>
     <string name="keyboard_mode_time">"เวลา"</string>
     <string name="keyboard_mode_url">"URL"</string>
-    <string name="spoken_description_emoji_category_recents">"ล่าสุด"</string>
-    <string name="spoken_description_emoji_category_objects">"วัตถุ"</string>
-    <string name="spoken_description_emoji_category_symbols">"สัญลักษณ์"</string>
-    <string name="spoken_description_emoji_category_flags">"ธง"</string>
-    <string name="spoken_description_emoji_category_eight_smiley_people">"หน้ายิ้มและผู้คน"</string>
-    <string name="spoken_description_emoji_category_eight_animals_nature">"สัตว์เลี้ยงและธรรมชาติ"</string>
-    <string name="spoken_description_emoji_category_eight_food_drink">"อาหารและเครื่องดื่ม"</string>
-    <string name="spoken_description_emoji_category_eight_travel_places">"การเดินทางและสถานที่"</string>
-    <string name="spoken_description_emoji_category_eight_activity">"กิจกรรม"</string>
-    <string name="spoken_description_emoji_category_emoticons">"ไอคอนสื่ออารมณ์"</string>
     <string name="spoken_description_upper_case">"<xliff:g id="LOWER_LETTER">%s</xliff:g> ตัวใหญ่"</string>
     <string name="spoken_letter_0049">"I ตัวใหญ่"</string>
     <string name="spoken_letter_0130">"I ตัวใหญ่เติมจุดด้านบน"</string>

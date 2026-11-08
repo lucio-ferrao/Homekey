@@ -338,13 +338,6 @@ private object AppUpgrade {
                         file.renameTo(File(dir, name))
                         prefs.edit { putString(Settings.PREF_LAYOUT_PREFIX + LayoutType.NUMBER_ROW.name, name) }
                     }
-                    "custom.emoji_bottom_row." -> {
-                        val dir = File(folder, LayoutType.EMOJI_BOTTOM.folder)
-                        dir.mkdirs()
-                        val name = "custom.${encodeBase36("emoji_bottom_row")}."
-                        file.renameTo(File(dir, name))
-                        prefs.edit { putString(Settings.PREF_LAYOUT_PREFIX + LayoutType.EMOJI_BOTTOM.name, name) }
-                    }
                     "custom.clip_bottom_row." -> {
                         val dir = File(folder, LayoutType.CLIPBOARD_BOTTOM.folder)
                         dir.mkdirs()

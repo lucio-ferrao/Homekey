@@ -89,11 +89,6 @@ fun AppearanceScreen(
         Settings.PREF_FONT_SCALE,
         if (prefs.getBoolean(Settings.PREF_SHOW_HINTS, Defaults.PREF_SHOW_HINTS)) Settings.PREF_HINT_FONT_SCALE else null,
         SettingsWithoutKey.CUSTOM_EMOJI_FONT,
-        Settings.PREF_EMOJI_FONT_SCALE,
-        if (prefs.getFloat(Settings.PREF_EMOJI_FONT_SCALE, Defaults.PREF_EMOJI_FONT_SCALE) != 1f)
-            Settings.PREF_EMOJI_KEY_FIT else null,
-        if (prefs.getInt(Settings.PREF_EMOJI_MAX_SDK, 0) >= 24)
-            Settings.PREF_EMOJI_SKIN_TONE else null,
     )
     SearchSettingsScreen(
         onClickBack = onClickBack,
@@ -329,29 +324,6 @@ fun createAppearanceSettings(context: Context) = listOf(
     },
     Setting(context, SettingsWithoutKey.CUSTOM_EMOJI_FONT, R.string.custom_emoji_font) {
         CustomFontPreference(it, Settings.getCustomEmojiFontFile(LocalContext.current), R.string.custom_emoji_font)
-    },
-    Setting(context, Settings.PREF_EMOJI_FONT_SCALE, R.string.prefs_emoji_font_scale) { setting ->
-        SliderPreference(
-            name = setting.title,
-            key = setting.key,
-            default = Defaults.PREF_EMOJI_FONT_SCALE,
-            range = 0.5f..1.5f,
-            description = { "${(100 * it).toInt()}%" }
-        ) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
-    },
-    Setting(context, Settings.PREF_EMOJI_KEY_FIT, R.string.prefs_emoji_key_fit) {
-        SwitchPreference(it, Defaults.PREF_EMOJI_KEY_FIT) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
-    },
-    Setting(context, Settings.PREF_EMOJI_SKIN_TONE, R.string.prefs_emoji_skin_tone) { setting ->
-        val items = listOf(
-            stringResource(R.string.prefs_emoji_skin_tone_neutral) to "",
-            "\uD83C\uDFFB" to "\uD83C\uDFFB",
-            "\uD83C\uDFFC" to "\uD83C\uDFFC",
-            "\uD83C\uDFFD" to "\uD83C\uDFFD",
-            "\uD83C\uDFFE" to "\uD83C\uDFFE",
-            "\uD83C\uDFFF" to "\uD83C\uDFFF"
-        )
-        ListPreference(setting, items, Defaults.PREF_EMOJI_SKIN_TONE) { KeyboardSwitcher.getInstance().setThemeNeedsReload() }
     },
 )
 

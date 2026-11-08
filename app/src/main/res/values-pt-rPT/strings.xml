@@ -237,7 +237,6 @@
     <string name="subtype_xdq">Kaitag</string>
     <string name="layout_symbols_arabic" tools:keep="@string/layout_symbols_arabic">Símbolos (Árabe)</string>
     <string name="select_color_background">Fundo do teclado</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Fila inferior de emojis</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Fila inferior da área de transferência</string>
     <string name="theme_name_violette" tools:keep="@string/theme_name_violette">Violeta</string>
     <string name="prefs_always_show_suggestions_except_web_text">Não mostrar sempre sugestões para campos de edição web</string>
@@ -349,7 +348,6 @@
     <string name="theme_colors_night">Cores (noite)</string>
     <string name="license">Licença de código aberto</string>
     <string name="switch_keyboard_after">Voltar ao teclado principal após…</string>
-    <string name="after_emoji">Selecionar emoji no ecrã de emojis</string>
     <string name="message_add_custom_layout">Selecionar um ficheiro num formato compatível. Infomação sobre os formatos está disponível em %s.</string>
     <string name="theme_navbar">Cor da barra de navegação</string>
     <string name="select_color_key">Texto da tecla</string>
@@ -390,7 +388,6 @@
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Mostrar / ocultar barra de ferramentas</string>
     <string name="icon_style">Estilo do ícone</string>
     <string name="prefs_font_scale">Escala de fonte do teclado</string>
-    <string name="prefs_emoji_font_scale">Escala de fonte dos emojis</string>
     <string name="replace_dictionary">Substituir dicionário</string>
     <string name="gnu_gpl">Licença Pública Geral GNU v3.0</string>
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Espaço (teclado numérico)</string>
@@ -405,15 +402,12 @@
     <string name="get_colors_message">Pode encontrar e partilhar cores em %s.</string>
     <string name="get_layouts_message">Pode encontrar e partilhar esquemas em %s.</string>
     <string name="setup_step3_action">Configurar o teclado</string>
-    <string name="prefs_emoji_key_fit">Escalar tamanho da tecla emoji com a fonte</string>
     <string name="suggest_punctuation">Sugestões de pontuação</string>
     <string name="suggest_punctuation_summary">Mostrar pontuação quando não há outras sugestões</string>
     <string name="backup_restored">A cópia de segurança foi restaurada</string>
     <string name="toolbar_mode_toolbar_keys">Apenas teclas da barra de ferramentas</string>
     <string name="toolbar_mode_suggestion_strip">Apenas sugestões</string>
     <string name="toolbar_mode_hidden">Oculto</string>
-    <string name="prefs_emoji_skin_tone">Cor de pele padrão dos emojis</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutra</string>
     <string name="about_wiki_link">Ir para a Wiki</string>
     <string name="about_wiki_link_description">Qualquer pessoa pode melhorar a wiki no Github!</string>
     <string name="landscape">Horizontal</string>
@@ -422,7 +416,6 @@
     <string name="use_apps_dict_summary">Usar nomes de apps instaladas para sugestões e correções</string>
     <string name="space_swipe_hide_keyboard_entry">Ocultar teclado</string>
     <string name="suggest_emojis_summary">Usar o dicionário de emojis nas sugestões normais</string>
-    <string name="show_emoji_descriptions">Mostrar descrição de emoji ao premir sem soltar</string>
     <string name="toolbar_mode">Modo da barra de ferramentas</string>
     <string name="popup_order_and_hint_source">Ordem no menu da tecla e fonte de dicas</string>
     <string name="toolbar_mode_expandable">Teclas da barra de ferramentas e sugestões</string>
@@ -441,13 +434,10 @@
     <string name="save_subtype_per_app">Lembrar idioma por app</string>
     <string name="subtype_mhr">Mai (Oriental)</string>
     <string name="subtype_khipro_bn">%s (Khipro)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Fila inferior de emoji com tecla de ação</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Fila inferior da área de transferência com tecla de ação</string>
     <string name="custom_emoji_font">Definir fonte de emojis a partir de ficheiro</string>
     <string name="number_row_in_symbols">Mostrar linha de números no ecrã de símbolos</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Teclas funcionais (Khipro)</string>
-    <string name="emoji_search_title">Pesquisar emoji</string>
-    <string name="search_field_placeholder">Pesquisar</string>
     <string name="gesture_data_info">O que é isto?</string>
     <string name="prefs_bottom_row_scale">Escala da linha inferior</string>
     <string name="ask_later">Pergunte me depois</string>
@@ -551,7 +541,6 @@
     <string name="layout_dpad" tools:keep="@string/layout_dpad">Teclas direcionais</string>
     <string name="space_swipe_toggle_dpad_entry">Mudar para teclas direcionais</string>
     <string name="show_dpad_key">Tecla direcional</string>
-    <string name="recent_emojis_cleared">Apagou emojis recentes</string>
     <string name="prefs_enable_hardware_keyboard">Suporte para teclado físico</string>
     <string name="accent_shifted_icon">Ícone de Maiús destacado</string>
     <string name="launcher_rename">Nome</string>

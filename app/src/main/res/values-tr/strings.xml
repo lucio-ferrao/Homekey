@@ -322,7 +322,6 @@
     <string name="theme_name_ocean" tools:keep="@string/theme_name_ocean">Okyanus</string>
     <string name="switch_keyboard_after">Sonrasında ana klavyeye geç…</string>
     <string name="after_symbol_and_space">Sembol görünümünde diğer tuşlardan sonra enter veya boşluk tuşuna basma</string>
-    <string name="after_emoji">Emoji görünümünde emojiyi seçme</string>
     <string name="after_clip">Pano geçmişi girişini seçme</string>
     <string name="theme_name_darker" tools:keep="@string/theme_name_darker">Daha koyu</string>
     <string name="show_popup_keys_main">Yaygın varyantları ekle (varsayılan)</string>
@@ -351,7 +350,6 @@
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Sayı satırı</string>
     <string name="icon_style">Simge stili</string>
     <string name="prefs_space_bar_text">Boşluk çubuğu özel metni</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Emoji alt satırı</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Pano alt satırı</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Giriș</string>
     <string name="label_tab_key" tools:keep="@string/label_tab_key">Sekme</string>
@@ -359,10 +357,8 @@
     <string name="settings_category_space">Boşluk</string>
     <string name="name_invalid">Geçersiz ad</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Sayı satırı (temel)</string>
-    <string name="prefs_emoji_font_scale">Emoji görüntüleme boyutu</string>
     <string name="label_toolbar_key" tools:keep="@string/label_toolbar_key">Araç çubuğunu göster/gizle</string>
     <string name="vibrate_in_dnd_mode">Rahatsız etme kipinde titret</string>
-    <string name="prefs_emoji_key_fit">Emoji boyutunu yazı tipi boyutuna göre ölçeklendir</string>
     <string name="settings_screen_secondary_layouts">İkincil düzenler</string>
     <string name="label_shift_key_locked" tools:keep="@string/label_shift_key_locked">Caps lock</string>
     <string name="autospace_before_gesture_typing">Bir sözcük yazmadan önce otomatik boşluk ekle</string>
@@ -372,8 +368,6 @@
     <string name="toolbar_mode">Araç çubuğu kipi</string>
     <string name="number_row_hints">Sayı satırında ipuçlarını göster</string>
     <string name="split" tools:keep="@string/split">Bölünmüş klavye</string>
-    <string name="prefs_emoji_skin_tone">Varsayılan emoji cilt tonu</string>
-    <string name="prefs_emoji_skin_tone_neutral">Doğal</string>
     <string name="label_space_key_for_number_layout" tools:keep="@string/label_space_key_for_number_layout">Boşluk (sayı düzeni)</string>
     <string name="auto_correct_shortcuts_summary">Etkin kısayolları otomatik düzeltme ile genişlet</string>
     <string name="shift_removes_autospace">Shift basarken otomatik boşluk ekleme</string>
@@ -386,7 +380,6 @@
     <string name="prefs_key_emoji_max_sdk">Emoji sürümünü geçersiz kıl</string>
     <string name="timestamp_format_title">Zaman damgası anahtarı için biçim</string>
     <string name="autospace_after_gesture_typing">Bir sözcük yazma hareketinden sonra otomatik boşluk ekle</string>
-    <string name="show_emoji_descriptions">Uzun basmada emoji açıklamasını göster</string>
     <string name="autospace_after_suggestion">Bir öneri seçildikten sonra otomatik boşluk ekle</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="suggest_emojis">Emoji öner</string>
@@ -466,7 +459,6 @@
     <string name="subtype_khipro_bn">%s (Khipro)</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">İşlevsel tuşlar (Khipro)</string>
     <string name="layout_dpad" tools:keep="@string/layout_dpad">Yön tuşları</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Eylem tuşlu emoji alt satırı</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Eylem tuşlu pano alt satırı</string>
     <string name="about_community_links">Topluluk bağlantıları</string>
     <string name="about_community_links_description">Temalar, düzen editörü, tartışmalar, …</string>
@@ -479,8 +471,6 @@
     <string name="toolbar_only_with_hw_keyboard">Fiziksel klavyeyle yalnızca araç çubuğunu göster</string>
     <string name="toolbar_only_with_hw_keyboard_summary">Yine de sistem ayarlarında sanal klavyenin gösterilmesini etkinleştirmen gerekir</string>
     <string name="folded">Katlanmış</string>
-    <string name="emoji_search_title">Emoji ara</string>
-    <string name="search_field_placeholder">Ara</string>
     <string name="ask_later">Daha sonra sor</string>
     <string name="spell_check_suggestions">Yazım denetleyicisi önerilerini göster</string>
     <string name="spell_check_suggestions_summary">Kırmızı alt çizgili bir kelime seçildiğinde önerileri göster. Uygulamanın varsayılan yazım denetleyicisi olarak ayarlanmasını gerektirir.</string>

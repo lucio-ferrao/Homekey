@@ -18,7 +18,6 @@ import helium314.keyboard.latin.RichInputMethodManager.Companion.getInstance
 import helium314.keyboard.latin.RichInputMethodSubtype
 import helium314.keyboard.latin.RichInputMethodSubtype.Companion.emojiSubtype
 import helium314.keyboard.latin.RichInputMethodSubtype.Companion.noLanguageSubtype
-import helium314.keyboard.latin.dictionary.DictionaryInfoUtils.getLocalesWithEmojiDicts
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.settings.SettingsValues
 import helium314.keyboard.latin.utils.InputTypeUtils
@@ -114,7 +113,6 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
         var keyboardWidth = 0
         var keyboardHeight = 0
         var internalAction: InternalAction? = null
-        var emojiSearchAvailable = false
 
     }
 
@@ -163,10 +161,9 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
         companion object {
             private val EMPTY_EDITOR_INFO = EditorInfo()
 
-            fun buildEmojiClipBottomRow(context: Context, ei: EditorInfo?): KeyboardLayoutSet {
+            fun buildClipBottomRow(context: Context, ei: EditorInfo?): KeyboardLayoutSet {
                 val builder = Builder(context, ei, null)
                 builder.params.mode = KeyboardMode.TEXT
-                builder.params.emojiSearchAvailable = getLocalesWithEmojiDicts(context).isNotEmpty()
                 val width = ResourceUtils.getKeyboardWidth(context, Settings.getValues())
                 // actually the keyboard does not have full height, but at this point we use it to get correct key heights
                 val height = ResourceUtils.getKeyboardHeight(context.resources, Settings.getValues())

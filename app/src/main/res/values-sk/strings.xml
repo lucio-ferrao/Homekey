@@ -127,7 +127,6 @@
     <string name="inline_emoji_search">Vyhľadávanie emodži priamo v texte</string>
     <string name="inline_emoji_search_summary">Navrhovať emodži len vtedy, keď pred slovom stojí dvojbodka</string>
     <string name="emoji_dictionary_required">Aby táto funkcia fungovala, je potrebný slovník emodži. Slovníky vo formáte .dict si môžete stiahnuť na %s.</string>
-    <string name="show_emoji_descriptions">Zobraziť popis emodži pri dlhom stlačení</string>
     <string name="toolbar_swipe_down_to_hide">Skryť klávesnicu potiahnutím</string>
     <string name="toolbar_swipe_down_to_hide_summary">Potiahnite nadol po paneli nástrojov, aby ste zatvorili klávesnicu</string>
     <string name="settings_category_space">Medzerník</string>
@@ -271,10 +270,6 @@
     <string name="prefs_side_padding_scale">Škála bočného vyplnenia</string>
     <string name="prefs_font_scale">Škála písma na klávesnici</string>
     <string name="prefs_hint_font_scale">Škála písma pre klávesu nápovedy</string>
-    <string name="prefs_emoji_font_scale">Škála písma v zobrazení emodži</string>
-    <string name="prefs_emoji_key_fit">Prispôsobiť veľkosť klávesov s emodži veľkosti písma</string>
-    <string name="prefs_emoji_skin_tone">Predvolený odtieň pleti emodži</string>
-    <string name="prefs_emoji_skin_tone_neutral">Neutrálna</string>
     <string name="prefs_space_bar_text">Vlastný text na medzerníku</string>
     <string name="custom_font">Nastaviť vlastné písmo zo súboru</string>
     <string name="custom_emoji_font">Nastaviť vlastné písmo emodži zo súboru</string>
@@ -323,8 +318,6 @@
     <string name="layout_numpad_landscape" tools:keep="@string/layout_numpad_landscape">Numerická klávesnica (na šírku)</string>
     <string name="layout_number_row" tools:keep="@string/layout_number_row">Číselný riadok</string>
     <string name="layout_number_row_basic" tools:keep="@string/layout_number_row_basic">Číselný riadok (základný)</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Spodný riadok emodži</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Spodný riadok emodži s akčnou klávesou</string>
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Spodný riadok schránky</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Spodný riadok schránky s akčným tlačidlom</string>
     <string name="customize_background_image">Nastaviť obrázok na pozadí</string>
@@ -333,7 +326,6 @@
     <string name="customize_currencies">Prispôsobenie mien</string>
     <string name="customize_currencies_detail">Zadajte symbol hlavnej meny a až 6 symbolov vedľajších mien, oddelených medzerou</string>
     <string name="switch_keyboard_after">Prepnúť na hlavnú klávesnicu po…</string>
-    <string name="after_emoji">Výber emodži v zobrazení emodži</string>
     <string name="after_clip">Výber položky z histórie schránky</string>
     <string name="after_symbol_and_space">Stlačenie klávesy Enter alebo medzerníka po stlačení iných klávesov v zobrazení symbolov</string>
     <string name="after_numpad_and_space">Stlačenie klávesy Enter alebo medzerníka po stlačení iných klávesov na numerickej klávesnici</string>
@@ -468,8 +460,6 @@
     <string name="custom_subtype">Vlastný podtyp</string>
     <string name="landscape">Na šírku</string>
     <string name="folded">Zložené</string>
-    <string name="emoji_search_title">Vyhľadávanie emodži</string>
-    <string name="search_field_placeholder">Vyhľadávanie</string>
     <string name="ask_later">Opýtaj sa ma neskôr</string>
     <string name="spell_check_suggestions">Zobraziť návrhy kontroly pravopisu</string>
     <string name="spell_check_suggestions_summary">Pri výbere slova s červeným podčiarknutím sa zobrazia návrhy. Je potrebné nastaviť aplikáciu ako predvolenú kontrolu pravopisu.</string>
@@ -547,7 +537,6 @@
     <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
     <string name="space_swipe_toggle_dpad_entry">Prepnúť D-pad</string>
     <string name="show_dpad_key">klávesa D-pad</string>
-    <string name="recent_emojis_cleared">Vyčistené nedávne emodži</string>
     <string name="prefs_enable_hardware_keyboard">Podpora hardvérovej klávesnice</string>
     <string name="accent_shifted_icon">Ikona klávesy Shift s zvýraznením</string>
 </resources>

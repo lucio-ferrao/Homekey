@@ -38,7 +38,6 @@ data class KeyboardId(
     val isSplitLayout: Boolean,
     val oneHandedModeEnabled: Boolean,
     val internalAction: KeyboardLayoutSet.InternalAction?,
-    val emojiSearchAvailable: Boolean,
     val sendsOnEnter: Boolean
 ) {
     lateinit var editorInfo: EditorInfo // we don't want it in the data class constructor
@@ -63,7 +62,6 @@ data class KeyboardId(
         params.settingsValues?.mIsSplitKeyboardEnabled ?: false,
         params.settingsValues?.mOneHandedModeEnabled ?: false,
         params.internalAction,
-        params.emojiSearchAvailable,
         AppWorkarounds.sendsOnEnter(params.editorInfo.packageName),
     ) {
         editorInfo = params.editorInfo
@@ -109,18 +107,6 @@ enum class KeyboardElement(val descriptionResId: Int) {
     NUMBER(R.string.spoken_description_mode_number),
     PHONE(R.string.spoken_description_mode_phone),
     PHONE_SYMBOLS(R.string.spoken_description_mode_phone_shift),
-    EMOJI_RECENTS(R.string.spoken_description_emoji_category_recents),
-    EMOJI_SMILEYS(R.string.spoken_description_emoji_category_eight_smiley),
-    EMOJI_PEOPLE(R.string.spoken_description_emoji_category_eight_smiley_people),
-    EMOJI_NATURE(R.string.spoken_description_emoji_category_eight_animals_nature),
-    EMOJI_FOOD(R.string.spoken_description_emoji_category_eight_food_drink),
-    EMOJI_TRAVEL_PLACES(R.string.spoken_description_emoji_category_eight_travel_places),
-    EMOJI_ACTIVITIES(R.string.spoken_description_emoji_category_eight_activity),
-    EMOJI_OBJECTS(R.string.spoken_description_emoji_category_objects),
-    EMOJI_SYMBOLS(R.string.spoken_description_emoji_category_symbols),
-    EMOJI_FLAGS(R.string.spoken_description_emoji_category_flags),
-    EMOJI_EMOTICONS(R.string.spoken_description_emoji_category_emoticons),
-    EMOJI_BOTTOM_ROW(R.string.spoken_description_emoji),
     CLIPBOARD(R.string.spoken_description_mode_clipboard),
     CLIPBOARD_BOTTOM_ROW(R.string.spoken_description_mode_clipboard);
 
@@ -130,8 +116,7 @@ enum class KeyboardElement(val descriptionResId: Int) {
     val isAlphabetShiftedManually get() = this == ALPHABET_MANUAL_SHIFTED || this == ALPHABET_SHIFT_LOCKED
     val isNumberLayout get() = this in NUMPAD..PHONE_SYMBOLS
     val takesFunctionalKeys get() = this <= DPAD
-    val isEmojiLayout get() = this in EMOJI_RECENTS..EMOJI_EMOTICONS
-    val isBottomRow get() = this == EMOJI_BOTTOM_ROW || this == CLIPBOARD_BOTTOM_ROW
+    val isBottomRow get() = this == CLIPBOARD_BOTTOM_ROW
     val capsMode get() = when (this) {
         ALPHABET_AUTOMATIC_SHIFTED -> CapsMode.AUTO
         ALPHABET_MANUAL_SHIFTED -> CapsMode.MANUAL

@@ -330,7 +330,6 @@
     <string name="suggest_clipboard_content_summary">Показывать недавнее содержимое буфера обмена как подсказку</string>
     <string name="space_swipe_toggle_numpad_entry">Переключить цифровую клавиатуру</string>
     <string name="switch_keyboard_after">Вернуться к основной клавиатуре после…</string>
-    <string name="after_emoji">Выбора эмодзи в режиме просмотра</string>
     <string name="after_clip">Выбора элемента истории буфера обмена</string>
     <string name="after_symbol_and_space">Нажатия \"Enter\" или пробела после других клавиш в режиме символов</string>
     <string name="show_popup_keys_main">Добавьте наиболее распространённые варианты (по умолчанию)</string>
@@ -343,7 +342,6 @@
     <string name="layout_clip_bottom_row" tools:keep="@string/layout_clip_bottom_row">Строка буфера обмена внизу</string>
     <string name="gesture_floating_preview_static">Плавающий предпросмотр</string>
     <string name="gesture_floating_preview_dynamic_summary">Перемещаемый предпросмотр при наборе жестами</string>
-    <string name="layout_emoji_bottom_row" tools:keep="@string/layout_emoji_bottom_row">Строка эмодзи внизу</string>
     <string name="icon_style">Стиль значков</string>
     <string name="label_enter_key" tools:keep="@string/label_enter_key">Ввод</string>
     <string name="label_resize_onehanded_key" tools:keep="@string/label_resize_onehanded_key">Изменить размер режима работы одной рукой</string>
@@ -370,7 +368,6 @@
     <string name="auto_correct_shortcuts">Автоисправление сокращений</string>
     <string name="custom_font">Установить пользовательский шрифт из файла</string>
     <string name="prefs_font_scale">Масштаб шрифта клавиатуры</string>
-    <string name="prefs_emoji_font_scale">Масштаб шрифта отображения эмодзи</string>
     <string name="prefs_side_padding_scale">Масштаб боковых отступов</string>
     <string name="auto_correct_shortcuts_summary">Если включено, автоисправление заменит сокращения на полные слова</string>
     <string name="customize_toolbar_key_code_reset_message">Вы действительно хотите удалить все настроенные коды клавиш?</string>
@@ -407,12 +404,9 @@
     <string name="timestamp_format_title">Формат ключа временной метки</string>
     <string name="subtype_dag">Дагбани</string>
     <string name="subtype_st">Сесото</string>
-    <string name="prefs_emoji_key_fit">Изменять размер клавиш с эмодзи пропорционально размеру шрифта</string>
     <string name="backup_restored">Резервная копия восстановлена</string>
     <string name="use_apps_dict">Поиск по названиям приложений</string>
     <string name="use_apps_dict_summary">Использовать названия установленных приложений для подсказок и исправлений</string>
-    <string name="prefs_emoji_skin_tone">Тон кожи эмодзи по умолчанию</string>
-    <string name="prefs_emoji_skin_tone_neutral">Нейтральный</string>
     <string name="subtype_with_layout_generic">%1$s (%2$s)</string>
     <string name="toolbar_mode_expandable">Клавиши панели и подсказки</string>
     <string name="toolbar_mode">Режим панели инструментов</string>
@@ -422,7 +416,6 @@
     <string name="toolbar_hiding_global">Скрыть панели инструментов буфера обмена и эмодзи</string>
     <string name="popup_order_and_hint_source">Порядок всплывающих клавиш и источник подсказок</string>
     <string name="landscape">Альбомный режим</string>
-    <string name="show_emoji_descriptions">Показывать описание эмодзи при долгом нажатии</string>
     <string name="suggest_emojis">Предлагать эмодзи</string>
     <string name="suggest_emojis_summary">Использовать словарь эмодзи в обычных подсказках</string>
     <string name="suggest_punctuation">Подсказки по пунктуации</string>
@@ -437,13 +430,10 @@
     <string name="inline_emoji_search_summary">Предлагать эмодзи только, если перед словом стоит двоеточие</string>
     <string name="emoji_dictionary_required">Для работы этой функции требуется словарь эмодзи. Словари в формате \".dict\" можно загрузить по ссылке %s.</string>
     <string name="subtype_mhr">Луговомарийский (Лугововосточный марийский)</string>
-    <string name="layout_emoji_bottom_row_with_action" tools:keep="@string/layout_emoji_bottom_row_with_action">Строка эмодзи внизу с клавишей действия</string>
     <string name="layout_clip_bottom_row_with_action" tools:keep="@string/layout_clip_bottom_row_with_action">Строка буфера обмена внизу с клавишей действия</string>
     <string name="number_row_in_symbols">Показывать ряд с цифрами в режиме символов</string>
     <string name="custom_emoji_font">Установить пользовательский шрифт для эмодзи из файла</string>
     <string name="layout_functional_keys_khipro" tools:keep="@string/layout_functional_keys">Функциональные клавиши (Кипро)</string>
-    <string name="emoji_search_title">Поиск эмодзи</string>
-    <string name="search_field_placeholder">Поиск</string>
     <string name="gesture_data_screen">Сбор данных о жестах</string>
     <string name="gesture_data_description">&lt;b&gt;Добро пожаловать на экран сбора данных о жестах!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; Это часть проекта, финансируемого NLnet &lt;a href=https://nlnet.nl/project/GestureTyping&gt;(NLnet-funded project)&lt;/a&gt;, направленного на создание полностью открытой библиотеки распознавания жестов, способной заменить закрытую библиотеку Google.&lt;br/&gt; Планируется, что результат станет простой заменой клавиатурам на базе AOSP, но также будет совместим и с другими клавиатурами, например, FlorisBoard.&lt;br/&gt;&lt;br/&gt; Для разработки библиотеки чрезвычайно полезно иметь подробные данные о жестах на разных языках и от разных пользователей.&lt;br/&gt; Собирая и отправляя данные о вводе текста с помощью жестов, вы можете внести вклад в создание открытого набора данных, который будет использоваться для разработки библиотеки. Набор данных будет опубликован под лицензией CC BY-SA 4.0 вскоре после завершения этапа сбора данных на %s. После сбора данных вы можете отправить их, воспользовавшись значком \"Поделиться\" в нижней части экрана.</string>
     <string name="gesture_data_info">Что это?</string>
@@ -547,7 +537,6 @@
     <string name="layout_dpad" tools:keep="@string/layout_dpad">D-pad</string>
     <string name="space_swipe_toggle_dpad_entry">Переключить D-pad</string>
     <string name="show_dpad_key">Клавиша D-pad</string>
-    <string name="recent_emojis_cleared">Недавние эмодзи очищены</string>
     <string name="prefs_enable_hardware_keyboard">Поддержка аппаратной клавиатуры</string>
     <string name="accent_shifted_icon">Акцентный цвет значка Shift</string>
 </resources>
