@@ -76,7 +76,7 @@ class TerminalVocabulary(private val context: Context) {
     companion object {
         private const val TAG = "TerminalVocabulary"
         private const val MAX_TOKENS = 3000
-        private const val MAX_SUGGESTIONS = 5
+        const val MAX_SUGGESTIONS = 5
         private const val MIN_LENGTH = 2
     }
 }

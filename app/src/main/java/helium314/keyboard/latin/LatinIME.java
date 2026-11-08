@@ -888,6 +888,8 @@ public class LatinIME extends InputMethodService implements
         // In some cases the input connection has not been reset yet and we can't access it. In
         // this case we will need to call loadKeyboard() later, when it's accessible, so that we
         // can go into the correct mode, so we need to do some housekeeping here.
+        mInputLogic.startShellInput(editorInfo, restarting);
+
         final boolean needToCallLoadKeyboardLater;
         final Suggest suggest = mInputLogic.mSuggest;
         if (!isImeSuppressedByHardwareKeyboard()) {

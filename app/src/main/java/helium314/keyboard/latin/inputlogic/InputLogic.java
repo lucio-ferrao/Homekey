@@ -37,6 +37,8 @@ import helium314.keyboard.keyboard.emoji.RecentEmojis;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.CapsMode;
 import helium314.keyboard.latin.InputStyle;
+import helium314.keyboard.latin.ShellCompletions;
+import helium314.keyboard.latin.ShellLine;
 import helium314.keyboard.latin.TerminalVocabulary;
 import helium314.keyboard.latin.TerminalContext;
 import helium314.keyboard.latin.ScreenAgentService;
@@ -115,6 +117,9 @@ public final class InputLogic {
     // This has package visibility so it can be accessed from InputLogicHandler.
     /* package */ final WordComposer mWordComposer;
     private final TerminalVocabulary mTerminalVocabulary;
+    // the commands and files a terminal sends for a shell field, and where on the command line the typing is
+    private ShellCompletions mShellCompletions = ShellCompletions.EMPTY;
+    private final ShellLine mShellLine = new ShellLine();
     public final RichInputConnection mConnection;
     private final RecapitalizeStatus mRecapitalizeStatus = new RecapitalizeStatus();
 
@@ -164,6 +169,15 @@ public final class InputLogic {
      * @param combiningSpec the combining spec string for this subtype (from extra value)
      * @param settingsValues the current settings values
      */
+    /**
+     * Takes the commands and files of a shell field. A field new to the keyboard starts a command line; a restart
+     * (the terminal sending new lists, after a line or a change of folder) keeps the line.
+     */
+    public void startShellInput(final EditorInfo editorInfo, final boolean restarting) {
+        mShellCompletions = ShellCompletions.from(editorInfo);
+        if (!restarting) mShellLine.onNewLine();
+    }
+
     public void startInput(String combiningSpec, SettingsValues settingsValues) {
         mConnection.onStartInput();
         if (!mWordComposer.getTypedWord().isEmpty()) {
@@ -240,6 +254,7 @@ public final class InputLogic {
      */
     public InputTransaction onTextInput(SettingsValues settingsValues, Event event, CapsMode keyboardCapsMode, LatinIME.UIHandler handler) {
         String rawText = event.getTextToCommit().toString();
+        if (settingsValues.mInputAttributes.mTerminalContext == TerminalContext.SHELL) mShellLine.onUntrackedEdit();
         InputTransaction inputTransaction = new InputTransaction(settingsValues, event,
                 SystemClock.uptimeMillis(), mSpaceState,
                 getActualCapsMode(settingsValues, keyboardCapsMode));
@@ -348,6 +363,12 @@ public final class InputLogic {
         }
 
         commitChosenWord(settingsValues, suggestion, LastComposedWord.COMMIT_TYPE_MANUAL_PICK, LastComposedWord.NOT_A_SEPARATOR);
+        // in a shell a picked command or file is a whole token, while a picked folder goes on as a path
+        if (settingsValues.mInputAttributes.mTerminalContext == TerminalContext.SHELL
+                && !ShellCompletions.continuesPath(suggestion)) {
+            mConnection.commitCodePoint(Constants.CODE_SPACE);
+            mShellLine.onTokenEnded();
+        }
         mConnection.endBatchEdit();
         // Don't allow cancellation of manual pick
         mLastComposedWord.deactivate();
@@ -489,6 +510,8 @@ public final class InputLogic {
         if (GestureDataGatheringKt.useBackgroundGathering && mWordComposer.isComposingWord() && mWordComposer.isCursorFrontOrMiddleOfComposingWord())
             BackgroundGatheringCache.INSTANCE.onEditWord(mWordComposer.getTypedWord());
 
+        if (settingsValues.mInputAttributes.mTerminalContext == TerminalContext.SHELL)
+            trackShellLine(event, mWordComposer.isComposingWord());
         Event processedEvent = mWordComposer.processEvent(event);
         InputTransaction inputTransaction = new InputTransaction(settingsValues,
                 processedEvent, SystemClock.uptimeMillis(), mSpaceState,
@@ -2568,6 +2591,40 @@ public final class InputLogic {
         return true;
     }
 
+    /**
+     * Follows the command line of a shell through the keys sent to it: Enter or Ctrl+C start a new one, a space after a
+     * token moves on to the arguments, `|`, `;` and `&` to a new command. Moving the cursor, Tab, deleting back over a
+     * space or other control keys change the line in ways the keyboard cannot see: it stops guessing until Enter.
+     */
+    private void trackShellLine(final Event event, final boolean wasComposing) {
+        final int codePoint = event.getCodePoint();
+        final int keyCode = event.getKeyCode();
+        if ((event.getMetaState() & KeyEvent.META_CTRL_ON) != 0) {
+            if (Character.toLowerCase(codePoint) == 'c') mShellLine.onNewLine();
+            else mShellLine.onUntrackedEdit();
+        } else if (codePoint == Constants.CODE_ENTER || keyCode == KeyCode.SHIFT_ENTER) {
+            mShellLine.onNewLine();
+        } else if (codePoint == Constants.CODE_SPACE) {
+            if (wasComposing) mShellLine.onTokenEnded();
+        } else if (ShellLine.isCommandSeparator(codePoint)) {
+            mShellLine.onCommandSeparator();
+        } else if (keyCode == KeyCode.DELETE) {
+            if (!wasComposing) mShellLine.onUntrackedEdit();
+        } else if (codePoint == Constants.CODE_TAB || isShellLineEditKey(keyCode)) {
+            mShellLine.onUntrackedEdit();
+        }
+    }
+
+    private static boolean isShellLineEditKey(final int keyCode) {
+        return switch (keyCode) {
+            case KeyCode.ARROW_LEFT, KeyCode.ARROW_RIGHT, KeyCode.ARROW_UP, KeyCode.ARROW_DOWN, KeyCode.WORD_LEFT,
+                 KeyCode.WORD_RIGHT, KeyCode.MOVE_START_OF_LINE, KeyCode.MOVE_END_OF_LINE, KeyCode.MOVE_START_OF_PAGE,
+                 KeyCode.MOVE_END_OF_PAGE, KeyCode.PAGE_UP, KeyCode.PAGE_DOWN, KeyCode.TAB, KeyCode.DELETE_WORD,
+                 KeyCode.CLIPBOARD_PASTE, KeyCode.UNDO, KeyCode.REDO -> true;
+            default -> false;
+        };
+    }
+
     // we used to provide keyboard, settingsValues and keyboardShiftMode, but every time read it from current instance anyway
     void getSuggestedWords(InputStyle inputStyle, int sequenceNumber, OnGetSuggestedWordsCallback callback) {
         Keyboard keyboard = KeyboardSwitcher.getInstance().getKeyboard();
@@ -2581,11 +2638,13 @@ public final class InputLogic {
             return;
         }
         final SettingsValues settingsValues = Settings.getValues();
-        // a shell completes the token from what was typed in shells before, ahead of the dictionaries
+        // a shell completes the token from the terminal's commands and files and from what was typed in shells
+        // before, ahead of the dictionaries
         if (settingsValues.mInputAttributes.mTerminalContext == TerminalContext.SHELL
                 && inputStyle != InputStyle.UPDATE_BATCH && inputStyle != InputStyle.TAIL_BATCH) {
             final String typed = mWordComposer.getTypedWord();
-            final java.util.List<String> completions = mTerminalVocabulary.completions(typed);
+            final java.util.List<String> completions = mShellCompletions.completions(typed, mShellLine.getPosition(),
+                    mTerminalVocabulary.completions(typed));
             if (!completions.isEmpty()) {
                 callback.onGetSuggestedWords(mTerminalVocabulary.toSuggestedWords(typed, completions, inputStyle, sequenceNumber));
                 return;
