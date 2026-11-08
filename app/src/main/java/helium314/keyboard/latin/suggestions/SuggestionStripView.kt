@@ -103,12 +103,13 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
     private val suggestionsStrip: ViewGroup = findViewById(R.id.suggestions_strip)
     /**
-     * The Homekey icon on the left, on its side like an arrow: pointing in to open the launcher mode, and the other way
-     * to close it; a long press opens the settings.
+     * The key on the left shows the mode: the Homekey icon while typing, a house in the launcher mode; a tap opens or
+     * closes the launcher mode, a long press opens the settings.
      */
     private val appsKey = findViewById<ImageButton>(R.id.suggestions_strip_apps_key)
     private val incognitoIcon = KeyboardIconsSet.instance.getNewDrawable(ToolbarKey.INCOGNITO.name, context)
     private val homekeyIcon = ContextCompat.getDrawable(context, R.drawable.ic_homekey_key)
+    private val homeIcon = ContextCompat.getDrawable(context, R.drawable.ic_strip_home)
     private var direction = 1 // 1 if LTR, -1 if RTL
     private var launcherMode = false
     private var emojiMode = false
@@ -181,7 +182,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         updateAppsKey()
     }
 
-    /** in the launcher mode the icon points the other way, and closes it */
+    /** in the launcher mode the icon is a house, and closes it */
     fun setLauncherMode(active: Boolean) {
         launcherMode = active
         updateAppsKey()
@@ -201,10 +202,13 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
     private fun updateAppsKey() {
         appsKey.isVisible = !emojiMode && !onHomeScreen
-        appsKey.setImageDrawable(if (Settings.getValues().mIncognitoModeEnabled && !launcherMode) incognitoIcon else homekeyIcon)
+        appsKey.setImageDrawable(when {
+            launcherMode -> homeIcon
+            Settings.getValues().mIncognitoModeEnabled -> incognitoIcon
+            else -> homekeyIcon
+        })
         // no background of its own: just the icon on the strip, in the color of the strip's keys (tints the drawable)
         Settings.getValues().mColors.setColor(appsKey, ColorType.TOOL_BAR_KEY)
-        appsKey.rotation = (if (launcherMode) -90f else 90f) * direction
     }
 
     fun setSuggestions(suggestions: SuggestedWords, isRtlLanguage: Boolean) {
