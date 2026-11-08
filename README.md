@@ -43,7 +43,7 @@ When Homekey is chosen as the home app, the home screen is the launcher mode as 
 All the features of HeliBoard (see its [wiki](https://github.com/HeliBorg/HeliBoard/wiki)), with these changes:
 
 - A Portuguese (Portugal) main dictionary without Brazilian spellings and with accent misspellings turned into corrections (see below)
-- Symbols: `?` as the hint and long press of the period, `/` over `m`; emoji to the right in the alternatives of Enter
+- Symbols: `/` as the hint and long press of the period; emoji to the right in the alternatives of Enter
 - A tap on the left third of the period next to the space bar counts as space, and "word.word" with both words in the dictionary becomes "word word"
 - Enter sends in Element X; suggestions and corrections in Instagram messages
 

@@ -155,7 +155,7 @@ sealed interface KeyData : AbstractKeyData {
             val popupKeys = getActionKeyPopupKeyString(params.mId)
             // Enter sends in these apps, so the new line also goes into the popup
             val withNewLine = if (popupKeys == POPUP_KEYS_NAVIGATE_EMOJI && params.mId.isMultiLine
-                    && params.mId.sendsOnHardwareEnter)
+                    && params.mId.sendsOnEnter)
                 "$POPUP_KEYS_NEW_LINE,$popupKeys"
             else popupKeys
             return withNewLine?.let { createActionPopupKeys(it, params) }
@@ -423,7 +423,8 @@ sealed interface KeyData : AbstractKeyData {
             KeyLabel.COM, KeyLabel.LANGUAGE_SWITCH, KeyLabel.NUMPAD, KeyLabel.DPAD, KeyLabel.CTRL, KeyLabel.ALT,
             KeyLabel.FN, KeyLabel.META, KeyLabel.EMOJI_SEARCH, toolbarKeyStrings[ToolbarKey.EMOJI] -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SPACE, KeyLabel.ZWNJ -> return Key.BACKGROUND_TYPE_SPACEBAR
-            KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_ACTION
+            // the enter key looks like the other functional keys, without the colored circle behind its icon
+            KeyLabel.ACTION -> return Key.BACKGROUND_TYPE_FUNCTIONAL
             KeyLabel.SHIFT -> return Key.BACKGROUND_TYPE_FUNCTIONAL
         }
         if (type == KeyType.PLACEHOLDER) return Key.BACKGROUND_TYPE_EMPTY
@@ -444,7 +445,7 @@ sealed interface KeyData : AbstractKeyData {
         return when (label) {
             KeyLabel.ALPHA, KeyLabel.SYMBOL_ALPHA, KeyLabel.SYMBOL -> Key.LABEL_FLAGS_PRESERVE_CASE
             KeyLabel.PERIOD -> Key.LABEL_FLAGS_PRESERVE_CASE or
-                    // the ? hint on the letters, but none over the web address endings or on the symbols and numbers
+                    // the / hint on the letters, but none over the web address endings or on the symbols and numbers
                     if (shouldShowTldPopups(params) || !params.mId.element.isAlphabet) Key.LABEL_FLAGS_DISABLE_HINT_LABEL else 0
             KeyLabel.ACTION -> {
                 Key.LABEL_FLAGS_PRESERVE_CASE or Key.LABEL_FLAGS_AUTO_X_SCALE or Key.LABEL_FLAGS_FOLLOW_KEY_LABEL_RATIO or
@@ -491,9 +492,9 @@ sealed interface KeyData : AbstractKeyData {
     private fun getPeriodPopups(params: KeyboardParams): PopupSet<AbstractKeyData> {
         if (shouldShowTldPopups(params)) return SimplePopups(params.mLocaleKeyboardInfos.tlds)
         val punctuation = getPunctuationPopupKeys(params)
-        if ("?" !in punctuation) return SimplePopups(punctuation)
-        // ? first: shown as the hint of the period and typed by a long press
-        return PopupSet("?".toTextKey(), (punctuation - "?").map { it.toTextKey() })
+        if ("/" !in punctuation) return SimplePopups(punctuation)
+        // / first: shown as the hint of the period and typed by a long press
+        return PopupSet("/".toTextKey(), (punctuation - "/").map { it.toTextKey() })
     }
 }
 

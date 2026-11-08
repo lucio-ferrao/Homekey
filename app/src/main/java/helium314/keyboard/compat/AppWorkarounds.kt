@@ -43,8 +43,14 @@ object AppWorkarounds {
     fun doesntCareAboutKeycodePaste(packageName: String?) = isFirefoxOrFork(packageName)
 
     // Element X only sends on Enter from a hardware keyboard (MarkdownEditText checks the device id),
-    // so we send Enter as if it came from one, and a new line goes to Shift+Enter or the Enter popup
+    // so we send Enter as if it came from one
     fun sendsOnHardwareEnter(packageName: String?) = packageName == "io.element.android.x"
+
+    // Claude ignores Enter, also from a hardware keyboard: Enter taps its send button (accessibility service)
+    fun sendsWithButton(packageName: String?) = packageName == "com.anthropic.claude"
+
+    // Enter sends in these apps, so a new line goes to Shift+Enter or the Enter popup
+    fun sendsOnEnter(packageName: String?) = sendsOnHardwareEnter(packageName) || sendsWithButton(packageName)
 
     private fun isFirefoxOrFork(packageName: String?) = when (packageName) {
         "org.mozilla.fennec_fdroid", "org.mozilla.fenix", "org.mozilla.firefox_beta", "org.mozilla.focus",

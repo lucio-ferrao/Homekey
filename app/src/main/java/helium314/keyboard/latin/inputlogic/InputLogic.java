@@ -37,6 +37,7 @@ import helium314.keyboard.keyboard.emoji.RecentEmojis;
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode;
 import helium314.keyboard.latin.CapsMode;
 import helium314.keyboard.latin.InputStyle;
+import helium314.keyboard.latin.ScreenAgentService;
 import helium314.keyboard.latin.dictionary.Dictionary;
 import helium314.keyboard.latin.DictionaryFacilitator;
 import helium314.keyboard.latin.dictionary.DictionaryFactory;
@@ -1273,9 +1274,13 @@ public final class InputLogic {
 
             enterInlineEmojiSearchIfNeeded(codePoint, settingsValues);
 
-            if (Constants.CODE_ENTER == codePoint && event.getKeyCode() != KeyCode.SHIFT_ENTER
-                    && AppWorkarounds.INSTANCE.sendsOnHardwareEnter(getCurrentInputEditorInfo().packageName)) {
+            final String packageName = getCurrentInputEditorInfo().packageName;
+            final boolean sends = Constants.CODE_ENTER == codePoint && event.getKeyCode() != KeyCode.SHIFT_ENTER;
+            if (sends && AppWorkarounds.INSTANCE.sendsOnHardwareEnter(packageName)) {
                 mConnection.sendHardwareEnter();
+            } else if (sends && AppWorkarounds.INSTANCE.sendsWithButton(packageName)
+                    && ScreenAgentService.Companion.tapSendButton(packageName)) {
+                // the send button of the app is tapped instead (a new line if there is none, or no accessibility service)
             } else {
                 mConnection.commitCodePoint(codePoint);
             }
