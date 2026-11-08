@@ -26,14 +26,15 @@ A double tap on the space bar, or the arrow at the left of the suggestion strip,
 - Notifications, searchable by their text; a one-to-one message from a starred contact goes into the entry of that person and moves it forward
 - What players are playing, in the place of the player app
 - Today's events of the calendar, coming forward as they get near
-- Shortcuts of the apps and the ones pinned to Homekey ("add to home screen")
+- Shortcuts of the apps and the ones pinned to Homekey ("add to home screen"); the shortcuts of conversations with a starred contact (WhatsApp, Messages) are left out, as the contact has its entry; any shortcut can be removed from the list
+- The typed text stays where the names of the results start, also when nothing matches
 - Typed or pasted web addresses, with the icon of the app that opens them
 - Patterns: a phone number gives Call, "10 min" a timer, "7h15" an alarm
 - Shortcuts for starred contacts: `d`/`drive`/`go name` (directions in Google Maps), `s`/`sms name`, `c`/`call`/`liga`/`ligar name`
 - Dictation with a long press on the space bar, and spoken commands in Portuguese ("abre o Spotify", "liga à Ema", "manda mensagem à Marta a dizer que chego às 8")
 
 # Home screen
-When Homekey is chosen as the home app, the home screen is the launcher mode as a vertical list above a search field, on black, with the keyboard always open.
+When Homekey is chosen as the home app, the home screen is the launcher mode as a vertical list above a search field (with the arrow of the suggestion strip), on black, with the keyboard always open.
 
 - Tags, or the latest message of a person, under each name
 - A long press opens a panel: name, tags, WhatsApp or Element for a person, uninstall an app, remove a shortcut

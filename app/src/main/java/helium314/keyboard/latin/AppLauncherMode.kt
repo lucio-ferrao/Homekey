@@ -509,20 +509,24 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         row.orientation = LinearLayout.HORIZONTAL
         row.gravity = Gravity.CENTER_VERTICAL
 
+        // the typed text, when nothing matches it, where the names of the results start (after the room of an icon),
+        // in bold as the matching part of a name, so it does not move when the results go away or come back
         val queryView = TextView(context)
         queryView.text = query
         queryView.setTextColor(color)
-        queryView.textSize = 16f
-        queryView.setPadding(4.dpToPx(res), 0, 12.dpToPx(res), 0)
+        queryView.textSize = 14f
+        queryView.setTypeface(null, Typeface.BOLD)
+        queryView.setPadding((8 + 28 + 4).dpToPx(res), 0, 12.dpToPx(res), 0)
         row.addView(queryView, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
             .apply { gravity = Gravity.CENTER_VERTICAL })
         queryView.gravity = Gravity.CENTER_VERTICAL
 
-        // the typed text is shown on its own only when nothing matches it (the matches show it in their names)
-        if (query.isNotBlank() && results.isNotEmpty()) queryView.visibility = View.GONE
+        // the typed text is shown on its own only when nothing matches it (the matches show it in their names); with
+        // results it takes no room, so the first one starts where the typed text would
+        if (results.isNotEmpty()) queryView.visibility = View.GONE
         message?.let {
             queryView.text = it
-            queryView.setTextColor(color)
+            queryView.setTypeface(null, Typeface.NORMAL)
             queryView.visibility = View.VISIBLE
         }
         for (app in if (message != null) emptyList() else results.take(MAX_SHOWN)) {
@@ -1249,7 +1253,10 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             // icons of removed apps, or of older versions of the apps, are not needed any more
             iconCacheDir(context).listFiles()?.forEach { if (it.name !in usedIconFiles) it.delete() }
             synchronized(iconMemory) { iconMemory.keys.retainAll(usedIconFiles) }
-            return (launchable + whatsAppChats(context, launchable, names, tags) + shortcuts).sortedBy { it.normalizedLabel }
+            val chats = whatsAppChats(context, launchable, names, tags)
+            // the shortcuts of conversations (WhatsApp, Messages) with a starred contact repeat their entry
+            val people = chats.map { it.normalizedOriginal }.toSet()
+            return (launchable + chats + shortcuts.filter { it.normalizedOriginal !in people }).sortedBy { it.normalizedLabel }
         }
 
         /**

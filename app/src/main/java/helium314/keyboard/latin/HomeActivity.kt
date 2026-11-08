@@ -2,6 +2,7 @@
 package helium314.keyboard.latin
 
 import android.Manifest
+import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.content.Intent
@@ -42,7 +43,7 @@ class HomeActivity : Activity() {
         window.statusBarColor = Color.TRANSPARENT
         window.navigationBarColor = Color.TRANSPARENT
         val dp = resources.displayMetrics.density
-        // the search: a normal text field (cursor, selection, paste), with the icon of the apps
+        // the search: a normal text field (cursor, selection, paste), with the arrow of the apps
         field = EditText(this).apply {
             inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
             privateImeOptions = PRIVATE_IME_OPTIONS
@@ -52,8 +53,10 @@ class HomeActivity : Activity() {
             textSize = 18f
             setBackgroundColor(Color.argb(170, 20, 20, 20))
             setPadding((12 * dp).toInt(), (10 * dp).toInt(), (12 * dp).toInt(), (10 * dp).toInt())
-            setCompoundDrawablesRelativeWithIntrinsicBounds(
-                getDrawable(R.drawable.ic_apps)?.mutate()?.apply { setTint(Color.WHITE) }, null, null, null)
+            // the arrow that opens the apps from the suggestion strip
+            setCompoundDrawablesRelativeWithIntrinsicBounds(KeyboardIconsSet.instance
+                .getNewDrawable(KeyboardIconsSet.NAME_TOOLBAR_KEY, this@HomeActivity)?.mutate()?.apply { setTint(Color.WHITE) },
+                null, null, null)
             compoundDrawablePadding = (12 * dp).toInt()
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
