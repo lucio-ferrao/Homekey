@@ -32,6 +32,7 @@ import android.provider.ContactsContract
 import android.provider.AlarmClock
 import android.provider.CalendarContract
 import android.app.ActivityOptions
+import android.app.SearchManager
 import android.media.MediaMetadata
 import android.media.session.MediaController
 import android.media.session.MediaSessionManager
@@ -211,11 +212,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         lastSpaceTapTime = 0
         message = null
         when {
-            // a single word opens the first app found, a sentence (or a word without apps) is a command
             codePoint == Constants.CODE_ENTER -> {
-                val text = query.toString().trim()
-                if (!text.contains(' ') && results.isNotEmpty()) launch(results.first())
-                else if (text.isNotEmpty()) runSentence(text)
+                openFirst()
                 return true
             }
             codePoint > 0 -> query.appendCodePoint(codePoint)
@@ -462,11 +460,14 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         show()
     }
 
-    /** for the home screen: Enter in its field opens the first result, or runs the sentence as a command */
+    /**
+     * Enter, in the strip or the field of the home screen: a sentence recognized as a command runs, anything else
+     * (a name, "s chuva lisboa", "sms sílvia") opens the first result
+     */
     fun openFirst() {
         val text = query.toString().trim()
-        if (!text.contains(' ') && results.isNotEmpty()) launch(results.first())
-        else if (text.isNotEmpty()) runSentence(text)
+        if (text.isEmpty()) return
+        if (LauncherCommands.parse(text) == null && results.isNotEmpty()) launch(results.first()) else runSentence(text)
     }
 
     /** for the list of the home screen: open the result */
@@ -696,6 +697,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                     ?.let { entries.add(it) }
         }
         DRIVE.matchEntire(text)?.let { m -> entries.addAll(driveEntries(normalize(m.groupValues[1].trim()))) }
+        SEARCH.matchEntire(text)?.let { m -> searchEntry(m.groupValues[1].trim())?.let { entries.add(it) } }
         SMS.matchEntire(text)?.let { m -> entries.addAll(smsEntries(normalize(m.groupValues[1].trim()))) }
         CALL.matchEntire(text)?.let { m -> entries.addAll(callEntries(normalize(m.groupValues[1].trim()))) }
         return entries
@@ -820,7 +822,17 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         return result
     }
 
-    /** "s sílvia", "sms sílvia": the SMS conversation with the matching starred contacts, at their default number */
+    /** "s chuva lisboa", "search chuva lisboa": the text searched in the default browser, with its search engine */
+    private fun searchEntry(q: String): App? {
+        val browser = latinIME.packageManager.resolveActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com")),
+            PackageManager.MATCH_DEFAULT_ONLY)?.activityInfo?.packageName ?: return null
+        // to the browser, as Android would otherwise ask which of the apps that search to use
+        val intent = Intent(Intent.ACTION_WEB_SEARCH).putExtra(SearchManager.QUERY, q).setPackage(browser)
+        if (latinIME.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) == null) return null
+        return entry("search", latinIME.getString(R.string.launcher_search, q), intent)
+    }
+
+    /** "sms sílvia": the SMS conversation with the matching starred contacts, at their default number */
     private fun smsEntries(q: String): List<App> {
         if (q.isEmpty()) return emptyList()
         val numbers = starredData(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE, ContactsContract.CommonDataKinds.Phone.NUMBER)
@@ -1076,8 +1088,10 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         private const val MAPS_PACKAGE = "com.google.android.apps.maps"
         /** c, call, liga or ligar (and à, ao, a, para) and a name: calling a starred contact */
         private val CALL = Regex("""^(?:c|call|liga|ligar)\s+(?:(?:para|à|ao|a)\s+)?(.+)$""", RegexOption.IGNORE_CASE)
-        /** s or sms and a name: the SMS conversation with a starred contact */
-        private val SMS = Regex("""^(?:s|sms)\s+(.+)$""", RegexOption.IGNORE_CASE)
+        /** sms and a name: the SMS conversation with a starred contact */
+        private val SMS = Regex("""^sms\s+(.+)$""", RegexOption.IGNORE_CASE)
+        /** s or search and some text: a web search */
+        private val SEARCH = Regex("""^(?:s|search)\s+(.+)$""", RegexOption.IGNORE_CASE)
         private val KNOWN_BROWSERS = setOf("org.mozilla.firefox", "com.android.chrome", "com.duckduckgo.mobile.android")
         private const val PREF_LAST_USED = "app_search_last_launch"
         private const val PREF_CHOICES = "app_search_choices"

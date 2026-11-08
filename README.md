@@ -30,7 +30,7 @@ A double tap on the space bar, or the arrow at the left of the suggestion strip,
 - The typed text stays where the names of the results start, also when nothing matches
 - Typed or pasted web addresses, with the icon of the app that opens them
 - Patterns: a phone number gives Call, "10 min" a timer, "7h15" an alarm
-- Shortcuts for starred contacts: `d`/`drive`/`go name` (directions in Google Maps), `s`/`sms name`, `c`/`call`/`liga`/`ligar name`
+- Shortcuts for starred contacts: `d`/`drive`/`go name` (directions in Google Maps), `sms name`, `c`/`call`/`liga`/`ligar name`
 - Dictation with a long press on the space bar, and spoken commands in Portuguese ("abre o Spotify", "liga à Ema", "manda mensagem à Marta a dizer que chego às 8")
 
 # Home screen

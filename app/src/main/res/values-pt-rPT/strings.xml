@@ -543,6 +543,7 @@
     <string name="launcher_timer">Temporizador de %s</string>
     <string name="launcher_drive">Ir para %1$s (%2$s)</string>
     <string name="launcher_sms">SMS para %1$s (%2$s)</string>
+    <string name="launcher_search">Pesquisar %1$s</string>
     <string name="launcher_call_person">Ligar %1$s (%2$s)</string>
     <string name="home_label">Início do Homekey</string>
     <string name="launcher_unlock_private_space">Desbloquear espaço privado</string>

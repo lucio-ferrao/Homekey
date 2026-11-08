@@ -392,6 +392,7 @@
     <string name="launcher_timer">Timer for %s</string>
     <string name="launcher_drive">Drive to %1$s (%2$s)</string>
     <string name="launcher_sms">SMS to %1$s (%2$s)</string>
+    <string name="launcher_search">Search %1$s</string>
     <string name="launcher_call_person">Call %1$s (%2$s)</string>
     <string name="home_label">Homekey home</string>
     <string name="launcher_unlock_private_space">Unlock private space</string>
