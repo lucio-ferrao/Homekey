@@ -66,7 +66,7 @@ android {
             }
             variant.outputs.forEach { output ->
                 if (output is com.android.build.api.variant.impl.VariantOutputImpl) {
-                    output.outputFileName = "Homekey_${defaultConfig.versionName}-${variant.buildType}.apk"
+                    output.outputFileName = "Keyarchy_${defaultConfig.versionName}-${variant.buildType}.apk"
                 }
             }
         }

@@ -41,7 +41,7 @@ private class ShortcutApp(val packageName: String, val name: String, val icon: D
 
 /**
  * The apps that offer shortcuts, each with a switch to show its shortcuts in the launcher mode or not (all off at
- * first); the shortcuts pinned to Homekey are always shown. Android only gives the shortcuts to the home app.
+ * first); the shortcuts pinned to Keyarchy are always shown. Android only gives the shortcuts to the home app.
  */
 @Composable
 fun AppShortcutsScreen(

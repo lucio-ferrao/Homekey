@@ -9,11 +9,11 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
     tools:ignore="MissingTranslation">
     <!-- Name of Android spell checker service. The app name should not be translated. -->
-    <string name="spell_checker_service_name">Homekey Spell Checker</string>
+    <string name="spell_checker_service_name">Keyarchy Spell Checker</string>
     <!-- Title for IME settings screen. The app name should not be translated. -->
-    <string name="ime_settings">Homekey Settings</string>
+    <string name="ime_settings">Keyarchy Settings</string>
     <!-- Title for the spell checking service settings screen. The app name should not be translated. -->
-    <string name="android_spell_checker_settings">Homekey Spell Checker Settings</string>
+    <string name="android_spell_checker_settings">Keyarchy Spell Checker Settings</string>
     <!-- Option to provide vibrate/haptic feedback on keypress -->
     <string name="vibrate_on_keypress">Vibrate on keypress</string>
     <!-- Option to provide vibrate/haptic feedback on keypress even in do not disturb mode -->
@@ -387,7 +387,7 @@
     <string name="launcher_remove_shortcut">Remove</string>
     <string name="app_shortcuts">App shortcuts</string>
     <string name="calendars">Calendars</string>
-    <string name="app_shortcuts_not_home">Only the home app can see the shortcuts of the apps: choose Homekey as home app (Settings › Apps › Default apps).</string>
+    <string name="app_shortcuts_not_home">Only the home app can see the shortcuts of the apps: choose Keyarchy as home app (Settings › Apps › Default apps).</string>
     <string name="launcher_call">Call %s</string>
     <string name="launcher_alarm">Alarm at %s</string>
     <string name="launcher_timer">Timer for %s</string>
@@ -395,12 +395,12 @@
     <string name="launcher_sms">SMS to %1$s (%2$s)</string>
     <string name="launcher_search">Search %1$s</string>
     <string name="launcher_call_person">Call %1$s (%2$s)</string>
-    <string name="home_label">Homekey home</string>
+    <string name="home_label">Keyarchy home</string>
     <string name="launcher_unlock_private_space">Unlock private space</string>
     <string name="launcher_lock_private_space">Lock private space</string>
     <string name="launcher_edit_name">Name of %s:</string>
     <string name="launcher_edit_tags">Tags of %s:</string>
-    <string name="launcher_notifications_label">Homekey notifications (launcher mode)</string>
+    <string name="launcher_notifications_label">Keyarchy notifications (launcher mode)</string>
     <string name="launcher_edit_element">Element chat of %s (link or @person:server):</string>
     <!-- Messages of the commands in the launcher mode -->
     <string name="launcher_command_not_understood">Not understood</string>
@@ -408,7 +408,7 @@
     <string name="launcher_command_no_contact">Contact not found: %s</string>
     <string name="launcher_command_error">Error: %s</string>
     <!-- Accessibility service of the launcher mode -->
-    <string name="screen_agent_label">Homekey chats</string>
+    <string name="screen_agent_label">Keyarchy chats</string>
     <string name="screen_agent_description">When a chat is opened from the launcher mode, taps its message box so the keyboard stays open.</string>
     <string name="floating" tools:keep="@string/floating">Floating Keyboard</string>
     <!-- Title of the setting to set clipboard toolbar keys -->

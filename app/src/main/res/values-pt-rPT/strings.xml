@@ -103,8 +103,8 @@
     <string name="incognito">Impor modo incógnito</string>
     <string name="day_night_mode">Modo diurno/noturno automático</string>
     <string name="day_night_mode_summary">Aparência usa as definições do sistema</string>
-    <string name="spell_checker_service_name">Corretor ortográfico Homekey</string>
-    <string name="ime_settings">Definições do Homekey</string>
+    <string name="spell_checker_service_name">Corretor ortográfico Keyarchy</string>
+    <string name="ime_settings">Definições do Keyarchy</string>
     <string name="settings_category_input">Introdução</string>
     <string name="settings_category_additional_keys">Teclas adicionais</string>
     <string name="settings_category_correction">Correções</string>
@@ -119,7 +119,7 @@
     <string name="prefs_long_press_keyboard_to_change_lang_summary">Toque longo na barra de Espaço abre o menu de seleção do método de entrada</string>
     <string name="prefs_keyboard_height_scale">Altura do teclado</string>
     <string name="key_borders">Limite das teclas</string>
-    <string name="android_spell_checker_settings">Definições do corretor ortográfico Homekey</string>
+    <string name="android_spell_checker_settings">Definições do corretor ortográfico Keyarchy</string>
     <string name="auto_correction_confidence">Confiança da correção automática</string>
     <string name="enable_clipboard_history_summary">Se desativado, a tecla da área de transferência colará o conteúdo disponível</string>
     <string name="select_input_method">"Escolher o método de entrada"</string>
@@ -531,12 +531,12 @@
     <string name="launcher_edit_name">Nome de %s:</string>
     <string name="launcher_edit_tags">Etiquetas de %s:</string>
     <string name="launcher_edit_element">Conversa no Element de %s (link ou @pessoa:servidor):</string>
-    <string name="launcher_notifications_label">Notificações do Homekey (modo launcher)</string>
+    <string name="launcher_notifications_label">Notificações do Keyarchy (modo launcher)</string>
     <string name="launcher_command_not_understood">Não percebi</string>
     <string name="launcher_command_no_app">Não encontrei a app: %s</string>
     <string name="launcher_command_no_contact">Não encontrei o contacto: %s</string>
     <string name="launcher_command_error">Erro: %s</string>
-    <string name="screen_agent_label">Conversas do Homekey</string>
+    <string name="screen_agent_label">Conversas do Keyarchy</string>
     <string name="screen_agent_description">Quando se abre uma conversa a partir do modo launcher, toca na caixa de mensagem para o teclado ficar aberto.</string>
     <string name="launcher_call">Ligar %s</string>
     <string name="launcher_alarm">Alarme para as %s</string>
@@ -545,12 +545,12 @@
     <string name="launcher_sms">SMS para %1$s (%2$s)</string>
     <string name="launcher_search">Pesquisar %1$s</string>
     <string name="launcher_call_person">Ligar %1$s (%2$s)</string>
-    <string name="home_label">Início do Homekey</string>
+    <string name="home_label">Início do Keyarchy</string>
     <string name="launcher_unlock_private_space">Desbloquear espaço privado</string>
     <string name="launcher_lock_private_space">Bloquear espaço privado</string>
     <string name="launcher_uninstall">Desinstalar</string>
     <string name="launcher_remove_shortcut">Remover</string>
     <string name="app_shortcuts">Atalhos das apps</string>
     <string name="calendars">Calendários</string>
-    <string name="app_shortcuts_not_home">Só a app de ecrã inicial pode ver os atalhos das apps: escolhe o Homekey como app de ecrã inicial (Definições › Apps › Apps predefinidas).</string>
+    <string name="app_shortcuts_not_home">Só a app de ecrã inicial pode ver os atalhos das apps: escolhe o Keyarchy como app de ecrã inicial (Definições › Apps › Apps predefinidas).</string>
 </resources>

@@ -108,7 +108,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             <meta-data android:name="android.accessibilityservice" android:resource="@xml/screen_agent_service" />
         </service>
 
-        <!-- "Add to home screen" in an app, when Homekey is the home app: the shortcut goes to the launcher mode -->
+        <!-- "Add to home screen" in an app, when Keyarchy is the home app: the shortcut goes to the launcher mode -->
         <activity android:name="helium314.keyboard.latin.PinShortcutActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:excludeFromRecents="true"
@@ -118,7 +118,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             </intent-filter>
         </activity>
 
-        <!-- Home screen, when Homekey is chosen as the home app: opens the keyboard in the launcher mode -->
+        <!-- Home screen, when Keyarchy is chosen as the home app: opens the keyboard in the launcher mode -->
         <!-- a task of its own (as Launcher3): with the affinity of the app, the settings launched from the list went to
              the task of the home screen, which was already in front, and nothing opened -->
         <activity android:name="helium314.keyboard.latin.HomeActivity"

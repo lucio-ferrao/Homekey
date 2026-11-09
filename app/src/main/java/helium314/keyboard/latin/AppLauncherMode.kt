@@ -362,7 +362,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         val ranked = chosenFirst(withNotifications(alternativesFirst(filter(apps, query.toString(), counts, lastUsed)),
             normalize(query.toString().trim())))
         results = withEvents(listOfNotNull(urlEntry(), privateSpaceEntry()) + patternEntries() + withPlayers(ranked))
-        // on the home screen of Homekey the search is its own text field and the results a vertical list above it; the
+        // on the home screen of Keyarchy the search is its own text field and the results a vertical list above it; the
         // actions of a result, their editing and messages are a panel there (only on the home screen)
         if (isOnHome) {
             HomeActivity.showResults(this, if (message != null || editing != null || actionsFor != null) emptyList() else results)
@@ -404,7 +404,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     }
 
     /**
-     * Takes a shortcut out of the list: one pinned to Homekey is unpinned; one the app offers is remembered as removed
+     * Takes a shortcut out of the list: one pinned to Keyarchy is unpinned; one the app offers is remembered as removed
      * (if the app offers it again later, it stays out).
      */
     private fun removeShortcut(app: App) {
@@ -440,7 +440,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     /** the mode takes the keys, gestures and voice instead of the text field: everywhere but on the home screen */
     override fun capturesInput() = isActive && !isOnHome
 
-    /** the keyboard is in the text field of the home screen of Homekey, where typing goes to the field and not to the mode */
+    /** the keyboard is in the text field of the home screen of Keyarchy, where typing goes to the field and not to the mode */
     val isOnHome get() = HomeActivity.isHomeField(latinIME.currentInputEditorInfo)
 
     /** for the home screen: the home gesture or back there clear the search text, and leave an action or its editing */
@@ -1108,7 +1108,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
               val intent: Intent? = null,
               /** for an action of the keyboard itself, like unlocking the private space */
               val run: (() -> Unit)? = null,
-              /** for a shortcut of an app (a long press on its icon) or one pinned to Homekey */
+              /** for a shortcut of an app (a long press on its icon) or one pinned to Keyarchy */
               val shortcut: Shortcut? = null) {
         /** the file of the processed icon in the cache, to show the list at once after a restart of the keyboard */
         var iconFile: String? = null
@@ -1186,7 +1186,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         const val PREF_HIDDEN_CALENDARS = "app_search_hidden_calendars"
 
         /**
-         * Whether a shortcut is in the list: one pinned to Homekey always, one an app offers only for an app turned on in
+         * Whether a shortcut is in the list: one pinned to Keyarchy always, one an app offers only for an app turned on in
          * the settings ("App shortcuts") and not removed from the list.
          */
         fun isShortcutShown(pinned: Boolean, packageName: String, kissId: String, enabledApps: Set<String>,
@@ -1421,9 +1421,9 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         }
 
         /**
-         * The shortcuts the apps offer (those of a long press on their icon) and the ones pinned to Homekey ("add to home
+         * The shortcuts the apps offer (those of a long press on their icon) and the ones pinned to Keyarchy ("add to home
          * screen" in an app, see [PinShortcutActivity]), with their own icon, without the ones removed from the list.
-         * Android only gives them to the home app, so there are none while Homekey is not the home app; none either for a
+         * Android only gives them to the home app, so there are none while Keyarchy is not the home app; none either for a
          * locked profile.
          */
         private fun appShortcuts(context: Context, launchable: List<App>, names: Map<String, String>,

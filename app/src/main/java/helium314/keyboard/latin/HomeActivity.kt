@@ -32,7 +32,7 @@ import android.widget.EditText
 import android.widget.HorizontalScrollView
 
 /**
- * Home screen of the phone when Homekey is chosen as the home app: on black, the results of the launcher mode as a
+ * Home screen of the phone when Keyarchy is chosen as the home app: on black, the results of the launcher mode as a
  * vertical list, and a text field for the search (recognized by [isHomeField]) where typing, pasting and editing work
  * as in any field. The keyboard never hides there: back and the home gesture only clear the search.
  */

@@ -738,7 +738,7 @@ public class LatinIME extends InputMethodService implements
         mHandler.onStartInputView(editorInfo, restarting);
         if (hasSuggestionStripView())
             mSuggestionStripView.setOnHomeScreen(HomeActivity.Companion.isHomeField(editorInfo));
-        // on the home screen of Homekey the keyboard opens in the launcher mode
+        // on the home screen of Keyarchy the keyboard opens in the launcher mode
         mHandler.post(() -> {
             if (HomeActivity.Companion.isHomeField(getCurrentInputEditorInfo()) && !mAppLauncher.isActive())
                 mAppLauncher.start();
@@ -1421,7 +1421,7 @@ public class LatinIME extends InputMethodService implements
             mKeyboardSwitcher.onEvent(event, Constants.TextUtils.CAP_MODE_OFF, null);
             return;
         }
-        // double tap on space enters the launcher mode; on the home screen of Homekey, whose text field is the search,
+        // double tap on space enters the launcher mode; on the home screen of Keyarchy, whose text field is the search,
         // spaces are just typed
         if (!HomeActivity.Companion.isHomeField(getCurrentInputEditorInfo()) && mInputLogic.takeBackSpaceOnDoubleTap(event)) {
             mAppLauncher.start();
@@ -1753,7 +1753,7 @@ public class LatinIME extends InputMethodService implements
     // Hooks for hardware keyboard
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent keyEvent) {
-        // on the home screen of Homekey the keyboard never hides: back clears the search (and an editing) instead
+        // on the home screen of Keyarchy the keyboard never hides: back clears the search (and an editing) instead
         if (keyCode == KeyEvent.KEYCODE_BACK && HomeActivity.Companion.isHomeField(getCurrentInputEditorInfo()))
             return true;
         if (mKeyboardActionListener.onKeyDown(keyCode, keyEvent))

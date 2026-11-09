@@ -8,7 +8,7 @@ import java.util.Locale
 
 /**
  * The words of the list of the launcher mode (the names of its apps, people and shortcuts, and their tags), used only
- * in the search field of the home screen of Homekey, so a name typed with a wrong letter gets its suggestion
+ * in the search field of the home screen of Keyarchy, so a name typed with a wrong letter gets its suggestion
  * ("spotifu" gives "Spotify").
  */
 class LauncherBinaryDictionary private constructor(context: Context, locale: Locale) :

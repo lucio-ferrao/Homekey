@@ -1,8 +1,9 @@
-# Homekey
-Homekey is an Android keyboard that is also the home screen: a fork of [HeliBoard](https://github.com/HeliBorg/HeliBoard) where the suggestion strip doubles as an app launcher, and the home screen is a list of apps, chats, notifications and events searched from the keyboard.
+# Keyarchy
+Keyarchy is an Android keyboard that is also the home screen: a fork of [HeliBoard](https://github.com/HeliBorg/HeliBoard) where the suggestion strip doubles as an app launcher, and the home screen is a list of apps, chats, notifications and events searched from the keyboard.
+It was called Homekey until November 2026.
 Like HeliBoard, it does not use the internet permission: everything stays on the phone (dictation goes through the speech recognizer of the system).
 
-It is a personal project, made for one phone (a Pixel 8 Pro) and Portuguese (Portugal). Debug APKs are in the [releases](https://github.com/lucio-ferrao/Homekey/releases).
+It is a personal project, made for one phone (a Pixel 8 Pro) and Portuguese (Portugal). Debug APKs are in the [releases](https://github.com/lucio-ferrao/Keyarchy/releases).
 
 ## Table of Contents
 
@@ -15,7 +16,7 @@ It is a personal project, made for one phone (a Pixel 8 Pro) and Portuguese (Por
 - [Credits](#credits)
 
 # Launcher mode
-A double tap on the space bar, or the house at the left of the suggestion strip, turns the suggestion strip into a search: the keys type into it instead of the app, and another double tap, the icon (now the Homekey icon) or a tap in the app leaves it. A long press on the icon goes to the home screen; the settings are an entry of the list ("Homekey Settings").
+A double tap on the space bar, or the house at the left of the suggestion strip, turns the suggestion strip into a search: the keys type into it instead of the app, and another double tap, the icon (now the Keyarchy icon) or a tap in the app leaves it. A long press on the icon goes to the home screen; the settings are an entry of the list ("Keyarchy Settings").
 
 - Apps of the main profile, the work profile and the private space; an app of a locked private space unlocks it first and opens once it is unlocked
 - Monochrome icons in the text color (themed layer, or the icon reduced to two shades with its background removed), cached between sessions
@@ -26,7 +27,7 @@ A double tap on the space bar, or the house at the left of the suggestion strip,
 - Notifications (not the silent ones), searchable by their text; a one-to-one message from a starred contact goes into the entry of that person and moves it forward, as does typing in their chat in WhatsApp or Element X (its name read by the accessibility service); in the strip a notification or a message is dismissed by sliding it to the right
 - What players are playing, in the place of the player app
 - Today's events of the calendar, coming forward as they get near, with the name of their calendar (or its address, shortened) under them on the home screen; the calendars in it are chosen in Settings › Calendars
-- Shortcuts of the apps turned on in Settings › App shortcuts (all off at first; each app with its shortcuts listed and a switch) and the ones pinned to Homekey ("add to home screen"); the shortcuts of conversations with a starred contact (WhatsApp, Messages) are left out, as the contact has its entry; any shortcut can be removed from the list
+- Shortcuts of the apps turned on in Settings › App shortcuts (all off at first; each app with its shortcuts listed and a switch) and the ones pinned to Keyarchy ("add to home screen"); the shortcuts of conversations with a starred contact (WhatsApp, Messages) are left out, as the contact has its entry; any shortcut can be removed from the list
 - The typed text stays where the names of the results start, also when nothing matches
 - Typed or pasted web addresses, with the icon of the app that opens them
 - Patterns: a phone number gives Call, "10 min" a timer, "7h15" an alarm
@@ -36,7 +37,7 @@ A double tap on the space bar, or the house at the left of the suggestion strip,
 - Dictation with a long press on the space bar, and spoken commands in Portuguese ("abre o Spotify", "liga à Ema", "manda mensagem à Marta a dizer que chego às 8")
 
 # Home screen
-When Homekey is chosen as the home app, the home screen is the launcher mode as a vertical list above a search field (with an arrow at its left), on black, with the keyboard always open.
+When Keyarchy is chosen as the home app, the home screen is the launcher mode as a vertical list above a search field (with an arrow at its left), on black, with the keyboard always open.
 
 - Tags, or the latest message of a person, under each name
 - A long press opens a panel: name, tags, WhatsApp or Element for a person, uninstall an app, remove a shortcut
@@ -88,11 +89,11 @@ All the features of HeliBoard (see its [wiki](https://github.com/HeliBorg/HeliBo
 </ul>
 
 # Setup
-Homekey needs a few things Android asks for separately:
+Keyarchy needs a few things Android asks for separately:
 
 - Choose it as keyboard, and as home app (Settings › Apps › Default apps)
 - Notification access, for notifications (in the list and in the suggestion strip) and players
-- The accessibility service "Homekey chats", to tap the message box of a chat, the send button of Claude, and to leave the launcher and emoji modes on a tap in the app
+- The accessibility service "Keyarchy chats", to tap the message box of a chat, the send button of Claude, and to leave the launcher and emoji modes on a tap in the app
 - Permissions for contacts (starred contacts), calendar (events) and microphone (dictation)
 - For glide typing, the closed source library, as in HeliBoard
 
@@ -100,11 +101,11 @@ Homekey needs a few things Android asks for separately:
 ```
 ./gradlew assembleDebug
 ```
-The APK is `app/build/outputs/apk/debug/Homekey_<version>-debug.apk`, with the package `org.ferrao.homekey.debug` (`org.ferrao.homekey` for release builds).
+The APK is `app/build/outputs/apk/debug/Keyarchy_<version>-debug.apk`, with the package `org.ferrao.homekey.debug` (`org.ferrao.homekey` for release builds).
 
 # License
 
-Homekey, like HeliBoard (a fork of OpenBoard), is licensed under GNU General Public License v3.0.
+Keyarchy, like HeliBoard (a fork of OpenBoard), is licensed under GNU General Public License v3.0.
 
  > Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
 
@@ -112,10 +113,10 @@ See repo's [LICENSE](/LICENSE) file.
 
 Since the app is based on Apache 2.0 licensed AOSP Keyboard, an [Apache 2.0](LICENSE-Apache-2.0) license file is provided.
 The names of the emojis (`assets/emoji/nomes.txt`) come from the CLDR annotations, under the [Unicode License v3](https://www.unicode.org/license.txt).
-The icon of Homekey (two keys leaning in for a kiss: the KISS launcher and the keyboard) is its own; the icon of HeliBoard, no longer used, was licensed under [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) ([license file](LICENSE-CC-BY-SA-4.0)).
+The icon of Keyarchy (two keys leaning in for a kiss: the KISS launcher and the keyboard) is its own; the icon of HeliBoard, no longer used, was licensed under [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) ([license file](LICENSE-CC-BY-SA-4.0)).
 
 # Credits
-- [HeliBoard](https://github.com/HeliBorg/HeliBoard), which Homekey is a fork of, and its [contributors](https://github.com/HeliBorg/HeliBoard/graphs/contributors)
+- [HeliBoard](https://github.com/HeliBorg/HeliBoard), which Keyarchy is a fork of, and its [contributors](https://github.com/HeliBorg/HeliBoard/graphs/contributors)
 - [OpenBoard](https://github.com/openboard-team/openboard)
 - [AOSP Keyboard](https://android.googlesource.com/platform/packages/inputmethods/LatinIME/)
 - [LineageOS](https://review.lineageos.org/admin/repos/LineageOS/android_packages_inputmethods_LatinIME)

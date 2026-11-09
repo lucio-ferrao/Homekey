@@ -22,7 +22,7 @@ import kotlin.math.sign
  * A notification that arrives while the keyboard is open, shown in the suggestion strip with the icon of its app until
  * the next key or for [SHOWN_FOR] ms; a tap opens it, like in the list of the launcher mode, and a slide to either side
  * dismisses it, like on the home screen. Not for the app being
- * typed in, nor on the home screen of Homekey (its list has the notifications), nor while the strip has a search.
+ * typed in, nor on the home screen of Keyarchy (its list has the notifications), nor while the strip has a search.
  */
 class NotificationStrip(private val latinIME: LatinIME) {
     private var shown: LauncherNotificationService.Entry? = null

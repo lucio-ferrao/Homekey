@@ -104,12 +104,12 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
     private val suggestionsStrip: ViewGroup = findViewById(R.id.suggestions_strip)
     /**
-     * The key on the left shows the mode: the Homekey icon while typing, a house in the launcher mode; a tap opens or
+     * The key on the left shows the mode: the Keyarchy icon while typing, a house in the launcher mode; a tap opens or
      * closes the launcher mode, a long press opens the settings.
      */
     private val appsKey = findViewById<ImageButton>(R.id.suggestions_strip_apps_key)
     private val incognitoIcon = KeyboardIconsSet.instance.getNewDrawable(ToolbarKey.INCOGNITO.name, context)
-    private val homekeyIcon = ContextCompat.getDrawable(context, R.drawable.ic_homekey_key)
+    private val keyarchyIcon = ContextCompat.getDrawable(context, R.drawable.ic_keyarchy_key)
     private val homeIcon = ContextCompat.getDrawable(context, R.drawable.ic_strip_home)
     private var direction = 1 // 1 if LTR, -1 if RTL
     private var launcherMode = false
@@ -196,7 +196,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         updateAppsKey()
     }
 
-    /** on the home screen of Homekey the launcher mode is always open, its search being the text field: no arrow */
+    /** on the home screen of Keyarchy the launcher mode is always open, its search being the text field: no arrow */
     fun setOnHomeScreen(home: Boolean) {
         onHomeScreen = home
         updateAppsKey()
@@ -205,7 +205,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private fun updateAppsKey() {
         appsKey.isVisible = !emojiMode && !onHomeScreen
         appsKey.setImageDrawable(when {
-            launcherMode -> homekeyIcon
+            launcherMode -> keyarchyIcon
             Settings.getValues().mIncognitoModeEnabled -> incognitoIcon
             else -> homeIcon
         })

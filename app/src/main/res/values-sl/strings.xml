@@ -108,12 +108,12 @@
     <string name="enable_clipboard_history">Omogoči tipko odložišča</string>
     <string name="clipboard_history_retention_time">Čas shranjevanja zgodovine</string>
     <string name="enable_clipboard_history_summary">Onemogočite, da boste s tipko odložišča lahko prilepili vsebino</string>
-    <string name="android_spell_checker_settings">Nastavitve pregledovalnika črkovanja Homekey</string>
+    <string name="android_spell_checker_settings">Nastavitve pregledovalnika črkovanja Keyarchy</string>
     <string name="day_night_mode">Samodejni dnevni/nočni način</string>
     <string name="prefs_keyboard_height_scale">Spremeni višino tipkovnice</string>
     <string name="settings_category_experimental">Poskusne možnosti</string>
-    <string name="spell_checker_service_name">Pregledovalnik črkovanja Homekey</string>
-    <string name="ime_settings">Nastavitve Homekey</string>
+    <string name="spell_checker_service_name">Pregledovalnik črkovanja Keyarchy</string>
+    <string name="ime_settings">Nastavitve Keyarchy</string>
     <string name="settings_category_additional_keys">Dodatne tipke</string>
     <string name="settings_category_input">Vnos</string>
     <string name="autospace_after_punctuation">Samodejni presledek za ločilom</string>

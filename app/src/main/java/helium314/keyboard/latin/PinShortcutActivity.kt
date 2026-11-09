@@ -7,7 +7,7 @@ import android.os.Bundle
 
 /**
  * Accepts the shortcuts an app asks to add to the home screen ("add to home screen", like a Home Assistant dashboard):
- * once pinned to Homekey they show up in the launcher mode. Other requests (widgets) are left unanswered.
+ * once pinned to Keyarchy they show up in the launcher mode. Other requests (widgets) are left unanswered.
  */
 class PinShortcutActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
