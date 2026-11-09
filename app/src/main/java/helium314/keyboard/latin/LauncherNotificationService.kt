@@ -3,8 +3,11 @@ package helium314.keyboard.latin
 
 import android.app.ActivityOptions
 import android.app.Notification
+import android.app.NotificationManager
 import android.os.Build
 import android.service.notification.NotificationListenerService
+import android.service.notification.NotificationListenerService.Ranking
+import android.service.notification.NotificationListenerService.RankingMap
 import android.service.notification.StatusBarNotification
 import helium314.keyboard.latin.utils.Log
 
@@ -81,11 +84,15 @@ class LauncherNotificationService : NotificationListenerService() {
             }
         }
 
-        /** the notifications in the status bar, newest first, without ongoing ones and group summaries; empty if not allowed */
+        /**
+         * The notifications in the status bar, newest first, without ongoing ones, group summaries and silent ones (those
+         * under "Silent" in the shade); empty if not allowed.
+         */
         fun entries(): List<Entry> {
             val service = instance ?: return emptyList()
             val notifications = try { service.activeNotifications } catch (e: Exception) { null } ?: return emptyList()
-            return notifications.filter { isShown(it) }.map { sbn ->
+            val ranking = try { service.currentRanking } catch (e: Exception) { null }
+            return notifications.filter { isShown(it) && !isSilent(it, ranking) }.map { sbn ->
                 val extras = sbn.notification.extras
                 val title = extras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
                 val text = (extras.getCharSequence(Notification.EXTRA_BIG_TEXT) ?: extras.getCharSequence(Notification.EXTRA_TEXT))
@@ -93,6 +100,11 @@ class LauncherNotificationService : NotificationListenerService() {
                 Entry(sbn.key, sbn.packageName, title, text, sbn.postTime,
                     extras.getBoolean(Notification.EXTRA_IS_GROUP_CONVERSATION), sbn.notification)
             }.filter { it.title.isNotBlank() || it.text.isNotBlank() }.sortedByDescending { it.time }
+        }
+
+        private fun isSilent(sbn: StatusBarNotification, ranking: RankingMap?): Boolean {
+            val rank = Ranking()
+            return ranking != null && ranking.getRanking(sbn.key, rank) && rank.importance < NotificationManager.IMPORTANCE_DEFAULT
         }
 
         private fun isShown(sbn: StatusBarNotification): Boolean {
