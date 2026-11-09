@@ -554,10 +554,16 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
      * spinner of Claude Code in [color] instead.
      */
     fun showIcon(view: ImageView, app: App, color: Int) {
-        if (app.shortcut?.let { it.active && it.detail == "working" } != true) return view.setImageDrawable(iconOf(app))
-        if (view.drawable is ClaudeSpinnerDrawable) return
-        view.setImageDrawable(ClaudeSpinnerDrawable(color).also { it.start() })
+        val shortcut = app.shortcut?.takeIf { it.active && it.detail == "working" }
+            ?: return view.setImageDrawable(iconOf(app))
+        // in step with when the agent started working, as Ecto gives it (else from when the list first showed it)
+        val startedAt = shortcut.changedAt.takeIf { it > 0 }
+            ?: spinnerStarts.getOrPut(app.key) { System.currentTimeMillis() }
+        if ((view.drawable as? ClaudeSpinnerDrawable)?.startedAt == startedAt) return
+        view.setImageDrawable(ClaudeSpinnerDrawable(color, startedAt).also { it.start() })
     }
+    /** when the list first showed a working Ecto pane whose start Ecto did not give, by key */
+    private val spinnerStarts = mutableMapOf<String, Long>()
 
     private fun createRow(strip: SuggestionStripView): View {
         val context = strip.context

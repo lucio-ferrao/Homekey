@@ -12,13 +12,22 @@ import android.os.SystemClock
 
 /**
  * The spinner of Claude Code while it works, drawn with its characters (· ✢ ✳ ✶ ✻ and back, as the terminal shows
- * them) in [color]: the icon of an Ecto pane whose agent is working. It runs only while it is visible.
+ * them) in [color]: the icon of an Ecto pane whose agent is working. Its cycle counts from [startedAt] (wall-clock
+ * millis, when the agent started working), so spinners of tasks started apart do not move together. It runs only while
+ * it is visible.
  */
-class ClaudeSpinnerDrawable(color: Int) : Drawable(), Animatable, Runnable {
+class ClaudeSpinnerDrawable(color: Int, val startedAt: Long) : Drawable(), Animatable, Runnable {
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color }
     private val glyphBounds = Rect()
     private var frame = 0
     private var running = false
+
+    /** the frame for now, and the uptime at which the next one begins */
+    private fun advance(): Long {
+        var left = Math.floorMod(System.currentTimeMillis() - startedAt, CYCLE)
+        frame = FRAMES.indexOfFirst { (_, ms) -> (left < ms).also { if (!it) left -= ms } }
+        return SystemClock.uptimeMillis() + FRAMES[frame].second - left
+    }
 
     override fun draw(canvas: Canvas) {
         val size = minOf(bounds.width(), bounds.height()).toFloat()
@@ -38,7 +47,8 @@ class ClaudeSpinnerDrawable(color: Int) : Drawable(), Animatable, Runnable {
     override fun start() {
         if (running) return
         running = true
-        scheduleSelf(this, SystemClock.uptimeMillis() + FRAMES[frame].second)
+        scheduleSelf(this, advance())
+        invalidateSelf()
     }
 
     override fun stop() {
@@ -49,9 +59,9 @@ class ClaudeSpinnerDrawable(color: Int) : Drawable(), Animatable, Runnable {
     override fun isRunning() = running
 
     override fun run() {
-        frame = (frame + 1) % FRAMES.size
+        val next = advance()
         invalidateSelf()
-        if (running) scheduleSelf(this, SystemClock.uptimeMillis() + FRAMES[frame].second)
+        if (running) scheduleSelf(this, next)
     }
 
     override fun setVisible(visible: Boolean, restart: Boolean): Boolean {
@@ -72,5 +82,6 @@ class ClaudeSpinnerDrawable(color: Int) : Drawable(), Animatable, Runnable {
         /** the characters with how long each stays (ms), 1.67 s in all; U+FE0E keeps ✳ as text, not an emoji */
         val FRAMES = listOf(DOT to 270L, "✢" to 130L, "✳︎" to 130L, "✶" to 140L, "✻" to 460L, "✶" to 140L,
             "✳︎" to 130L, "✢" to 130L, DOT to 140L)
+        val CYCLE = FRAMES.sumOf { it.second }
     }
 }
