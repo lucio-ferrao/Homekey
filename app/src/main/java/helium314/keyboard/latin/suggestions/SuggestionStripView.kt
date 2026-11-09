@@ -7,6 +7,7 @@ package helium314.keyboard.latin.suggestions
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.text.TextUtils
@@ -131,8 +132,9 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         appsKey.layoutParams.width = keyHeight // we want it square
         colors.setBackground(appsKey, ColorType.STRIP_BACKGROUND)
         appsKey.setOnClickListener(this)
+        // a long press goes to the home screen; the settings are an entry of the list of apps
         appsKey.setOnLongClickListener {
-            listener.onCodeInput(KeyCode.SETTINGS, Constants.SUGGESTION_STRIP_COORDINATE, Constants.SUGGESTION_STRIP_COORDINATE, false)
+            context.startActivity(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             true
         }
 

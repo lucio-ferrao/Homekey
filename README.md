@@ -15,7 +15,7 @@ It is a personal project, made for one phone (a Pixel 8 Pro) and Portuguese (Por
 - [Credits](#credits)
 
 # Launcher mode
-A double tap on the space bar, or the house at the left of the suggestion strip, turns the suggestion strip into a search: the keys type into it instead of the app, and another double tap, the icon (now the Homekey icon) or a tap in the app leaves it. A long press on the icon opens the settings.
+A double tap on the space bar, or the house at the left of the suggestion strip, turns the suggestion strip into a search: the keys type into it instead of the app, and another double tap, the icon (now the Homekey icon) or a tap in the app leaves it. A long press on the icon goes to the home screen; the settings are an entry of the list ("Homekey Settings").
 
 - Apps of the main profile, the work profile and the private space; an app of a locked private space unlocks it first and opens once it is unlocked
 - Monochrome icons in the text color (themed layer, or the icon reduced to two shades with its background removed), cached between sessions

@@ -62,6 +62,7 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
 
         <!-- Activities -->
         <activity android:name="helium314.keyboard.settings.SettingsActivity"
+                android:label="@string/ime_settings"
                 android:theme="@style/platformActivityTheme"
                 android:icon="@mipmap/ic_launcher"
                 android:windowSoftInputMode="adjustResize"
@@ -118,8 +119,11 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         </activity>
 
         <!-- Home screen, when Homekey is chosen as the home app: opens the keyboard in the launcher mode -->
+        <!-- a task of its own (as Launcher3): with the affinity of the app, the settings launched from the list went to
+             the task of the home screen, which was already in front, and nothing opened -->
         <activity android:name="helium314.keyboard.latin.HomeActivity"
             android:label="@string/home_label"
+            android:taskAffinity=""
             android:theme="@style/HomeTheme"
             android:launchMode="singleTask"
             android:stateNotNeeded="true"
