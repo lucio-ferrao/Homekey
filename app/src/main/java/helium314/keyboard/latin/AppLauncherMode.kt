@@ -1034,7 +1034,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
      * by when they were last opened (or a shortcut last changed); the order of the apps among themselves is kept.
      */
     private fun byTime(notifications: List<App>, appResults: List<App>): List<App> {
-        fun used(app: App) = maxOf(lastUsed[app.key] ?: 0L, app.shortcut?.changedAt ?: 0L)
+        val now = System.currentTimeMillis()
+        fun used(app: App) = maxOf(lastUsed[app.key] ?: 0L, app.shortcut?.changedTime(now) ?: 0L)
         val result = ArrayList<App>(notifications.size + appResults.size)
         var n = 0
         for (app in appResults) {
@@ -1089,12 +1090,18 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     /** a shortcut of an app: what starts or removes it; offered = by the app itself (not only pinned) */
     class Shortcut(val packageName: String, val id: String, val isPinned: Boolean, val isOffered: Boolean,
                    /**
-                    * when what it shows (name, detail) last changed, e.g. an Ecto session that gets busy or ends: recency
-                    * of its own; an app publishing it again unchanged does not count. 0 if never seen changing.
+                    * when what it shows (name, detail) last changed: recency of its own; an app publishing it again
+                    * unchanged does not count. 0 if never seen changing. An Ecto pane gives it itself: when its agent
+                    * last changed state.
                     */
                    val changedAt: Long,
                    /** its long label when it says more than the name, e.g. the state of an Ecto session */
-                   val detail: String?)
+                   val detail: String?,
+                   /** an Ecto pane whose agent works or waits for input: as recent as now, for as long as it lasts */
+                   val active: Boolean = false) {
+        /** how recent it is at [now] */
+        fun changedTime(now: Long) = if (active) now else changedAt
+    }
 
     class App(val key: String, val kissId: String, val originalLabel: String, val component: ComponentName,
               val user: UserHandle, val icon: Drawable, label: String?, tags: List<String>,
@@ -1180,6 +1187,24 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         private const val PREF_DISMISSED_EVENTS = "app_search_dismissed_events"
         /** the shortcuts offered by the apps that were removed from the list (ids like shortcut://package/id) */
         private const val PREF_REMOVED_SHORTCUTS = "app_search_removed_shortcuts"
+        /** in the extras of a shortcut of Ecto: when the agent of its pane last changed state, wall-clock millis */
+        private const val EXTRA_TIME = "org.ferrao.homekey.time"
+        /** in the extras of a shortcut of Ecto: true while the agent of its pane works or waits for input */
+        private const val EXTRA_ACTIVE = "org.ferrao.homekey.active"
+
+        /**
+         * When a shortcut last changed: the time it gives itself ([given], an Ecto pane), else [now] when what it
+         * shows ([shown], name and detail) differs from the last load ([before]) or when it is new for an app already
+         * shown ([appWasShown]; those of an app just turned on are not), else as before.
+         */
+        fun shortcutChangedAt(given: Long?, before: Pair<Pair<String, String?>, Long>?, shown: Pair<String, String?>,
+                              appWasShown: Boolean, now: Long): Long = when {
+            given != null -> given
+            before == null -> if (appWasShown) now else 0L
+            before.first != shown -> now
+            else -> before.second
+        }
+
         /** the apps whose shortcuts (those of a long press on their icon) are in the list, set in the settings */
         const val PREF_SHORTCUT_APPS = "app_search_shortcut_apps"
         /** the calendars (their ids) whose events are left out of the list, set in the settings ("Calendars") */
@@ -1326,6 +1351,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                         put("pinned", it.isPinned)
                         put("offered", it.isOffered)
                         put("changedAt", it.changedAt)
+                        if (it.active) put("active", true)
                         it.detail?.let { detail -> put("detail", detail) }
                     }
                 })
@@ -1376,7 +1402,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                     val whatsApp = if (o.has("whatsApp")) o.getLong("whatsApp") else null
                     val shortcut = if (o.has("shortcut")) Shortcut(o.getString("shortcutPackage"), o.getString("shortcut"),
                         o.getBoolean("pinned"), o.getBoolean("offered"), o.optLong("changedAt"),
-                        o.optString("detail").ifEmpty { null }) else null
+                        o.optString("detail").ifEmpty { null }, o.optBoolean("active")) else null
                     list.add(App(o.getString("key"), kissId, o.getString("label"),
                         ComponentName(o.getString("package"), o.getString("class")), user, icon, names[kissId],
                         tags[kissId].orEmpty(), whatsApp, if (whatsApp != null) elementLinks[kissId] else null,
@@ -1458,16 +1484,14 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                     }
                     val detail = info.longLabel?.toString()?.takeIf { it.isNotBlank() && it != label }
                     val key = "shortcut|${info.`package`}|${info.id}|$serial"
-                    // recent only when what it shows changed since the last load, or when it is new for an app already shown
-                    val before = previous[key]
-                    val changedAt = when {
-                        before == null -> if (info.`package` in previousApps) System.currentTimeMillis() else 0L
-                        before.first != label to detail -> System.currentTimeMillis()
-                        else -> before.second
-                    }
+                    // an Ecto pane says how recent it is: when its agent last changed state, and whether it works now
+                    val given = info.extras?.takeIf { it.containsKey(EXTRA_TIME) }
+                    val changedAt = shortcutChangedAt(given?.getLong(EXTRA_TIME), previous[key], label to detail,
+                        info.`package` in previousApps, System.currentTimeMillis())
                     App(key, kissId, label, app.component, user, icon,
                         names[kissId], tags[kissId].orEmpty(), shortcut = Shortcut(info.`package`, info.id, info.isPinned,
-                            info.isDynamic || info.isDeclaredInManifest, changedAt, detail)
+                            info.isDynamic || info.isDeclaredInManifest, changedAt, detail,
+                            given?.getBoolean(EXTRA_ACTIVE) == true)
                     ).also { it.iconFile = iconFile }
                 }
             }
@@ -1839,7 +1863,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         private fun filter(apps: List<App>, query: String, counts: Map<String, Int>, lastUsed: Map<String, Long> = emptyMap()): List<App> {
             val q = normalize(query.trim())
             // a shortcut counts as used when what it shows last changed too (an Ecto session that just ended comes forward)
-            val byUse = compareByDescending<App> { maxOf(lastUsed[it.key] ?: 0L, it.shortcut?.changedAt ?: 0L) }
+            val now = System.currentTimeMillis()
+            val byUse = compareByDescending<App> { maxOf(lastUsed[it.key] ?: 0L, it.shortcut?.changedTime(now) ?: 0L) }
                 .thenByDescending { counts[it.key] ?: 0 }
             if (q.isEmpty()) return apps.sortedWith(byUse)
             fun rank(app: App) = when {

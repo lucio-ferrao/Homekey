@@ -28,6 +28,10 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.core.graphics.drawable.toBitmap
 import helium314.keyboard.latin.AppLauncherMode
 import helium314.keyboard.latin.R
@@ -83,16 +87,17 @@ private fun ShortcutAppRow(app: ShortcutApp) {
                 }
             )
         }
+        val detailColor = MaterialTheme.colorScheme.onSurfaceVariant
         app.shortcuts.forEach { (name, longName) ->
-            Row(Modifier.padding(start = 44.dp, top = 2.dp)) {
-                Text(name, style = MaterialTheme.typography.bodyMedium)
-                longName?.let {
-                    Text(
-                        " · $it", style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
+            // one line, the detail after the name, cut at the end when long
+            Text(
+                buildAnnotatedString {
+                    append(name)
+                    longName?.let { withStyle(SpanStyle(color = detailColor)) { append(" · $it") } }
+                },
+                style = MaterialTheme.typography.bodyMedium, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(start = 44.dp, top = 2.dp)
+            )
         }
     }
 }

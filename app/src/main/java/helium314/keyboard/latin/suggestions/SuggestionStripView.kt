@@ -104,13 +104,12 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
     private val suggestionsStrip: ViewGroup = findViewById(R.id.suggestions_strip)
     /**
-     * The key on the left shows the mode: the Keyarchy icon while typing, a house in the launcher mode; a tap opens or
-     * closes the launcher mode, a long press opens the settings.
+     * The key on the left shows the mode: the Keyarchy icon while typing, turned a quarter in the launcher mode; a tap
+     * opens or closes the launcher mode, a long press goes to the home screen.
      */
     private val appsKey = findViewById<ImageButton>(R.id.suggestions_strip_apps_key)
     private val incognitoIcon = KeyboardIconsSet.instance.getNewDrawable(ToolbarKey.INCOGNITO.name, context)
     private val keyarchyIcon = ContextCompat.getDrawable(context, R.drawable.ic_keyarchy_key)
-    private val homeIcon = ContextCompat.getDrawable(context, R.drawable.ic_strip_home)
     private var direction = 1 // 1 if LTR, -1 if RTL
     private var launcherMode = false
     private var emojiMode = false
@@ -184,7 +183,7 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
         updateAppsKey()
     }
 
-    /** in the launcher mode the icon is a house, and closes it */
+    /** in the launcher mode the icon is turned a quarter, and closes it */
     fun setLauncherMode(active: Boolean) {
         launcherMode = active
         updateAppsKey()
@@ -204,11 +203,8 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
 
     private fun updateAppsKey() {
         appsKey.isVisible = !emojiMode && !onHomeScreen
-        appsKey.setImageDrawable(when {
-            launcherMode -> keyarchyIcon
-            Settings.getValues().mIncognitoModeEnabled -> incognitoIcon
-            else -> homeIcon
-        })
+        appsKey.setImageDrawable(if (Settings.getValues().mIncognitoModeEnabled && !launcherMode) incognitoIcon else keyarchyIcon)
+        appsKey.rotation = if (launcherMode) 90f * direction else 0f
         // no background of its own: just the icon on the strip, in the color of the strip's keys (tints the drawable)
         Settings.getValues().mColors.setColor(appsKey, ColorType.TOOL_BAR_KEY)
     }
