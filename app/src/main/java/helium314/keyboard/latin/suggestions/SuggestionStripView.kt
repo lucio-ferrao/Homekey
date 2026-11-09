@@ -203,9 +203,9 @@ class SuggestionStripView(context: Context, attrs: AttributeSet?, defStyle: Int)
     private fun updateAppsKey() {
         appsKey.isVisible = !emojiMode && !onHomeScreen
         appsKey.setImageDrawable(when {
-            launcherMode -> homeIcon
+            launcherMode -> homekeyIcon
             Settings.getValues().mIncognitoModeEnabled -> incognitoIcon
-            else -> homekeyIcon
+            else -> homeIcon
         })
         // no background of its own: just the icon on the strip, in the color of the strip's keys (tints the drawable)
         Settings.getValues().mColors.setColor(appsKey, ColorType.TOOL_BAR_KEY)
