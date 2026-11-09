@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package helium314.keyboard.latin
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.ContentUris
 import android.content.Intent
@@ -48,6 +49,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import androidx.core.graphics.ColorUtils
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
@@ -74,6 +76,7 @@ import org.json.JSONObject
 import java.util.concurrent.atomic.AtomicBoolean
 import java.security.MessageDigest
 import java.text.Normalizer
+import kotlin.math.abs
 
 /**
  * Launcher mode: while active, typing searches the apps of all profiles visible to the keyboard instead of going
@@ -542,6 +545,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             chip.gravity = Gravity.CENTER_VERTICAL
             chip.setPadding(8.dpToPx(res), 0, 8.dpToPx(res), 0)
             chip.setOnClickListener { launch(app) }
+            if (app.notification != null || app.unread != null) slideToDismiss(chip, app)
             val icon = ImageView(context)
             icon.setImageDrawable(iconOf(app))
             chip.addView(icon, LinearLayout.LayoutParams(28.dpToPx(res), 28.dpToPx(res)))
@@ -562,6 +566,54 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         scroll.addView(row, ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT))
         scroll.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         return scroll
+    }
+
+    /**
+     * A notification or the message of a person in the strip is dismissed by sliding it to the right, as in the
+     * notification shade; to the left the row scrolls, and a tap opens it.
+     */
+    @SuppressLint("ClickableViewAccessibility")
+    private fun slideToDismiss(chip: View, app: App) {
+        val slop = ViewConfiguration.get(chip.context).scaledTouchSlop
+        var downX = 0f
+        var downY = 0f
+        var moved = false
+        var sliding = false
+        val slideBack = { chip.animate().translationX(0f).alpha(1f).setDuration(SLIDE_MS) }
+        chip.setOnTouchListener { _, event ->
+            when (event.actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
+                    downX = event.rawX
+                    downY = event.rawY
+                    moved = false
+                    sliding = false
+                    // until the direction is known, neither the row (scrolling) nor the strip (more suggestions, upwards)
+                    // takes the touch
+                    chip.parent?.requestDisallowInterceptTouchEvent(true)
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    val dx = event.rawX - downX
+                    val dy = event.rawY - downY
+                    if (!moved && (abs(dx) > slop || abs(dy) > slop)) {
+                        moved = true
+                        if (dx > abs(dy)) sliding = true
+                        else chip.parent?.requestDisallowInterceptTouchEvent(false)
+                    }
+                    if (sliding) {
+                        chip.translationX = maxOf(dx, 0f)
+                        chip.alpha = 1f - (chip.translationX / chip.width).coerceAtMost(1f)
+                    }
+                }
+                MotionEvent.ACTION_UP -> when {
+                    !moved -> chip.performClick()
+                    sliding && chip.translationX > chip.width / 4f -> chip.animate()
+                        .translationX(chip.width.toFloat()).alpha(0f).setDuration(SLIDE_MS).withEndAction { dismiss(app) }
+                    sliding -> slideBack()
+                }
+                MotionEvent.ACTION_CANCEL -> if (sliding) slideBack()
+            }
+            true
+        }
     }
 
     /** the name with the part matching the search text in bold and in the full color (accents ignored) */
@@ -1133,6 +1185,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             saveApps(context, apps)
         }
         private const val MAX_SHOWN = 30
+        /** the time an entry of the strip takes to go away when dismissed, or to come back */
+        private const val SLIDE_MS = 150L
         /** to change when the icon processing changes, so the cached icons are computed again */
         private const val ICON_VERSION = 2
         private const val TAGS_FILE = "etiquetas-kiss.json"

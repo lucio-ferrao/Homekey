@@ -23,7 +23,7 @@ A double tap on the space bar, or the house at the left of the suggestion strip,
 - Names and tags, imported from the [KISS launcher](https://kisslauncher.com/) export or set on the home screen, searched like the app names
 - Order by recent use, and the result last chosen for the same text goes first
 - Chats of starred contacts: WhatsApp, or Element X with the room or person set for the contact; the message box is tapped once the chat opens, so the keyboard stays
-- Notifications, searchable by their text; a one-to-one message from a starred contact goes into the entry of that person and moves it forward, as does typing in their chat in WhatsApp or Element X (its name read by the accessibility service)
+- Notifications, searchable by their text; a one-to-one message from a starred contact goes into the entry of that person and moves it forward, as does typing in their chat in WhatsApp or Element X (its name read by the accessibility service); in the strip a notification or a message is dismissed by sliding it to the right
 - What players are playing, in the place of the player app
 - Today's events of the calendar, coming forward as they get near, with the name of their calendar (or its address, shortened) under them on the home screen
 - Shortcuts of the apps turned on in Settings › App shortcuts (all off at first; each app with its shortcuts listed and a switch) and the ones pinned to Homekey ("add to home screen"); the shortcuts of conversations with a starred contact (WhatsApp, Messages) are left out, as the contact has its entry; any shortcut can be removed from the list
