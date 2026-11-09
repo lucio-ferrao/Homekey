@@ -809,11 +809,11 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     }
 
     /**
-     * On the home screen, [list] with the events of today in the calendars shown in the calendar app that are not over
-     * yet, as "10:00 title" (all-day ones by the title alone); with search text, those with it in the title. Each one
-     * goes as many places from the front as there are whole hours until it begins (0 once begun; for an all-day one,
-     * until the day ends), so it comes forward as it gets near. Opening one shows it in the calendar app. The list is
-     * shown again when that changes, or when an event ends.
+     * On the home screen, [list] with the events of today in the calendars shown in the calendar app (and not turned
+     * off in the settings, "Calendars") that are not over yet, as "10:00 title" (all-day ones by the title alone); with
+     * search text, those with it in the title. Each one goes as many places from the front as there are whole hours
+     * until it begins (0 once begun; for an all-day one, until the day ends), so it comes forward as it gets near.
+     * Opening one shows it in the calendar app. The list is shown again when that changes, or when an event ends.
      */
     private fun withEvents(list: List<App>): List<App> {
         mainHandler.removeCallbacks(refresh)
@@ -832,14 +832,16 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         day.add(Calendar.DAY_OF_MONTH, 1)
         class Event(val id: Long, val title: String, val begin: Long, val end: Long, val allDay: Boolean, val calendar: String)
         val events = mutableListOf<Event>()
+        val hiddenCalendars = latinIME.prefs().getStringSet(PREF_HIDDEN_CALENDARS, emptySet())!!
         try {
             CalendarContract.Instances.query(latinIME.contentResolver, arrayOf(CalendarContract.Instances.EVENT_ID,
                 CalendarContract.Instances.TITLE, CalendarContract.Instances.BEGIN, CalendarContract.Instances.END,
                 CalendarContract.Instances.ALL_DAY, CalendarContract.Instances.VISIBLE,
                 CalendarContract.Instances.SELF_ATTENDEE_STATUS, CalendarContract.Instances.CALENDAR_DISPLAY_NAME,
-                CalendarContract.Calendars.ACCOUNT_NAME), start, day.timeInMillis)?.use { c ->
+                CalendarContract.Calendars.ACCOUNT_NAME, CalendarContract.Instances.CALENDAR_ID), start, day.timeInMillis)?.use { c ->
                 while (c.moveToNext()) {
-                    if (c.getInt(5) == 0 || c.getInt(6) == CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED) continue
+                    if (c.getInt(5) == 0 || c.getInt(6) == CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED
+                        || c.getLong(9).toString() in hiddenCalendars) continue
                     // the name of the calendar ("Teatro"), or its address shortened: lucio.ferrao@solx.pt is "lucio@solx"
                     val calendar = c.getString(7).orEmpty().ifBlank { c.getString(8).orEmpty() }.let { name ->
                         if (!name.contains('@')) name
@@ -1022,9 +1024,25 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 app?.component ?: ComponentName(entry.packageName, ""), Process.myUserHandle(),
                 app?.icon ?: return@mapNotNull null, null, emptyList(), notification = entry)
         }
-        if (q.isEmpty()) return notifications + appResults
+        if (q.isEmpty()) return byTime(notifications, appResults)
         val (typed, rest) = appResults.partition { app -> app.names.any { it.startsWith(q) } }
         return typed + notifications + rest
+    }
+
+    /**
+     * Without a search, one order in time: each notification (newest first) by when it came, among the apps and people
+     * by when they were last opened (or a shortcut last changed); the order of the apps among themselves is kept.
+     */
+    private fun byTime(notifications: List<App>, appResults: List<App>): List<App> {
+        fun used(app: App) = maxOf(lastUsed[app.key] ?: 0L, app.shortcut?.changedAt ?: 0L)
+        val result = ArrayList<App>(notifications.size + appResults.size)
+        var n = 0
+        for (app in appResults) {
+            while (n < notifications.size && notifications[n].notification!!.time >= used(app)) result.add(notifications[n++])
+            result.add(app)
+        }
+        result.addAll(notifications.subList(n, notifications.size))
+        return result
     }
 
     /**
@@ -1164,6 +1182,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         private const val PREF_REMOVED_SHORTCUTS = "app_search_removed_shortcuts"
         /** the apps whose shortcuts (those of a long press on their icon) are in the list, set in the settings */
         const val PREF_SHORTCUT_APPS = "app_search_shortcut_apps"
+        /** the calendars (their ids) whose events are left out of the list, set in the settings ("Calendars") */
+        const val PREF_HIDDEN_CALENDARS = "app_search_hidden_calendars"
 
         /**
          * Whether a shortcut is in the list: one pinned to Homekey always, one an app offers only for an app turned on in

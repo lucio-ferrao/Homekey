@@ -92,6 +92,8 @@ class HomeActivity : Activity() {
                     super.getSwipeDirs(recyclerView, holder) else 0
             }
             override fun onMove(recyclerView: RecyclerView, from: RecyclerView.ViewHolder, to: RecyclerView.ViewHolder) = false
+            // a quarter of the width is enough to dismiss, as in the strip
+            override fun getSwipeThreshold(holder: RecyclerView.ViewHolder) = 0.25f
             override fun onSwiped(holder: RecyclerView.ViewHolder, direction: Int) {
                 val app = results.getOrNull(holder.bindingAdapterPosition) ?: return
                 mode?.dismiss(app)

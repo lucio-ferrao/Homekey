@@ -21,11 +21,11 @@ A double tap on the space bar, or the house at the left of the suggestion strip,
 - Monochrome icons in the text color (themed layer, or the icon reduced to two shades with its background removed), cached between sessions
 - The list is saved and read when the keyboard starts, so it shows at once also after a restart, and is refreshed in the background
 - Names and tags, imported from the [KISS launcher](https://kisslauncher.com/) export or set on the home screen, searched like the app names
-- Order by recent use, and the result last chosen for the same text goes first
+- Order by recent use (without a search, notifications among the rest by when they came), and the result last chosen for the same text goes first
 - Chats of starred contacts: WhatsApp, or Element X with the room or person set for the contact; the message box is tapped once the chat opens, so the keyboard stays
 - Notifications, searchable by their text; a one-to-one message from a starred contact goes into the entry of that person and moves it forward, as does typing in their chat in WhatsApp or Element X (its name read by the accessibility service); in the strip a notification or a message is dismissed by sliding it to the right
 - What players are playing, in the place of the player app
-- Today's events of the calendar, coming forward as they get near, with the name of their calendar (or its address, shortened) under them on the home screen
+- Today's events of the calendar, coming forward as they get near, with the name of their calendar (or its address, shortened) under them on the home screen; the calendars in it are chosen in Settings › Calendars
 - Shortcuts of the apps turned on in Settings › App shortcuts (all off at first; each app with its shortcuts listed and a switch) and the ones pinned to Homekey ("add to home screen"); the shortcuts of conversations with a starred contact (WhatsApp, Messages) are left out, as the contact has its entry; any shortcut can be removed from the list
 - The typed text stays where the names of the results start, also when nothing matches
 - Typed or pasted web addresses, with the icon of the app that opens them

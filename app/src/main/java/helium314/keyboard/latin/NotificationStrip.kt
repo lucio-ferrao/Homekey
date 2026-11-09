@@ -98,7 +98,7 @@ class NotificationStrip(private val latinIME: LatinIME) {
                 }
                 MotionEvent.ACTION_UP -> when {
                     !sliding -> row.performClick()
-                    abs(row.translationX) > row.width / 3f -> row.animate()
+                    abs(row.translationX) > row.width / 4f -> row.animate()
                         .translationX(sign(row.translationX) * row.width).alpha(0f).setDuration(SLIDE_MS)
                         .withEndAction {
                             hide()
