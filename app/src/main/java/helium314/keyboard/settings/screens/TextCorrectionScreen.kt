@@ -272,7 +272,7 @@ fun createCorrectionSettings(context: Context) = listOf(
     },
     Setting(
         context, Settings.PREF_INLINE_EMOJI_SEARCH, R.string.inline_emoji_search, R.string.inline_emoji_search_summary) {
-        SwitchPreferenceWithEmojiDictWarning(it, Defaults.PREF_INLINE_EMOJI_SEARCH)
+        SwitchPreference(it, Defaults.PREF_INLINE_EMOJI_SEARCH)
     },
     Setting(context, Settings.PREF_ADD_TO_PERSONAL_DICTIONARY,
         R.string.add_to_personal_dictionary, R.string.add_to_personal_dictionary_summary

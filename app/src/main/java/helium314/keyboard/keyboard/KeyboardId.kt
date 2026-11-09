@@ -37,7 +37,6 @@ data class KeyboardId(
     val hasShortcutKey: Boolean,
     val isSplitLayout: Boolean,
     val oneHandedModeEnabled: Boolean,
-    val internalAction: KeyboardLayoutSet.InternalAction?,
     val sendsOnEnter: Boolean
 ) {
     lateinit var editorInfo: EditorInfo // we don't want it in the data class constructor
@@ -61,7 +60,6 @@ data class KeyboardId(
         params.settingsValues?.mShowsVoiceInputKey ?: false,
         params.settingsValues?.mIsSplitKeyboardEnabled ?: false,
         params.settingsValues?.mOneHandedModeEnabled ?: false,
-        params.internalAction,
         AppWorkarounds.sendsOnEnter(params.editorInfo.packageName),
     ) {
         editorInfo = params.editorInfo

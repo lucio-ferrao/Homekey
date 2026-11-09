@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- The two keys of the Keyarchy icon, filling the drawing: the key on the left of the suggestion strip -->
+<!-- The crown of the Keyarchy icon ("^^^" over "_"), filling the drawing: the key on the left of the suggestion strip -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
-    android:viewportWidth="64"
-    android:viewportHeight="64">
-  <group android:translateX="-22" android:translateY="-22">
-    <group android:pivotX="54" android:pivotY="62" android:scaleX="0.78" android:scaleY="0.78" android:translateY="-8">
-      <group android:pivotX="35" android:pivotY="62" android:rotation="-32">
-        <path android:fillColor="#FFFFFFFF" android:pathData="M27,47H43A7,7 0,0 1,50 54V70A7,7 0,0 1,43 77H27A7,7 0,0 1,20 70V54A7,7 0,0 1,27 47Z"/>
-      </group>
-      <group android:pivotX="73" android:pivotY="62" android:rotation="32">
-        <path android:fillColor="#FFFFFFFF" android:pathData="M65,47H81A7,7 0,0 1,88 54V70A7,7 0,0 1,81 77H65A7,7 0,0 1,58 70V54A7,7 0,0 1,65 47Z"/>
-      </group>
-    </group>
+    android:viewportWidth="180"
+    android:viewportHeight="180">
+  <group android:translateX="-40" android:translateY="-34">
+    <path android:strokeColor="#FFFFFFFF" android:strokeWidth="16" android:strokeLineCap="round" android:strokeLineJoin="round" android:pathData="M62,130L82,92L102,130M110,130L130,74L150,130M158,130L178,92L198,130"/>
+    <path android:strokeColor="#FFFFFFFF" android:strokeWidth="16" android:strokeLineCap="round" android:strokeLineJoin="round" android:pathData="M96,174H164"/>
   </group>
 </vector>

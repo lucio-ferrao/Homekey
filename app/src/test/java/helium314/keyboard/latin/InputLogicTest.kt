@@ -682,16 +682,19 @@ class InputLogicTest {
     }
 
     @Test fun inlineEmojiSearchStart() {
-        assertEquals(true, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, ' '.code, settingsValues))
-        assertEquals(false, InputLogic.isStartOfInlineEmojiSearch(' '.code, ':'.code, ' '.code, settingsValues))
-        assertEquals(true, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, '.'.code, settingsValues))
-        assertEquals(true, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, "🌍".codePoints().asSequence().last(), settingsValues))
-        assertEquals(false, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, 't'.code, settingsValues))
-        assertEquals(false, InputLogic.isStartOfInlineEmojiSearch('t'.code, ':'.code, '3'.code, settingsValues))
+        assertEquals(true, InputLogic.isStartOfInlineEmojiSearch(':'.code, ' '.code, settingsValues))
+        assertEquals(true, InputLogic.isStartOfInlineEmojiSearch(':'.code, Constants.NOT_A_CODE, settingsValues))
+        assertEquals(true, InputLogic.isStartOfInlineEmojiSearch(':'.code, '.'.code, settingsValues))
+        assertEquals(true, InputLogic.isStartOfInlineEmojiSearch(':'.code, "🌍".codePoints().asSequence().last(), settingsValues))
+        assertEquals(false, InputLogic.isStartOfInlineEmojiSearch(':'.code, 't'.code, settingsValues))
+        assertEquals(false, InputLogic.isStartOfInlineEmojiSearch(':'.code, '3'.code, settingsValues))
+        assertEquals(false, InputLogic.isStartOfInlineEmojiSearch('t'.code, ' '.code, settingsValues))
     }
 
     @Test fun inlineEmojiSearchString() {
         assertEquals("test", InputLogic.getInlineEmojiSearchString(":test"))
+        assertEquals("", InputLogic.getInlineEmojiSearchString(":"))
+        assertEquals(")", InputLogic.getInlineEmojiSearchString("ok :)"))
         assertEquals(null, InputLogic.getInlineEmojiSearchString("test"))
         assertEquals("test", InputLogic.getInlineEmojiSearchString(" :test"))
         assertEquals(null, InputLogic.getInlineEmojiSearchString("t:test"))
@@ -699,6 +702,7 @@ class InputLogicTest {
         assertEquals("test", InputLogic.getInlineEmojiSearchString("🌍:test"))
         assertEquals("test", InputLogic.getInlineEmojiSearchString(",:test"))
         assertEquals(null, InputLogic.getInlineEmojiSearchString(":test\nt"))
+        assertEquals(null, InputLogic.getInlineEmojiSearchString(":) ok"))
         assertEquals("/48", InputLogic.getInlineEmojiSearchString("2606:127.0.0.1::/48")) // do we want this?
     }
 

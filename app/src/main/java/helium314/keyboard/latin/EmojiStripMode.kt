@@ -187,6 +187,12 @@ class EmojiStripMode(private val latinIME: LatinIME) : StripSearch {
             "TRAVEL_AND_PLACES", "ACTIVITIES", "OBJECTS", "SYMBOLS", "FLAGS")
         private var emojis: List<Pair<String, List<String>>>? = null
 
+        /** the emojis with a word of their names starting with [prefix] (in any case, accents ignored), by category */
+        fun named(context: Context, prefix: String): List<String> {
+            val p = normalize(prefix)
+            return emojis(context).filter { (_, words) -> words.any { it.startsWith(p) } }.map { it.first }
+        }
+
         /** the emojis the phone can show, by category, each with the normalized words of its names (none if unknown) */
         private fun emojis(context: Context): List<Pair<String, List<String>>> = emojis ?: try {
             val names = context.assets.open("emoji/nomes.txt").bufferedReader().readLines().associate { line ->

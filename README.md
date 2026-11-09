@@ -50,6 +50,7 @@ All the features of HeliBoard (see its [wiki](https://github.com/HeliBorg/HeliBo
 
 - A Portuguese (Portugal) main dictionary without Brazilian spellings and with accent misspellings turned into corrections (see below)
 - Emojis in the suggestion strip, with the keyboard still shown (emoji key, or emoji in the alternatives of Enter): the recent ones first, and typing filters them by their names and keywords in English and Portuguese, from the [CLDR](https://cldr.unicode.org/) annotations (`tools/emoji-nomes.py` makes `assets/emoji/nomes.txt`); the emoji grid of HeliBoard is gone
+- Emoji while typing `:` and what follows, as in [wassup](https://github.com/lucio-ferrao/wassup): its smileys first (`:)`, `:*`), then the emoji with a name in Portuguese without accents or in English that starts so (`:love`, `:kiss`, `:beijinho`), and the CLDR names when those have none; picking one replaces the `:text`, and typing on that no longer fits closes them (Enter stays Enter). Also with a coding agent in Ecto; not in a shell or a full-screen program, passwords, web or email addresses, and no emoji dictionary is needed
 - Notifications arriving while typing show in the suggestion strip until the next key or 10 s; a tap opens them
 - Symbols: `/` as the hint and long press of the period; emoji next to Enter in its alternatives, before the new line where Enter sends
 - Enter without the colored circle, like the other functional keys
@@ -68,7 +69,7 @@ All the features of HeliBoard (see its [wiki](https://github.com/HeliBorg/HeliBo
     <li>note that for Korean layouts, suggestions only work using <a href="https://github.com/openboard-team/openboard/commit/83fca9533c03b9fecc009fc632577226bbd6301f">this dictionary</a>, the tools in the dictionary repository are not able to create working dictionaries</li>
   </ul>
   <li>Customize keyboard themes (style, colors and background image)</li>
-  <li>Emoji search (inline, requires <a href="https://codeberg.org/Helium314/aosp-dictionaries">emoji dictionary</a>)</li>
+  <li>Emoji search (inline, after a colon)</li>
   <ul>
     <li>can follow the system's day/night setting on Android 10+ (and on some versions of Android 9)</li>
     <li>can follow dynamic colors for Android 12+</li>
@@ -113,7 +114,7 @@ See repo's [LICENSE](/LICENSE) file.
 
 Since the app is based on Apache 2.0 licensed AOSP Keyboard, an [Apache 2.0](LICENSE-Apache-2.0) license file is provided.
 The names of the emojis (`assets/emoji/nomes.txt`) come from the CLDR annotations, under the [Unicode License v3](https://www.unicode.org/license.txt).
-The icon of Keyarchy (two keys leaning in for a kiss: the KISS launcher and the keyboard) is its own; the icon of HeliBoard, no longer used, was licensed under [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) ([license file](LICENSE-CC-BY-SA-4.0)).
+The icon of Keyarchy (a crown of three `^`, as a terminal writes Ctrl, over the `_` of the cursor) is its own; the icon of HeliBoard, no longer used, was licensed under [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) ([license file](LICENSE-CC-BY-SA-4.0)).
 
 # Credits
 - [HeliBoard](https://github.com/HeliBorg/HeliBoard), which Keyarchy is a fork of, and its [contributors](https://github.com/HeliBorg/HeliBoard/graphs/contributors)

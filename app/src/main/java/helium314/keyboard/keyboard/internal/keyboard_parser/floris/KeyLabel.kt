@@ -2,7 +2,6 @@ package helium314.keyboard.keyboard.internal.keyboard_parser.floris
 
 import android.view.inputmethod.EditorInfo
 import helium314.keyboard.keyboard.KeyboardElement
-import helium314.keyboard.keyboard.internal.KeyboardCodesSet
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import helium314.keyboard.keyboard.internal.KeyboardParams
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyData.Companion.replaceIconWithLabelIfNoDrawable
@@ -164,14 +163,12 @@ object KeyLabel {
 
     // todo (later): should this be handled with metaState? but metaState shift would require LOTS of changes...
     private fun getActionKeyCode(params: KeyboardParams): String {
-        params.mId.internalAction?.let { return "${KeyboardCodesSet.PREFIX_CODE}${it.code}" }
         return if (params.mId.isMultiLine && params.mId.element == KeyboardElement.ALPHABET_MANUAL_SHIFTED)
             "!code/key_shift_enter"
         else "!code/key_enter"
     }
 
     private fun getActionKeyLabel(params: KeyboardParams): String {
-        params.mId.internalAction?.let { return it.label }
         if (params.mId.isMultiLine && params.mId.element == KeyboardElement.ALPHABET_MANUAL_SHIFTED)
             return "!icon/enter_key"
         val iconName = when (params.mId.imeAction) {

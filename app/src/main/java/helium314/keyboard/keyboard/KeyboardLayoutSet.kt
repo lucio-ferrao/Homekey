@@ -34,13 +34,6 @@ import java.lang.ref.SoftReference
  * [EditorInfo].
  */
 class KeyboardLayoutSet internal constructor(private val mContext: Context, private val mParams: Params) {
-    /**
-     * Represents an internal action that overrides the action provided by the input field.
-     * @param code to send on action key press
-     * @param label to display on action key
-     */
-    data class InternalAction(val code: Int, val label: String)
-
     fun getKeyboard(baseKeyboardLayoutSetElement: KeyboardElement): Keyboard {
         val keyboardLayoutSetElementId = when (mParams.mode) {
             KeyboardMode.PHONE -> {
@@ -112,7 +105,6 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
         var isSpellChecker = false
         var keyboardWidth = 0
         var keyboardHeight = 0
-        var internalAction: InternalAction? = null
 
     }
 
@@ -146,11 +138,6 @@ class KeyboardLayoutSet internal constructor(private val mContext: Context, priv
 
         fun disableTouchPositionCorrectionData(): Builder {
             params.disableTouchPositionCorrectionDataForTest = true
-            return this
-        }
-
-        fun setInternalAction(internalAction: InternalAction?): Builder {
-            params.internalAction = internalAction
             return this
         }
 

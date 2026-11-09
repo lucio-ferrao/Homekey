@@ -7,7 +7,6 @@ import android.view.inputmethod.EditorInfo
 import com.android.inputmethod.latin.BinaryDictionary
 import helium314.keyboard.keyboard.Keyboard
 import helium314.keyboard.keyboard.KeyboardSwitcher
-import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.InputAttributes
 import helium314.keyboard.latin.InputStyle
@@ -23,6 +22,7 @@ import helium314.keyboard.latin.common.StringUtils
 import helium314.keyboard.latin.common.getTouchedWordRange
 import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.ReadOnlyBinaryDictionary
+import helium314.keyboard.latin.inputlogic.InputLogic
 import helium314.keyboard.latin.settings.Settings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -46,7 +46,7 @@ object BackgroundGatheringCache {
     }
 
     fun addWord(word: WordData) {
-        if (KeyboardSwitcher.getInstance().keyboard?.mId?.internalAction?.code == KeyCode.INLINE_EMOJI_SEARCH_DONE) {
+        if (InputLogic.isInlineEmojiSearch()) {
             if (DEBUG) Log.i(TAG, "inline emoji search, not adding anything")
             return
         }

@@ -145,13 +145,12 @@ public final class KeyboardSwitcher {
     }
 
     public void loadKeyboard(EditorInfo editorInfo, SettingsValues settingsValues, int currentAutoCapsState,
-                             @Nullable RecapitalizeMode currentRecapitalizeState, KeyboardLayoutSet.InternalAction internalAction) {
+                             @Nullable RecapitalizeMode currentRecapitalizeState) {
         KeyboardLayoutSet.Builder builder = new KeyboardLayoutSet.Builder(mThemeContext, editorInfo, settingsValues);
         int keyboardWidth = ResourceUtils.getKeyboardWidth(mThemeContext, settingsValues);
         int keyboardHeight = ResourceUtils.getKeyboardHeight(mThemeContext.getResources(), settingsValues);
         mKeyboardLayoutSet = builder.setKeyboardGeometry(keyboardWidth, keyboardHeight)
                 .setSubtype(mRichImm.getCurrentSubtype())
-                .setInternalAction(internalAction)
                 .build();
         try {
             mState.onLoadKeyboard(currentAutoCapsState, currentRecapitalizeState, settingsValues.mOneHandedModeEnabled);
@@ -345,7 +344,7 @@ public final class KeyboardSwitcher {
         // Reload the entire keyboard, and switch to the previous layout
         final boolean wasClipboard = isShowingClipboardHistory();
         loadKeyboard(mLatinIME.getCurrentInputEditorInfo(), Settings.getValues(),
-                mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState(), null);
+                mLatinIME.getCurrentAutoCapsState(), mLatinIME.getCurrentRecapitalizeState());
         if (wasClipboard) {
             setClipboardKeyboard();
         }
