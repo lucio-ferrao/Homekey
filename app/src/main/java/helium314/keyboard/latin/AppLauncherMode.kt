@@ -461,6 +461,16 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         show()
     }
 
+    /** for the home screen: the × of the panel leaves an action, its editing or a message, keeping the search */
+    fun closePanel() {
+        if (!isActive) return
+        message = null
+        actionsFor = null
+        editing = null
+        HomeActivity.stopEditing()
+        show()
+    }
+
     /** for the home screen: the text of its field is the search text */
     fun setHomeQuery(text: String) {
         if (!isActive || editing != null) return

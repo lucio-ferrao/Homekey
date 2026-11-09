@@ -108,7 +108,20 @@ class HomeActivity : Activity() {
         }
         panelTitle = TextView(this).apply { setTextColor(Color.argb(180, 255, 255, 255)); textSize = 14f; useKeyboardFont() }
         panelActions = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
-        panel.addView(panelTitle)
+        // the title with an × on its right, which closes the panel
+        panel.addView(LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER_VERTICAL
+            addView(panelTitle, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
+            addView(TextView(this@HomeActivity).apply {
+                text = "×"
+                setTextColor(Color.WHITE)
+                textSize = 22f
+                setPadding((16 * dp).toInt(), 0, (4 * dp).toInt(), 0)
+                contentDescription = getString(android.R.string.cancel)
+                setOnClickListener { mode?.closePanel() }
+            })
+        })
         panel.addView(HorizontalScrollView(this).apply {
             isHorizontalScrollBarEnabled = false
             addView(panelActions)
