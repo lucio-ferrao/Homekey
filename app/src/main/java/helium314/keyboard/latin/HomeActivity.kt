@@ -249,8 +249,7 @@ class HomeActivity : Activity() {
         override fun onBindViewHolder(holder: RowHolder, position: Int) {
             val mode = mode ?: return
             val app = results[position]
-            holder.icon.setImageDrawable(mode.iconOf(app))
-            mode.pulseIfWorking(holder.icon, app)
+            mode.showIcon(holder.icon, app, Color.WHITE)
             holder.name.text = mode.highlighted(app.label, Color.WHITE)
             // under a person, their newest message instead of the tags
             val unread = app.unread?.text?.replace('\n', ' ')

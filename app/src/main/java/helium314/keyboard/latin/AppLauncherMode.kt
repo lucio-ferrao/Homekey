@@ -53,8 +53,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
 import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -530,26 +528,35 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     private fun dismissedEvents() = latinIME.prefs().getStringSet(PREF_DISMISSED_EVENTS, emptySet())!!
 
-    /** for a shortcut: the name of its app (as named in the list), to tell which app it belongs to, and its detail ("Ecto · terminado") */
-    fun appNameOf(app: App): String? = if (app.shortcut == null) null else listOfNotNull(apps.firstOrNull {
-        it.shortcut == null && it.whatsAppDataId == null && it.component == app.component && it.user == app.user
-    }?.label, app.shortcut.detail).joinToString(" · ").ifEmpty { null }
+    /**
+     * For a shortcut: the name of its app (as named in the list), to tell which app it belongs to, and its detail. An
+     * Ecto pane has Ecto's icon instead, and its detail only when its agent waits for input or finished unseen: a
+     * working one pulses, an idle one says nothing.
+     */
+    fun appNameOf(app: App): String? {
+        val shortcut = app.shortcut ?: return null
+        if (shortcut.packageName == EctoForwards.ECTO_PACKAGE) return shortcut.detail?.takeIf { it == "blocked" || it == "done" }
+        return listOfNotNull(appOf(app)?.label, shortcut.detail).joinToString(" · ").ifEmpty { null }
+    }
 
-    /** the icon shown for a result (Element for a person contacted through it) */
-    fun iconOf(app: App): Drawable? = app.element?.let { elementIcon } ?: app.icon
+    /** the app of a shortcut, as in the list */
+    private fun appOf(app: App) = apps.firstOrNull {
+        it.shortcut == null && it.whatsAppDataId == null && it.component == app.component && it.user == app.user
+    }
+
+    /** the icon shown for a result (Element for a person contacted through it, Ecto's for an Ecto pane) */
+    fun iconOf(app: App): Drawable? = app.element?.let { elementIcon }
+        ?: app.shortcut?.takeIf { it.packageName == EctoForwards.ECTO_PACKAGE }?.let { appOf(app)?.icon }
+        ?: app.icon
 
     /**
-     * The icon of an Ecto pane whose agent is working (not one waiting for input) pulses slowly, the others stay still;
-     * a view animation, so it runs only while the icon is drawn.
+     * Shows the icon of a result in [view]: for an Ecto pane whose agent is working (not one waiting for input), the
+     * spinner of Claude Code in [color] instead.
      */
-    fun pulseIfWorking(icon: View, app: App) {
-        if (app.shortcut?.let { it.active && it.detail == "working" } != true) return icon.clearAnimation()
-        if (icon.animation != null) return
-        icon.startAnimation(AlphaAnimation(1f, 0.3f).apply {
-            duration = 750
-            repeatMode = Animation.REVERSE
-            repeatCount = Animation.INFINITE
-        })
+    fun showIcon(view: ImageView, app: App, color: Int) {
+        if (app.shortcut?.let { it.active && it.detail == "working" } != true) return view.setImageDrawable(iconOf(app))
+        if (view.drawable is ClaudeSpinnerDrawable) return
+        view.setImageDrawable(ClaudeSpinnerDrawable(color).also { it.start() })
     }
 
     private fun createRow(strip: SuggestionStripView): View {
@@ -588,8 +595,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             chip.setOnClickListener { launch(app) }
             if (canDismiss(app)) slideToDismiss(chip, app)
             val icon = ImageView(context)
-            icon.setImageDrawable(iconOf(app))
-            pulseIfWorking(icon, app)
+            showIcon(icon, app, color)
             chip.addView(icon, LinearLayout.LayoutParams(28.dpToPx(res), 28.dpToPx(res)))
             val label = TextView(context)
             label.text = highlighted(app.label, color)
