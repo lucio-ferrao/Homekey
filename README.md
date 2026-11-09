@@ -24,7 +24,7 @@ A double tap on the space bar, or the Keyarchy icon at the left of the suggestio
 - Names and tags, imported from the [KISS launcher](https://kisslauncher.com/) export or set on the home screen, searched like the app names
 - Order by recent use (without a search, notifications among the rest by when they came), and the result last chosen for the same text goes first
 - Chats of starred contacts with WhatsApp (the star on the contact that has WhatsApp's entry, linked if Android split it): WhatsApp, or Element X (or MatriX, its fork) with the room or person set for the contact; the message box is tapped once the chat opens, so the keyboard stays
-- Notifications (not the silent ones), searchable by their text; a one-to-one message from a starred contact goes into the entry of that person and moves it forward, as does typing in their chat in WhatsApp, Element X or MatriX (its name read by the accessibility service); in the strip a notification or a message is dismissed by sliding it to the right, and an app, a person or a shortcut leaves the recent ones (until opened again or, a person or a shortcut, a new message or change)
+- Notifications (not the silent ones), searchable by their text; a one-to-one message from a starred contact goes into the entry of that person and moves it forward, as does typing in their chat in WhatsApp, Element X or MatriX (MatriX tells the keyboard its room in `org.ferrao.homekey.room`; for the others the name of the chat is read by the accessibility service); in the strip a notification or a message is dismissed by sliding it to the right (apps, people and shortcuts leave the recent ones only on the home screen)
 - What players are playing, in the place of the player app
 - Today's events of the calendar, coming forward as they get near, with the name of their calendar (or its address, shortened) under them on the home screen; the calendars in it are chosen in Settings › Calendars
 - Shortcuts of the apps turned on in Settings › App shortcuts (all off at first; each app with its shortcuts listed and a switch) and the ones pinned to Keyarchy ("add to home screen"); the shortcuts of conversations with a starred contact (WhatsApp, Messages) are left out, as the contact has its entry; any shortcut can be removed from the list; the panes of Ecto come forward by their agent: now while it works or waits for input, else from when it stopped, with the icon of Ecto, which becomes the spinner of Claude Code (· ✢ ✳ ✶ ✻) while the agent works, and under it only "blocked" or "done"
@@ -42,7 +42,7 @@ When Keyarchy is chosen as the home app, the home screen is the launcher mode as
 
 - Tags, or the latest message of a person, under each name
 - A long press opens a panel: name, tags, WhatsApp or Element for a person, uninstall an app, remove a shortcut
-- Swiping a notification, a message or an event aside dismisses it (an event only from the list); swiping an app, a person without a message or a shortcut takes it out of the recent ones
+- Swiping a notification, a message or an event aside dismisses it (an event only from the list); swiping an app, a person without a message or a shortcut takes it out of the recent ones, until opened again or, for a person or a shortcut, a new message or change
 - The home gesture or back clears the search
 - Word suggestions and autocorrection in the search field, which also know the names and tags of the list, so a name typed with a wrong letter is corrected ("spotifu" gives "Spotify")
 

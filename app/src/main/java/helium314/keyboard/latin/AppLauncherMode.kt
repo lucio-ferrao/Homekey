@@ -599,7 +599,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             chip.gravity = Gravity.CENTER_VERTICAL
             chip.setPadding(8.dpToPx(res), 0, 8.dpToPx(res), 0)
             chip.setOnClickListener { launch(app) }
-            if (canDismiss(app)) slideToDismiss(chip, app)
+            // in the strip only a notification or a message is dismissed; apps, people and shortcuts only on the home screen
+            if (app.notification != null || app.unread != null) slideToDismiss(chip, app)
             val icon = ImageView(context)
             showIcon(icon, app, color)
             chip.addView(icon, LinearLayout.LayoutParams(28.dpToPx(res), 28.dpToPx(res)))
@@ -1078,13 +1079,16 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     }
 
     /**
-     * Without search text, what belongs to the app being typed in goes last: that app is already open, so the most
-     * recent alternatives come first, like Alt-Tab.
+     * Without search text, the app being typed in and its chat open (read when the keyboard opened in it) go last: they
+     * are already open, so the most recent alternatives come first, like Alt-Tab. The other chats and shortcuts of that
+     * app keep their place.
      */
     private fun alternativesFirst(list: List<App>): List<App> {
         if (query.isNotBlank()) return list
         val current = latinIME.currentInputEditorInfo?.packageName ?: return list
-        val (here, others) = list.partition { it.targetPackage == current }
+        val (here, others) = list.partition {
+            it.targetPackage == current && (it.shortcut == null && it.whatsAppDataId == null || it.key == openChat)
+        }
         return others + here
     }
 
@@ -1887,13 +1891,29 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
          * Moves the person a chat open in a chat app is with forward, as if just opened from the list: [title] is the
          * name at the top of the chat ("Paula Costa", MatriX's "misty 😎"). Nothing for a group or someone not starred.
          */
+        /** the person whose chat the keyboard last opened in (its key), to leave it out of the alternatives there */
+        private var openChat: String? = null
+
         fun bumpChat(context: Context, title: String) {
-            val person = personNamed(titleName(title), apps.filter { it.whatsAppDataId != null }, { it.names }, { it.tags })
-                ?: return
+            personNamed(titleName(title), apps.filter { it.whatsAppDataId != null }, { it.names }, { it.tags })
+                ?.let { bumpOpenChat(context, it) }
+        }
+
+        /** the same for a chat of MatriX, which tells the keyboard its room ([ChatRoom]): the person linked to that room */
+        fun bumpRoom(context: Context, roomId: String) {
+            val room = ROOM_ID.find(roomId)?.value ?: return
+            apps.firstOrNull { it.whatsAppDataId != null && roomOf(it) == room }?.let { bumpOpenChat(context, it) }
+        }
+
+        private fun bumpOpenChat(context: Context, person: App) {
+            openChat = person.key
             val lastUsed = readTimes(context, PREF_LAST_USED)
             lastUsed[person.key] = System.currentTimeMillis()
             saveTimes(context, PREF_LAST_USED, lastUsed)
         }
+
+        /** the id of the Element room of a person's link, without its server */
+        private fun roomOf(person: App) = person.element?.let { ROOM_ID.find(it)?.value }
 
         /**
          * The person in the list (a starred contact) a notification of WhatsApp or Element X comes from, if it is a
@@ -1905,8 +1925,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 return null
             val people = apps.filter { it.whatsAppDataId != null }
             if (notification.packageName in ELEMENT_PACKAGES) people.firstOrNull { person ->
-                val room = person.element?.let { ROOM_ID.find(it)?.value }
-                room != null && notification.key.contains(room)
+                roomOf(person)?.let { notification.key.contains(it) } == true
             }?.let { return it }
             return personNamed(titleName(notification.title), people, { it.names }, { it.tags })
         }

@@ -889,8 +889,11 @@ public class LatinIME extends InputMethodService implements
         // can go into the correct mode, so we need to do some housekeeping here.
         mInputLogic.startShellInput(editorInfo, restarting);
         // the message box of a chat (multi-line, unlike the search of the app): the person it is with moves forward in
-        // the list of the launcher mode
-        if (!restarting && (editorInfo.inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE) != 0
+        // the list of the launcher mode; MatriX tells its room, the others are read on the screen
+        final String chatRoom = ChatRoom.parse(editorInfo.privateImeOptions);
+        if (!restarting && chatRoom != null)
+            AppLauncherMode.Companion.bumpRoom(this, chatRoom);
+        else if (!restarting && (editorInfo.inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE) != 0
                 && AppLauncherMode.Companion.isChatApp(editorInfo.packageName))
             ScreenAgentService.Companion.bumpOpenChatSoon(editorInfo.packageName);
 
