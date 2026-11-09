@@ -34,12 +34,14 @@ public interface DictionaryFacilitator {
             Dictionary.TYPE_MAIN,
             Dictionary.TYPE_CONTACTS,
             Dictionary.TYPE_APPS,
+            Dictionary.TYPE_LAUNCHER,
             Dictionary.TYPE_USER_HISTORY,
             Dictionary.TYPE_USER};
 
     String[] DYNAMIC_DICTIONARY_TYPES = new String[] {
             Dictionary.TYPE_CONTACTS,
             Dictionary.TYPE_APPS,
+            Dictionary.TYPE_LAUNCHER,
             Dictionary.TYPE_USER_HISTORY,
             Dictionary.TYPE_USER};
 
@@ -96,6 +98,12 @@ public interface DictionaryFacilitator {
             final boolean forceReloadMainDictionary,
             final String dictNamePrefix,
             @Nullable final DictionaryInitializationListener listener);
+
+    /**
+     * Uses the dictionary of the list of the launcher mode ({@link Dictionary#TYPE_LAUNCHER}), or closes it: only for
+     * the search field of the home screen. Kept through {@link #resetDictionaries}.
+     */
+    void setUseLauncherDictionary(final Context context, final boolean use);
 
     /** removes the word from all editable dictionaries, and adds it to a blacklist in case it's in a read-only dictionary */
     void removeWord(String word);

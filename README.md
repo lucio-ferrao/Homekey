@@ -23,9 +23,9 @@ A double tap on the space bar, or the Homekey icon at the left of the suggestion
 - Names and tags, imported from the [KISS launcher](https://kisslauncher.com/) export or set on the home screen, searched like the app names
 - Order by recent use, and the result last chosen for the same text goes first
 - Chats of starred contacts: WhatsApp, or Element X with the room or person set for the contact; the message box is tapped once the chat opens, so the keyboard stays
-- Notifications, searchable by their text; a one-to-one message from a starred contact goes into the entry of that person and moves it forward
+- Notifications, searchable by their text; a one-to-one message from a starred contact goes into the entry of that person and moves it forward, as does typing in their chat in WhatsApp or Element X (its name read by the accessibility service)
 - What players are playing, in the place of the player app
-- Today's events of the calendar, coming forward as they get near
+- Today's events of the calendar, coming forward as they get near, with the name of their calendar (or its address, shortened) under them on the home screen
 - Shortcuts of the apps turned on in Settings › App shortcuts (all off at first; each app with its shortcuts listed and a switch) and the ones pinned to Homekey ("add to home screen"); the shortcuts of conversations with a starred contact (WhatsApp, Messages) are left out, as the contact has its entry; any shortcut can be removed from the list
 - The typed text stays where the names of the results start, also when nothing matches
 - Typed or pasted web addresses, with the icon of the app that opens them
@@ -42,6 +42,7 @@ When Homekey is chosen as the home app, the home screen is the launcher mode as 
 - A long press opens a panel: name, tags, WhatsApp or Element for a person, uninstall an app, remove a shortcut
 - Swiping a notification, a message or an event aside dismisses it (an event only from the list)
 - The home gesture or back clears the search
+- Word suggestions and autocorrection in the search field, which also know the names and tags of the list, so a name typed with a wrong letter is corrected ("spotifu" gives "Spotify")
 
 # Keyboard
 All the features of HeliBoard (see its [wiki](https://github.com/HeliBorg/HeliBoard/wiki)), with these changes:

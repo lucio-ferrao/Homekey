@@ -2,6 +2,7 @@
 package helium314.keyboard.latin
 
 import android.Manifest
+import helium314.keyboard.keyboard.KeyboardTypeface
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import android.app.Activity
 import android.content.pm.PackageManager
@@ -45,12 +46,13 @@ class HomeActivity : Activity() {
         val dp = resources.displayMetrics.density
         // the search: a normal text field (cursor, selection, paste), with the arrow of the apps
         field = EditText(this).apply {
-            inputType = InputType.TYPE_CLASS_TEXT
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_AUTO_CORRECT
             privateImeOptions = PRIVATE_IME_OPTIONS
             imeOptions = EditorInfo.IME_ACTION_GO or EditorInfo.IME_FLAG_NO_EXTRACT_UI or EditorInfo.IME_FLAG_NO_FULLSCREEN
             isSingleLine = true
             setTextColor(Color.WHITE)
             textSize = 18f
+            useKeyboardFont()
             setBackgroundColor(Color.argb(170, 20, 20, 20))
             setPadding((12 * dp).toInt(), (10 * dp).toInt(), (12 * dp).toInt(), (10 * dp).toInt())
             // the arrow that opens the apps from the suggestion strip; the icons are loaded here too, as the home
@@ -103,7 +105,7 @@ class HomeActivity : Activity() {
             setBackgroundColor(Color.argb(200, 20, 20, 20))
             visibility = android.view.View.GONE
         }
-        panelTitle = TextView(this).apply { setTextColor(Color.argb(180, 255, 255, 255)); textSize = 14f }
+        panelTitle = TextView(this).apply { setTextColor(Color.argb(180, 255, 255, 255)); textSize = 14f; useKeyboardFont() }
         panelActions = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
         panel.addView(panelTitle)
         panel.addView(HorizontalScrollView(this).apply {
@@ -147,6 +149,11 @@ class HomeActivity : Activity() {
     private lateinit var panelTitle: TextView
     private lateinit var panelActions: LinearLayout
 
+    /** the font of the keyboard (Appearance, custom font), when one is set */
+    private fun TextView.useKeyboardFont() {
+        KeyboardTypeface.customTypeface()?.let { typeface = it }
+    }
+
     private fun renderPanel(title: CharSequence?, actions: List<Pair<String, () -> Unit>>) {
         if (title == null) {
             panel.visibility = android.view.View.GONE
@@ -159,6 +166,7 @@ class HomeActivity : Activity() {
             this.text = label
             setTextColor(Color.WHITE)
             textSize = 16f
+            useKeyboardFont()
             setPadding(0, (10 * dp).toInt(), (24 * dp).toInt(), (6 * dp).toInt())
             setOnClickListener { onClick() }
         })
@@ -198,6 +206,7 @@ class HomeActivity : Activity() {
             val name = TextView(this@HomeActivity).apply {
                 setTextColor(Color.argb(210, 255, 255, 255))
                 textSize = 17f
+                useKeyboardFont()
                 maxLines = 1
                 ellipsize = TextUtils.TruncateAt.END
                 setShadowLayer(4 * dp, 0f, 0f, Color.BLACK)
@@ -205,6 +214,7 @@ class HomeActivity : Activity() {
             val tags = TextView(this@HomeActivity).apply {
                 setTextColor(Color.argb(150, 255, 255, 255))
                 textSize = 13f
+                useKeyboardFont()
                 maxLines = 1
                 ellipsize = TextUtils.TruncateAt.END
                 setShadowLayer(4 * dp, 0f, 0f, Color.BLACK)
@@ -223,8 +233,8 @@ class HomeActivity : Activity() {
             holder.name.text = mode.highlighted(app.label, Color.WHITE)
             // under a person, their newest message instead of the tags
             val unread = app.unread?.text?.replace('\n', ' ')
-            // for a shortcut, the name of its app before the tags
-            val under = listOfNotNull(mode.appNameOf(app), app.rawTags.joinToString(" ").ifEmpty { null }).joinToString(" · ")
+            // for a shortcut, the name of its app before the tags; for an event, its calendar
+            val under = listOfNotNull(mode.appNameOf(app), app.calendar, app.rawTags.joinToString(" ").ifEmpty { null }).joinToString(" · ")
             holder.tags.text = unread ?: mode.highlighted(under, Color.WHITE)
             holder.tags.visibility = if (unread == null && under.isEmpty()) android.view.View.GONE else android.view.View.VISIBLE
             holder.row.setOnClickListener { mode.open(app) }

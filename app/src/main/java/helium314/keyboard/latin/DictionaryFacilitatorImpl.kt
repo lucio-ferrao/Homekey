@@ -25,6 +25,7 @@ import helium314.keyboard.latin.dictionary.Dictionary
 import helium314.keyboard.latin.dictionary.DictionaryFactory
 import helium314.keyboard.latin.dictionary.DictionaryStats
 import helium314.keyboard.latin.dictionary.ExpandableBinaryDictionary
+import helium314.keyboard.latin.dictionary.LauncherBinaryDictionary
 import helium314.keyboard.latin.dictionary.UserBinaryDictionary
 import helium314.keyboard.latin.permissions.PermissionsUtil
 import helium314.keyboard.latin.dictionary.history.UserHistoryDictionary
@@ -81,6 +82,9 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
 
     private val scope = CoroutineScope(Dispatchers.Default)
 
+    /** whether the dictionary of the list of the launcher mode is used, see [setUseLauncherDictionary] */
+    private var useLauncherDict = false
+
     // judging by usage before adding multilingual typing, this should check primary group locale only
     override fun isForLocale(locale: Locale?): Boolean {
         return locale != null && locale == dictionaryGroups[0].locale
@@ -135,6 +139,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
         val subDictTypesToUse = listOfNotNull(
             Dictionary.TYPE_USER,
             if (useAppsDict) Dictionary.TYPE_APPS else null,
+            if (useLauncherDict) Dictionary.TYPE_LAUNCHER else null,
             if (usePersonalizedDicts) Dictionary.TYPE_USER_HISTORY else null,
             if (useContactsDict && PermissionsUtil.checkAllPermissionsGranted(context, Manifest.permission.READ_CONTACTS))
                 Dictionary.TYPE_CONTACTS else null
@@ -160,6 +165,18 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
             val dictGroupToCleanup = findDictionaryGroupWithLocale(oldDictionaryGroups, locale) ?: return@forEach
             for (dictType in dictTypes) {
                 dictGroupToCleanup.closeDict(dictType)
+            }
+        }
+    }
+
+    override fun setUseLauncherDictionary(context: Context, use: Boolean) {
+        useLauncherDict = use
+        synchronized(this) {
+            for (dictGroup in dictionaryGroups) {
+                if (use == dictGroup.hasDict(Dictionary.TYPE_LAUNCHER) || dictGroup.locale.language.isEmpty()) continue
+                if (!use) dictGroup.closeDict(Dictionary.TYPE_LAUNCHER)
+                else createSubDict(Dictionary.TYPE_LAUNCHER, context, dictGroup.locale, null, "")
+                    ?.let { dictGroup.setSubDict(Dictionary.TYPE_LAUNCHER, it) }
             }
         }
     }
@@ -631,6 +648,7 @@ class DictionaryFacilitatorImpl : DictionaryFacilitator {
                     Dictionary.TYPE_USER -> UserBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix)
                     Dictionary.TYPE_CONTACTS -> ContactsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix)
                     Dictionary.TYPE_APPS -> AppsBinaryDictionary.getDictionary(context, locale, dictFile, dictNamePrefix)
+                    Dictionary.TYPE_LAUNCHER -> LauncherBinaryDictionary.getDictionary(context, locale)
                     else -> throw IllegalArgumentException("unknown dictionary type $dictType")
                 }
             } catch (e: SecurityException) {
@@ -855,6 +873,10 @@ private class DictionaryGroup(
 
     fun getSubDict(dictType: String): ExpandableBinaryDictionary? {
         return subDicts[dictType]
+    }
+
+    fun setSubDict(dictType: String, dict: ExpandableBinaryDictionary) {
+        subDicts[dictType] = dict
     }
 
     fun hasDict(dictType: String): Boolean {

@@ -3,6 +3,7 @@ package helium314.keyboard.latin
 
 import android.accessibilityservice.AccessibilityService
 import android.graphics.Rect
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.view.accessibility.AccessibilityEvent
@@ -11,8 +12,9 @@ import android.view.accessibility.AccessibilityWindowInfo
 
 /**
  * Accessibility service of the launcher mode: when a chat is opened from it, taps the message box so the keyboard
- * stays; taps the send button on Enter in apps that ignore Enter; and tells the launcher mode about clicks in the app
- * below, to leave it. (The name is kept from the screen
+ * stays; taps the send button on Enter in apps that ignore Enter; reads the name of a chat the keyboard opens in, to
+ * move that person forward in the list; and tells the launcher mode about clicks in the app below, to leave it. (The
+ * name is kept from the screen
  * agent it was part of, so the service stays enabled.)
  */
 class ScreenAgentService : AccessibilityService() {
@@ -49,6 +51,28 @@ class ScreenAgentService : AccessibilityService() {
         }
         visit(root, 0)
         return buttons.maxByOrNull { Rect().also { r -> it.getBoundsInScreen(r) }.bottom }
+    }
+
+    /**
+     * The name at the top of the chat open in [packageName], if it is in the foreground: WhatsApp's view with the name
+     * of the chat, else (MatriX, Element X, made with Compose and without view ids) the heading in the top third of
+     * the window, which is the room name with the avatar (and an emoji of status) merged into it.
+     */
+    private fun chatTitle(packageName: String): String? {
+        val root = windows.firstOrNull { it.type == AccessibilityWindowInfo.TYPE_APPLICATION && it.isActive }?.root
+            ?: rootInActiveWindow ?: return null
+        if (root.packageName?.toString() != packageName) return null
+        root.findAccessibilityNodeInfosByViewId("com.whatsapp:id/conversation_contact_name").firstOrNull()
+            ?.text?.toString()?.let { return it }
+        val window = Rect().also { root.getBoundsInScreen(it) }
+        fun visit(node: AccessibilityNodeInfo, depth: Int): String? {
+            if (depth > 40) return null
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && node.isHeading && node.isVisibleToUser && Rect().also { node.getBoundsInScreen(it) }.top < window.top + window.height() / 3)
+                (node.text ?: node.contentDescription)?.toString()?.takeIf { it.isNotBlank() }?.let { return it }
+            for (i in 0 until node.childCount) node.getChild(i)?.let { child -> visit(child, depth + 1)?.let { return it } }
+            return null
+        }
+        return visit(root, 0)
     }
 
     override fun onServiceConnected() {
@@ -95,6 +119,24 @@ class ScreenAgentService : AccessibilityService() {
                 }
             }
             handler.postDelayed(attempt, 500)
+        }
+
+        /**
+         * When the keyboard opens in the message box of a chat of [packageName]: reads the name of the chat once the
+         * window is drawn (a few tries) and moves that person forward in the list of the launcher mode
+         */
+        fun bumpOpenChatSoon(packageName: String) {
+            val context = instance ?: return
+            val handler = Handler(Looper.getMainLooper())
+            var tries = 0
+            val attempt = object : Runnable {
+                override fun run() {
+                    val title = instance?.chatTitle(packageName)
+                    if (title != null) AppLauncherMode.bumpChat(context, title)
+                    else if (++tries < 3) handler.postDelayed(this, 400)
+                }
+            }
+            handler.postDelayed(attempt, 300)
         }
 
         /** called on a click in another app, set while the launcher mode is open (to leave it) */

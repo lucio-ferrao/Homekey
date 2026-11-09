@@ -889,6 +889,11 @@ public class LatinIME extends InputMethodService implements
         // this case we will need to call loadKeyboard() later, when it's accessible, so that we
         // can go into the correct mode, so we need to do some housekeeping here.
         mInputLogic.startShellInput(editorInfo, restarting);
+        // the message box of a chat (multi-line, unlike the search of the app): the person it is with moves forward in
+        // the list of the launcher mode
+        if (!restarting && (editorInfo.inputType & InputType.TYPE_TEXT_FLAG_MULTI_LINE) != 0
+                && AppLauncherMode.Companion.isChatApp(editorInfo.packageName))
+            ScreenAgentService.Companion.bumpOpenChatSoon(editorInfo.packageName);
 
         final boolean needToCallLoadKeyboardLater;
         final Suggest suggest = mInputLogic.mSuggest;
@@ -900,6 +905,8 @@ public class LatinIME extends InputMethodService implements
             mInputLogic.startInput(mRichImm.getCombiningRulesExtraValueOfCurrentSubtype(), currentSettingsValues);
 
             resetDictionaryFacilitatorIfNecessary();
+            // the names and tags of the list of the launcher mode, only in the search field of the home screen
+            mDictionaryFacilitator.setUseLauncherDictionary(this, HomeActivity.Companion.isHomeField(editorInfo));
 
             // TODO[IL]: Can the following be moved to InputLogic#startInput?
             if (!mInputLogic.mConnection.resetCachesUponCursorMoveAndReturnSuccess(

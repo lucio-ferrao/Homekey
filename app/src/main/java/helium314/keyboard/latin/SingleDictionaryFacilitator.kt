@@ -100,6 +100,8 @@ class SingleDictionaryFacilitator(private val dict: Dictionary) : DictionaryFaci
                                    usePersonalizedDicts: Boolean, forceReloadMainDictionary: Boolean, dictNamePrefix: String, listener: DictionaryInitializationListener?
     ) { }
 
+    override fun setUseLauncherDictionary(context: Context, use: Boolean) { }
+
     override fun hasAtLeastOneInitializedMainDictionary(): Boolean = dict.isInitialized
 
     override fun hasAtLeastOneUninitializedMainDictionary(): Boolean = !dict.isInitialized

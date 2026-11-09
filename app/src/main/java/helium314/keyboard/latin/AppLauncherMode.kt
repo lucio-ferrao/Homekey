@@ -61,6 +61,7 @@ import helium314.keyboard.event.Event
 import helium314.keyboard.keyboard.internal.keyboard_parser.floris.KeyCode
 import helium314.keyboard.latin.common.ColorType
 import helium314.keyboard.latin.common.Constants
+import helium314.keyboard.latin.dictionary.LauncherBinaryDictionary
 import helium314.keyboard.latin.settings.Settings
 import helium314.keyboard.latin.suggestions.SuggestionStripView
 import helium314.keyboard.latin.utils.Log
@@ -606,7 +607,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         try {
             // a chat: tap its message box once it is open, so the keyboard stays
             if (app.element != null || app.whatsAppDataId != null)
-                ScreenAgentService.focusMessageFieldSoon(if (app.element != null) ELEMENT_PACKAGE else "com.whatsapp")
+                ScreenAgentService.focusMessageFieldSoon(if (app.element != null) elementPackage else "com.whatsapp")
             if (app.element != null)
                 latinIME.startActivity(elementIntent(app.element!!))
             else if (app.whatsAppDataId != null)
@@ -777,16 +778,23 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         }.timeInMillis
         val start = day.timeInMillis
         day.add(Calendar.DAY_OF_MONTH, 1)
-        class Event(val id: Long, val title: String, val begin: Long, val end: Long, val allDay: Boolean)
+        class Event(val id: Long, val title: String, val begin: Long, val end: Long, val allDay: Boolean, val calendar: String)
         val events = mutableListOf<Event>()
         try {
             CalendarContract.Instances.query(latinIME.contentResolver, arrayOf(CalendarContract.Instances.EVENT_ID,
                 CalendarContract.Instances.TITLE, CalendarContract.Instances.BEGIN, CalendarContract.Instances.END,
                 CalendarContract.Instances.ALL_DAY, CalendarContract.Instances.VISIBLE,
-                CalendarContract.Instances.SELF_ATTENDEE_STATUS), start, day.timeInMillis)?.use { c ->
+                CalendarContract.Instances.SELF_ATTENDEE_STATUS, CalendarContract.Instances.CALENDAR_DISPLAY_NAME,
+                CalendarContract.Calendars.ACCOUNT_NAME), start, day.timeInMillis)?.use { c ->
                 while (c.moveToNext()) {
                     if (c.getInt(5) == 0 || c.getInt(6) == CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED) continue
-                    val event = Event(c.getLong(0), c.getString(1).orEmpty(), c.getLong(2), c.getLong(3), c.getInt(4) == 1)
+                    // the name of the calendar ("Teatro"), or its address shortened: lucio.ferrao@solx.pt is "lucio@solx"
+                    val calendar = c.getString(7).orEmpty().ifBlank { c.getString(8).orEmpty() }.let { name ->
+                        if (!name.contains('@')) name
+                        else name.substringBefore('@').split('.').let { if (it.size == 2) it[0] else it.joinToString(".") } +
+                            "@" + name.substringAfter('@').substringBeforeLast('.')
+                    }
+                    val event = Event(c.getLong(0), c.getString(1).orEmpty(), c.getLong(2), c.getLong(3), c.getInt(4) == 1, calendar)
                     val current = if (event.allDay) event.begin <= todayUtc && event.end > todayUtc else event.end > now
                     if (current && event.title.isNotBlank()) events.add(event)
                 }
@@ -813,6 +821,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, event.begin)
                 .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, event.end)) ?: continue
             entry.eventKey = "${event.id}|${event.begin}"
+            entry.calendar = event.calendar.ifBlank { null }
             // the reminder of the calendar app for the same event would say the same (its title wrapped in direction marks)
             fun plain(s: String) = s.replace(Regex("\\p{Cf}"), "").trim()
             result.removeAll { it.notification?.packageName == entry.component.packageName && plain(it.notification.title) == plain(event.title) }
@@ -1037,6 +1046,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         var unread: LauncherNotificationService.Entry? = null
         /** for an event of the calendar: its id and begin ("id|begin"), to dismiss it from the list */
         var eventKey: String? = null
+        /** for an event of the calendar: the calendar it is in, shown under it on the home screen */
+        var calendar: String? = null
         var label = label ?: originalLabel
             set(value) {
                 field = value
@@ -1054,7 +1065,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             private set
         /** the app that opens: Element X or WhatsApp for a person, else the app itself */
         val targetPackage get() = when {
-            element != null -> ELEMENT_PACKAGE
+            element != null -> elementPackage
             whatsAppDataId != null -> "com.whatsapp"
             else -> component.packageName
         }
@@ -1127,7 +1138,10 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         private const val TAGS_FILE = "etiquetas-kiss.json"
         private const val WHATSAPP_MIME_TYPE = "vnd.android.cursor.item/vnd.com.whatsapp.profile"
         private const val ELEMENT_FILE = "element.json"
-        private const val ELEMENT_PACKAGE = "io.element.android.x"
+        /** MatriX, the fork of Element X, and Element X from the store */
+        private val ELEMENT_PACKAGES = listOf("org.ferrao.matrix", "io.element.android.x")
+        /** the installed one of [ELEMENT_PACKAGES], MatriX first, set when the list loads */
+        private var elementPackage = ELEMENT_PACKAGES.first()
         private var elementIcon: Drawable? = null
 
         /**
@@ -1146,7 +1160,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 '#' -> "matrix:r/${id.drop(1)}"
                 else -> link
             }
-            return Intent(Intent.ACTION_VIEW, Uri.parse(uri)).setPackage(ELEMENT_PACKAGE).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            return Intent(Intent.ACTION_VIEW, Uri.parse(uri)).setPackage(elementPackage).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
 
         /** a matrix.to link from what was typed: a link, or an id like @person:server, !room:server or #alias:server */
@@ -1165,6 +1179,11 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         /** the intermediate shade of the icons: the text color with this opacity */
         private const val MID_ALPHA = 0.45f
         private var apps = emptyList<App>()
+            set(value) {
+                field = value
+                // the suggestions in the search field of the home screen know the names and tags of the list
+                LauncherBinaryDictionary.setTexts(value.flatMapTo(hashSetOf()) { listOf(it.label) + it.rawTags })
+            }
 
         /** the icon of an app of the main profile as in the list, or null if the list does not have it (yet) */
         fun iconOf(packageName: String): Drawable? =
@@ -1293,7 +1312,9 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 Log.w(TAG, "can't read the saved apps", e)
                 return emptyList()
             }
-            elementIcon = list.firstOrNull { it.component.packageName == ELEMENT_PACKAGE && it.shortcut == null }?.icon
+            val element = ELEMENT_PACKAGES.firstNotNullOfOrNull { p -> list.firstOrNull { it.component.packageName == p && it.shortcut == null } }
+            element?.let { elementPackage = it.component.packageName }
+            elementIcon = element?.icon
             return list.sortedBy { it.normalizedLabel }
         }
 
@@ -1388,7 +1409,9 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 ?: return emptyList()
             val chats = mutableListOf<App>()
             val elementLinks = readStringMap(context, ELEMENT_FILE)
-            elementIcon = launchable.firstOrNull { it.component.packageName == ELEMENT_PACKAGE }?.icon
+            val element = ELEMENT_PACKAGES.firstNotNullOfOrNull { p -> launchable.firstOrNull { it.component.packageName == p } }
+            element?.let { elementPackage = it.component.packageName }
+            elementIcon = element?.icon
             try {
                 context.contentResolver.query(ContactsContract.Data.CONTENT_URI,
                     arrayOf(ContactsContract.Data._ID, ContactsContract.Data.CONTACT_ID, ContactsContract.Data.DISPLAY_NAME),
@@ -1666,8 +1689,23 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 lastUsed[person.key] = notification.time
                 moved = true
             }
-            if (moved) context.prefs().edit { putString(PREF_LAST_USED, lastUsed.entries.joinToString("\n") { "${it.key}=${it.value}" }) }
+            if (moved) saveLastUsed(context, lastUsed)
             return moved
+        }
+
+        /** whether [packageName] is a chat app whose people are in the list: Element X (or MatriX) or WhatsApp */
+        fun isChatApp(packageName: String?) = packageName in ELEMENT_PACKAGES || packageName == "com.whatsapp"
+
+        /**
+         * Moves the person a chat open in a chat app is with forward, as if just opened from the list: [title] is the
+         * name at the top of the chat ("Paula Costa", MatriX's "misty 😎"). Nothing for a group or someone not starred.
+         */
+        fun bumpChat(context: Context, title: String) {
+            val person = personNamed(titleName(title), apps.filter { it.whatsAppDataId != null }, { it.names }, { it.tags })
+                ?: return
+            val lastUsed = readLastUsed(context)
+            lastUsed[person.key] = System.currentTimeMillis()
+            saveLastUsed(context, lastUsed)
         }
 
         /**
@@ -1676,17 +1714,29 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
          * "Paula Costa (2 mensagens)", Element's "misty: misty").
          */
         private fun personOf(notification: LauncherNotificationService.Entry): App? {
-            if (notification.isGroup || notification.packageName != ELEMENT_PACKAGE && notification.packageName != "com.whatsapp")
+            if (notification.isGroup || notification.packageName !in ELEMENT_PACKAGES && notification.packageName != "com.whatsapp")
                 return null
             val people = apps.filter { it.whatsAppDataId != null }
-            if (notification.packageName == ELEMENT_PACKAGE) people.firstOrNull { person ->
+            if (notification.packageName in ELEMENT_PACKAGES) people.firstOrNull { person ->
                 val room = person.element?.let { ROOM_ID.find(it)?.value }
                 room != null && notification.key.contains(room)
             }?.let { return it }
-            val name = normalize(notification.title.substringBefore(": ").replace(MESSAGE_COUNT, ""))
-                .replace(NOT_A_NAME, "").trim()
-            return if (name.isEmpty()) null else people.firstOrNull { name in it.names }
+            return personNamed(titleName(notification.title), people, { it.names }, { it.tags })
         }
+
+        /**
+         * The name a chat or notification title gives: before ": ", without a message count, emojis or punctuation
+         * ("Paula Costa (2 mensagens)" → "paula costa", "misty 😎" → "misty")
+         */
+        internal fun titleName(title: String) = normalize(title.substringBefore(": ").replace(MESSAGE_COUNT, ""))
+            .replace(NOT_A_NAME, "").replace(SPACES, " ").trim()
+
+        /** of [people], the one [name] is: by one of their [names], else by a tag of theirs no one else has */
+        internal fun <P> personNamed(name: String, people: List<P>, names: (P) -> List<String>, tags: (P) -> List<String>): P? {
+            if (name.isEmpty()) return null
+            return people.firstOrNull { name in names(it) } ?: people.filter { name in tags(it) }.singleOrNull()
+        }
+        private val SPACES = Regex("""\s+""")
         /** the id of an Element room in a matrix.to link, without its server */
         private val ROOM_ID = Regex("""![^?/&:%]+""")
         private val MESSAGE_COUNT = Regex("""\s*\(\d+[^)]*\)\s*$""")
@@ -1697,6 +1747,9 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 val i = line.lastIndexOf('=')
                 if (i < 1) null else line.substring(0, i) to (line.substring(i + 1).toLongOrNull() ?: 0L)
             }.toMap(mutableMapOf())
+
+        private fun saveLastUsed(context: Context, lastUsed: Map<String, Long>) =
+            context.prefs().edit { putString(PREF_LAST_USED, lastUsed.entries.joinToString("\n") { "${it.key}=${it.value}" }) }
 
         private fun readCounts(context: Context): MutableMap<String, Int> =
             context.prefs().getString(PREF_COUNTS, "")!!.lines().mapNotNull { line ->

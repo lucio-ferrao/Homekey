@@ -49,6 +49,8 @@ public abstract class Dictionary {
     public static final String TYPE_MAIN = "main";
     public static final String TYPE_CONTACTS = "contacts";
     public static final String TYPE_APPS = "apps";
+    // The names and tags of the list of the launcher mode, in the search field of the home screen only.
+    public static final String TYPE_LAUNCHER = "launcher";
     // User dictionary, the system-managed one.
     public static final String TYPE_USER = "user";
     // User history dictionary internal to LatinIME.
@@ -175,6 +177,7 @@ public abstract class Dictionary {
                  TYPE_USER,
                  TYPE_CONTACTS,
                  TYPE_APPS,
+                 TYPE_LAUNCHER,
                  TYPE_USER_HISTORY -> true;
             default -> false;
         };
