@@ -394,6 +394,14 @@
     <string name="launcher_drive">Drive to %1$s (%2$s)</string>
     <string name="launcher_sms">SMS to %1$s (%2$s)</string>
     <string name="launcher_search">Search %1$s</string>
+    <string name="launcher_ssh_connect">Connect to %1$s</string>
+    <string name="launcher_ssh_local">Forward port %1$d of the phone to %2$s:%3$d on the server</string>
+    <string name="launcher_ssh_remote">Forward port %1$d of the server to %2$s:%3$d on the phone</string>
+    <string name="launcher_ssh_stop">Stop forwarding %1$s</string>
+    <string name="launcher_ssh_done">Done: %1$s</string>
+    <string name="launcher_ssh_no_ecto">Ecto is not installed, or too old for port forwards</string>
+    <string name="launcher_ssh_gone">Ecto stopped answering</string>
+    <string name="launcher_ssh_timeout">Ecto did not answer</string>
     <string name="launcher_call_person">Call %1$s (%2$s)</string>
     <string name="home_label">Keyarchy home</string>
     <string name="launcher_unlock_private_space">Unlock private space</string>

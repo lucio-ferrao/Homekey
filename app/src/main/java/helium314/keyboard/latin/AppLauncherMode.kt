@@ -53,6 +53,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -90,6 +92,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     private var results = emptyList<App>()
     private var counts = mutableMapOf<String, Int>()
     private var lastUsed = mutableMapOf<String, Long>()
+    /** when entries were dismissed from the recent ones (a slide), until they are used or change again */
+    private var dismissedRecent = mutableMapOf<String, Long>()
     /** the result chosen last for each search text, which comes first the next time that text is typed */
     private var choices = mutableMapOf<String, String>()
     private var lastSpaceTapTime = 0L
@@ -127,7 +131,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         // a tap on a button or element of the app (seen by the accessibility service) leaves the mode
         ScreenAgentService.onTapInOtherApp = { onTapOutside() }
         // notifications that arrive or go away while the list is open show up in it right away
-        LauncherNotificationService.onChange = { lastUsed = readLastUsed(latinIME); show() }
+        LauncherNotificationService.onChange = { lastUsed = readTimes(latinIME, PREF_LAST_USED); show() }
         // start also runs while the mode is open (the keyboard restarting on the home screen): follow things only once
         latinIME.contentResolver.unregisterContentObserver(calendarObserver)
         latinIME.getSystemService(MediaSessionManager::class.java).removeOnActiveSessionsChangedListener(playersChanged)
@@ -141,7 +145,10 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         }
         lastSpaceTapTime = 0
         counts = readCounts(latinIME)
-        lastUsed = readLastUsed(latinIME)
+        lastUsed = readTimes(latinIME, PREF_LAST_USED)
+        // a dismissal ends when the entry is opened again (or a message of the person comes) after it
+        dismissedRecent = readTimes(latinIME, PREF_DISMISSED_RECENT).filter { (lastUsed[it.key] ?: 0L) <= it.value }
+            .toMutableMap()
         choices = readChoices(latinIME)
         // the players playing, followed while the mode is open (follow shows the list)
         try {
@@ -358,8 +365,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     override fun show() {
         if (!isActive) return
         // messages that arrived while the mode was closed (before the apps were loaded, for instance) count too
-        if (bump(latinIME, LauncherNotificationService.entries())) lastUsed = readLastUsed(latinIME)
-        val ranked = chosenFirst(withNotifications(alternativesFirst(filter(apps, query.toString(), counts, lastUsed)),
+        if (bump(latinIME, LauncherNotificationService.entries())) lastUsed = readTimes(latinIME, PREF_LAST_USED)
+        val ranked = chosenFirst(withNotifications(alternativesFirst(filter(apps, query.toString(), counts, lastUsed, dismissedRecent)),
             normalize(query.toString().trim())))
         results = withEvents(listOfNotNull(urlEntry(), privateSpaceEntry()) + patternEntries() + withPlayers(ranked))
         // on the home screen of Keyarchy the search is its own text field and the results a vertical list above it; the
@@ -484,12 +491,22 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         show()
     }
 
+    /** whether a slide dismisses [app]: a notification, a message, an event, or an app, person or shortcut of the list */
+    fun canDismiss(app: App) = app.notification != null || app.unread != null || app.eventKey != null ||
+        apps.any { it.key == app.key }
+
     /**
-     * For the list of the home screen: dismisses a notification, or the message shown in the entry of a person, or an
-     * event (from the list only, it stays in the calendar).
+     * A slide on an entry: dismisses a notification, or the message shown in the entry of a person, or an event (from
+     * the list only, it stays in the calendar); an app, a person without a message or a shortcut leaves the recent ones,
+     * until opened again or (a person, a shortcut) a new message or change.
      */
     fun dismiss(app: App) {
-        (app.notification ?: app.unread)?.let { LauncherNotificationService.dismiss(it.key) }
+        val message = app.notification ?: app.unread
+        message?.let { LauncherNotificationService.dismiss(it.key) }
+        if (message == null && app.eventKey == null) {
+            dismissedRecent[app.key] = System.currentTimeMillis()
+            saveTimes(latinIME, PREF_DISMISSED_RECENT, dismissedRecent)
+        }
         app.eventKey?.let { key ->
             // the events dismissed before today are not needed any more
             val today = Calendar.getInstance().apply {
@@ -510,6 +527,20 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     /** the icon shown for a result (Element for a person contacted through it) */
     fun iconOf(app: App): Drawable? = app.element?.let { elementIcon } ?: app.icon
+
+    /**
+     * The icon of an Ecto pane whose agent is working (not one waiting for input) pulses slowly, the others stay still;
+     * a view animation, so it runs only while the icon is drawn.
+     */
+    fun pulseIfWorking(icon: View, app: App) {
+        if (app.shortcut?.let { it.active && it.detail == "working" } != true) return icon.clearAnimation()
+        if (icon.animation != null) return
+        icon.startAnimation(AlphaAnimation(1f, 0.3f).apply {
+            duration = 750
+            repeatMode = Animation.REVERSE
+            repeatCount = Animation.INFINITE
+        })
+    }
 
     private fun createRow(strip: SuggestionStripView): View {
         val context = strip.context
@@ -545,9 +576,10 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             chip.gravity = Gravity.CENTER_VERTICAL
             chip.setPadding(8.dpToPx(res), 0, 8.dpToPx(res), 0)
             chip.setOnClickListener { launch(app) }
-            if (app.notification != null || app.unread != null) slideToDismiss(chip, app)
+            if (canDismiss(app)) slideToDismiss(chip, app)
             val icon = ImageView(context)
             icon.setImageDrawable(iconOf(app))
+            pulseIfWorking(icon, app)
             chip.addView(icon, LinearLayout.LayoutParams(28.dpToPx(res), 28.dpToPx(res)))
             val label = TextView(context)
             label.text = highlighted(app.label, color)
@@ -569,8 +601,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     }
 
     /**
-     * A notification or the message of a person in the strip is dismissed by sliding it to the right, as in the
-     * notification shade; to the left the row scrolls, and a tap opens it.
+     * An entry of the strip is dismissed by sliding it to the right, as in the notification shade ([dismiss]); to the
+     * left the row scrolls, and a tap opens it.
      */
     @SuppressLint("ClickableViewAccessibility")
     private fun slideToDismiss(chip: View, app: App) {
@@ -632,7 +664,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     private fun launch(app: App) {
         app.run?.let {
-            stop()
+            if (!app.staysOpen) stop()
             it()
             return
         }
@@ -750,6 +782,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                     ?.let { entries.add(it) }
         }
         DRIVE.matchEntire(text)?.let { m -> entries.addAll(driveEntries(normalize(m.groupValues[1].trim()))) }
+        SshCommand.parse(text)?.let { command -> sshEntry(command)?.let { entries.add(it) } }
         SEARCH.matchEntire(text)?.let { m -> searchEntry(m.groupValues[1].trim())?.let { entries.add(it) } }
         SMS.matchEntire(text)?.let { m -> entries.addAll(smsEntries(normalize(m.groupValues[1].trim()))) }
         CALL.matchEntire(text)?.let { m -> entries.addAll(callEntries(normalize(m.groupValues[1].trim()))) }
@@ -883,6 +916,35 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             result.add(last, entry)
         }
         return result
+    }
+
+    /**
+     * "ssh olivais": Ecto opened connected to that server; "ssh [olivais] -L 3000", "-R 5555", "-KL 3000": a port forward
+     * asked of Ecto, whose answer stays in the strip. Only with Ecto installed.
+     */
+    private fun sshEntry(command: SshCommand): App? {
+        val ecto = apps.firstOrNull {
+            it.component.packageName == EctoForwards.ECTO_PACKAGE && it.shortcut == null && it.user == Process.myUserHandle()
+        } ?: return null
+        return when (command) {
+            is SshCommand.Connect -> App("ssh|${command.server}", "ssh://${command.server}",
+                latinIME.getString(R.string.launcher_ssh_connect, command.server), ecto.component, Process.myUserHandle(),
+                ecto.icon, null, emptyList(), intent = EctoForwards.connectIntent(command.server))
+            is SshCommand.Forward -> {
+                val what = when {
+                    command.cancel -> latinIME.getString(R.string.launcher_ssh_stop, command.label)
+                    command.direction == 'L' -> latinIME.getString(R.string.launcher_ssh_local, command.port, command.host, command.hostPort)
+                    else -> latinIME.getString(R.string.launcher_ssh_remote, command.port, command.host, command.hostPort)
+                }
+                val label = command.server?.let { "$what · $it" } ?: what
+                App("ssh|${command.arguments}", "ssh://${command.arguments}", label, ecto.component, Process.myUserHandle(),
+                    ecto.icon, null, emptyList(), staysOpen = true, run = {
+                        EctoForwards.request(latinIME, command.server, command.arguments) { ok, text ->
+                            showMessage(if (ok) latinIME.getString(R.string.launcher_ssh_done, label) else text)
+                        }
+                    })
+            }
+        }
     }
 
     /** "s chuva lisboa", "search chuva lisboa": the text searched in the default browser, with its search engine */
@@ -1035,7 +1097,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
      */
     private fun byTime(notifications: List<App>, appResults: List<App>): List<App> {
         val now = System.currentTimeMillis()
-        fun used(app: App) = maxOf(lastUsed[app.key] ?: 0L, app.shortcut?.changedTime(now) ?: 0L)
+        fun used(app: App) = recency(lastUsed[app.key] ?: 0L, app.shortcut, dismissedRecent[app.key] ?: 0L, now)
         val result = ArrayList<App>(notifications.size + appResults.size)
         var n = 0
         for (app in appResults) {
@@ -1080,6 +1142,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         }
         counts[app.key] = (counts[app.key] ?: 0) + 1
         lastUsed[app.key] = System.currentTimeMillis()
+        if (dismissedRecent.remove(app.key) != null) saveTimes(latinIME, PREF_DISMISSED_RECENT, dismissedRecent)
         latinIME.prefs().edit {
             putString(PREF_COUNTS, counts.entries.joinToString("\n") { "${it.key}=${it.value}" })
             putString(PREF_LAST_USED, lastUsed.entries.joinToString("\n") { "${it.key}=${it.value}" })
@@ -1115,6 +1178,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
               val intent: Intent? = null,
               /** for an action of the keyboard itself, like unlocking the private space */
               val run: (() -> Unit)? = null,
+              /** [run] keeps the mode open, to show its result there (a port forward asked of Ecto) */
+              val staysOpen: Boolean = false,
               /** for a shortcut of an app (a long press on its icon) or one pinned to Keyarchy */
               val shortcut: Shortcut? = null) {
         /** the file of the processed icon in the cache, to show the list at once after a restart of the keyboard */
@@ -1182,6 +1247,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         private val SEARCH = Regex("""^(?:s|search)\s+(.+)$""", RegexOption.IGNORE_CASE)
         private val KNOWN_BROWSERS = setOf("org.mozilla.firefox", "com.android.chrome", "com.duckduckgo.mobile.android")
         private const val PREF_LAST_USED = "app_search_last_launch"
+        /** when entries were dismissed from the recent ones, "key=millis" lines as [PREF_LAST_USED] */
+        private const val PREF_DISMISSED_RECENT = "app_search_dismissed_recent"
         private const val PREF_CHOICES = "app_search_choices"
         /** the events dismissed from the list of the home screen, as "id|begin" (each day of a repeating event apart) */
         private const val PREF_DISMISSED_EVENTS = "app_search_dismissed_events"
@@ -1779,7 +1846,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
          * true if one moved. Needs the list of apps (loaded when the launcher mode first opens).
          */
         fun bump(context: Context, notifications: List<LauncherNotificationService.Entry>): Boolean {
-            val lastUsed = readLastUsed(context)
+            val lastUsed = readTimes(context, PREF_LAST_USED)
             var moved = false
             for (notification in notifications) {
                 val person = personOf(notification) ?: continue
@@ -1787,7 +1854,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 lastUsed[person.key] = notification.time
                 moved = true
             }
-            if (moved) saveLastUsed(context, lastUsed)
+            if (moved) saveTimes(context, PREF_LAST_USED, lastUsed)
             return moved
         }
 
@@ -1801,9 +1868,9 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         fun bumpChat(context: Context, title: String) {
             val person = personNamed(titleName(title), apps.filter { it.whatsAppDataId != null }, { it.names }, { it.tags })
                 ?: return
-            val lastUsed = readLastUsed(context)
+            val lastUsed = readTimes(context, PREF_LAST_USED)
             lastUsed[person.key] = System.currentTimeMillis()
-            saveLastUsed(context, lastUsed)
+            saveTimes(context, PREF_LAST_USED, lastUsed)
         }
 
         /**
@@ -1840,14 +1907,24 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         private val MESSAGE_COUNT = Regex("""\s*\(\d+[^)]*\)\s*$""")
         private val NOT_A_NAME = Regex("""[^\p{L}\p{N} ]""")
 
-        private fun readLastUsed(context: Context): MutableMap<String, Long> =
-            context.prefs().getString(PREF_LAST_USED, "")!!.lines().mapNotNull { line ->
+        /** times by entry key, as kept in [pref] ("key=millis" lines): when each was last used, or dismissed */
+        private fun readTimes(context: Context, pref: String): MutableMap<String, Long> =
+            context.prefs().getString(pref, "")!!.lines().mapNotNull { line ->
                 val i = line.lastIndexOf('=')
                 if (i < 1) null else line.substring(0, i) to (line.substring(i + 1).toLongOrNull() ?: 0L)
             }.toMap(mutableMapOf())
 
-        private fun saveLastUsed(context: Context, lastUsed: Map<String, Long>) =
-            context.prefs().edit { putString(PREF_LAST_USED, lastUsed.entries.joinToString("\n") { "${it.key}=${it.value}" }) }
+        private fun saveTimes(context: Context, pref: String, times: Map<String, Long>) =
+            context.prefs().edit { putString(pref, times.entries.joinToString("\n") { "${it.key}=${it.value}" }) }
+
+        /**
+         * How recent an entry is for the order of the list: when last opened from here ([lastUsed]) or, a [shortcut],
+         * when it last changed (an active Ecto agent as recent as [now]); 0 while neither is after it was dismissed from
+         * the recent ones ([dismissedAt]).
+         */
+        fun recency(lastUsed: Long, shortcut: Shortcut?, dismissedAt: Long, now: Long): Long =
+            if (maxOf(lastUsed, shortcut?.changedAt ?: 0L) <= dismissedAt) 0L
+            else maxOf(lastUsed, shortcut?.changedTime(now) ?: 0L)
 
         private fun readCounts(context: Context): MutableMap<String, Int> =
             context.prefs().getString(PREF_COUNTS, "")!!.lines().mapNotNull { line ->
@@ -1860,11 +1937,12 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
          * starting with it, then the rest whose name contains it.
          */
         /** the order of use: the most recently launched from here first, then the most often launched */
-        private fun filter(apps: List<App>, query: String, counts: Map<String, Int>, lastUsed: Map<String, Long> = emptyMap()): List<App> {
+        private fun filter(apps: List<App>, query: String, counts: Map<String, Int>, lastUsed: Map<String, Long> = emptyMap(),
+                           dismissed: Map<String, Long> = emptyMap()): List<App> {
             val q = normalize(query.trim())
             // a shortcut counts as used when what it shows last changed too (an Ecto session that just ended comes forward)
             val now = System.currentTimeMillis()
-            val byUse = compareByDescending<App> { maxOf(lastUsed[it.key] ?: 0L, it.shortcut?.changedTime(now) ?: 0L) }
+            val byUse = compareByDescending<App> { recency(lastUsed[it.key] ?: 0L, it.shortcut, dismissed[it.key] ?: 0L, now) }
                 .thenByDescending { counts[it.key] ?: 0 }
             if (q.isEmpty()) return apps.sortedWith(byUse)
             fun rank(app: App) = when {

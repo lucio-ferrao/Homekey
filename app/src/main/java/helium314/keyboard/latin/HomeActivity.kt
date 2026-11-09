@@ -84,12 +84,11 @@ class HomeActivity : Activity() {
             isVerticalScrollBarEnabled = false
             itemAnimator = null
         }
-        // a notification, the message in the entry of a person or an event is dismissed by swiping it aside
+        // swiping an entry aside dismisses it (AppLauncherMode.dismiss): a notification, a message, an event, or a recent one
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun getSwipeDirs(recyclerView: RecyclerView, holder: RecyclerView.ViewHolder): Int {
                 val app = results.getOrNull(holder.bindingAdapterPosition) ?: return 0
-                return if (app.notification != null || app.unread != null || app.eventKey != null)
-                    super.getSwipeDirs(recyclerView, holder) else 0
+                return if (mode?.canDismiss(app) == true) super.getSwipeDirs(recyclerView, holder) else 0
             }
             override fun onMove(recyclerView: RecyclerView, from: RecyclerView.ViewHolder, to: RecyclerView.ViewHolder) = false
             // a quarter of the width is enough to dismiss, as in the strip
@@ -177,11 +176,17 @@ class HomeActivity : Activity() {
     private var mode: AppLauncherMode? = null
     private var results = emptyList<AppLauncherMode.App>()
 
+    /** the search text the list was last shown for, null to show the next list from the bottom */
+    private var shownQuery: String? = null
+
     private fun render(mode: AppLauncherMode, results: List<AppLauncherMode.App>) {
         this.mode = mode
         this.results = results
         adapter.notifyDataSetChanged()
-        list.scrollToPosition(0)
+        // back to the bottom (the first result) for a new search; a dismissed entry or a new notification keeps the place
+        val query = field.text.toString()
+        if (query != shownQuery) list.scrollToPosition(0)
+        shownQuery = query
     }
 
     private class RowHolder(val row: LinearLayout, val icon: ImageView, val name: TextView, val tags: TextView) :
@@ -232,6 +237,7 @@ class HomeActivity : Activity() {
             val mode = mode ?: return
             val app = results[position]
             holder.icon.setImageDrawable(mode.iconOf(app))
+            mode.pulseIfWorking(holder.icon, app)
             holder.name.text = mode.highlighted(app.label, Color.WHITE)
             // under a person, their newest message instead of the tags
             val unread = app.unread?.text?.replace('\n', ' ')
@@ -255,6 +261,7 @@ class HomeActivity : Activity() {
     override fun onResume() {
         super.onResume()
         instance = this
+        shownQuery = null
         stopEditing()
         field.text.clear()
         openKeyboard()

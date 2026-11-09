@@ -24,15 +24,16 @@ A double tap on the space bar, or the Keyarchy icon at the left of the suggestio
 - Names and tags, imported from the [KISS launcher](https://kisslauncher.com/) export or set on the home screen, searched like the app names
 - Order by recent use (without a search, notifications among the rest by when they came), and the result last chosen for the same text goes first
 - Chats of starred contacts: WhatsApp, or Element X with the room or person set for the contact; the message box is tapped once the chat opens, so the keyboard stays
-- Notifications (not the silent ones), searchable by their text; a one-to-one message from a starred contact goes into the entry of that person and moves it forward, as does typing in their chat in WhatsApp or Element X (its name read by the accessibility service); in the strip a notification or a message is dismissed by sliding it to the right
+- Notifications (not the silent ones), searchable by their text; a one-to-one message from a starred contact goes into the entry of that person and moves it forward, as does typing in their chat in WhatsApp or Element X (its name read by the accessibility service); in the strip a notification or a message is dismissed by sliding it to the right, and an app, a person or a shortcut leaves the recent ones (until opened again or, a person or a shortcut, a new message or change)
 - What players are playing, in the place of the player app
 - Today's events of the calendar, coming forward as they get near, with the name of their calendar (or its address, shortened) under them on the home screen; the calendars in it are chosen in Settings › Calendars
-- Shortcuts of the apps turned on in Settings › App shortcuts (all off at first; each app with its shortcuts listed and a switch) and the ones pinned to Keyarchy ("add to home screen"); the shortcuts of conversations with a starred contact (WhatsApp, Messages) are left out, as the contact has its entry; any shortcut can be removed from the list; the panes of Ecto come forward by their agent: now while it works or waits for input, else from when it stopped
+- Shortcuts of the apps turned on in Settings › App shortcuts (all off at first; each app with its shortcuts listed and a switch) and the ones pinned to Keyarchy ("add to home screen"); the shortcuts of conversations with a starred contact (WhatsApp, Messages) are left out, as the contact has its entry; any shortcut can be removed from the list; the panes of Ecto come forward by their agent: now while it works or waits for input, else from when it stopped, and the icon of one working pulses
 - The typed text stays where the names of the results start, also when nothing matches
 - Typed or pasted web addresses, with the icon of the app that opens them
 - Patterns: a phone number gives Call, "10 min" a timer, "7h15" an alarm
 - Shortcuts for starred contacts: `d`/`drive`/`go name` (directions in Google Maps), `sms name`, `c`/`call`/`liga`/`ligar name`
 - `s`/`search text`: a web search in the default browser, with its search engine
+- `ssh name`: [Ecto](https://github.com/lucio-ferrao/termux-ghostty) opened connected to that saved server; `ssh [name] -L 3000`, `-R 5555`, `-KL 3000`, `-KR 5555`: a port forward asked of Ecto (ssh syntax, a port alone meaning the same port on localhost), its answer shown in the strip
 - Enter opens the first result, or runs the sentence when it is one of the spoken commands below
 - Dictation with a long press on the space bar, and spoken commands in Portuguese ("abre o Spotify", "liga à Ema", "manda mensagem à Marta a dizer que chego às 8")
 
@@ -41,7 +42,7 @@ When Keyarchy is chosen as the home app, the home screen is the launcher mode as
 
 - Tags, or the latest message of a person, under each name
 - A long press opens a panel: name, tags, WhatsApp or Element for a person, uninstall an app, remove a shortcut
-- Swiping a notification, a message or an event aside dismisses it (an event only from the list)
+- Swiping a notification, a message or an event aside dismisses it (an event only from the list); swiping an app, a person without a message or a shortcut takes it out of the recent ones
 - The home gesture or back clears the search
 - Word suggestions and autocorrection in the search field, which also know the names and tags of the list, so a name typed with a wrong letter is corrected ("spotifu" gives "Spotify")
 
