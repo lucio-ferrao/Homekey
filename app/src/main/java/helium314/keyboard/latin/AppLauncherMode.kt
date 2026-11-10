@@ -118,6 +118,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     private val typingObserver = object : ContentObserver(mainHandler) {
         override fun onChange(selfChange: Boolean) {
             typingTimes = ChatTyping.read(latinIME)
+            if (useLeftChats() && isActive) show()
             updateTyping()
         }
     }
@@ -147,7 +148,30 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         }
         agentStates = TermarchyAgents.read(latinIME)
         typingTimes = ChatTyping.read(latinIME)
+        if (useLeftChats() && isActive) show()
         updateTyping()
+    }
+
+    /**
+     * The chats I left in MatriX ([ChatTyping.left]) as recent as when I left them, if that is later than their last use
+     * here: the person linked to the room and the shortcut of the room. True when something changed.
+     */
+    private fun useLeftChats(): Boolean {
+        var changed = false
+        for ((roomId, time) in ChatTyping.left(latinIME)) {
+            val room = ROOM_ID.find(roomId)?.value ?: continue
+            apps.filter { app ->
+                app.whatsAppDataId != null && roomOf(app) == room ||
+                    app.shortcut?.packageName in ELEMENT_PACKAGES && app.shortcut?.id?.let { ROOM_ID.find(it)?.value } == room
+            }.forEach { app ->
+                if (time > (lastUsed[app.key] ?: 0L)) {
+                    lastUsed[app.key] = time
+                    changed = true
+                }
+            }
+        }
+        if (changed) saveTimes(latinIME, PREF_LAST_USED, lastUsed)
+        return changed
     }
 
     private fun updateTyping() {

@@ -25,6 +25,19 @@ object ChatTyping {
         emptyList()
     }
 
+    /**
+     * When I last left each MatriX room (its id, the time), told in the third column of the same rows; empty without
+     * MatriX or with one that does not tell it.
+     */
+    fun left(context: Context): List<Pair<String, Long>> = try {
+        context.contentResolver.query(URI, null, null, null, null)?.use { c ->
+            buildList { if (c.columnCount > 2) while (c.moveToNext()) c.getLong(2).takeIf { it > 0 }?.let { add(c.getString(0) to it) } }
+        }.orEmpty()
+    } catch (e: Exception) {
+        Log.w("ChatTyping", "can't read when I left the rooms of MatriX", e)
+        emptyList()
+    }
+
     /** the id of a room without its server ("!abc" in "!abc:server") */
     private val ROOM_ID = Regex("""![^?/&:%]+""")
 
