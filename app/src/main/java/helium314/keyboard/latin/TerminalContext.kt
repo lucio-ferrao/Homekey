@@ -2,7 +2,7 @@
 package helium314.keyboard.latin
 
 /**
- * What runs in a terminal field, as the terminal app (Ecto) tells it in the privateImeOptions of the field:
+ * What runs in a terminal field, as the terminal app (Termarchy) tells it in the privateImeOptions of the field:
  * `org.ferrao.homekey.context=<kind>:<program>`, e.g. `agent:claude`, `shell:bash`, `fullscreen:vim`, among other
  * options separated by commas. The keyboard follows it: prose for an agent, commands for a shell, plain keys for a
  * full-screen program. A password field wins over all of them.

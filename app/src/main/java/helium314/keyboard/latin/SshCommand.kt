@@ -2,14 +2,14 @@
 package helium314.keyboard.latin
 
 /**
- * The launcher mode's ssh command, done by Ecto: "ssh olivais" connects to a saved server, "ssh [olivais] -L 3000",
+ * The launcher mode's ssh command, done by Termarchy: "ssh olivais" connects to a saved server, "ssh [olivais] -L 3000",
  * "-R 5555", "-KL 3000" or "-KR 5555" forwards a port on it (or on the one connected). The forward syntax is ssh's,
  * shortened: a missing host is localhost and a missing host port the same port, so -L 5555 is -L 5555:localhost:5555.
  */
 sealed interface SshCommand {
     data class Connect(val server: String) : SshCommand
 
-    /** [arguments] go to Ecto as typed; [direction] 'L' or 'R'; [cancel] for -KL and -KR, which need only [port]. */
+    /** [arguments] go to Termarchy as typed; [direction] 'L' or 'R'; [cancel] for -KL and -KR, which need only [port]. */
     data class Forward(
         val server: String?,
         val arguments: String,
@@ -19,14 +19,14 @@ sealed interface SshCommand {
         val host: String,
         val hostPort: Int,
     ) : SshCommand {
-        /** "L3000", as Ecto's key bar shows it */
+        /** "L3000", as Termarchy's key bar shows it */
         val label get() = "$direction$port"
     }
 
     companion object {
         private val SSH = Regex("""^ssh\s+(.+)$""", RegexOption.IGNORE_CASE)
 
-        /** the command in [text], or null when it is not one (or a forward Ecto would refuse) */
+        /** the command in [text], or null when it is not one (or a forward Termarchy would refuse) */
         fun parse(text: String): SshCommand? {
             val words = SSH.matchEntire(text.trim())?.groupValues?.get(1)?.split(Regex("\\s+")) ?: return null
             val server = words.first().takeUnless { it.startsWith("-") }

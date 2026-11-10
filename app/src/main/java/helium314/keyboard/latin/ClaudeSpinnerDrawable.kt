@@ -12,7 +12,7 @@ import android.os.SystemClock
 
 /**
  * The spinner of Claude Code while it works, drawn with its characters (· ✢ ✳ ✶ ✻ and back, as the terminal shows
- * them) in [color]: the icon of an Ecto pane whose agent is working. Its cycle counts from [startedAt] (wall-clock
+ * them) in [color]: the icon of a Termarchy pane whose agent is working. Its cycle counts from [startedAt] (wall-clock
  * millis, when the agent started working), so spinners of tasks started apart do not move together. It runs only while
  * it is visible.
  */

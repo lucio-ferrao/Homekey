@@ -530,12 +530,12 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     /**
      * For a shortcut: the name of its app (as named in the list), to tell which app it belongs to, and its detail. An
-     * Ecto pane has Ecto's icon instead, and its detail only when its agent waits for input or finished unseen: a
+     * Termarchy pane has Termarchy's icon instead, and its detail only when its agent waits for input or finished unseen: a
      * working one pulses, an idle one says nothing.
      */
     fun appNameOf(app: App): String? {
         val shortcut = app.shortcut ?: return null
-        if (shortcut.packageName == EctoForwards.ECTO_PACKAGE) return shortcut.detail?.takeIf { it == "blocked" || it == "done" }
+        if (shortcut.packageName == TermarchyForwards.TERMARCHY_PACKAGE) return shortcut.detail?.takeIf { it == "blocked" || it == "done" }
         return listOfNotNull(appOf(app)?.label, shortcut.detail).joinToString(" · ").ifEmpty { null }
     }
 
@@ -544,25 +544,25 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         it.shortcut == null && it.whatsAppDataId == null && it.component == app.component && it.user == app.user
     }
 
-    /** the icon shown for a result (Element for a person contacted through it, Ecto's for an Ecto pane) */
+    /** the icon shown for a result (Element for a person contacted through it, Termarchy's for a Termarchy pane) */
     fun iconOf(app: App): Drawable? = app.element?.let { elementIcon }
-        ?: app.shortcut?.takeIf { it.packageName == EctoForwards.ECTO_PACKAGE }?.let { appOf(app)?.icon }
+        ?: app.shortcut?.takeIf { it.packageName == TermarchyForwards.TERMARCHY_PACKAGE }?.let { appOf(app)?.icon }
         ?: app.icon
 
     /**
-     * Shows the icon of a result in [view]: for an Ecto pane whose agent is working (not one waiting for input), the
+     * Shows the icon of a result in [view]: for a Termarchy pane whose agent is working (not one waiting for input), the
      * spinner of Claude Code in [color] instead.
      */
     fun showIcon(view: ImageView, app: App, color: Int) {
         val shortcut = app.shortcut?.takeIf { it.active && it.detail == "working" }
             ?: return view.setImageDrawable(iconOf(app))
-        // in step with when the agent started working, as Ecto gives it (else from when the list first showed it)
+        // in step with when the agent started working, as Termarchy gives it (else from when the list first showed it)
         val startedAt = shortcut.changedAt.takeIf { it > 0 }
             ?: spinnerStarts.getOrPut(app.key) { System.currentTimeMillis() }
         if ((view.drawable as? ClaudeSpinnerDrawable)?.startedAt == startedAt) return
         view.setImageDrawable(ClaudeSpinnerDrawable(color, startedAt).also { it.start() })
     }
-    /** when the list first showed a working Ecto pane whose start Ecto did not give, by key */
+    /** when the list first showed a working Termarchy pane whose start Termarchy did not give, by key */
     private val spinnerStarts = mutableMapOf<String, Long>()
 
     private fun createRow(strip: SuggestionStripView): View {
@@ -942,17 +942,17 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     }
 
     /**
-     * "ssh olivais": Ecto opened connected to that server; "ssh [olivais] -L 3000", "-R 5555", "-KL 3000": a port forward
-     * asked of Ecto, whose answer stays in the strip. Only with Ecto installed.
+     * "ssh olivais": Termarchy opened connected to that server; "ssh [olivais] -L 3000", "-R 5555", "-KL 3000": a port forward
+     * asked of Termarchy, whose answer stays in the strip. Only with Termarchy installed.
      */
     private fun sshEntry(command: SshCommand): App? {
-        val ecto = apps.firstOrNull {
-            it.component.packageName == EctoForwards.ECTO_PACKAGE && it.shortcut == null && it.user == Process.myUserHandle()
+        val termarchy = apps.firstOrNull {
+            it.component.packageName == TermarchyForwards.TERMARCHY_PACKAGE && it.shortcut == null && it.user == Process.myUserHandle()
         } ?: return null
         return when (command) {
             is SshCommand.Connect -> App("ssh|${command.server}", "ssh://${command.server}",
-                latinIME.getString(R.string.launcher_ssh_connect, command.server), ecto.component, Process.myUserHandle(),
-                ecto.icon, null, emptyList(), intent = EctoForwards.connectIntent(command.server))
+                latinIME.getString(R.string.launcher_ssh_connect, command.server), termarchy.component, Process.myUserHandle(),
+                termarchy.icon, null, emptyList(), intent = TermarchyForwards.connectIntent(command.server))
             is SshCommand.Forward -> {
                 val what = when {
                     command.cancel -> latinIME.getString(R.string.launcher_ssh_stop, command.label)
@@ -960,9 +960,9 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                     else -> latinIME.getString(R.string.launcher_ssh_remote, command.port, command.host, command.hostPort)
                 }
                 val label = command.server?.let { "$what · $it" } ?: what
-                App("ssh|${command.arguments}", "ssh://${command.arguments}", label, ecto.component, Process.myUserHandle(),
-                    ecto.icon, null, emptyList(), staysOpen = true, run = {
-                        EctoForwards.request(latinIME, command.server, command.arguments) { ok, text ->
+                App("ssh|${command.arguments}", "ssh://${command.arguments}", label, termarchy.component, Process.myUserHandle(),
+                    termarchy.icon, null, emptyList(), staysOpen = true, run = {
+                        TermarchyForwards.request(latinIME, command.server, command.arguments) { ok, text ->
                             showMessage(if (ok) latinIME.getString(R.string.launcher_ssh_done, label) else text)
                         }
                     })
@@ -1180,13 +1180,13 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     class Shortcut(val packageName: String, val id: String, val isPinned: Boolean, val isOffered: Boolean,
                    /**
                     * when what it shows (name, detail) last changed: recency of its own; an app publishing it again
-                    * unchanged does not count. 0 if never seen changing. An Ecto pane gives it itself: when its agent
+                    * unchanged does not count. 0 if never seen changing. A Termarchy pane gives it itself: when its agent
                     * last changed state.
                     */
                    val changedAt: Long,
-                   /** its long label when it says more than the name, e.g. the state of an Ecto session */
+                   /** its long label when it says more than the name, e.g. the state of a Termarchy session */
                    val detail: String?,
-                   /** an Ecto pane whose agent works or waits for input: as recent as now, for as long as it lasts */
+                   /** a Termarchy pane whose agent works or waits for input: as recent as now, for as long as it lasts */
                    val active: Boolean = false) {
         /** how recent it is at [now] */
         fun changedTime(now: Long) = if (active) now else changedAt
@@ -1204,7 +1204,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
               val intent: Intent? = null,
               /** for an action of the keyboard itself, like unlocking the private space */
               val run: (() -> Unit)? = null,
-              /** [run] keeps the mode open, to show its result there (a port forward asked of Ecto) */
+              /** [run] keeps the mode open, to show its result there (a port forward asked of Termarchy) */
               val staysOpen: Boolean = false,
               /** for a shortcut of an app (a long press on its icon) or one pinned to Keyarchy */
               val shortcut: Shortcut? = null) {
@@ -1280,13 +1280,13 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         private const val PREF_DISMISSED_EVENTS = "app_search_dismissed_events"
         /** the shortcuts offered by the apps that were removed from the list (ids like shortcut://package/id) */
         private const val PREF_REMOVED_SHORTCUTS = "app_search_removed_shortcuts"
-        /** in the extras of a shortcut of Ecto: when the agent of its pane last changed state, wall-clock millis */
+        /** in the extras of a shortcut of Termarchy: when the agent of its pane last changed state, wall-clock millis */
         private const val EXTRA_TIME = "org.ferrao.homekey.time"
-        /** in the extras of a shortcut of Ecto: true while the agent of its pane works or waits for input */
+        /** in the extras of a shortcut of Termarchy: true while the agent of its pane works or waits for input */
         private const val EXTRA_ACTIVE = "org.ferrao.homekey.active"
 
         /**
-         * When a shortcut last changed: the time it gives itself ([given], an Ecto pane), else [now] when what it
+         * When a shortcut last changed: the time it gives itself ([given], a Termarchy pane), else [now] when what it
          * shows ([shown], name and detail) differs from the last load ([before]) or when it is new for an app already
          * shown ([appWasShown]; those of an app just turned on are not), else as before.
          */
@@ -1577,7 +1577,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                     }
                     val detail = info.longLabel?.toString()?.takeIf { it.isNotBlank() && it != label }
                     val key = "shortcut|${info.`package`}|${info.id}|$serial"
-                    // an Ecto pane says how recent it is: when its agent last changed state, and whether it works now
+                    // a Termarchy pane says how recent it is: when its agent last changed state, and whether it works now
                     val given = info.extras?.takeIf { it.containsKey(EXTRA_TIME) }
                     val changedAt = shortcutChangedAt(given?.getLong(EXTRA_TIME), previous[key], label to detail,
                         info.`package` in previousApps, System.currentTimeMillis())
@@ -1960,7 +1960,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
         /**
          * How recent an entry is for the order of the list: when last opened from here ([lastUsed]) or, a [shortcut],
-         * when it last changed (an active Ecto agent as recent as [now]); 0 while neither is after it was dismissed from
+         * when it last changed (an active Termarchy agent as recent as [now]); 0 while neither is after it was dismissed from
          * the recent ones ([dismissedAt]).
          */
         fun recency(lastUsed: Long, shortcut: Shortcut?, dismissedAt: Long, now: Long): Long =
@@ -1981,7 +1981,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         private fun filter(apps: List<App>, query: String, counts: Map<String, Int>, lastUsed: Map<String, Long> = emptyMap(),
                            dismissed: Map<String, Long> = emptyMap()): List<App> {
             val q = normalize(query.trim())
-            // a shortcut counts as used when what it shows last changed too (an Ecto session that just ended comes forward)
+            // a shortcut counts as used when what it shows last changed too (a Termarchy session that just ended comes forward)
             val now = System.currentTimeMillis()
             val byUse = compareByDescending<App> { recency(lastUsed[it.key] ?: 0L, it.shortcut, dismissed[it.key] ?: 0L, now) }
                 .thenByDescending { counts[it.key] ?: 0 }

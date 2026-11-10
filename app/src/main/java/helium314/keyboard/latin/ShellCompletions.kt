@@ -4,7 +4,7 @@ package helium314.keyboard.latin
 import android.view.inputmethod.EditorInfo
 
 /**
- * The commands and the files of the current folder that the terminal app (Ecto) sends for a shell field, as string
+ * The commands and the files of the current folder that the terminal app (Termarchy) sends for a shell field, as string
  * arrays in `EditorInfo.extras` (folders end in `/`). The token being typed completes from the commands at the start
  * of a command, from the files after it, and from both when the keyboard lost track of the line; then from what was
  * typed in shells before.

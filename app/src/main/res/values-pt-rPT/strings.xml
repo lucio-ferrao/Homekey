@@ -549,9 +549,9 @@
     <string name="launcher_ssh_remote">Encaminhar a porta %1$d do servidor para %2$s:%3$d no telemóvel</string>
     <string name="launcher_ssh_stop">Parar o encaminhamento %1$s</string>
     <string name="launcher_ssh_done">Feito: %1$s</string>
-    <string name="launcher_ssh_no_ecto">O Ecto não está instalado ou não aceita encaminhamentos</string>
-    <string name="launcher_ssh_gone">O Ecto deixou de responder</string>
-    <string name="launcher_ssh_timeout">O Ecto não respondeu</string>
+    <string name="launcher_ssh_no_termarchy">O Termarchy não está instalado ou não aceita encaminhamentos</string>
+    <string name="launcher_ssh_gone">O Termarchy deixou de responder</string>
+    <string name="launcher_ssh_timeout">O Termarchy não respondeu</string>
     <string name="launcher_call_person">Ligar %1$s (%2$s)</string>
     <string name="home_label">Início do Keyarchy</string>
     <string name="launcher_unlock_private_space">Desbloquear espaço privado</string>

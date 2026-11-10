@@ -204,8 +204,8 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             <action android:name="android.intent.action.SET_TIMER" />
         </intent>
         <package android:name="com.google.android.apps.maps" />
-        <!-- Ecto, asked for port forwards by the ssh command of the launcher mode -->
-        <package android:name="com.mrndtvndv.term" />
+        <!-- Termarchy, asked for port forwards by the ssh command of the launcher mode -->
+        <package android:name="org.ferrao.termarchy" />
         <intent>
             <action android:name="android.intent.action.SENDTO" />
             <data android:scheme="smsto" />
