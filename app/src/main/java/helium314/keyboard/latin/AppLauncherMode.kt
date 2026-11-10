@@ -41,7 +41,6 @@ import android.media.session.PlaybackState
 import android.Manifest
 import android.database.ContentObserver
 import java.util.Calendar
-import java.util.TimeZone
 import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.Spanned
@@ -966,9 +965,9 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     /**
      * On the home screen, [list] with the events of today in the calendars shown in the calendar app (and not turned
-     * off in the settings, "Calendars") that are not over yet, as "10:00 title" (all-day ones by the title alone); with
-     * search text, those with it in the title. Each one goes as many places from the front as there are whole hours
-     * until it begins (0 once begun; for an all-day one, until the day ends), so it comes forward as it gets near.
+     * off in the settings, "Calendars") that are not over yet, as "10:00 title", leaving out all-day ones and those of 24
+     * hours or more; with search text, those with it in the title. Each one goes as many places from the front as there
+     * are whole hours until it begins (0 once begun), so it comes forward as it gets near.
      * Opening one shows it in the calendar app. The list is shown again when that changes, or when an event ends.
      */
     private fun withEvents(list: List<App>): List<App> {
@@ -980,13 +979,9 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         val day = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, 0); set(Calendar.MINUTE, 0); set(Calendar.SECOND, 0); set(Calendar.MILLISECOND, 0)
         }
-        // all-day events begin and end at midnight in UTC
-        val todayUtc = Calendar.getInstance(TimeZone.getTimeZone("UTC")).apply {
-            clear(); set(day.get(Calendar.YEAR), day.get(Calendar.MONTH), day.get(Calendar.DAY_OF_MONTH))
-        }.timeInMillis
         val start = day.timeInMillis
         day.add(Calendar.DAY_OF_MONTH, 1)
-        class Event(val id: Long, val title: String, val begin: Long, val end: Long, val allDay: Boolean, val calendar: String)
+        class Event(val id: Long, val title: String, val begin: Long, val end: Long, val calendar: String)
         val events = mutableListOf<Event>()
         val hiddenCalendars = latinIME.prefs().getStringSet(PREF_HIDDEN_CALENDARS, emptySet())!!
         try {
@@ -997,36 +992,32 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 CalendarContract.Calendars.ACCOUNT_NAME, CalendarContract.Instances.CALENDAR_ID), start, day.timeInMillis)?.use { c ->
                 while (c.moveToNext()) {
                     if (c.getInt(5) == 0 || c.getInt(6) == CalendarContract.Attendees.ATTENDEE_STATUS_DECLINED
-                        || c.getLong(9).toString() in hiddenCalendars) continue
+                        || c.getLong(9).toString() in hiddenCalendars
+                        || c.getInt(4) == 1 || c.getLong(3) - c.getLong(2) >= 24 * 3_600_000L) continue
                     // the name of the calendar ("Teatro"), or its address shortened: lucio.ferrao@solx.pt is "lucio@solx"
                     val calendar = c.getString(7).orEmpty().ifBlank { c.getString(8).orEmpty() }.let { name ->
                         if (!name.contains('@')) name
                         else name.substringBefore('@').split('.').let { if (it.size == 2) it[0] else it.joinToString(".") } +
                             "@" + name.substringAfter('@').substringBeforeLast('.')
                     }
-                    val event = Event(c.getLong(0), c.getString(1).orEmpty(), c.getLong(2), c.getLong(3), c.getInt(4) == 1, calendar)
-                    val current = if (event.allDay) event.begin <= todayUtc && event.end > todayUtc else event.end > now
-                    if (current && event.title.isNotBlank()) events.add(event)
+                    val event = Event(c.getLong(0), c.getString(1).orEmpty(), c.getLong(2), c.getLong(3), calendar)
+                    if (event.end > now && event.title.isNotBlank()) events.add(event)
                 }
             }
         } catch (e: SecurityException) {
             Log.w(TAG, "no permission to read the calendar", e)
         }
         val hour = 3_600_000L
-        val endOfDay = day.timeInMillis
-        // the time until which an event keeps its place: the next whole hour before it begins (or the end of the day)
-        fun approach(event: Event) = if (event.allDay) endOfDay else event.begin
         val dismissed = dismissedEvents()
         val shown = events.filter { (q.isEmpty() || normalize(it.title).contains(q)) && "${it.id}|${it.begin}" !in dismissed }
-        val changes = events.filter { !it.allDay }.map { it.end } +
-            shown.map { approach(it) - now }.filter { it > 0 }.map { now + it % hour }
+        val changes = events.map { it.end } +
+            shown.map { it.begin - now }.filter { it > 0 }.map { now + it % hour }
         changes.minOrNull()?.let { mainHandler.postDelayed(refresh, maxOf(it - now, 1000)) }
         val time = android.text.format.DateFormat.getTimeFormat(latinIME)
         val result = list.toMutableList()
         var last = -1
-        for (event in shown.sortedWith(compareBy({ maxOf(approach(it) - now, 0) / hour }, { it.begin }))) {
-            val label = if (event.allDay) event.title else time.format(event.begin) + " " + event.title
-            val entry = entry("event", label, Intent(Intent.ACTION_VIEW,
+        for (event in shown.sortedWith(compareBy({ maxOf(it.begin - now, 0) / hour }, { it.begin }))) {
+            val entry = entry("event", time.format(event.begin) + " " + event.title, Intent(Intent.ACTION_VIEW,
                 ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, event.id))
                 .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, event.begin)
                 .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, event.end)) ?: continue
@@ -1035,7 +1026,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             // the reminder of the calendar app for the same event would say the same (its title wrapped in direction marks)
             fun plain(s: String) = s.replace(Regex("\\p{Cf}"), "").trim()
             result.removeAll { it.notification?.packageName == entry.component.packageName && plain(it.notification.title) == plain(event.title) }
-            last = minOf(maxOf((maxOf(approach(event) - now, 0) / hour).toInt(), last + 1), result.size)
+            last = minOf(maxOf((maxOf(event.begin - now, 0) / hour).toInt(), last + 1), result.size)
             result.add(last, entry)
         }
         return result
