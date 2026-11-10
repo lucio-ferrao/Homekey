@@ -103,9 +103,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     // Parameters for pointer handling.
     private static PointerTrackerParams sParams;
     private static final int sPointerStep = KtxKt.dpToPx(10, Resources.getSystem());
-    // Travel to each next arrow of a vertical cursor swipe: fine at first, then faster; the last one repeats.
-    private static final int[] sVerticalArrowSteps = java.util.Arrays.stream(new int[] { 10, 40, 30, 20, 10, 5, 2, 1 })
-            .map(dp -> KtxKt.dpToPx(dp, Resources.getSystem())).toArray();
     private static GestureStrokeRecognitionParams sGestureStrokeRecognitionParams;
     private static GestureStrokeDrawingParams sGestureStrokeDrawingParams;
 
@@ -148,8 +145,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
     private long mStartTime;
     private boolean mInHorizontalSwipe = false;
     private boolean mInVerticalSwipe = false;
-    // Arrows sent since the vertical swipe started or turned, negative when going up.
-    private int mVerticalArrows = 0;
 
     // true if keyboard layout has been changed.
     private boolean mKeyboardLayoutHasBeenChanged;
@@ -745,7 +740,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
             setPressedKeyGraphics(key, eventTime);
             mStartX = x;
             mStartY = y;
-            mVerticalArrows = 0;
             mStartTime = SystemClock.elapsedRealtime();
         }
     }
@@ -950,22 +944,6 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
         };
     }
 
-    /** Sends one arrow per step of [sVerticalArrowSteps]; turning starts the steps again. */
-    private void moveCursorVertically(final int y) {
-        while (true) {
-            final int dY = y - mStartY;
-            final int direction = Integer.signum(dY);
-            if (direction == 0) return;
-            final boolean turning = direction != Integer.signum(mVerticalArrows);
-            final int index = turning ? 0 : Math.min(abs(mVerticalArrows), sVerticalArrowSteps.length - 1);
-            final int step = sVerticalArrowSteps[index];
-            if (abs(dY) < step) return;
-            sListener.onVerticalSpaceSwipe(direction);
-            mStartY += direction * step;
-            mVerticalArrows = turning ? direction : mVerticalArrows + direction;
-        }
-    }
-
     private void onKeySwipe(final int code, final int x, final int y, final long eventTime) {
         final SettingsValues sv = Settings.getValues();
         final int fastTypingTimeout = 2 * sv.mKeyLongpressTimeout / 3;
@@ -984,16 +962,12 @@ public final class PointerTracker implements PointerTrackerQueue.Element,
 
             // Vertical movement
             int stepsY = dY / sPointerStep;
-            if (mInVerticalSwipe || (stepsY != 0 && abs(dX) < abs(dY) && !mInHorizontalSwipe)) {
+            if (stepsY != 0 && abs(dX) < abs(dY) && !mInHorizontalSwipe) {
                 if (!mInVerticalSwipe) {
                     sTimerProxy.cancelKeyTimersOf(this);
                     mInVerticalSwipe = true;
                 } else if (oneShotSwipe(sv.mSpaceSwipeVertical)) return;
-                if (sv.mSpaceSwipeVertical == KeyboardActionListener.SwipeAction.MOVE_CURSOR) {
-                    moveCursorVertically(y);
-                    return;
-                }
-                if (stepsY != 0 && sListener.onVerticalSpaceSwipe(stepsY)) {
+                if (sListener.onVerticalSpaceSwipe(stepsY)) {
                     mStartY += stepsY * sPointerStep;
                 }
                 return;
