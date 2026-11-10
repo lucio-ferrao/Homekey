@@ -10,7 +10,6 @@ import android.content.Context
 import android.content.pm.LauncherActivityInfo
 import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
-import android.content.pm.ShortcutInfo
 import android.content.pm.verify.domain.DomainVerificationUserState
 import android.content.pm.verify.domain.DomainVerificationManager
 import android.graphics.Bitmap
@@ -110,47 +109,52 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     /** shows the list again when an event of the calendar ends, to take it away */
     private val refresh = Runnable { show() }
 
-    /** the rooms someone types in now, as MatriX tells it in its conversation shortcuts ([ChatTyping]) */
+    /** the rooms someone types in now, as MatriX tells it ([ChatTyping]) */
     private var typingRooms = emptySet<String>()
-    /** MatriX's shortcuts with their typing times, kept to see when a typing counts as stopped */
-    private var typingShortcuts = emptyList<Pair<String, Long>>()
+    /** who types in MatriX with when they were last seen, kept to see when a typing counts as stopped */
+    private var typingTimes = emptyList<Pair<String, Long>>()
     private val typingStops = Runnable { updateTyping() }
-    /** MatriX changing its shortcuts: someone started or stopped typing */
-    private val typingCallback = object : LauncherApps.Callback() {
-        override fun onShortcutsChanged(packageName: String, shortcuts: MutableList<ShortcutInfo>, user: UserHandle) {
-            if (packageName !in ELEMENT_PACKAGES || user != Process.myUserHandle()) return
-            typingShortcuts = shortcuts.map { it.id to (it.extras?.getLong(ChatTyping.EXTRA) ?: 0L) }
+    /** MatriX telling that someone started or stopped typing */
+    private val typingObserver = object : ContentObserver(mainHandler) {
+        override fun onChange(selfChange: Boolean) {
+            typingTimes = ChatTyping.read(latinIME)
             updateTyping()
         }
-        override fun onPackageRemoved(packageName: String, user: UserHandle) {}
-        override fun onPackageAdded(packageName: String, user: UserHandle) {}
-        override fun onPackageChanged(packageName: String, user: UserHandle) {}
-        override fun onPackagesAvailable(packageNames: Array<out String>, user: UserHandle, replacing: Boolean) {}
-        override fun onPackagesUnavailable(packageNames: Array<out String>, user: UserHandle, replacing: Boolean) {}
+    }
+    /** Termarchy telling that the state of an agent changed: the order and the icons follow at once */
+    private val agentsObserver = object : ContentObserver(mainHandler) {
+        override fun onChange(selfChange: Boolean) {
+            val states = TermarchyAgents.read(latinIME)
+            if (states == agentStates) return
+            agentStates = states
+            if (isActive) show()
+        }
     }
 
-    /** follows who types in MatriX while the mode is open; their icons animate ([showIcon]) */
-    private fun followTyping() {
-        val launcherApps = latinIME.getSystemService(LauncherApps::class.java)
-        launcherApps.unregisterCallback(typingCallback)
-        launcherApps.registerCallback(typingCallback, mainHandler)
-        typingShortcuts = try {
-            ELEMENT_PACKAGES.flatMap { pkg ->
-                launcherApps.getShortcuts(LauncherApps.ShortcutQuery().setPackage(pkg)
-                    .setQueryFlags(LauncherApps.ShortcutQuery.FLAG_MATCH_DYNAMIC), Process.myUserHandle()).orEmpty()
-            }.map { it.id to (it.extras?.getLong(ChatTyping.EXTRA) ?: 0L) }
-        } catch (e: Exception) {
-            // only the default home app reads shortcuts
-            emptyList()
+    /**
+     * Follows, while the mode is open, the agents of Termarchy (order, the blinking ghost) and who types in MatriX (the
+     * moving crown, [showIcon]), both told live by those apps.
+     */
+    private fun followLiveStates() {
+        for ((uri, observer) in listOf(TermarchyAgents.URI to agentsObserver, ChatTyping.URI to typingObserver)) {
+            latinIME.contentResolver.unregisterContentObserver(observer)
+            try {
+                latinIME.contentResolver.registerContentObserver(uri, false, observer)
+            } catch (e: SecurityException) {
+                // the app is not installed
+                Log.w(TAG, "can't follow $uri", e)
+            }
         }
+        agentStates = TermarchyAgents.read(latinIME)
+        typingTimes = ChatTyping.read(latinIME)
         updateTyping()
     }
 
     private fun updateTyping() {
         mainHandler.removeCallbacks(typingStops)
         val now = System.currentTimeMillis()
-        val rooms = ChatTyping.typingRooms(typingShortcuts, now)
-        ChatTyping.nextStop(typingShortcuts, now)?.let { mainHandler.postDelayed(typingStops, it - now) }
+        val rooms = ChatTyping.typingRooms(typingTimes, now)
+        ChatTyping.nextStop(typingTimes, now)?.let { mainHandler.postDelayed(typingStops, it - now) }
         if (rooms == typingRooms) return
         typingRooms = rooms
         if (isActive) show()
@@ -204,7 +208,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             Log.w(TAG, "no notification access, can't see the players", e)
             show()
         }
-        followTyping()
+        followLiveStates()
         // refresh the list every time, apps may have been installed or removed
         onAppsChanged = { show() }
         reload(latinIME)
@@ -229,7 +233,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         follow(emptyList())
         latinIME.contentResolver.unregisterContentObserver(calendarObserver)
         mainHandler.removeCallbacks(refresh)
-        latinIME.getSystemService(LauncherApps::class.java).unregisterCallback(typingCallback)
+        latinIME.contentResolver.unregisterContentObserver(typingObserver)
+        latinIME.contentResolver.unregisterContentObserver(agentsObserver)
         mainHandler.removeCallbacks(typingStops)
         typingRooms = emptySet()
         latinIME.suggestionStripView?.setLauncherMode(false)
@@ -415,7 +420,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         if (!isActive) return
         // messages that arrived while the mode was closed (before the apps were loaded, for instance) count too
         if (bump(latinIME, LauncherNotificationService.entries())) lastUsed = readTimes(latinIME, PREF_LAST_USED)
-        val ranked = chosenFirst(withNotifications(alternativesFirst(filter(apps, query.toString(), counts, lastUsed, dismissedRecent)),
+        val ranked = chosenFirst(withNotifications(alternativesFirst(withSettings(filter(apps, query.toString(), counts, lastUsed, dismissedRecent))),
             normalize(query.toString().trim())))
         results = withEvents(listOfNotNull(urlEntry(), privateSpaceEntry()) + patternEntries() + withPlayers(ranked))
         // on the home screen of Keyarchy the search is its own text field and the results a vertical list above it; the
@@ -543,6 +548,19 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     /** for the list of the home screen: open the result */
     fun open(app: App) = launch(app)
 
+    /**
+     * The hide key of the keyboard on the home screen: back to the app that was in front before, as the accessibility
+     * service saw it, else to the entry opened last from the list; false when there is none (the keyboard stays).
+     */
+    fun returnToLastApp(): Boolean {
+        val target = ScreenAgentService.lastApp?.let { last ->
+            apps.filter { it.shortcut == null && it.whatsAppDataId == null && it.component.packageName == last }
+                .minByOrNull { if (it.user == Process.myUserHandle()) 0 else 1 }
+        } ?: apps.maxByOrNull { lastUsed[it.key] ?: 0L }?.takeIf { (lastUsed[it.key] ?: 0L) > 0L } ?: return false
+        launch(target)
+        return true
+    }
+
     /** for the list of the home screen: the actions of a result (name, tags, WhatsApp or Element) in the strip */
     fun showActions(app: App) {
         if (app.notification != null) return
@@ -552,7 +570,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     /** whether a slide dismisses [app]: a notification, a message, an event, or an app, person or shortcut of the list */
     fun canDismiss(app: App) = app.notification != null || app.unread != null || app.eventKey != null ||
-        apps.any { it.key == app.key }
+        apps.any { it.key == app.key } || app.key.startsWith(SETTINGS_KEY)
 
     /**
      * A slide on an entry: dismisses a notification, or the message shown in the entry of a person, or an event (from
@@ -586,7 +604,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
      */
     fun appNameOf(app: App): String? {
         val shortcut = app.shortcut ?: return null
-        if (shortcut.packageName == TermarchyForwards.TERMARCHY_PACKAGE) return shortcut.detail?.takeIf { it == "blocked" || it == "done" }
+        if (shortcut.packageName == TermarchyForwards.TERMARCHY_PACKAGE) return shortcut.agent?.status?.takeIf { it == "blocked" || it == "done" }
         return listOfNotNull(appOf(app)?.label, shortcut.detail).joinToString(" · ").ifEmpty { null }
     }
 
@@ -610,10 +628,10 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             if (view.drawable !is TypingBubbleDrawable) view.setImageDrawable(TypingBubbleDrawable(color).also { it.start() })
             return
         }
-        val shortcut = app.shortcut?.takeIf { it.active && it.detail == "working" }
+        val shortcut = app.shortcut?.takeIf { it.agent?.status == "working" }
             ?: return view.setImageDrawable(iconOf(app))
         // in step with when the agent started working, as Termarchy gives it (else from when the list first showed it)
-        val startedAt = shortcut.changedAt.takeIf { it > 0 }
+        val startedAt = shortcut.since.takeIf { it > 0 }
             ?: spinnerStarts.getOrPut(app.key) { System.currentTimeMillis() }
         if ((view.drawable as? WorkingGhostDrawable)?.startedAt == startedAt) return
         view.setImageDrawable(WorkingGhostDrawable(color, startedAt).also { it.start() })
@@ -750,6 +768,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         app.intent?.let {
             // an SMS conversation: tap its message box once open, so the keyboard stays
             if (app.key.startsWith("sms|")) ScreenAgentService.focusMessageFieldSoon(app.component.packageName)
+            // a screen of the Settings is ranked by its use, as the apps
+            if (app.key.startsWith(SETTINGS_KEY)) recordUse(app)
             startActivity(it)
             return
         }
@@ -1194,6 +1214,54 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
      * "privado", "espaço", "private": locks or unlocks the private space (the system asks for the credentials). Only
      * possible as the default home app, which may see the private profile (ACCESS_HIDDEN_PROFILES).
      */
+    /**
+     * The screens of the Settings among the results: with a search, those it names, after the apps whose name starts
+     * with it; without one, only those opened before, in place by when, so they do not fill the list.
+     */
+    private fun withSettings(list: List<App>): List<App> {
+        val screens = settingsEntries()
+        val q = normalize(query.toString().trim())
+        val now = System.currentTimeMillis()
+        fun used(app: App) = recency(lastUsed[app.key] ?: 0L, null, dismissedRecent[app.key] ?: 0L, now)
+        if (q.isNotEmpty()) {
+            val found = screens.mapNotNull { (screen, app) -> screen.rank(q)?.let { app to it } }
+                .sortedWith(compareBy<Pair<App, Int>> { it.second }.thenByDescending { used(it.first) }).map { it.first }
+            val (typed, rest) = list.partition { app -> app.names.any { it.startsWith(q) } }
+            return typed + found + rest
+        }
+        val opened = screens.map { it.second }.filter { used(it) > 0 }.sortedByDescending { used(it) }
+        if (opened.isEmpty()) return list
+        val result = ArrayList<App>(list.size + opened.size)
+        var next = 0
+        for (app in list) {
+            while (next < opened.size && used(opened[next]) >= used(app)) result.add(opened[next++])
+            result.add(app)
+        }
+        result.addAll(opened.subList(next, opened.size))
+        return result
+    }
+
+    /** the screens of the Settings that open on this phone with their entries, made again when the list of apps changes */
+    private var settingsEntries: Pair<List<App>, List<Pair<SettingsScreen, App>>>? = null
+
+    private fun settingsEntries(): List<Pair<SettingsScreen, App>> {
+        settingsEntries?.takeIf { it.first === apps }?.let { return it.second }
+        val settings = apps.firstOrNull {
+            it.component.packageName == "com.android.settings" && it.shortcut == null && it.user == Process.myUserHandle()
+        }
+        // named in the language of the system, found by both
+        val portuguese = latinIME.resources.configuration.locales[0].language == "pt"
+        val entries = if (settings == null) emptyList() else SettingsScreen.ALL
+            .filter { latinIME.packageManager.resolveActivity(it.intent(), 0) != null }
+            .map { screen ->
+                screen to App("$SETTINGS_KEY${screen.id}", "settings://${screen.id}",
+                    latinIME.getString(R.string.launcher_settings_screen, if (portuguese) screen.pt else screen.en),
+                    settings.component, settings.user, settings.icon, null, emptyList(), intent = screen.intent())
+            }
+        settingsEntries = apps to entries
+        return entries
+    }
+
     private fun privateSpaceEntry(): App? {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) return null
         val q = normalize(query.toString().trim())
@@ -1236,16 +1304,19 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     class Shortcut(val packageName: String, val id: String, val isPinned: Boolean, val isOffered: Boolean,
                    /**
                     * when what it shows (name, detail) last changed: recency of its own; an app publishing it again
-                    * unchanged does not count. 0 if never seen changing. A Termarchy pane gives it itself: when its agent
-                    * last changed state.
+                    * unchanged does not count. 0 if never seen changing.
                     */
                    val changedAt: Long,
-                   /** its long label when it says more than the name, e.g. the state of a Termarchy session */
-                   val detail: String?,
-                   /** a Termarchy pane whose agent works or waits for input: as recent as now, for as long as it lasts */
-                   val active: Boolean = false) {
+                   /** its long label when it says more than the name, e.g. the folder of a Termarchy pane */
+                   val detail: String?) {
+        /** for a Termarchy pane, its agent as Termarchy tells it now ([agentStates]) */
+        val agent: AgentState? get() = if (packageName == TermarchyForwards.TERMARCHY_PACKAGE) agentStates[id] else null
+        /** a Termarchy pane whose agent works or waits for input: as recent as now, for as long as it lasts */
+        val active: Boolean get() = agent?.active == true
+        /** when it last changed: when its agent last changed state, for a Termarchy pane, else [changedAt] */
+        val since: Long get() = agent?.since ?: changedAt
         /** how recent it is at [now] */
-        fun changedTime(now: Long) = if (active) now else changedAt
+        fun changedTime(now: Long) = if (active) now else since
     }
 
     class App(val key: String, val kissId: String, val originalLabel: String, val component: ComponentName,
@@ -1336,19 +1407,17 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         private const val PREF_DISMISSED_EVENTS = "app_search_dismissed_events"
         /** the shortcuts offered by the apps that were removed from the list (ids like shortcut://package/id) */
         private const val PREF_REMOVED_SHORTCUTS = "app_search_removed_shortcuts"
-        /** in the extras of a shortcut of Termarchy: when the agent of its pane last changed state, wall-clock millis */
-        private const val EXTRA_TIME = "org.ferrao.homekey.time"
-        /** in the extras of a shortcut of Termarchy: true while the agent of its pane works or waits for input */
-        private const val EXTRA_ACTIVE = "org.ferrao.homekey.active"
+        /** the agents of the Termarchy panes by shortcut id, as Termarchy tells them live ([TermarchyAgents]) */
+        @Volatile
+        var agentStates: Map<String, AgentState> = emptyMap()
 
         /**
-         * When a shortcut last changed: the time it gives itself ([given], a Termarchy pane), else [now] when what it
-         * shows ([shown], name and detail) differs from the last load ([before]) or when it is new for an app already
-         * shown ([appWasShown]; those of an app just turned on are not), else as before.
+         * When a shortcut last changed: [now] when what it shows ([shown], name and detail) differs from the last load
+         * ([before]) or when it is new for an app already shown ([appWasShown]; those of an app just turned on are not),
+         * else as before.
          */
-        fun shortcutChangedAt(given: Long?, before: Pair<Pair<String, String?>, Long>?, shown: Pair<String, String?>,
+        fun shortcutChangedAt(before: Pair<Pair<String, String?>, Long>?, shown: Pair<String, String?>,
                               appWasShown: Boolean, now: Long): Long = when {
-            given != null -> given
             before == null -> if (appWasShown) now else 0L
             before.first != shown -> now
             else -> before.second
@@ -1435,6 +1504,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         private const val NAMES_FILE = "nomes.json"
         /** the list of apps of the last load (see [saveApps]) */
         private const val SAVED_APPS_FILE = "lista.json"
+        /** the start of the key of a screen of the Settings in the list ("settings|wifi") */
+        private const val SETTINGS_KEY = "settings|"
         /** the intermediate shade of the icons: the text color with this opacity */
         private const val MID_ALPHA = 0.45f
         private var apps = emptyList<App>()
@@ -1511,7 +1582,6 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                         put("pinned", it.isPinned)
                         put("offered", it.isOffered)
                         put("changedAt", it.changedAt)
-                        if (it.active) put("active", true)
                         it.detail?.let { detail -> put("detail", detail) }
                     }
                 })
@@ -1562,7 +1632,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                     val whatsApp = if (o.has("whatsApp")) o.getLong("whatsApp") else null
                     val shortcut = if (o.has("shortcut")) Shortcut(o.getString("shortcutPackage"), o.getString("shortcut"),
                         o.getBoolean("pinned"), o.getBoolean("offered"), o.optLong("changedAt"),
-                        o.optString("detail").ifEmpty { null }, o.optBoolean("active")) else null
+                        o.optString("detail").ifEmpty { null }) else null
                     list.add(App(o.getString("key"), kissId, o.getString("label"),
                         ComponentName(o.getString("package"), o.getString("class")), user, icon, names[kissId],
                         tags[kissId].orEmpty(), whatsApp, if (whatsApp != null) elementLinks[kissId] else null,
@@ -1644,14 +1714,11 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                     }
                     val detail = info.longLabel?.toString()?.takeIf { it.isNotBlank() && it != label }
                     val key = "shortcut|${info.`package`}|${info.id}|$serial"
-                    // a Termarchy pane says how recent it is: when its agent last changed state, and whether it works now
-                    val given = info.extras?.takeIf { it.containsKey(EXTRA_TIME) }
-                    val changedAt = shortcutChangedAt(given?.getLong(EXTRA_TIME), previous[key], label to detail,
-                        info.`package` in previousApps, System.currentTimeMillis())
+                    val changedAt = shortcutChangedAt(previous[key], label to detail, info.`package` in previousApps,
+                        System.currentTimeMillis())
                     App(key, kissId, label, app.component, user, icon,
                         names[kissId], tags[kissId].orEmpty(), shortcut = Shortcut(info.`package`, info.id, info.isPinned,
-                            info.isDynamic || info.isDeclaredInManifest, changedAt, detail,
-                            given?.getBoolean(EXTRA_ACTIVE) == true)
+                            info.isDynamic || info.isDeclaredInManifest, changedAt, detail)
                     ).also { it.iconFile = iconFile }
                 }
             }
@@ -2031,7 +2098,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
          * the recent ones ([dismissedAt]).
          */
         fun recency(lastUsed: Long, shortcut: Shortcut?, dismissedAt: Long, now: Long): Long =
-            if (maxOf(lastUsed, shortcut?.changedAt ?: 0L) <= dismissedAt) 0L
+            if (maxOf(lastUsed, shortcut?.since ?: 0L) <= dismissedAt) 0L
             else maxOf(lastUsed, shortcut?.changedTime(now) ?: 0L)
 
         private fun readCounts(context: Context): MutableMap<String, Int> =

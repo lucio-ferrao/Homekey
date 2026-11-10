@@ -555,6 +555,7 @@
     <string name="launcher_call_person">Ligar %1$s (%2$s)</string>
     <string name="home_label">Início do Keyarchy</string>
     <string name="launcher_unlock_private_space">Desbloquear espaço privado</string>
+    <string name="launcher_settings_screen">Definições › %1$s</string>
     <string name="launcher_lock_private_space">Bloquear espaço privado</string>
     <string name="launcher_uninstall">Desinstalar</string>
     <string name="launcher_remove_shortcut">Remover</string>

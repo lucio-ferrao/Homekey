@@ -206,6 +206,9 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
         <package android:name="com.google.android.apps.maps" />
         <!-- Termarchy, asked for port forwards by the ssh command of the launcher mode -->
         <package android:name="org.ferrao.termarchy" />
+        <!-- What Termarchy and MatriX tell live: the state of the agents, who types in a room -->
+        <provider android:authorities="org.ferrao.termarchy.agents" />
+        <provider android:authorities="org.ferrao.matrix.typing" />
         <intent>
             <action android:name="android.intent.action.SENDTO" />
             <data android:scheme="smsto" />

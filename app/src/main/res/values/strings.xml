@@ -405,6 +405,7 @@
     <string name="launcher_call_person">Call %1$s (%2$s)</string>
     <string name="home_label">Keyarchy home</string>
     <string name="launcher_unlock_private_space">Unlock private space</string>
+    <string name="launcher_settings_screen">Settings › %1$s</string>
     <string name="launcher_lock_private_space">Lock private space</string>
     <string name="launcher_edit_name">Name of %s:</string>
     <string name="launcher_edit_tags">Tags of %s:</string>

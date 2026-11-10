@@ -6,6 +6,7 @@ import android.graphics.Rect
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.content.Intent
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.view.accessibility.AccessibilityWindowInfo
@@ -13,7 +14,8 @@ import android.view.accessibility.AccessibilityWindowInfo
 /**
  * Accessibility service of the launcher mode: when a chat is opened from it, taps the message box so the keyboard
  * stays; taps the send button on Enter in apps that ignore Enter; reads the name of a chat the keyboard opens in, to
- * move that person forward in the list; and tells the launcher mode about clicks in the app below, to leave it. (The
+ * move that person forward in the list; tells the launcher mode about clicks in the app below, to leave it; and keeps
+ * the app last in front, for the hide key of the home screen to go back to it. (The
  * name is kept from the screen
  * agent it was part of, so the service stays enabled.)
  */
@@ -79,7 +81,7 @@ class ScreenAgentService : AccessibilityService() {
         instance = this
     }
 
-    override fun onUnbind(intent: android.content.Intent?): Boolean {
+    override fun onUnbind(intent: Intent?): Boolean {
         instance = null
         return super.onUnbind(intent)
     }
@@ -87,6 +89,25 @@ class ScreenAgentService : AccessibilityService() {
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (event?.eventType == AccessibilityEvent.TYPE_VIEW_CLICKED && event.packageName != packageName)
             onTapInOtherApp?.invoke()
+        if (event?.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) rememberForegroundApp(event)
+    }
+
+    /**
+     * Keeps the app of a window of an application that came to the front, for the hide key of the home screen to go
+     * back to it; not Keyarchy itself, the system UI, a home app or a dialog of permissions.
+     */
+    private fun rememberForegroundApp(event: AccessibilityEvent) {
+        val app = event.packageName?.toString() ?: return
+        if (app == packageName || app in NOT_APPS || app in homeApps) return
+        val window = windows.firstOrNull { it.id == event.windowId }
+        if (if (window != null) window.type != AccessibilityWindowInfo.TYPE_APPLICATION else !event.isFullScreen) return
+        lastApp = app
+    }
+
+    /** the home apps, which are not an app to go back to */
+    private val homeApps by lazy {
+        packageManager.queryIntentActivities(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME), 0)
+            .map { it.activityInfo.packageName }.toSet()
     }
 
     override fun onInterrupt() {}
@@ -138,6 +159,13 @@ class ScreenAgentService : AccessibilityService() {
             }
             handler.postDelayed(attempt, 300)
         }
+
+        private val NOT_APPS = setOf("android", "com.android.systemui", "com.google.android.permissioncontroller",
+            "com.android.permissioncontroller")
+
+        /** the app whose window came last to the front (see [rememberForegroundApp]), null if none since it started */
+        var lastApp: String? = null
+            private set
 
         /** called on a click in another app, set while the launcher mode is open (to leave it) */
         var onTapInOtherApp: (() -> Unit)? = null

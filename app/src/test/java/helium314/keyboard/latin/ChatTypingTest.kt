@@ -6,8 +6,8 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class ChatTypingTest {
-    private val paula = "@lucio:ferrao.org-!8u9XzTj_KEQU37A1:ferrao.org"
-    private val silvia = "@lucio:ferrao.org-!wthFNU4CW8ekLi9s:ferrao.org"
+    private val paula = "!8u9XzTj_KEQU37A1:ferrao.org"
+    private val silvia = "!wthFNU4CW8ekLi9s:ferrao.org"
 
     @Test
     fun aRecentTimeIsTypingInThatRoomWithoutItsServer() {

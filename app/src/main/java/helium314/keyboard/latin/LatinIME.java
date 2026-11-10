@@ -1755,7 +1755,7 @@ public class LatinIME extends InputMethodService implements
     // Hooks for hardware keyboard
     @Override
     public boolean onKeyDown(final int keyCode, final KeyEvent keyEvent) {
-        // on the home screen of Keyarchy the keyboard never hides: back clears the search (and an editing) instead
+        // on the home screen of Keyarchy the keyboard never hides: back is handled on its key up (below)
         if (keyCode == KeyEvent.KEYCODE_BACK && HomeActivity.Companion.isHomeField(getCurrentInputEditorInfo()))
             return true;
         if (mKeyboardActionListener.onKeyDown(keyCode, keyEvent))
@@ -1765,8 +1765,10 @@ public class LatinIME extends InputMethodService implements
 
     @Override
     public boolean onKeyUp(final int keyCode, final KeyEvent keyEvent) {
+        // on the home screen the hide key of the keyboard (it comes here as back, from the navigation bar of the keyboard;
+        // the back gesture hides the keyboard on the side of the app, see HomeActivity) goes back to the last app
         if (keyCode == KeyEvent.KEYCODE_BACK && HomeActivity.Companion.isHomeField(getCurrentInputEditorInfo())) {
-            mAppLauncher.clearSearch();
+            if (!mAppLauncher.returnToLastApp()) mAppLauncher.clearSearch();
             return true;
         }
         if (mKeyboardActionListener.onKeyUp(keyCode, keyEvent))
