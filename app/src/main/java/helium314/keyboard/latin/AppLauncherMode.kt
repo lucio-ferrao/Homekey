@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.pm.LauncherActivityInfo
 import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
+import android.content.pm.ShortcutInfo
 import android.content.pm.verify.domain.DomainVerificationUserState
 import android.content.pm.verify.domain.DomainVerificationManager
 import android.graphics.Bitmap
@@ -108,6 +109,52 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     private val mainHandler = Handler(Looper.getMainLooper())
     /** shows the list again when an event of the calendar ends, to take it away */
     private val refresh = Runnable { show() }
+
+    /** the rooms someone types in now, as MatriX tells it in its conversation shortcuts ([ChatTyping]) */
+    private var typingRooms = emptySet<String>()
+    /** MatriX's shortcuts with their typing times, kept to see when a typing counts as stopped */
+    private var typingShortcuts = emptyList<Pair<String, Long>>()
+    private val typingStops = Runnable { updateTyping() }
+    /** MatriX changing its shortcuts: someone started or stopped typing */
+    private val typingCallback = object : LauncherApps.Callback() {
+        override fun onShortcutsChanged(packageName: String, shortcuts: MutableList<ShortcutInfo>, user: UserHandle) {
+            if (packageName !in ELEMENT_PACKAGES || user != Process.myUserHandle()) return
+            typingShortcuts = shortcuts.map { it.id to (it.extras?.getLong(ChatTyping.EXTRA) ?: 0L) }
+            updateTyping()
+        }
+        override fun onPackageRemoved(packageName: String, user: UserHandle) {}
+        override fun onPackageAdded(packageName: String, user: UserHandle) {}
+        override fun onPackageChanged(packageName: String, user: UserHandle) {}
+        override fun onPackagesAvailable(packageNames: Array<out String>, user: UserHandle, replacing: Boolean) {}
+        override fun onPackagesUnavailable(packageNames: Array<out String>, user: UserHandle, replacing: Boolean) {}
+    }
+
+    /** follows who types in MatriX while the mode is open; their icons animate ([showIcon]) */
+    private fun followTyping() {
+        val launcherApps = latinIME.getSystemService(LauncherApps::class.java)
+        launcherApps.unregisterCallback(typingCallback)
+        launcherApps.registerCallback(typingCallback, mainHandler)
+        typingShortcuts = try {
+            ELEMENT_PACKAGES.flatMap { pkg ->
+                launcherApps.getShortcuts(LauncherApps.ShortcutQuery().setPackage(pkg)
+                    .setQueryFlags(LauncherApps.ShortcutQuery.FLAG_MATCH_DYNAMIC), Process.myUserHandle()).orEmpty()
+            }.map { it.id to (it.extras?.getLong(ChatTyping.EXTRA) ?: 0L) }
+        } catch (e: Exception) {
+            // only the default home app reads shortcuts
+            emptyList()
+        }
+        updateTyping()
+    }
+
+    private fun updateTyping() {
+        mainHandler.removeCallbacks(typingStops)
+        val now = System.currentTimeMillis()
+        val rooms = ChatTyping.typingRooms(typingShortcuts, now)
+        ChatTyping.nextStop(typingShortcuts, now)?.let { mainHandler.postDelayed(typingStops, it - now) }
+        if (rooms == typingRooms) return
+        typingRooms = rooms
+        if (isActive) show()
+    }
     /** shows the list again when the calendar changes (an event added, moved or removed) */
     private val calendarObserver = object : ContentObserver(mainHandler) {
         override fun onChange(selfChange: Boolean) = show()
@@ -157,6 +204,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             Log.w(TAG, "no notification access, can't see the players", e)
             show()
         }
+        followTyping()
         // refresh the list every time, apps may have been installed or removed
         onAppsChanged = { show() }
         reload(latinIME)
@@ -181,6 +229,9 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         follow(emptyList())
         latinIME.contentResolver.unregisterContentObserver(calendarObserver)
         mainHandler.removeCallbacks(refresh)
+        latinIME.getSystemService(LauncherApps::class.java).unregisterCallback(typingCallback)
+        mainHandler.removeCallbacks(typingStops)
+        typingRooms = emptySet()
         latinIME.suggestionStripView?.setLauncherMode(false)
         if (listening) latinIME.showVoiceListening(false)
         listening = false
@@ -550,10 +601,15 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         ?: app.icon
 
     /**
-     * Shows the icon of a result in [view]: for a Termarchy pane whose agent is working (not one waiting for input), the
-     * ghost of Termarchy blinking in [color] instead, as Termarchy shows it.
+     * Shows the icon of a result in [view]: for a person typing in MatriX, its icon with the crown moving; for a
+     * Termarchy pane whose agent is working (not one waiting for input), the ghost of Termarchy blinking in [color]
+     * instead, as Termarchy shows it.
      */
     fun showIcon(view: ImageView, app: App, color: Int) {
+        if (app.element != null && roomOf(app) in typingRooms) {
+            if (view.drawable !is TypingBubbleDrawable) view.setImageDrawable(TypingBubbleDrawable(color).also { it.start() })
+            return
+        }
         val shortcut = app.shortcut?.takeIf { it.active && it.detail == "working" }
             ?: return view.setImageDrawable(iconOf(app))
         // in step with when the agent started working, as Termarchy gives it (else from when the list first showed it)
