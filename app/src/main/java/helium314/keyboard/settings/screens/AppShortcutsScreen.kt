@@ -72,7 +72,7 @@ fun AppShortcutsScreen(
 private fun ShortcutAppRow(app: ShortcutApp) {
     val ctx = LocalContext.current
     var shown by remember {
-        mutableStateOf(app.packageName in ctx.prefs().getStringSet(AppLauncherMode.PREF_SHORTCUT_APPS, emptySet())!!)
+        mutableStateOf(app.packageName in AppLauncherMode.shortcutApps(ctx))
     }
     Column(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {

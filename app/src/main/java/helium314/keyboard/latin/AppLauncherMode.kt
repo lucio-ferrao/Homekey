@@ -551,7 +551,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     /**
      * Shows the icon of a result in [view]: for a Termarchy pane whose agent is working (not one waiting for input), the
-     * spinner of Claude Code in [color] instead.
+     * ghost of Termarchy blinking in [color] instead, as Termarchy shows it.
      */
     fun showIcon(view: ImageView, app: App, color: Int) {
         val shortcut = app.shortcut?.takeIf { it.active && it.detail == "working" }
@@ -559,8 +559,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         // in step with when the agent started working, as Termarchy gives it (else from when the list first showed it)
         val startedAt = shortcut.changedAt.takeIf { it > 0 }
             ?: spinnerStarts.getOrPut(app.key) { System.currentTimeMillis() }
-        if ((view.drawable as? ClaudeSpinnerDrawable)?.startedAt == startedAt) return
-        view.setImageDrawable(ClaudeSpinnerDrawable(color, startedAt).also { it.start() })
+        if ((view.drawable as? WorkingGhostDrawable)?.startedAt == startedAt) return
+        view.setImageDrawable(WorkingGhostDrawable(color, startedAt).also { it.start() })
     }
     /** when the list first showed a working Termarchy pane whose start Termarchy did not give, by key */
     private val spinnerStarts = mutableMapOf<String, Long>()
@@ -1300,6 +1300,18 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
         /** the apps whose shortcuts (those of a long press on their icon) are in the list, set in the settings */
         const val PREF_SHORTCUT_APPS = "app_search_shortcut_apps"
+        /** whether Termarchy was turned on in [PREF_SHORTCUT_APPS], once: so turning it off afterwards stays */
+        private const val PREF_SHORTCUT_APPS_DEFAULTS = "app_search_shortcut_apps_defaults"
+
+        /** the apps turned on in "App shortcuts"; Termarchy is on from the start, its panes being what it offers */
+        fun shortcutApps(context: Context): Set<String> {
+            val prefs = context.prefs()
+            if (!prefs.getBoolean(PREF_SHORTCUT_APPS_DEFAULTS, false)) prefs.edit {
+                putStringSet(PREF_SHORTCUT_APPS, prefs.getStringSet(PREF_SHORTCUT_APPS, emptySet())!! + TermarchyForwards.TERMARCHY_PACKAGE)
+                putBoolean(PREF_SHORTCUT_APPS_DEFAULTS, true)
+            }
+            return prefs.getStringSet(PREF_SHORTCUT_APPS, emptySet())!!
+        }
         /** the calendars (their ids) whose events are left out of the list, set in the settings ("Calendars") */
         const val PREF_HIDDEN_CALENDARS = "app_search_hidden_calendars"
 
@@ -1315,9 +1327,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
          * the list saved for the next start); on adds them at the next load, when the launcher mode opens.
          */
         fun setShortcutsShown(context: Context, packageName: String, shown: Boolean) {
-            val prefs = context.prefs()
-            val enabled = prefs.getStringSet(PREF_SHORTCUT_APPS, emptySet())!!
-            prefs.edit { putStringSet(PREF_SHORTCUT_APPS, if (shown) enabled + packageName else enabled - packageName) }
+            val enabled = shortcutApps(context)
+            context.prefs().edit { putStringSet(PREF_SHORTCUT_APPS, if (shown) enabled + packageName else enabled - packageName) }
             if (shown || apps.isEmpty()) return
             apps = apps.filter { it.shortcut == null || it.shortcut.isPinned || it.shortcut.packageName != packageName }
             saveApps(context, apps)
@@ -1554,7 +1565,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             val query = LauncherApps.ShortcutQuery().setQueryFlags(LauncherApps.ShortcutQuery.FLAG_MATCH_DYNAMIC or
                 LauncherApps.ShortcutQuery.FLAG_MATCH_MANIFEST or LauncherApps.ShortcutQuery.FLAG_MATCH_PINNED)
             val removed = context.prefs().getStringSet(PREF_REMOVED_SHORTCUTS, emptySet())!!
-            val enabledApps = context.prefs().getStringSet(PREF_SHORTCUT_APPS, emptySet())!!
+            val enabledApps = shortcutApps(context)
             // apps whose shortcuts were in the last load: a new one of theirs is a change, the shortcuts of an app just
             // turned on are not
             val previousApps = previous.keys.map { it.split('|')[1] }.toSet()
