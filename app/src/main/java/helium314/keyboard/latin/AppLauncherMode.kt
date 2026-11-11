@@ -449,6 +449,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         // on the home screen of Keyarchy the search is its own text field and the results a vertical list above it; the
         // actions of a result, their editing and messages are a panel there (only on the home screen)
         if (isOnHome) {
+            contactDetails = null
             HomeActivity.showResults(this, if (message != null || editing != null || actionsFor != null) emptyList() else results)
             val edited = editing
             val selected = actionsFor
@@ -570,6 +571,33 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     /** for the list of the home screen: open the result */
     fun open(app: App) = launch(app)
+
+    /**
+     * For the list of the home screen: what else can be done with a starred contact, each shown as an icon at the right
+     * of it: call the default number, the WhatsApp chat when a tap opens Element, and driving to the default address,
+     * when the contact has them.
+     */
+    fun personActions(app: App): List<App> {
+        if (app.whatsAppDataId == null) return emptyList()
+        val (numbers, addresses) = contactDetails
+            ?: (starredData(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE, ContactsContract.CommonDataKinds.Phone.NUMBER) to
+                starredData(ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE,
+                    ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS))
+                .also { contactDetails = it }
+        val number = numbers[app.originalLabel]
+        val address = addresses[app.originalLabel]?.replace('\n', ' ')
+        return listOfNotNull(
+            number?.let { entry("call", latinIME.getString(R.string.launcher_call_person, app.label, it),
+                Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(it.replace(" ", ""))))) },
+            // a tap on the contact opens Element when it has a link to it, else WhatsApp
+            app.element?.let { App(app.key, app.kissId, app.originalLabel, app.component, app.user, app.icon, app.label, app.rawTags,
+                app.whatsAppDataId) },
+            address?.let { entry("drive", latinIME.getString(R.string.launcher_drive, app.label, it),
+                Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + Uri.encode(it))).setPackage(MAPS_PACKAGE)) },
+        )
+    }
+    /** the default phone numbers and addresses of the starred contacts, read again each time the list is shown */
+    private var contactDetails: Pair<Map<String, String>, Map<String, String>>? = null
 
     /**
      * The hide key of the keyboard on the home screen: back to the app that was in front before, as the accessibility

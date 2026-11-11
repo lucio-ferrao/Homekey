@@ -202,8 +202,8 @@ class HomeActivity : Activity() {
         shownQuery = query
     }
 
-    private class RowHolder(val row: LinearLayout, val icon: ImageView, val name: TextView, val tags: TextView) :
-        RecyclerView.ViewHolder(row)
+    private class RowHolder(val row: LinearLayout, val icon: ImageView, val name: TextView, val tags: TextView,
+                            val actions: LinearLayout) : RecyclerView.ViewHolder(row)
 
     private val adapter = object : RecyclerView.Adapter<RowHolder>() {
         override fun getItemCount() = results.size
@@ -243,7 +243,10 @@ class HomeActivity : Activity() {
             texts.addView(name, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
             texts.addView(tags, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
             row.addView(texts, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f))
-            return RowHolder(row, icon, name, tags)
+            // at the right, for a starred contact found by the search: an icon for each thing to do with them
+            val actions = LinearLayout(this@HomeActivity).apply { orientation = LinearLayout.HORIZONTAL }
+            row.addView(actions, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+            return RowHolder(row, icon, name, tags, actions)
         }
 
         override fun onBindViewHolder(holder: RowHolder, position: Int) {
@@ -259,6 +262,16 @@ class HomeActivity : Activity() {
             holder.tags.visibility = if (unread == null && under.isEmpty()) android.view.View.GONE else android.view.View.VISIBLE
             holder.row.setOnClickListener { mode.open(app) }
             holder.row.setOnLongClickListener { mode.showActions(app); true }
+            holder.actions.removeAllViews()
+            val dp = resources.displayMetrics.density
+            for (action in mode.personActions(app)) {
+                holder.actions.addView(ImageView(this@HomeActivity).apply {
+                    setImageDrawable(mode.iconOf(action))
+                    contentDescription = action.label
+                    setPadding((6 * dp).toInt(), (6 * dp).toInt(), (6 * dp).toInt(), (6 * dp).toInt())
+                    setOnClickListener { mode.open(action) }
+                }, LinearLayout.LayoutParams((40 * dp).toInt(), (40 * dp).toInt()).apply { marginStart = (6 * dp).toInt() })
+            }
         }
     }
 
