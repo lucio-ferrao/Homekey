@@ -41,6 +41,7 @@ import helium314.keyboard.latin.common.InsetsOutlineProvider;
 import helium314.keyboard.event.Event;
 import helium314.keyboard.event.InputTransaction;
 import helium314.keyboard.keyboard.Keyboard;
+import helium314.keyboard.keyboard.KeyboardElement;
 import helium314.keyboard.keyboard.KeyboardId;
 import helium314.keyboard.keyboard.KeyboardLayoutSet;
 import helium314.keyboard.keyboard.KeyboardSwitcher;
@@ -123,6 +124,8 @@ public class LatinIME extends InputMethodService implements
     private final AppLauncherMode mAppLauncher = new AppLauncherMode(this);
     private final EmojiStripMode mEmojiStrip = new EmojiStripMode(this);
     private final NotificationStrip mNotificationStrip = new NotificationStrip(this);
+    /** the suggestion strip shows emojis because the symbols keyboard is shown */
+    private boolean mEmojisInSymbols;
 
     /** the mode of the suggestion strip that takes the typing now (emojis or apps), or null */
     @Nullable private StripSearch capturingSearch() {
@@ -750,6 +753,8 @@ public class LatinIME extends InputMethodService implements
         mVoiceDictation.cancel();
         mAppLauncher.reset();
         mEmojiStrip.reset();
+        mEmojiStrip.leaveSymbols();
+        mEmojisInSymbols = false;
         mNotificationStrip.forget();
         learnEmailField();
         StatsUtils.onFinishInputView();
@@ -1408,7 +1413,7 @@ public class LatinIME extends InputMethodService implements
             }
             mVoiceDictation.cancel();
         }
-        // the emoji key (or emoji in the alternatives of Enter) shows the emojis in the suggestion strip, with the
+        // the emoji key (also in the alternatives of the comma) shows the emojis in the suggestion strip, with the
         // keyboard still there
         if (event.getKeyCode() == KeyCode.EMOJI) {
             if (mAppLauncher.capturesInput()) mAppLauncher.stop();
@@ -1527,6 +1532,10 @@ public class LatinIME extends InputMethodService implements
         if (!onEvaluateInputViewShown()) {
             return;
         }
+        if (emojisInSymbols()) {
+            mEmojiStrip.showInSymbols();
+            return;
+        }
 
         final boolean isEmptyApplicationSpecifiedCompletions =
                 currentSettingsValues.mInputAttributes.mApplicationSpecifiedCompletionOn
@@ -1598,6 +1607,10 @@ public class LatinIME extends InputMethodService implements
             capturingSearch().show();
             return;
         }
+        if (emojisInSymbols()) {
+            mEmojiStrip.showInSymbols();
+            return;
+        }
         final SettingsValues currentSettings = mSettings.getCurrent();
         if (tryShowClipboardSuggestion()) {
             // clipboard suggestion has been set
@@ -1607,6 +1620,26 @@ public class LatinIME extends InputMethodService implements
                 ? currentSettings.mPunctuationSuggestions
                 : SuggestedWords.getEmptyInstance();
         setSuggestedWords(neutralSuggestions);
+    }
+
+    /** in the symbols keyboard the suggestion strip shows emojis instead of words, but not where emojis make no sense */
+    private boolean emojisInSymbols() {
+        final InputAttributes attributes = mSettings.getCurrent().mInputAttributes;
+        return mKeyboardSwitcher.isShowingKeyboardId(KeyboardElement.SYMBOLS, KeyboardElement.SYMBOLS_SHIFTED)
+                && (attributes.mTerminalContext == null || attributes.mTerminalContext == TerminalContext.AGENT)
+                && !attributes.mIsPasswordField
+                && !InputTypeUtils.isUriOrEmailType(attributes.mInputType);
+    }
+
+    /** the keyboard changed: to the symbols one, emojis in the suggestion strip; back from it, the words again */
+    public void onKeyboardChanged() {
+        final boolean emojis = emojisInSymbols();
+        if (emojis == mEmojisInSymbols) return;
+        mEmojisInSymbols = emojis;
+        if (!emojis) mEmojiStrip.leaveSymbols();
+        if (!hasSuggestionStripView() || capturingSearch() != null) return;
+        if (emojis || mInputLogic.mSuggestedWords.isEmpty()) setNeutralSuggestionStrip();
+        else setSuggestedWords(mInputLogic.mSuggestedWords);
     }
 
     @Override

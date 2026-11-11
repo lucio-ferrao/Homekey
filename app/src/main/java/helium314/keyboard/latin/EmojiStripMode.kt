@@ -27,8 +27,8 @@ import helium314.keyboard.latin.utils.dpToPx
 import java.text.Normalizer
 
 /**
- * The emojis in the suggestion strip, with the keyboard still shown (the emoji key, or emoji in the alternatives of
- * Enter): the recent ones first, then all by category; typing filters them by their names and keywords in English and
+ * The emojis in the suggestion strip, with the keyboard still shown (the emoji key, also in the alternatives of the
+ * comma): the recent ones first, then all by category; typing filters them by their names and keywords in English and
  * Portuguese (assets/emoji/nomes.txt, from the CLDR annotations, see tools/emoji-nomes.py). A tap inserts the emoji in
  * the app and stays in the mode, with the list as it was, to pick more; a double tap on space, the emoji icon, or a tap
  * in the app leave it.
@@ -45,6 +45,9 @@ class EmojiStripMode(private val latinIME: LatinIME) : StripSearch {
     /** the list of emojis shown, and the search text it is for, to keep its scroll when shown again */
     private var list: RecyclerView? = null
     private var listQuery = ""
+    /** in the symbols keyboard: the recent emojis when it was shown, and the list in the strip */
+    private var symbolsRecent: List<String>? = null
+    private var symbolsList: RecyclerView? = null
 
     override fun capturesInput() = isActive
 
@@ -120,6 +123,27 @@ class EmojiStripMode(private val latinIME: LatinIME) : StripSearch {
 
     override fun gestureSeparator() = if (query.isNotEmpty() && !query.endsWith(' ')) " " else ""
 
+    /** the emojis in the strip of the symbols keyboard, instead of words: the recent ones first, then all by category */
+    fun showInSymbols() {
+        val strip = latinIME.suggestionStripView ?: return
+        // still in the strip, with its scroll
+        if (symbolsList?.isAttachedToWindow == true) return
+        val recent = symbolsRecent ?: RecentEmojis.get().filter { !SupportedEmojis.isUnsupported(it) }.also { symbolsRecent = it }
+        val list = createList(strip.context, (recent + emojis(latinIME).map { it.first }).distinct()) { emoji ->
+            RecentEmojis.add(emoji)
+            latinIME.onTextInput(emoji)
+        }
+        list.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        strip.setExternalSuggestionView(list, false)
+        symbolsList = list
+    }
+
+    /** the symbols keyboard is gone: the next one starts again from the recent emojis */
+    fun leaveSymbols() {
+        symbolsRecent = null
+        symbolsList = null
+    }
+
     /** the emojis for the search text: every word typed starts a word of the names of the emoji */
     private fun results(): List<String> {
         val all = emojis(latinIME)
@@ -173,7 +197,16 @@ class EmojiStripMode(private val latinIME: LatinIME) : StripSearch {
         queryView.setPadding(0, 0, 8.dpToPx(res), 0)
         queryView.visibility = if (query.isEmpty()) View.GONE else View.VISIBLE
         row.addView(queryView, LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT))
-        // all of them, drawing only the visible ones
+        val list = createList(context, emojis) { insert(it) }
+        row.addView(list, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f))
+        this.list = list
+        row.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        return row
+    }
+
+    /** all the [emojis] in a row, drawing only the visible ones */
+    private fun createList(context: Context, emojis: List<String>, onPick: (String) -> Unit): RecyclerView {
+        val res = context.resources
         val list = RecyclerView(context)
         list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         list.isHorizontalScrollBarEnabled = false
@@ -188,13 +221,10 @@ class EmojiStripMode(private val latinIME: LatinIME) : StripSearch {
             override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
                 val emoji = emojis[position]
                 (holder.itemView as TextView).text = emoji
-                holder.itemView.setOnClickListener { insert(emoji) }
+                holder.itemView.setOnClickListener { onPick(emoji) }
             }
         }
-        row.addView(list, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f))
-        this.list = list
-        row.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        return row
+        return list
     }
 
     companion object {
