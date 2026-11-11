@@ -1237,7 +1237,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         val screens = settingsEntries()
         val q = normalize(query.toString().trim())
         val now = System.currentTimeMillis()
-        fun used(app: App) = recency(lastUsed[app.key] ?: 0L, null, dismissedRecent[app.key] ?: 0L, now)
+        fun used(app: App) = recency(lastUsed[app.key] ?: 0L, app.shortcut, dismissedRecent[app.key] ?: 0L, now)
         if (q.isNotEmpty()) {
             val found = screens.mapNotNull { (screen, app) -> screen.rank(q)?.let { app to it } }
                 .sortedWith(compareBy<Pair<App, Int>> { it.second }.thenByDescending { used(it.first) }).map { it.first }
