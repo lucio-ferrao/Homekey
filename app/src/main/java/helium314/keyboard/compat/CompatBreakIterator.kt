@@ -141,6 +141,12 @@ private class GraphemeIterator : CompatBreakIterator {
 
     override fun following(offset: Int): Int {
         val i = if (bi.current() == offset) bi.next() else bi.following(offset) // Looking at Android source, next is likely faster than following
+        // a joiner after an emoji, followed by something it does not join, joins nothing (the break iterator keeps it with
+        // the emoji, as in "😢\u200D "): on its own; at the end of the text it may still join what is typed next
+        if (i < text.length && i - offset > 1 && text[i - 1] == '\u200D' && singleEmojiRegex.matches(text.substring(offset, i - 1))) {
+            index = i - 1
+            return index
+        }
         // e.g. " 🏼" is detected as single grapheme, but we don't want this
         val d83c = text.indexOfLastBefore(i, offset + 1) { it == '\uD83C' } // start of many emojis, including skin tones and regional indicators
         if (d83c == -1) {
@@ -153,13 +159,20 @@ private class GraphemeIterator : CompatBreakIterator {
             index = i
             return i
         }
+        // the longest emoji at the start (e.g. the first of "🏼🏼🏼"), else up to where an emoji may start (" 🏼")
         index = if (singleEmojiRegex.matches(text.substring(offsetForEmojiCheck, i))) i
-        else d83c.coerceAtLeast(offset + 1)
+        else (i - 1 downTo offset + 1).firstOrNull { text[it] == '\uD83C' && singleEmojiRegex.matches(text.substring(offsetForEmojiCheck, it)) }
+            ?: d83c.coerceAtLeast(offset + 1)
         return index
     }
 
     override fun preceding(offset: Int): Int {
         val i = if (bi.current() == offset) bi.previous() else bi.preceding(offset)
+        if (offset < text.length && offset - i > 1 && text[offset - 1] == '\u200D' && bi.isBoundary(offset)
+                && singleEmojiRegex.matches(text.substring(i, offset - 1))) {
+            index = offset - 1
+            return index
+        }
         val d83c = text.indexOfFirstAfter(i, offset - 1) { it == '\uD83C' }
         if (d83c == -1) {
             index = i
@@ -170,8 +183,10 @@ private class GraphemeIterator : CompatBreakIterator {
             index = i
             return i
         }
+        // the longest emoji at the end (e.g. the last of "🏼🏼🏼"), else from where an emoji may start
         index = if (singleEmojiRegex.matches(text.substring(i, offsetForEmojiCheck))) i
-        else d83c
+        else (i + 1 until offset).firstOrNull { text[it] == '\uD83C' && singleEmojiRegex.matches(text.substring(it, offsetForEmojiCheck)) }
+            ?: d83c
         return index
     }
 

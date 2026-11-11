@@ -3,7 +3,6 @@ package helium314.keyboard
 import androidx.test.core.app.ApplicationProvider
 import helium314.keyboard.compat.CompatBreakIterator
 import helium314.keyboard.latin.App
-import helium314.keyboard.latin.BuildConfig
 import helium314.keyboard.latin.common.WordBreakIterator
 import helium314.keyboard.latin.common.lastGraphemeLength
 import helium314.keyboard.latin.common.stepsToCharCount
@@ -170,13 +169,11 @@ class CharacterIteratorTest {
         assertEquals(-6, stepsToCharCount("\uD83C\uDFF4\u200D☠️\uD83C\uDFF3️\u200D\uD83C\uDF08", -1, it))
     }
 
-    @Test fun lastGraphemeFails() {
-        if (BuildConfig.BUILD_TYPE == "runTests") return
+    @Test fun lastGraphemeOfSkinTones() {
         assertEquals("🏼".length, "🏼🏼🏼".lastGraphemeLength)
     }
 
-    @Test fun firstGraphemeFails() {
-        if (BuildConfig.BUILD_TYPE == "runTests") return
+    @Test fun firstGraphemeOfSkinTones() {
         assertEquals("🏼", "🏼🏼🏼".firstGrapheme)
     }
 

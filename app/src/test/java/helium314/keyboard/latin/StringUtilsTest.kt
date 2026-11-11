@@ -153,9 +153,8 @@ class StringUtilsTest {
         assertEquals("\uD83C\uDF84", getFullEmojiAtStart("\uD83C\uDF84\uD83C\uDFFC")) // 🎄🏼
     }
 
-    @Test fun detectEmojiAtStartFails() {
-        if (BuildConfig.BUILD_TYPE == "runTests") return
-        // fails because first grapheme contains \u200D, which sort of makes sense... but we don't want that
+    @Test fun detectEmojiAtStartBeforeJoiner() {
+        // the break iterator keeps the joiner, which joins nothing, with the emoji
         assertEquals("😢", getFullEmojiAtStart("😢\u200D "))
     }
 
