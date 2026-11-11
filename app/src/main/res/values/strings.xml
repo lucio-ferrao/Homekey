@@ -410,7 +410,7 @@
     <string name="launcher_edit_name">Name of %s:</string>
     <string name="launcher_edit_tags">Tags of %s:</string>
     <string name="launcher_notifications_label">Keyarchy notifications (launcher mode)</string>
-    <string name="launcher_edit_element">Element chat of %s (link or @person:server):</string>
+    <string name="launcher_edit_element">Element chat of %s (@person:server):</string>
     <!-- Messages of the commands in the launcher mode -->
     <string name="launcher_command_not_understood">Not understood</string>
     <string name="launcher_command_no_app">App not found: %s</string>

@@ -39,6 +39,7 @@ import android.media.session.MediaController
 import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
 import android.Manifest
+import android.content.ContentValues
 import android.database.ContentObserver
 import java.util.Calendar
 import android.graphics.Typeface
@@ -146,6 +147,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             }
         }
         agentStates = TermarchyAgents.read(latinIME)
+        directRooms = ChatTyping.direct(latinIME)
         typingTimes = ChatTyping.read(latinIME)
         if (useLeftChats() && isActive) show()
         updateTyping()
@@ -346,18 +348,28 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         show()
     }
 
-    /** chooses how to contact a person: Element with this matrix.to link, or WhatsApp with null */
-    private fun setElement(app: App, link: String?) {
-        app.element = link
-        val links = readStringMap(latinIME, ELEMENT_FILE).toMutableMap()
-        if (link == null) links.remove(app.kissId) else links[app.kissId] = link
-        writeStringMap(latinIME, ELEMENT_FILE, links)
-        show()
+    /**
+     * Chooses how to contact a person: Element with this Matrix id, or WhatsApp with null. The id is kept in the field
+     * "Matrix" of their Google contact (WhatsApp takes the field out), so nothing changes if they have none.
+     */
+    private fun setElement(app: App, userId: String?) {
+        val dataId = app.whatsAppDataId ?: return
+        HomeActivity.withPermission(Manifest.permission.WRITE_CONTACTS) {
+            if (!writeMatrixId(latinIME, dataId, userId)) return@withPermission
+            app.element = userId
+            val ids = readStringMap(latinIME, CONTACT_MATRIX_FILE).toMutableMap()
+            if (userId == null) ids.remove(app.kissId) else ids[app.kissId] = userId
+            writeStringMap(latinIME, CONTACT_MATRIX_FILE, ids)
+            show()
+        }
     }
 
     /** saves a new name (empty for the original one) or new tags, in files next to the KISS tags */
     private fun save(app: App, field: Field, value: String) {
-        if (field == Field.ELEMENT) return setElement(app, matrixLink(value))
+        if (field == Field.ELEMENT) {
+            if (value.isEmpty()) setElement(app, null) else matrixId(value)?.let { setElement(app, it) }
+            return
+        }
         if (field == Field.NAME) {
             app.label = value.ifEmpty { app.originalLabel }
             val names = readStringMap(latinIME, NAMES_FILE).toMutableMap()
@@ -1375,7 +1387,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
               val user: UserHandle, val icon: Drawable, label: String?, tags: List<String>,
               /** for a WhatsApp chat: the id of the WhatsApp row of the contact (ContactsContract.Data) */
               val whatsAppDataId: Long? = null,
-              /** for a person contacted through Element X: the matrix.to link of the chat */
+              /** for a person contacted through Element X: their Matrix id (@person:server) */
               var element: String? = null,
               /** for a notification in the status bar */
               val notification: LauncherNotificationService.Entry? = null,
@@ -1517,41 +1529,30 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         private const val ICON_VERSION = 2
         private const val TAGS_FILE = "etiquetas-kiss.json"
         private const val WHATSAPP_MIME_TYPE = "vnd.android.cursor.item/vnd.com.whatsapp.profile"
-        private const val ELEMENT_FILE = "element.json"
+        /** the Matrix ids of the contacts, by KISS id, for the saved list */
+        private const val CONTACT_MATRIX_FILE = "matrix-contactos.json"
+        /** a field of a Google contact with a label of one's own: the value in data1, the label in data2 */
+        private const val USER_DEFINED_MIME_TYPE = "vnd.com.google.cursor.item/contact_user_defined_field"
+        /** the label of the field of a Google contact with their Matrix id */
+        private const val MATRIX_LABEL = "Matrix"
+        /** a Matrix user id: @localpart:server */
+        private val MATRIX_USER_ID = Regex("""@[A-Za-z0-9._=/+\-]+:[A-Za-z0-9.\-]+(?::\d+)?""")
+        /** the room of two of MatriX with each person, by user id ([ChatTyping.direct]) */
+        private var directRooms = emptyMap<String, String>()
         /** MatriX, the fork of Element X, and Element X from the store */
         private val ELEMENT_PACKAGES = listOf("org.ferrao.matrix", "io.element.android.x")
         /** the installed one of [ELEMENT_PACKAGES], MatriX first, set when the list loads */
         private var elementPackage = ELEMENT_PACKAGES.first()
         private var elementIcon: Drawable? = null
 
-        /**
-         * Opens a matrix.to link in Element X. Since Android 12 an https link only opens in the app verified for its
-         * domain, so the link becomes a matrix: URI (MSC2312), which Element X handles: matrix:u/person:server?action=chat
-         * for a person (asking for the chat), matrix:roomid/… for a room and matrix:r/… for an alias.
-         */
-        private fun elementIntent(link: String): Intent {
-            val target = Uri.decode(link.substringAfter("#/", link))
-            val id = target.substringBefore('?')
-            // the via parameters say which servers know the room, needed for room ids without a server (room version 12)
-            val via = target.substringAfter('?', "").split('&').filter { it.startsWith("via=") }
-            val uri = when (id.firstOrNull()) {
-                '@' -> "matrix:u/${id.drop(1)}?action=chat"
-                '!' -> "matrix:roomid/${id.drop(1)}" + if (via.isEmpty()) "" else via.joinToString("&", "?")
-                '#' -> "matrix:r/${id.drop(1)}"
-                else -> link
-            }
-            return Intent(Intent.ACTION_VIEW, Uri.parse(uri)).setPackage(elementPackage).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
+        /** Opens the chat with the person of a Matrix id in Element X (MatriX opens the room of two right away) */
+        private fun elementIntent(userId: String) = Intent(Intent.ACTION_VIEW, Uri.parse("matrix:u/${userId.drop(1)}?action=chat"))
+            .setPackage(elementPackage).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
-        /** a matrix.to link from what was typed: a link, or an id like @person:server, !room:server or #alias:server */
-        private fun matrixLink(text: String): String? {
-            val t = text.trim().replace(" ", "")
-            return when {
-                t.isEmpty() -> null
-                t.startsWith("https://") -> t
-                t.first() in "@!#" -> "https://matrix.to/#/" + Uri.encode(t, "@!#:?=&")
-                else -> "https://matrix.to/#/@" + Uri.encode(t, "@:")
-            }
+        /** the Matrix id in what was typed: @person:server, person:server or a link with the id; null if there is none */
+        private fun matrixId(text: String): String? {
+            val t = text.replace(" ", "")
+            return MATRIX_USER_ID.find(t)?.value ?: MATRIX_USER_ID.matchEntire("@$t")?.value
         }
         private const val NAMES_FILE = "nomes.json"
         /** the list of apps of the last load (see [saveApps]) */
@@ -1667,7 +1668,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             val userManager = context.getSystemService(UserManager::class.java)
             val tags = readStringMap(context, TAGS_FILE).mapValues { (_, v) -> v.split(' ').filter { it.isNotBlank() } }
             val names = readStringMap(context, NAMES_FILE)
-            val elementLinks = readStringMap(context, ELEMENT_FILE)
+            val matrixIds = readStringMap(context, CONTACT_MATRIX_FILE)
             val list = mutableListOf<App>()
             try {
                 val array = JSONArray(file.readText())
@@ -1687,7 +1688,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                         o.optString("detail").ifEmpty { null }) else null
                     list.add(App(o.getString("key"), kissId, o.getString("label"),
                         ComponentName(o.getString("package"), o.getString("class")), user, icon, names[kissId],
-                        tags[kissId].orEmpty(), whatsApp, if (whatsApp != null) elementLinks[kissId] else null,
+                        tags[kissId].orEmpty(), whatsApp, if (whatsApp != null) matrixIds[kissId] else null,
                         shortcut = shortcut).also { it.iconFile = iconFile })
                 }
             } catch (e: Exception) {
@@ -1785,7 +1786,9 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             val whatsApp = launchable.firstOrNull { it.component.packageName == "com.whatsapp" && it.user == Process.myUserHandle() }
                 ?: return emptyList()
             val chats = mutableListOf<App>()
-            val elementLinks = readStringMap(context, ELEMENT_FILE)
+            val matrixIds = contactMatrixIds(context)
+            directRooms = ChatTyping.direct(context)
+            val chatMatrixIds = mutableMapOf<String, String>()
             val element = ELEMENT_PACKAGES.firstNotNullOfOrNull { p -> launchable.firstOrNull { it.component.packageName == p } }
             element?.let { elementPackage = it.component.packageName }
             elementIcon = element?.icon
@@ -1800,15 +1803,73 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                         val name = cursor.getString(2) ?: continue
                         if (!seen.add(cursor.getLong(1))) continue // one chat per contact
                         val kissId = "whatsapp://$name"
+                        val matrixId = matrixIds[cursor.getLong(1)]?.also { chatMatrixIds[kissId] = it }
                         chats.add(App("whatsapp|$name", kissId, name, whatsApp.component, whatsApp.user, whatsApp.icon,
-                            names[kissId], tags[kissId].orEmpty(), cursor.getLong(0), elementLinks[kissId])
+                            names[kissId], tags[kissId].orEmpty(), cursor.getLong(0), matrixId)
                             .also { it.iconFile = whatsApp.iconFile })
                     }
                 }
             } catch (e: SecurityException) {
                 Log.w(TAG, "no permission to read contacts", e)
             }
+            writeStringMap(context, CONTACT_MATRIX_FILE, chatMatrixIds)
             return chats
+        }
+
+        /**
+         * The Matrix id (@person:server) of each contact that has one in any of its fields (chat, website, notes...), alone
+         * or in a matrix.to link, by contact id.
+         */
+        private fun contactMatrixIds(context: Context): Map<Long, String> = try {
+            context.contentResolver.query(ContactsContract.Data.CONTENT_URI,
+                arrayOf(ContactsContract.Data.CONTACT_ID, ContactsContract.Data.DATA1),
+                ContactsContract.Data.DATA1 + " LIKE ?", arrayOf("%@%:%"), null
+            )?.use { cursor ->
+                buildMap {
+                    while (cursor.moveToNext()) {
+                        val id = cursor.getString(1)?.let { MATRIX_USER_ID.find(it)?.value } ?: continue
+                        putIfAbsent(cursor.getLong(0), id)
+                    }
+                }
+            }.orEmpty()
+        } catch (e: SecurityException) {
+            Log.w(TAG, "no permission to read contacts", e)
+            emptyMap()
+        }
+
+        /**
+         * Saves [userId] in the field "Matrix" of the Google contact of the WhatsApp row [whatsAppDataId], or takes the
+         * field out with null. False if the contact is not in a Google account or can't be written.
+         */
+        private fun writeMatrixId(context: Context, whatsAppDataId: Long, userId: String?): Boolean = try {
+            val resolver = context.contentResolver
+            val contactId = resolver.query(ContactsContract.Data.CONTENT_URI, arrayOf(ContactsContract.Data.CONTACT_ID),
+                ContactsContract.Data._ID + " = ?", arrayOf(whatsAppDataId.toString()), null
+            )?.use { if (it.moveToFirst()) it.getLong(0) else null }
+            val rawContactId = contactId?.let { id ->
+                resolver.query(ContactsContract.RawContacts.CONTENT_URI, arrayOf(ContactsContract.RawContacts._ID),
+                    ContactsContract.RawContacts.CONTACT_ID + " = ? AND " + ContactsContract.RawContacts.ACCOUNT_TYPE + " = ?",
+                    arrayOf(id.toString(), "com.google"), null
+                )?.use { if (it.moveToFirst()) it.getLong(0) else null }
+            }
+            if (rawContactId == null) false else {
+                val field = ContactsContract.Data.RAW_CONTACT_ID + " = ? AND " + ContactsContract.Data.MIMETYPE + " = ? AND " +
+                    ContactsContract.Data.DATA2 + " = ?"
+                val fieldArgs = arrayOf(rawContactId.toString(), USER_DEFINED_MIME_TYPE, MATRIX_LABEL)
+                if (userId == null) resolver.delete(ContactsContract.Data.CONTENT_URI, field, fieldArgs)
+                else if (resolver.update(ContactsContract.Data.CONTENT_URI,
+                        ContentValues().apply { put(ContactsContract.Data.DATA1, userId) }, field, fieldArgs) == 0)
+                    resolver.insert(ContactsContract.Data.CONTENT_URI, ContentValues().apply {
+                        put(ContactsContract.Data.RAW_CONTACT_ID, rawContactId)
+                        put(ContactsContract.Data.MIMETYPE, USER_DEFINED_MIME_TYPE)
+                        put(ContactsContract.Data.DATA1, userId)
+                        put(ContactsContract.Data.DATA2, MATRIX_LABEL)
+                    })
+                true
+            }
+        } catch (e: Exception) {
+            Log.w(TAG, "can't write the Matrix id of a contact", e)
+            false
         }
 
         /**
@@ -2098,8 +2159,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             saveTimes(context, PREF_LAST_USED, lastUsed)
         }
 
-        /** the id of the Element room of a person's link, without its server */
-        private fun roomOf(person: App) = person.element?.let { ROOM_ID.find(it)?.value }
+        /** the id of the Element room of two with a person, without its server */
+        private fun roomOf(person: App) = person.element?.let { directRooms[it] }?.let { ROOM_ID.find(it)?.value }
 
         /**
          * The person in the list (a starred contact) a notification of WhatsApp or Element X comes from, if it is a
@@ -2129,7 +2190,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             return people.firstOrNull { name in names(it) } ?: people.filter { name in tags(it) }.singleOrNull()
         }
         private val SPACES = Regex("""\s+""")
-        /** the id of an Element room in a matrix.to link, without its server */
+        /** the id of an Element room, without its server */
         private val ROOM_ID = Regex("""![^?/&:%]+""")
         private val MESSAGE_COUNT = Regex("""\s*\(\d+[^)]*\)\s*$""")
         private val NOT_A_NAME = Regex("""[^\p{L}\p{N} ]""")

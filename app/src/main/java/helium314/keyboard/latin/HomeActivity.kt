@@ -152,9 +152,18 @@ class HomeActivity : Activity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        val granted = grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED
+        if (requestCode == PERMISSION_FOR_ACTION) {
+            if (granted) afterPermission?.invoke()
+            afterPermission = null
+            return
+        }
         // starting the launcher mode again shows the events and follows the changes of the calendar
-        if (grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED) mode?.let { if (it.isActive) it.start() }
+        if (granted) mode?.let { if (it.isActive) it.start() }
     }
+
+    /** what [withPermission] does once the permission is given */
+    private var afterPermission: (() -> Unit)? = null
 
     private lateinit var list: RecyclerView
     /** the text field holds a name, tags or a link being edited, not the search */
@@ -331,6 +340,16 @@ class HomeActivity : Activity() {
     companion object {
         private const val PRIVATE_IME_OPTIONS = "helium314.keyboard.home"
         private var instance: HomeActivity? = null
+        /** the request code of [withPermission] (0 is the calendar) */
+        private const val PERMISSION_FOR_ACTION = 1
+
+        /** does [action] if the keyboard has [permission], else asks for it first (and does nothing if it is refused) */
+        fun withPermission(permission: String, action: () -> Unit) {
+            val activity = instance ?: return
+            if (activity.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) return action()
+            activity.afterPermission = action
+            activity.requestPermissions(arrayOf(permission), PERMISSION_FOR_ACTION)
+        }
 
         /** the text in the text field of the home screen, the search */
         fun fieldText(): String = instance?.field?.text?.toString().orEmpty()

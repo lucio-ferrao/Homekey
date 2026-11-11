@@ -530,7 +530,7 @@
     <string name="launcher_tags">Etiquetas</string>
     <string name="launcher_edit_name">Nome de %s:</string>
     <string name="launcher_edit_tags">Etiquetas de %s:</string>
-    <string name="launcher_edit_element">Conversa no Element de %s (link ou @pessoa:servidor):</string>
+    <string name="launcher_edit_element">Conversa no Element de %s (@pessoa:servidor):</string>
     <string name="launcher_notifications_label">Notificações do Keyarchy (modo launcher)</string>
     <string name="launcher_command_not_understood">Não percebi</string>
     <string name="launcher_command_no_app">Não encontrei a app: %s</string>

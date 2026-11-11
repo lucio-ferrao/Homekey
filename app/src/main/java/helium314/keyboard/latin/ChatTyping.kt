@@ -38,6 +38,19 @@ object ChatTyping {
         emptyList()
     }
 
+    /** the rooms of two of MatriX, by the user id of the other person: for a contact that has only a Matrix id */
+    val DIRECT_URI: Uri by lazy { Uri.parse("content://org.ferrao.matrix.typing/direct") }
+
+    /** the room of two with each person (user id to room id); empty without MatriX or with one that does not tell it */
+    fun direct(context: Context): Map<String, String> = try {
+        context.contentResolver.query(DIRECT_URI, null, null, null, null)?.use { c ->
+            buildMap { while (c.moveToNext()) put(c.getString(0), c.getString(1)) }
+        }.orEmpty()
+    } catch (e: Exception) {
+        Log.w("ChatTyping", "can't read the rooms of two of MatriX", e)
+        emptyMap()
+    }
+
     /** the id of a room without its server ("!abc" in "!abc:server") */
     private val ROOM_ID = Regex("""![^?/&:%]+""")
 
