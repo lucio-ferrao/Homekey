@@ -30,20 +30,28 @@ import java.text.Normalizer
  * The emojis in the suggestion strip, with the keyboard still shown (the emoji key, or emoji in the alternatives of
  * Enter): the recent ones first, then all by category; typing filters them by their names and keywords in English and
  * Portuguese (assets/emoji/nomes.txt, from the CLDR annotations, see tools/emoji-nomes.py). A tap inserts the emoji in
- * the app and leaves the mode, as do a double tap on space, the emoji icon, or a tap in the app.
+ * the app and stays in the mode, with the list as it was, to pick more; a double tap on space, the emoji icon, or a tap
+ * in the app leave it.
  */
 class EmojiStripMode(private val latinIME: LatinIME) : StripSearch {
     var isActive = false
         private set
     private val query = StringBuilder()
     private var lastSpaceTapTime = 0L
-    private var startTime = 0L
+    /** taps in the app (moves of the cursor) before this leave the mode not: the start, or an emoji just inserted */
+    private var ignoreTapsUntil = 0L
+    /** the recent emojis when the mode started, so the list does not reorder while picking */
+    private var recent: List<String> = emptyList()
+    /** the list of emojis shown, and the search text it is for, to keep its scroll when shown again */
+    private var list: RecyclerView? = null
+    private var listQuery = ""
 
     override fun capturesInput() = isActive
 
     fun start() {
         isActive = true
-        startTime = SystemClock.uptimeMillis()
+        ignoreTapsUntil = SystemClock.uptimeMillis() + 600
+        recent = RecentEmojis.get().filter { !SupportedEmojis.isUnsupported(it) }
         query.setLength(0)
         lastSpaceTapTime = 0
         ScreenAgentService.onTapInOtherApp = { onTapOutside() }
@@ -62,12 +70,13 @@ class EmojiStripMode(private val latinIME: LatinIME) : StripSearch {
         if (!isActive) return
         isActive = false
         query.setLength(0)
+        list = null
         ScreenAgentService.onTapInOtherApp = null
         latinIME.suggestionStripView?.setEmojiMode(false)
     }
 
     override fun onTapOutside() {
-        if (isActive && SystemClock.uptimeMillis() - startTime > 600) stop()
+        if (isActive && SystemClock.uptimeMillis() > ignoreTapsUntil) stop()
     }
 
     override fun onEvent(event: Event): Boolean {
@@ -114,7 +123,6 @@ class EmojiStripMode(private val latinIME: LatinIME) : StripSearch {
     /** the emojis for the search text: every word typed starts a word of the names of the emoji */
     private fun results(): List<String> {
         val all = emojis(latinIME)
-        val recent = RecentEmojis.get().filter { !SupportedEmojis.isUnsupported(it) }
         val ordered = (recent + all.map { it.first }).distinct()
         val words = normalize(query.toString()).split(' ').filter { it.isNotEmpty() }
         if (words.isEmpty()) return ordered
@@ -126,16 +134,23 @@ class EmojiStripMode(private val latinIME: LatinIME) : StripSearch {
     }
 
     private fun insert(emoji: String) {
-        stop()
         RecentEmojis.add(emoji)
+        // into the app, not the search; the cursor it moves is not a tap in the app
+        ignoreTapsUntil = SystemClock.uptimeMillis() + 600
+        isActive = false
         latinIME.onTextInput(emoji)
+        isActive = true
+        show()
     }
 
     override fun show() {
         if (!isActive) return
         val strip = latinIME.suggestionStripView ?: return
         strip.setEmojiMode(true)
+        val scroll = list?.takeIf { listQuery == query.toString() }?.layoutManager?.onSaveInstanceState()
         strip.setExternalSuggestionView(createRow(strip.context, results()), false)
+        listQuery = query.toString()
+        scroll?.let { list?.layoutManager?.onRestoreInstanceState(it) }
     }
 
     private fun createRow(context: Context, emojis: List<String>): View {
@@ -177,6 +192,7 @@ class EmojiStripMode(private val latinIME: LatinIME) : StripSearch {
             }
         }
         row.addView(list, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f))
+        this.list = list
         row.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         return row
     }
