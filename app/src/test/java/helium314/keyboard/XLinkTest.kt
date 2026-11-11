@@ -20,17 +20,17 @@ class XLinkTest { // Without the X, SubtypeTests fail with ClassCastException. W
         if (BuildConfig.BUILD_TYPE == "runTests") return // don't spam requests to Codeberg on every PR update
         val context = ApplicationProvider.getApplicationContext<App>()
         val urls = mutableSetOf<String>()
-        context.assets.open("dictionaries_in_dict_repo.txt").reader().readLines().forEach { line ->
-            getKnownDictionariesForLocale(line.split(",")[1].constructLocale(), context).forEach {
+        context.assets.open("dictionaries_in_dict_repo.txt").reader().readLines().filter { it.isNotBlank() }.forEach { line ->
+            // "cldr,<locale>" or "<type>_<locale>[__<extra>]"
+            val locale = if (line.startsWith("cldr,")) line.substringAfter(",") else line.substringAfter("_").substringBefore("__")
+            getKnownDictionariesForLocale(locale.constructLocale(), context).forEach {
                 urls.add(it.second)
             }
         }
         // can't check everything at once, this will trigger some rate limit
-        val typeToCheck = listOf("/dictionaries_experimental/", "/emoji_cldr_signal_dictionaries/", "/dictionaries/").random()
-        urls.forEach {
-            if (it.contains(typeToCheck))
-            checkLink(it)
-        }
+        val typeToCheck = listOf("/emoji_cldr_signal_dictionaries/", "/dictionaries/").random()
+        // and Codeberg answers 429 to many requests in a row: some of them
+        urls.filter { it.contains(typeToCheck) }.shuffled().take(20).forEach { checkLink(it) }
     }
 
     @Test fun readmeLinks() {
