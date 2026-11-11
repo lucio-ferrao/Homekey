@@ -443,7 +443,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         if (!isActive) return
         // messages that arrived while the mode was closed (before the apps were loaded, for instance) count too
         if (bump(latinIME, LauncherNotificationService.entries())) lastUsed = readTimes(latinIME, PREF_LAST_USED)
-        val ranked = chosenFirst(withNotifications(alternativesFirst(withSettings(filter(apps, query.toString(), counts, lastUsed, dismissedRecent))),
+        val ranked = chosenFirst(withNotifications(alternativesFirst(withSettings(filter(apps, query.toString(), counts, lastUsed, dismissedRecent, byId = true))),
             normalize(query.toString().trim())))
         results = withEvents(listOfNotNull(urlEntry(), privateSpaceEntry()) + patternEntries() + withPlayers(ranked))
         // on the home screen of Keyarchy the search is its own text field and the results a vertical list above it; the
@@ -631,6 +631,14 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         return listOfNotNull(appOf(app)?.label, shortcut.detail).joinToString(" · ").ifEmpty { null }
     }
 
+    /** the id of an app found only by it ("com.revolut.business" for "revolut", the app being "Business"), to show why */
+    fun idMatchOf(app: App): String? {
+        val q = normalize(query.toString().trim())
+        if (q.isEmpty() || app.shortcut != null || app.whatsAppDataId != null) return null
+        if (app.names.any { it.contains(q) } || app.tags.any { it.startsWith(q) }) return null
+        return app.component.packageName.takeIf { normalize(it).contains(q) }
+    }
+
     /** the app of a shortcut, as in the list */
     private fun appOf(app: App) = apps.firstOrNull {
         it.shortcut == null && it.whatsAppDataId == null && it.component == app.component && it.user == app.user
@@ -705,6 +713,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             label.text = highlighted(app.label, color)
             app.unread?.let { label.append(": " + it.text.replace('\n', ' ').take(40)) }
             appNameOf(app)?.let { label.append(" · $it") }
+            idMatchOf(app)?.let { label.append(" · "); label.append(highlighted(it, color)) }
             label.setTextColor(ColorUtils.setAlphaComponent(color, 180))
             label.textSize = 14f
             label.maxLines = 1
@@ -2124,11 +2133,11 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
         /**
          * Apps whose name starts with the text first, then those with a word starting with it, then those with a KISS tag
-         * starting with it, then the rest whose name contains it.
+         * starting with it, then the rest whose name contains it; with [byId], last the apps whose id (package) contains it.
          */
         /** the order of use: the most recently launched from here first, then the most often launched */
         private fun filter(apps: List<App>, query: String, counts: Map<String, Int>, lastUsed: Map<String, Long> = emptyMap(),
-                           dismissed: Map<String, Long> = emptyMap()): List<App> {
+                           dismissed: Map<String, Long> = emptyMap(), byId: Boolean = false): List<App> {
             val q = normalize(query.trim())
             // a shortcut counts as used when what it shows last changed too (a Termarchy session that just ended comes forward)
             val now = System.currentTimeMillis()
@@ -2140,9 +2149,10 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 app.names.any { name -> name.split(' ', '-', '.').any { it.startsWith(q) } } -> 1
                 app.tags.any { it.startsWith(q) } -> 2
                 app.names.any { it.contains(q) } -> 3
-                else -> 4
+                byId && app.shortcut == null && app.whatsAppDataId == null && normalize(app.component.packageName).contains(q) -> 4
+                else -> 5
             }
-            return apps.map { it to rank(it) }.filter { it.second < 4 }
+            return apps.map { it to rank(it) }.filter { it.second < 5 }
                 .sortedWith(compareBy<Pair<App, Int>> { it.second }.thenComparator { a, b -> byUse.compare(a.first, b.first) })
                 .map { it.first }
         }
