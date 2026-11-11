@@ -153,11 +153,10 @@ sealed interface KeyData : AbstractKeyData {
 
         private fun getActionKeyPopupKeys(params: KeyboardParams): SimplePopups? {
             val popupKeys = getActionKeyPopupKeyString(params.mId)
-            // Enter sends in these apps, so the new line also goes into the popup, after the emoji (which stays next to
-            // the enter key)
-            val withNewLine = if (popupKeys == POPUP_KEYS_NAVIGATE_EMOJI && params.mId.isMultiLine
+            // Enter sends in these apps, so the new line also goes into the popup
+            val withNewLine = if (popupKeys == POPUP_KEYS_CLIPBOARD && params.mId.isMultiLine
                     && params.mId.sendsOnEnter)
-                "$POPUP_KEYS_EMOJI,$POPUP_KEYS_NEW_LINE,$POPUP_KEYS_CLIPBOARD"
+                "$POPUP_KEYS_NEW_LINE,$POPUP_KEYS_CLIPBOARD"
             else popupKeys
             return withNewLine?.let { createActionPopupKeys(it, params) }
         }
@@ -191,14 +190,14 @@ sealed interface KeyData : AbstractKeyData {
                     navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS
                     else -> null
                 }
-                action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS
-                action == EditorInfo.IME_ACTION_NEXT -> POPUP_KEYS_NAVIGATE_EMOJI
-                action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> POPUP_KEYS_NAVIGATE_EMOJI_NEXT
-                action == EditorInfo.IME_ACTION_PREVIOUS -> POPUP_KEYS_NAVIGATE_EMOJI
-                navigateNext && navigatePrev -> POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS_NEXT
-                navigateNext -> POPUP_KEYS_NAVIGATE_EMOJI_NEXT
-                navigatePrev -> POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS
-                else -> POPUP_KEYS_NAVIGATE_EMOJI
+                action == EditorInfo.IME_ACTION_NEXT && navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS
+                action == EditorInfo.IME_ACTION_NEXT -> POPUP_KEYS_CLIPBOARD
+                action == EditorInfo.IME_ACTION_PREVIOUS && navigateNext -> POPUP_KEYS_NAVIGATE_NEXT
+                action == EditorInfo.IME_ACTION_PREVIOUS -> POPUP_KEYS_CLIPBOARD
+                navigateNext && navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS_NEXT
+                navigateNext -> POPUP_KEYS_NAVIGATE_NEXT
+                navigatePrev -> POPUP_KEYS_NAVIGATE_PREVIOUS
+                else -> POPUP_KEYS_CLIPBOARD
             }
         }
 
@@ -217,16 +216,6 @@ sealed interface KeyData : AbstractKeyData {
                 } else {
                     popupKeys.add(Key.POPUP_KEYS_HAS_LABELS)
                     popupKeys.add("$replacementText|${iconPrefixRemoved.substringAfter("|")}")
-                }
-            }
-            // remove emoji shortcut on enter in tablet mode (like original, because bottom row always has an emoji key)
-            if (Settings.getInstance().isTablet
-                && popupKeys.remove("!icon/emoji_action_key|!code/key_emoji")) {
-                val i = popupKeys.indexOfFirst { it.startsWith(Key.POPUP_KEYS_FIXED_COLUMN_ORDER) }
-                if (i > -1) {
-                    val n = popupKeys[i].substringAfter(Key.POPUP_KEYS_FIXED_COLUMN_ORDER).toIntOrNull()
-                    if (n != null)
-                        popupKeys[i] = popupKeys[i].replace(n.toString(), (n - 1).toString())
                 }
             }
             if (params.mId.element == KeyboardElement.CLIPBOARD_BOTTOM_ROW)
@@ -260,14 +249,8 @@ sealed interface KeyData : AbstractKeyData {
         private const val POPUP_KEYS_NAVIGATE_PREVIOUS = "!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard"
         private const val POPUP_KEYS_NAVIGATE_NEXT = "!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
         private const val POPUP_KEYS_NAVIGATE_PREVIOUS_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/next_key|!code/key_action_next"
-        private const val POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS = "!fixedColumnOrder!3,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji"
         private const val POPUP_KEYS_NEW_LINE = "!icon/enter_key|!code/key_shift_enter"
-        private const val POPUP_KEYS_EMOJI = "!icon/emoji_action_key|!code/key_emoji"
         private const val POPUP_KEYS_CLIPBOARD = "!icon/clipboard_action_key|!code/key_clipboard"
-        // emoji first: the first popup key goes next to the enter key, at the right
-        private const val POPUP_KEYS_NAVIGATE_EMOJI = "$POPUP_KEYS_EMOJI,$POPUP_KEYS_CLIPBOARD"
-        private const val POPUP_KEYS_NAVIGATE_EMOJI_NEXT = "!fixedColumnOrder!3,!needsDividers!,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
-        private const val POPUP_KEYS_NAVIGATE_EMOJI_PREVIOUS_NEXT = "!fixedColumnOrder!4,!needsDividers!,!icon/previous_key|!code/key_action_previous,!icon/clipboard_action_key|!code/key_clipboard,!icon/emoji_action_key|!code/key_emoji,!icon/next_key|!code/key_action_next"
     }
 
     /** get the label, but also considers code, which can't be set separately for popup keys and thus goes into the label */
