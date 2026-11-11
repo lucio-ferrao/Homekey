@@ -6,10 +6,14 @@ import helium314.keyboard.keyboard.KeyboardTypeface
 import helium314.keyboard.keyboard.internal.KeyboardIconsSet
 import android.app.Activity
 import android.content.pm.PackageManager
+import android.database.ContentObserver
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.provider.Settings
 import android.text.InputType
 import android.text.TextWatcher
 import android.text.Editable
@@ -196,6 +200,26 @@ class HomeActivity : Activity() {
         panel.visibility = android.view.View.VISIBLE
     }
     private var mode: AppLauncherMode? = null
+    /**
+     * The launcher mode of the home screen itself, while another keyboard than Keyarchy is used: with Keyarchy the mode
+     * runs in the keyboard, which starts it on the text field.
+     */
+    private var ownMode: AppLauncherMode? = null
+    /** follows the keyboard chosen while the home screen is shown */
+    private val keyboardObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
+        override fun onChange(selfChange: Boolean) = followKeyboard()
+    }
+
+    private fun followKeyboard() {
+        val keyarchy = Settings.Secure.getString(contentResolver, Settings.Secure.DEFAULT_INPUT_METHOD)
+            ?.startsWith("$packageName/") == true
+        if (keyarchy) {
+            ownMode?.reset()
+            ownMode = null
+        } else if (ownMode == null) {
+            ownMode = AppLauncherMode(this).also { it.start() }
+        }
+    }
     private var results = emptyList<AppLauncherMode.App>()
 
     /** the search text the list was last shown for, null to show the next list from the bottom */
@@ -298,11 +322,16 @@ class HomeActivity : Activity() {
         shownQuery = null
         stopEditing()
         field.text.clear()
+        followKeyboard()
+        contentResolver.registerContentObserver(Settings.Secure.getUriFor(Settings.Secure.DEFAULT_INPUT_METHOD), false, keyboardObserver)
         openKeyboard()
     }
 
     override fun onPause() {
         super.onPause()
+        contentResolver.unregisterContentObserver(keyboardObserver)
+        ownMode?.reset()
+        ownMode = null
         if (instance === this) instance = null
     }
 
@@ -381,7 +410,10 @@ class HomeActivity : Activity() {
 
         /** shows the results of the launcher mode in the list of the home screen, if it is open */
         fun showResults(mode: AppLauncherMode, results: List<AppLauncherMode.App>) {
-            instance?.render(mode, results)
+            val activity = instance ?: return
+            // the keyboard's mode leaving after the home screen started its own (switched to another keyboard)
+            if (activity.ownMode != null && mode !== activity.ownMode) return
+            activity.render(mode, results)
         }
 
         /** whether the keyboard is in the field of the home screen, where it opens in the launcher mode */

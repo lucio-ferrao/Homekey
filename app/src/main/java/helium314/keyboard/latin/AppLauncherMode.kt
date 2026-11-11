@@ -83,7 +83,9 @@ import kotlin.math.abs
  * to the text field, and the results are shown in the suggestion strip. Toggled by a double tap on space or by the
  * apps toolbar key. Without a search text, the apps launched most often from here come first.
  */
-class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
+class AppLauncherMode(private val context: Context) : StripSearch {
+    /** the keyboard the mode runs in; null for the own mode of the home screen when another keyboard is used */
+    private val latinIME get() = context as? LatinIME
     var isActive = false
         private set
     private val query = StringBuilder()
@@ -104,7 +106,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     /** the app and field being edited, with the text typed so far */
     private var editing: Pair<App, Field>? = null
     private enum class Field { NAME, TAGS, ELEMENT }
-    private val speech by lazy { LauncherSpeech(latinIME) }
+    private val speech by lazy { LauncherSpeech(context) }
     private val mainHandler = Handler(Looper.getMainLooper())
     /** shows the list again when an event of the calendar ends, to take it away */
     private val refresh = Runnable { show() }
@@ -117,7 +119,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     /** MatriX telling that someone started or stopped typing */
     private val typingObserver = object : ContentObserver(mainHandler) {
         override fun onChange(selfChange: Boolean) {
-            typingTimes = ChatTyping.read(latinIME)
+            typingTimes = ChatTyping.read(context)
             if (useLeftChats() && isActive) show()
             updateTyping()
         }
@@ -125,7 +127,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     /** Termarchy telling that the state of an agent changed: the order and the icons follow at once */
     private val agentsObserver = object : ContentObserver(mainHandler) {
         override fun onChange(selfChange: Boolean) {
-            val states = TermarchyAgents.read(latinIME)
+            val states = TermarchyAgents.read(context)
             if (states == agentStates) return
             agentStates = states
             if (isActive) show()
@@ -138,17 +140,17 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
      */
     private fun followLiveStates() {
         for ((uri, observer) in listOf(TermarchyAgents.URI to agentsObserver, ChatTyping.URI to typingObserver)) {
-            latinIME.contentResolver.unregisterContentObserver(observer)
+            context.contentResolver.unregisterContentObserver(observer)
             try {
-                latinIME.contentResolver.registerContentObserver(uri, false, observer)
+                context.contentResolver.registerContentObserver(uri, false, observer)
             } catch (e: SecurityException) {
                 // the app is not installed
                 Log.w(TAG, "can't follow $uri", e)
             }
         }
-        agentStates = TermarchyAgents.read(latinIME)
-        directRooms = ChatTyping.direct(latinIME)
-        typingTimes = ChatTyping.read(latinIME)
+        agentStates = TermarchyAgents.read(context)
+        directRooms = ChatTyping.direct(context)
+        typingTimes = ChatTyping.read(context)
         if (useLeftChats() && isActive) show()
         updateTyping()
     }
@@ -159,7 +161,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
      */
     private fun useLeftChats(): Boolean {
         var changed = false
-        for ((roomId, time) in ChatTyping.left(latinIME)) {
+        for ((roomId, time) in ChatTyping.left(context)) {
             val room = ROOM_ID.find(roomId)?.value ?: continue
             apps.filter { app ->
                 app.whatsAppDataId != null && roomOf(app) == room ||
@@ -171,7 +173,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 }
             }
         }
-        if (changed) saveTimes(latinIME, PREF_LAST_USED, lastUsed)
+        if (changed) saveTimes(context, PREF_LAST_USED, lastUsed)
         return changed
     }
 
@@ -205,12 +207,12 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         // a tap on a button or element of the app (seen by the accessibility service) leaves the mode
         ScreenAgentService.onTapInOtherApp = { onTapOutside() }
         // notifications that arrive or go away while the list is open show up in it right away
-        LauncherNotificationService.onChange = { lastUsed = readTimes(latinIME, PREF_LAST_USED); show() }
+        LauncherNotificationService.onChange = { lastUsed = readTimes(context, PREF_LAST_USED); show() }
         // start also runs while the mode is open (the keyboard restarting on the home screen): follow things only once
-        latinIME.contentResolver.unregisterContentObserver(calendarObserver)
-        latinIME.getSystemService(MediaSessionManager::class.java).removeOnActiveSessionsChangedListener(playersChanged)
-        if (isOnHome && latinIME.checkSelfPermission(Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED)
-            latinIME.contentResolver.registerContentObserver(CalendarContract.CONTENT_URI, true, calendarObserver)
+        context.contentResolver.unregisterContentObserver(calendarObserver)
+        context.getSystemService(MediaSessionManager::class.java).removeOnActiveSessionsChangedListener(playersChanged)
+        if (isOnHome && context.checkSelfPermission(Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED)
+            context.contentResolver.registerContentObserver(CalendarContract.CONTENT_URI, true, calendarObserver)
         query.setLength(0)
         // the keyboard restarts on the text field of the home screen (after a paste, for instance): keep its text as the search
         if (isOnHome) {
@@ -218,15 +220,15 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             query.append(HomeActivity.fieldText())
         }
         lastSpaceTapTime = 0
-        counts = readCounts(latinIME)
-        lastUsed = readTimes(latinIME, PREF_LAST_USED)
+        counts = readCounts(context)
+        lastUsed = readTimes(context, PREF_LAST_USED)
         // a dismissal ends when the entry is opened again (or a message of the person comes) after it
-        dismissedRecent = readTimes(latinIME, PREF_DISMISSED_RECENT).filter { (lastUsed[it.key] ?: 0L) <= it.value }
+        dismissedRecent = readTimes(context, PREF_DISMISSED_RECENT).filter { (lastUsed[it.key] ?: 0L) <= it.value }
             .toMutableMap()
-        choices = readChoices(latinIME)
+        choices = readChoices(context)
         // the players playing, followed while the mode is open (follow shows the list)
         try {
-            val sessions = latinIME.getSystemService(MediaSessionManager::class.java)
+            val sessions = context.getSystemService(MediaSessionManager::class.java)
             sessions.addOnActiveSessionsChangedListener(playersChanged, notificationListener(), mainHandler)
             follow(sessions.getActiveSessions(notificationListener()))
         } catch (e: SecurityException) {
@@ -236,14 +238,14 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         followLiveStates()
         // refresh the list every time, apps may have been installed or removed
         onAppsChanged = { show() }
-        reload(latinIME)
+        reload(context)
     }
 
     /** leaves the mode and restores the normal suggestion strip */
     fun stop() {
         if (!isActive) return
         reset()
-        latinIME.setNeutralSuggestionStrip()
+        latinIME?.setNeutralSuggestionStrip()
         // on the home screen the keyboard never hides and stays in the mode: leaving it only clears the search
         if (isOnHome) start()
     }
@@ -254,16 +256,16 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         HomeActivity.showResults(this, emptyList())
         ScreenAgentService.onTapInOtherApp = null
         LauncherNotificationService.onChange = null
-        latinIME.getSystemService(MediaSessionManager::class.java).removeOnActiveSessionsChangedListener(playersChanged)
+        context.getSystemService(MediaSessionManager::class.java).removeOnActiveSessionsChangedListener(playersChanged)
         follow(emptyList())
-        latinIME.contentResolver.unregisterContentObserver(calendarObserver)
+        context.contentResolver.unregisterContentObserver(calendarObserver)
         mainHandler.removeCallbacks(refresh)
-        latinIME.contentResolver.unregisterContentObserver(typingObserver)
-        latinIME.contentResolver.unregisterContentObserver(agentsObserver)
+        context.contentResolver.unregisterContentObserver(typingObserver)
+        context.contentResolver.unregisterContentObserver(agentsObserver)
         mainHandler.removeCallbacks(typingStops)
         typingRooms = emptySet()
-        latinIME.suggestionStripView?.setLauncherMode(false)
-        if (listening) latinIME.showVoiceListening(false)
+        latinIME?.suggestionStripView?.setLauncherMode(false)
+        if (listening) latinIME?.showVoiceListening(false)
         listening = false
         message = null
         actionsFor = null
@@ -355,11 +357,11 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     private fun setElement(app: App, userId: String?) {
         val dataId = app.whatsAppDataId ?: return
         HomeActivity.withPermission(Manifest.permission.WRITE_CONTACTS) {
-            if (!writeMatrixId(latinIME, dataId, userId)) return@withPermission
+            if (!writeMatrixId(context, dataId, userId)) return@withPermission
             app.element = userId
-            val ids = readStringMap(latinIME, CONTACT_MATRIX_FILE).toMutableMap()
+            val ids = readStringMap(context, CONTACT_MATRIX_FILE).toMutableMap()
             if (userId == null) ids.remove(app.kissId) else ids[app.kissId] = userId
-            writeStringMap(latinIME, CONTACT_MATRIX_FILE, ids)
+            writeStringMap(context, CONTACT_MATRIX_FILE, ids)
             show()
         }
     }
@@ -372,14 +374,14 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         }
         if (field == Field.NAME) {
             app.label = value.ifEmpty { app.originalLabel }
-            val names = readStringMap(latinIME, NAMES_FILE).toMutableMap()
+            val names = readStringMap(context, NAMES_FILE).toMutableMap()
             if (app.label == app.originalLabel) names.remove(app.kissId) else names[app.kissId] = app.label
-            writeStringMap(latinIME, NAMES_FILE, names)
+            writeStringMap(context, NAMES_FILE, names)
         } else {
             app.rawTags = value.split(' ').filter { it.isNotBlank() }
-            val tags = readStringMap(latinIME, TAGS_FILE).toMutableMap()
+            val tags = readStringMap(context, TAGS_FILE).toMutableMap()
             if (app.rawTags.isEmpty()) tags.remove(app.kissId) else tags[app.kissId] = app.rawTags.joinToString(" ")
-            writeStringMap(latinIME, TAGS_FILE, tags)
+            writeStringMap(context, TAGS_FILE, tags)
         }
         apps = apps.sortedBy { it.normalizedLabel }
     }
@@ -387,10 +389,10 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     /** listening for a spoken search or command: on a long press on space */
     fun onVoiceInput() {
         listening = true
-        speech.listen(onReady = { if (listening) latinIME.showVoiceListening(true) }) { text ->
+        speech.listen(onReady = { if (listening) latinIME?.showVoiceListening(true) }) { text ->
             if (!isActive || !listening) return@listen
             listening = false
-            latinIME.showVoiceListening(false)
+            latinIME?.showVoiceListening(false)
             if (text.isNullOrBlank()) return@listen show()
             query.setLength(0)
             query.append(text)
@@ -404,28 +406,28 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         if (!listening) return
         listening = false
         speech.stop()
-        latinIME.showVoiceListening(false)
+        latinIME?.showVoiceListening(false)
     }
 
     /** a sentence typed or spoken: one of the commands recognized by [LauncherCommands] */
     private fun runSentence(sentence: String) {
         val command = LauncherCommands.parse(sentence)
-            ?: return showMessage(latinIME.getString(R.string.launcher_command_not_understood))
+            ?: return showMessage(context.getString(R.string.launcher_command_not_understood))
         val name = (command.arguments["app"] ?: command.arguments["contact"])?.toString()?.trim().orEmpty()
         when (command.action) {
             LauncherCommands.OPEN_APP -> {
                 val app = filter(apps, name, counts).firstOrNull() ?: closest(apps, name, counts)
-                    ?: return showMessage(latinIME.getString(R.string.launcher_command_no_app, name))
+                    ?: return showMessage(context.getString(R.string.launcher_command_no_app, name))
                 launch(app)
             }
             LauncherCommands.CALL_CONTACT -> {
-                val (_, number) = LauncherCommands.findContact(latinIME, name)
-                    ?: return showMessage(latinIME.getString(R.string.launcher_command_no_contact, name))
+                val (_, number) = LauncherCommands.findContact(context, name)
+                    ?: return showMessage(context.getString(R.string.launcher_command_no_contact, name))
                 startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(number))))
             }
             LauncherCommands.SEND_MESSAGE -> {
-                val (_, number) = LauncherCommands.findContact(latinIME, name)
-                    ?: return showMessage(latinIME.getString(R.string.launcher_command_no_contact, name))
+                val (_, number) = LauncherCommands.findContact(context, name)
+                    ?: return showMessage(context.getString(R.string.launcher_command_no_contact, name))
                 val text = command.arguments["text"]?.toString().orEmpty()
                 val intent = if (command.arguments["whatsapp"] == true)
                     Intent(Intent.ACTION_VIEW, Uri.parse("https://wa.me/${internationalDigits(number)}?text=${Uri.encode(text)}"))
@@ -437,10 +439,10 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     private fun startActivity(intent: Intent) {
         try {
-            latinIME.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+            context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         } catch (e: Exception) {
             Log.w(TAG, "can't start $intent", e)
-            return showMessage(latinIME.getString(R.string.launcher_command_error, e.message ?: e.javaClass.simpleName))
+            return showMessage(context.getString(R.string.launcher_command_error, e.message ?: e.javaClass.simpleName))
         }
         stop()
     }
@@ -454,7 +456,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     override fun show() {
         if (!isActive) return
         // messages that arrived while the mode was closed (before the apps were loaded, for instance) count too
-        if (bump(latinIME, LauncherNotificationService.entries())) lastUsed = readTimes(latinIME, PREF_LAST_USED)
+        if (bump(context, LauncherNotificationService.entries())) lastUsed = readTimes(context, PREF_LAST_USED)
         val ranked = chosenFirst(withNotifications(alternativesFirst(withSettings(filter(apps, query.toString(), counts, lastUsed, dismissedRecent, byId = true))),
             normalize(query.toString().trim())))
         results = withEvents(listOfNotNull(urlEntry(), privateSpaceEntry()) + patternEntries() + withPlayers(ranked))
@@ -467,7 +469,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             val selected = actionsFor
             val text = message
             when {
-                edited != null -> HomeActivity.showPanel(latinIME.getString(when (edited.second) {
+                edited != null -> HomeActivity.showPanel(context.getString(when (edited.second) {
                     Field.NAME -> R.string.launcher_edit_name
                     Field.TAGS -> R.string.launcher_edit_tags
                     Field.ELEMENT -> R.string.launcher_edit_element
@@ -478,7 +480,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             }
             return
         }
-        val strip = latinIME.suggestionStripView ?: return
+        val strip = latinIME?.suggestionStripView ?: return
         strip.setLauncherMode(true)
         strip.setExternalSuggestionView(createRow(strip), false)
     }
@@ -486,16 +488,16 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     /** the actions of a result on the home screen: name, tags, how to contact a person, uninstalling an app */
     private fun panelActions(app: App): List<Pair<String, () -> Unit>> {
         val actions = mutableListOf<Pair<String, () -> Unit>>(
-            latinIME.getString(R.string.launcher_rename) to { edit(app, Field.NAME) },
-            latinIME.getString(R.string.launcher_tags) to { edit(app, Field.TAGS) })
+            context.getString(R.string.launcher_rename) to { edit(app, Field.NAME) },
+            context.getString(R.string.launcher_tags) to { edit(app, Field.TAGS) })
         if (app.whatsAppDataId != null) {
             // for a person: how to contact them, the current way marked
             actions.add((if (app.element == null) "• " else "") + "WhatsApp" to { setElement(app, null) })
             actions.add((if (app.element != null) "• " else "") + "Element" to { edit(app, Field.ELEMENT) })
         } else if (app.shortcut != null) {
-            actions.add(latinIME.getString(R.string.launcher_remove_shortcut) to { removeShortcut(app) })
+            actions.add(context.getString(R.string.launcher_remove_shortcut) to { removeShortcut(app) })
         } else if (app.intent == null && app.run == null) {
-            actions.add(latinIME.getString(R.string.launcher_uninstall) to { uninstall(app) })
+            actions.add(context.getString(R.string.launcher_uninstall) to { uninstall(app) })
         }
         return actions
     }
@@ -506,8 +508,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
      */
     private fun removeShortcut(app: App) {
         val shortcut = app.shortcut ?: return
-        if (shortcut.isOffered) latinIME.prefs().edit {
-            putStringSet(PREF_REMOVED_SHORTCUTS, latinIME.prefs().getStringSet(PREF_REMOVED_SHORTCUTS, emptySet())!! + app.kissId)
+        if (shortcut.isOffered) context.prefs().edit {
+            putStringSet(PREF_REMOVED_SHORTCUTS, context.prefs().getStringSet(PREF_REMOVED_SHORTCUTS, emptySet())!! + app.kissId)
         }
         if (shortcut.isPinned) unpin(shortcut, app.user)
         actionsFor = null
@@ -516,7 +518,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     }
 
     private fun unpin(shortcut: Shortcut, user: UserHandle) {
-        val launcherApps = latinIME.getSystemService(LauncherApps::class.java)
+        val launcherApps = context.getSystemService(LauncherApps::class.java)
         try {
             val query = LauncherApps.ShortcutQuery().setPackage(shortcut.packageName)
                 .setQueryFlags(LauncherApps.ShortcutQuery.FLAG_MATCH_PINNED)
@@ -538,7 +540,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     override fun capturesInput() = isActive && !isOnHome
 
     /** the keyboard is in the text field of the home screen of Keyarchy, where typing goes to the field and not to the mode */
-    val isOnHome get() = HomeActivity.isHomeField(latinIME.currentInputEditorInfo)
+    val isOnHome get() = latinIME?.let { HomeActivity.isHomeField(it.currentInputEditorInfo) } ?: true
 
     /** for the home screen: the home gesture or back there clear the search text, and leave an action or its editing */
     fun clearSearch() {
@@ -599,12 +601,12 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         val number = numbers[app.originalLabel]
         val address = addresses[app.originalLabel]?.replace('\n', ' ')
         return listOfNotNull(
-            number?.let { entry("call", latinIME.getString(R.string.launcher_call_person, app.label, it),
+            number?.let { entry("call", context.getString(R.string.launcher_call_person, app.label, it),
                 Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(it.replace(" ", ""))))) },
             // a tap on the contact opens Element when it has a link to it, else WhatsApp
             app.element?.let { App(app.key, app.kissId, app.originalLabel, app.component, app.user, app.icon, app.label, app.rawTags,
                 app.whatsAppDataId) },
-            address?.let { entry("drive", latinIME.getString(R.string.launcher_drive, app.label, it),
+            address?.let { entry("drive", context.getString(R.string.launcher_drive, app.label, it),
                 Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + Uri.encode(it))).setPackage(MAPS_PACKAGE)) },
         )
     }
@@ -645,7 +647,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         message?.let { LauncherNotificationService.dismiss(it.key) }
         if (message == null && app.eventKey == null) {
             dismissedRecent[app.key] = System.currentTimeMillis()
-            saveTimes(latinIME, PREF_DISMISSED_RECENT, dismissedRecent)
+            saveTimes(context, PREF_DISMISSED_RECENT, dismissedRecent)
         }
         app.eventKey?.let { key ->
             // the events dismissed before today are not needed any more
@@ -653,12 +655,12 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 set(Calendar.HOUR_OF_DAY, 0); set(Calendar.MINUTE, 0); set(Calendar.SECOND, 0); set(Calendar.MILLISECOND, 0)
             }.timeInMillis
             val kept = dismissedEvents().filter { (it.substringAfter('|').toLongOrNull() ?: 0L) >= today }.toSet()
-            latinIME.prefs().edit { putStringSet(PREF_DISMISSED_EVENTS, kept + key) }
+            context.prefs().edit { putStringSet(PREF_DISMISSED_EVENTS, kept + key) }
         }
         show()
     }
 
-    private fun dismissedEvents() = latinIME.prefs().getStringSet(PREF_DISMISSED_EVENTS, emptySet())!!
+    private fun dismissedEvents() = context.prefs().getStringSet(PREF_DISMISSED_EVENTS, emptySet())!!
 
     /**
      * For a shortcut: the name of its app (as named in the list), to tell which app it belongs to, and its detail. An
@@ -864,15 +866,15 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             if (app.element != null || app.whatsAppDataId != null)
                 ScreenAgentService.focusMessageFieldSoon(if (app.element != null) elementPackage else "com.whatsapp")
             if (app.element != null)
-                latinIME.startActivity(elementIntent(app.element!!))
+                context.startActivity(elementIntent(app.element!!))
             else if (app.whatsAppDataId != null)
-                latinIME.startActivity(Intent(Intent.ACTION_VIEW)
+                context.startActivity(Intent(Intent.ACTION_VIEW)
                     .setDataAndType(ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, app.whatsAppDataId), WHATSAPP_MIME_TYPE)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             else if (app.shortcut != null)
-                latinIME.getSystemService(LauncherApps::class.java).startShortcut(app.shortcut.packageName, app.shortcut.id, null, null, app.user)
-            else if (latinIME.getSystemService(UserManager::class.java).isQuietModeEnabled(app.user)) launchWhenUnlocked(app)
-            else latinIME.getSystemService(LauncherApps::class.java).startMainActivity(app.component, app.user, null, null)
+                context.getSystemService(LauncherApps::class.java).startShortcut(app.shortcut.packageName, app.shortcut.id, null, null, app.user)
+            else if (context.getSystemService(UserManager::class.java).isQuietModeEnabled(app.user)) launchWhenUnlocked(app)
+            else context.getSystemService(LauncherApps::class.java).startMainActivity(app.component, app.user, null, null)
             recordUse(app)
         } catch (e: Exception) {
             Log.w(TAG, "can't launch ${app.key}", e)
@@ -885,7 +887,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
      * credentials for the private space) and launches the app once it is unlocked, waiting up to a minute.
      */
     private fun launchWhenUnlocked(app: App) {
-        val userManager = latinIME.getSystemService(UserManager::class.java)
+        val userManager = context.getSystemService(UserManager::class.java)
         userManager.requestQuietModeEnabled(false, app.user)
         val handler = Handler(Looper.getMainLooper())
         var waited = 0
@@ -895,7 +897,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
                 // Instagram closed right away
                 if (!userManager.isQuietModeEnabled(app.user) && userManager.isUserUnlocked(app.user)) {
                     try {
-                        latinIME.getSystemService(LauncherApps::class.java).startMainActivity(app.component, app.user, null, null)
+                        context.getSystemService(LauncherApps::class.java).startMainActivity(app.component, app.user, null, null)
                     } catch (e: Exception) {
                         Log.w(TAG, "can't launch ${app.key}", e)
                     }
@@ -910,11 +912,11 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         val text = query.toString().trim()
         if (!URL.matches(text)) return null
         val uri = Uri.parse(if (text.contains("://")) text else "https://$text")
-        val browser = latinIME.packageManager.resolveActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com")),
+        val browser = context.packageManager.resolveActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com")),
             PackageManager.MATCH_DEFAULT_ONLY)?.activityInfo?.packageName
         val intent = Intent(Intent.ACTION_VIEW, uri).addCategory(Intent.CATEGORY_BROWSABLE)
         // the app that opens this link (an app verified for its domain, like YouTube for youtu.be), else the browser
-        val handler = latinIME.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)?.activityInfo?.packageName
+        val handler = context.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)?.activityInfo?.packageName
             ?.takeIf { it != "android" } ?: chosenLinkHandler(intent, uri.host)
         val opener = apps.firstOrNull { it.component.packageName == handler && it.user == Process.myUserHandle() }
             ?: apps.firstOrNull { it.component.packageName == browser && it.user == Process.myUserHandle() }
@@ -933,13 +935,13 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         val entries = mutableListOf<App>()
         val digits = text.filter { it.isDigit() }
         if (PHONE.matches(text) && digits.length in 9..15)
-            entry("call", latinIME.getString(R.string.launcher_call, text), Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(text.replace(" ", "")))))
+            entry("call", context.getString(R.string.launcher_call, text), Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(text.replace(" ", "")))))
                 ?.let { entries.add(it) }
         TIME.matchEntire(text)?.let { m ->
             val hour = m.groupValues[1].toInt()
             val minutes = m.groupValues[2].ifEmpty { "0" }.toInt()
             if (hour < 24 && minutes < 60)
-                entry("alarm", latinIME.getString(R.string.launcher_alarm, String.format(Locale.ROOT, "%02d:%02d", hour, minutes)),
+                entry("alarm", context.getString(R.string.launcher_alarm, String.format(Locale.ROOT, "%02d:%02d", hour, minutes)),
                     Intent(AlarmClock.ACTION_SET_ALARM).putExtra(AlarmClock.EXTRA_HOUR, hour)
                         .putExtra(AlarmClock.EXTRA_MINUTES, minutes).putExtra(AlarmClock.EXTRA_SKIP_UI, true))
                     ?.let { entries.add(it) }
@@ -947,7 +949,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         DURATION.matchEntire(text)?.takeIf { m -> (1..2).any { m.groupValues[it].isNotEmpty() } }?.let { m ->
             val seconds = (m.groupValues[1].toIntOrNull() ?: 0) * 60 + (m.groupValues[2].toIntOrNull() ?: 0)
             if (seconds in 1..86400)
-                entry("timer", latinIME.getString(R.string.launcher_timer, text),
+                entry("timer", context.getString(R.string.launcher_timer, text),
                     Intent(AlarmClock.ACTION_SET_TIMER).putExtra(AlarmClock.EXTRA_LENGTH, seconds)
                         .putExtra(AlarmClock.EXTRA_SKIP_UI, true))
                     ?.let { entries.add(it) }
@@ -961,7 +963,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
     }
 
     /** the notification listener, whose access also gives the players playing (media sessions) */
-    private fun notificationListener() = ComponentName(latinIME, LauncherNotificationService::class.java)
+    private fun notificationListener() = ComponentName(context, LauncherNotificationService::class.java)
 
     /** follows what [controllers] play, instead of the players followed so far; shows the list again */
     private fun follow(controllers: List<MediaController>) {
@@ -1009,7 +1011,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         } catch (e: Exception) {
             Log.w(TAG, "can't open the screen of ${player.packageName}", e)
         }
-        latinIME.getSystemService(LauncherApps::class.java).startMainActivity(app.component, app.user, null, null)
+        context.getSystemService(LauncherApps::class.java).startMainActivity(app.component, app.user, null, null)
     }
 
     /**
@@ -1021,7 +1023,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
      */
     private fun withEvents(list: List<App>): List<App> {
         mainHandler.removeCallbacks(refresh)
-        if (!isOnHome || latinIME.checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED)
+        if (!isOnHome || context.checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED)
             return list
         val q = normalize(query.toString().trim())
         val now = System.currentTimeMillis()
@@ -1032,9 +1034,9 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         day.add(Calendar.DAY_OF_MONTH, 1)
         class Event(val id: Long, val title: String, val begin: Long, val end: Long, val calendar: String)
         val events = mutableListOf<Event>()
-        val hiddenCalendars = latinIME.prefs().getStringSet(PREF_HIDDEN_CALENDARS, emptySet())!!
+        val hiddenCalendars = context.prefs().getStringSet(PREF_HIDDEN_CALENDARS, emptySet())!!
         try {
-            CalendarContract.Instances.query(latinIME.contentResolver, arrayOf(CalendarContract.Instances.EVENT_ID,
+            CalendarContract.Instances.query(context.contentResolver, arrayOf(CalendarContract.Instances.EVENT_ID,
                 CalendarContract.Instances.TITLE, CalendarContract.Instances.BEGIN, CalendarContract.Instances.END,
                 CalendarContract.Instances.ALL_DAY, CalendarContract.Instances.VISIBLE,
                 CalendarContract.Instances.SELF_ATTENDEE_STATUS, CalendarContract.Instances.CALENDAR_DISPLAY_NAME,
@@ -1062,7 +1064,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         val changes = events.map { it.end } +
             shown.map { it.begin - now }.filter { it > 0 }.map { now + it % hour }
         changes.minOrNull()?.let { mainHandler.postDelayed(refresh, maxOf(it - now, 1000)) }
-        val time = android.text.format.DateFormat.getTimeFormat(latinIME)
+        val time = android.text.format.DateFormat.getTimeFormat(context)
         val result = list.toMutableList()
         var last = -1
         for (event in shown.sortedWith(compareBy({ maxOf(it.begin - now, 0) / hour }, { it.begin }))) {
@@ -1091,19 +1093,19 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         } ?: return null
         return when (command) {
             is SshCommand.Connect -> App("ssh|${command.server}", "ssh://${command.server}",
-                latinIME.getString(R.string.launcher_ssh_connect, command.server), termarchy.component, Process.myUserHandle(),
+                context.getString(R.string.launcher_ssh_connect, command.server), termarchy.component, Process.myUserHandle(),
                 termarchy.icon, null, emptyList(), intent = TermarchyForwards.connectIntent(command.server))
             is SshCommand.Forward -> {
                 val what = when {
-                    command.cancel -> latinIME.getString(R.string.launcher_ssh_stop, command.label)
-                    command.direction == 'L' -> latinIME.getString(R.string.launcher_ssh_local, command.port, command.host, command.hostPort)
-                    else -> latinIME.getString(R.string.launcher_ssh_remote, command.port, command.host, command.hostPort)
+                    command.cancel -> context.getString(R.string.launcher_ssh_stop, command.label)
+                    command.direction == 'L' -> context.getString(R.string.launcher_ssh_local, command.port, command.host, command.hostPort)
+                    else -> context.getString(R.string.launcher_ssh_remote, command.port, command.host, command.hostPort)
                 }
                 val label = command.server?.let { "$what · $it" } ?: what
                 App("ssh|${command.arguments}", "ssh://${command.arguments}", label, termarchy.component, Process.myUserHandle(),
                     termarchy.icon, null, emptyList(), staysOpen = true, run = {
-                        TermarchyForwards.request(latinIME, command.server, command.arguments) { ok, text ->
-                            showMessage(if (ok) latinIME.getString(R.string.launcher_ssh_done, label) else text)
+                        TermarchyForwards.request(context, command.server, command.arguments) { ok, text ->
+                            showMessage(if (ok) context.getString(R.string.launcher_ssh_done, label) else text)
                         }
                     })
             }
@@ -1112,12 +1114,12 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     /** "s chuva lisboa", "search chuva lisboa": the text searched in the default browser, with its search engine */
     private fun searchEntry(q: String): App? {
-        val browser = latinIME.packageManager.resolveActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com")),
+        val browser = context.packageManager.resolveActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com")),
             PackageManager.MATCH_DEFAULT_ONLY)?.activityInfo?.packageName ?: return null
         // to the browser, as Android would otherwise ask which of the apps that search to use
         val intent = Intent(Intent.ACTION_WEB_SEARCH).putExtra(SearchManager.QUERY, q).setPackage(browser)
-        if (latinIME.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) == null) return null
-        return entry("search", latinIME.getString(R.string.launcher_search, q), intent)
+        if (context.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) == null) return null
+        return entry("search", context.getString(R.string.launcher_search, q), intent)
     }
 
     /** "sms sílvia": the SMS conversation with the matching starred contacts, at their default number */
@@ -1126,7 +1128,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         val numbers = starredData(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE, ContactsContract.CommonDataKinds.Phone.NUMBER)
         return starredMatching(q, numbers).mapNotNull { (name, label) ->
             val number = numbers.getValue(name)
-            entry("sms", latinIME.getString(R.string.launcher_sms, label, number),
+            entry("sms", context.getString(R.string.launcher_sms, label, number),
                 Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + Uri.encode(number))))
         }.take(5)
     }
@@ -1137,7 +1139,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         val numbers = starredData(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE, ContactsContract.CommonDataKinds.Phone.NUMBER)
         return starredMatching(q, numbers).mapNotNull { (name, label) ->
             val number = numbers.getValue(name)
-            entry("call", latinIME.getString(R.string.launcher_call_person, label, number),
+            entry("call", context.getString(R.string.launcher_call_person, label, number),
                 Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(number.replace(" ", "")))))
         }.take(5)
     }
@@ -1147,8 +1149,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
      * mode or a tag starts with the text, or a word of it does: contact name to the name to show.
      */
     private fun starredMatching(q: String, data: Map<String, String>): List<Pair<String, String>> {
-        val names = readStringMap(latinIME, NAMES_FILE)
-        val tags = readStringMap(latinIME, TAGS_FILE)
+        val names = readStringMap(context, NAMES_FILE)
+        val tags = readStringMap(context, TAGS_FILE)
         return data.keys.mapNotNull { name ->
             val kissId = "whatsapp://$name"
             val label = names[kissId] ?: name
@@ -1167,7 +1169,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS)
         return starredMatching(q, addresses).mapNotNull { (name, label) ->
             val address = addresses.getValue(name)
-            entry("drive", latinIME.getString(R.string.launcher_drive, label, address.replace('\n', ' ')),
+            entry("drive", context.getString(R.string.launcher_drive, label, address.replace('\n', ' ')),
                 Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + Uri.encode(address.replace('\n', ' '))))
                     .setPackage(MAPS_PACKAGE))
         }.take(5)
@@ -1175,7 +1177,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     /** one value of a kind (address, phone number) for each starred contact, by name: the default one, else the first */
     private fun starredData(mimeType: String, column: String): Map<String, String> = try {
-        latinIME.contentResolver.query(ContactsContract.Data.CONTENT_URI,
+        context.contentResolver.query(ContactsContract.Data.CONTENT_URI,
             arrayOf(ContactsContract.Data.DISPLAY_NAME, column),
             ContactsContract.Data.MIMETYPE + " = ? AND " + ContactsContract.Data.STARRED + " = 1",
             arrayOf(mimeType),
@@ -1196,7 +1198,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
 
     /** an entry running [intent], with the icon of the app that handles it (the dialer, the clock) */
     private fun entry(kind: String, label: String, intent: Intent): App? {
-        val handler = intent.`package` ?: latinIME.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)?.activityInfo?.packageName
+        val handler = intent.`package` ?: context.packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)?.activityInfo?.packageName
         val app = apps.firstOrNull { it.component.packageName == handler && it.user == Process.myUserHandle() } ?: return null
         return App("$kind|$label", "$kind://$label", label, app.component, Process.myUserHandle(), app.icon, null, emptyList(),
             intent = intent)
@@ -1208,8 +1210,8 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
      */
     private fun chosenLinkHandler(intent: Intent, host: String?): String? {
         if (host == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return null
-        val verification = latinIME.getSystemService(DomainVerificationManager::class.java) ?: return null
-        return latinIME.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        val verification = context.getSystemService(DomainVerificationManager::class.java) ?: return null
+        return context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
             .map { it.activityInfo.packageName }.distinct().firstOrNull { pkg ->
                 val state = try { verification.getDomainVerificationUserState(pkg) } catch (e: Exception) { null }
                 state != null && state.isLinkHandlingAllowed && state.hostToStateMap[host].let {
@@ -1225,7 +1227,7 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
      */
     private fun alternativesFirst(list: List<App>): List<App> {
         if (query.isNotBlank()) return list
-        val current = latinIME.currentInputEditorInfo?.packageName ?: return list
+        val current = latinIME?.currentInputEditorInfo?.packageName ?: return list
         val (here, others) = list.partition {
             it.targetPackage == current && (it.shortcut == null && it.whatsAppDataId == null || it.key == openChat)
         }
@@ -1314,12 +1316,12 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
             it.component.packageName == "com.android.settings" && it.shortcut == null && it.user == Process.myUserHandle()
         }
         // named in the language of the system, found by both
-        val portuguese = latinIME.resources.configuration.locales[0].language == "pt"
+        val portuguese = context.resources.configuration.locales[0].language == "pt"
         val entries = if (settings == null) emptyList() else SettingsScreen.ALL
-            .filter { latinIME.packageManager.resolveActivity(it.intent(), 0) != null }
+            .filter { context.packageManager.resolveActivity(it.intent(), 0) != null }
             .map { screen ->
                 screen to App("$SETTINGS_KEY${screen.id}", "settings://${screen.id}",
-                    latinIME.getString(R.string.launcher_settings_screen, if (portuguese) screen.pt else screen.en),
+                    context.getString(R.string.launcher_settings_screen, if (portuguese) screen.pt else screen.en),
                     settings.component, settings.user, settings.icon, null, emptyList(), intent = screen.intent())
             }
         settingsEntries = apps to entries
@@ -1330,13 +1332,13 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) return null
         val q = normalize(query.toString().trim())
         if (q.length < 3 || PRIVATE_SPACE_WORDS.none { it.startsWith(q) }) return null
-        val user = privateProfile(latinIME) ?: return null
-        val userManager = latinIME.getSystemService(UserManager::class.java)
+        val user = privateProfile(context) ?: return null
+        val userManager = context.getSystemService(UserManager::class.java)
         val locked = userManager.isQuietModeEnabled(user)
         val settings = apps.firstOrNull { it.component.packageName == "com.android.settings" } ?: return null
-        val label = latinIME.getString(if (locked) R.string.launcher_unlock_private_space else R.string.launcher_lock_private_space)
+        val label = context.getString(if (locked) R.string.launcher_unlock_private_space else R.string.launcher_lock_private_space)
         return App("private-space", "private-space://", label, settings.component, Process.myUserHandle(),
-            latinIME.packageManager.getUserBadgedIcon(settings.icon, user), null, emptyList(),
+            context.packageManager.getUserBadgedIcon(settings.icon, user), null, emptyList(),
             run = { userManager.requestQuietModeEnabled(!locked, user) })
     }
 
@@ -1352,12 +1354,12 @@ class AppLauncherMode(private val latinIME: LatinIME) : StripSearch {
         val q = normalize(query.toString().trim())
         if (q.isNotEmpty()) {
             choices[q] = app.key
-            latinIME.prefs().edit { putString(PREF_CHOICES, choices.entries.joinToString("\n") { "${it.key}=${it.value}" }) }
+            context.prefs().edit { putString(PREF_CHOICES, choices.entries.joinToString("\n") { "${it.key}=${it.value}" }) }
         }
         counts[app.key] = (counts[app.key] ?: 0) + 1
         lastUsed[app.key] = System.currentTimeMillis()
-        if (dismissedRecent.remove(app.key) != null) saveTimes(latinIME, PREF_DISMISSED_RECENT, dismissedRecent)
-        latinIME.prefs().edit {
+        if (dismissedRecent.remove(app.key) != null) saveTimes(context, PREF_DISMISSED_RECENT, dismissedRecent)
+        context.prefs().edit {
             putString(PREF_COUNTS, counts.entries.joinToString("\n") { "${it.key}=${it.value}" })
             putString(PREF_LAST_USED, lastUsed.entries.joinToString("\n") { "${it.key}=${it.value}" })
         }
