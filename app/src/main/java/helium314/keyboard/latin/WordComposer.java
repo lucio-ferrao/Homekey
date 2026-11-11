@@ -112,6 +112,11 @@ public final class WordComposer {
         }
     }
 
+    /** whether letters are combined (hangul, bn_khipro), not just dead keys */
+    public boolean hasCombiningRules() {
+        return mCombiningSpec != null && !mCombiningSpec.isEmpty();
+    }
+
     /**
      * Clear out the keys registered so far.
      */

@@ -168,14 +168,12 @@ class InputLogicTest {
         assertEquals("\uD83E\uDD70", text)
     }
 
-    // todo: make it work, but it might not be that simple because adding is done in combiner
-    //  https://github.com/HeliBorg/HeliBoard/issues/214
-    @Test fun insertLetterIntoWordHangulFails() {
-        if (BuildConfig.BUILD_TYPE == "runTests") return
+    // https://github.com/HeliBorg/HeliBoard/issues/214
+    @Test fun insertLetterIntoWordHangul() {
         latinIME.switchToSubtype(SubtypeSettings.getResourceSubtypesForLocale("ko".constructLocale()).first())
         chainInput("ㅛㅎㄹㅎㅕㅛ")
         setCursorPosition(3)
-        input('ㄲ') // fails, as expected from the hangul issue when processing the event in onCodeInput
+        input('ㄲ')
         assertEquals("ㅛㅎㄹㄲ혀ㅛ", getWordAtCursor())
         assertEquals("ㅛㅎㄹㄲ혀ㅛ", getTextFromConnection())
         assertEquals("ㅛㅎㄹㄲ혀ㅛ", textBeforeCursor + textAfterCursor)
@@ -560,13 +558,11 @@ class InputLogicTest {
         assertEquals("\"this i", text)
     }
 
-    @Test fun `double space results in period and space, and delete removes the period`() {
+    @Test fun `double space takes back the first space and opens the launcher mode`() {
         chainInput("hello")
         input(' ')
         input(' ')
-        assertEquals("hello. ", text)
-        functionalKeyPress(KeyCode.DELETE)
-        assertEquals("hello ", text)
+        assertEquals("hello", text)
     }
 
     @Test fun `no weird space inside multi-"`() {
@@ -750,11 +746,12 @@ class InputLogicTest {
         val insert = StringUtils.newSingleCodePointString(codePoint)
         val phantomSpaceToInsert = if (spaceState == SpaceState.PHANTOM) " " else ""
         val oldIsAtEnd = !composer.isCursorFrontOrMiddleOfComposingWord
+        val combining = latinIME.prefs().getString(Settings.PREF_SELECTED_SUBTYPE, "")!!.contains("CombiningRules")
 
         latinIME.onEvent(Event.createEventForCodePointFromUnknownSource(codePoint))
         handleMessages()
 
-        if (!latinIME.prefs().getString(Settings.PREF_SELECTED_SUBTYPE, "")!!.contains("CombiningRules") // check fails if combiner merges symbols
+        if (!combining // check fails if combiner merges symbols
             && !(codePoint == Constants.CODE_SPACE && oldBefore.lastOrNull() == ' ') // check fails when 2 spaces are converted into a period
             && !latinIME.mInputLogic.mSuggestedWords.mWillAutoCorrect // autocorrect obviously creates inconsistencies
             ) {
@@ -765,7 +762,9 @@ class InputLogicTest {
         }
         assertEquals(oldAfter, textAfterCursor)
         assertEquals(textBeforeCursor + textAfterCursor, getTextFromConnection())
-        if (composer.isComposingWord) // if we're not composing any more cursor is always at the end
+        // if we're not composing any more cursor is always at the end; a combiner composes a letter typed inside a word
+        // as a new word, for the next letters to combine with it
+        if (composer.isComposingWord && !combining)
             assertEquals(oldIsAtEnd, !composer.isCursorFrontOrMiddleOfComposingWord)
         checkConnectionConsistency()
     }

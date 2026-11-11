@@ -512,6 +512,11 @@ public final class InputLogic {
 
         if (settingsValues.mInputAttributes.mTerminalContext == TerminalContext.SHELL)
             trackShellLine(event, mWordComposer.isComposingWord());
+        // a letter typed in front of or inside the composing word: with combining rules the word is left before the
+        // combiners see the letter, as they would combine it with the whole word (https://github.com/HeliBorg/HeliBoard/issues/214)
+        if (mWordComposer.hasCombiningRules() && !event.isFunctionalKeyEvent()
+                && !settingsValues.isWordSeparator(event.getCodePoint()))
+            leaveComposingWordForInsertion(settingsValues);
         Event processedEvent = mWordComposer.processEvent(event);
         InputTransaction inputTransaction = new InputTransaction(settingsValues,
                 processedEvent, SystemClock.uptimeMillis(), mSpaceState,
@@ -1032,6 +1037,26 @@ public final class InputLogic {
         }
     }
 
+    /** before inserting something in front of or inside the composing word: leaves it, returns whether it did */
+    private boolean leaveComposingWordForInsertion(final SettingsValues settingsValues) {
+        if (mWordComposer.isCursorInFrontOfComposingWord()) {
+            // we add something in front of the composing word, this is likely for adding something
+            // and not for a correction
+            // keep composing and don't unlearn word in this case
+            resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(), false);
+            return true;
+        }
+        if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
+            // If we are in the middle of a recorrection, we need to commit the recorrection
+            // first so that we can insert the character at the current cursor position.
+            // We also need to unlearn the original word that is now being corrected.
+            unlearnWord(mWordComposer.getTypedWord(), settingsValues, DictionaryFacilitator.UnlearnEvent.BACKSPACE);
+            resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(), true);
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Handle a non-separator.
      * @param event The event to handle.
@@ -1076,20 +1101,8 @@ public final class InputLogic {
             insertAutomaticSpaceIfOptionsAndTextAllow(settingsValues);
         }
 
-        if (mWordComposer.isCursorInFrontOfComposingWord()) {
-            // we add something in front of the composing word, this is likely for adding something
-            // and not for a correction
-            // keep composing and don't unlearn word in this case
-            resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(), false);
+        if (leaveComposingWordForInsertion(inputTransaction.getSettingsValues()))
             isComposingWord = false;
-        } else if (mWordComposer.isCursorFrontOrMiddleOfComposingWord()) {
-            // If we are in the middle of a recorrection, we need to commit the recorrection
-            // first so that we can insert the character at the current cursor position.
-            // We also need to unlearn the original word that is now being corrected.
-            unlearnWord(mWordComposer.getTypedWord(), inputTransaction.getSettingsValues(), DictionaryFacilitator.UnlearnEvent.BACKSPACE);
-            resetEntireInputState(mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(), true);
-            isComposingWord = false;
-        }
         // We want to find out whether to start composing a new word with this character. If so,
         // we need to reset the composing state and switch isComposingWord. The order of the
         // tests is important for good performance.
@@ -1615,7 +1628,8 @@ public final class InputLogic {
             return false;
         }
         final long now = SystemClock.uptimeMillis();
-        if (now - mLastSpaceTapTime >= ViewConfiguration.getDoubleTapTimeout()) {
+        // 0: no tap on space before (not a tap at the time 0, which is near when the clock of the tests starts)
+        if (mLastSpaceTapTime == 0 || now - mLastSpaceTapTime >= ViewConfiguration.getDoubleTapTimeout()) {
             mLastSpaceTapTime = now;
             return false;
         }
