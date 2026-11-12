@@ -753,7 +753,8 @@ class AppLauncherMode(private val context: Context) : StripSearch {
             chip.addView(icon, LinearLayout.LayoutParams(28.dpToPx(res), 28.dpToPx(res)))
             val label = TextView(context)
             label.text = highlighted(app.label, color)
-            app.unread?.let { label.append(": " + it.text.replace('\n', ' ').take(40)) }
+            // a shortcut's state already follows its name
+            app.unread?.takeIf { app.shortcut == null }?.let { label.append(": " + it.text.replace('\n', ' ').take(40)) }
             appNameOf(app)?.let { label.append(" · $it") }
             idMatchOf(app)?.let { label.append(" · "); label.append(highlighted(it, color)) }
             label.setTextColor(ColorUtils.setAlphaComponent(color, 180))
@@ -852,9 +853,10 @@ class AppLauncherMode(private val context: Context) : StripSearch {
             stop()
             return
         }
-        // a person with a message: the chat where it came (WhatsApp or Element), with the message box tapped
+        // a person with a message: the chat where it came (WhatsApp or Element), with the message box tapped; a session of
+        // Termarchy that finished or asks: the notice, which opens the session
         app.unread?.let {
-            ScreenAgentService.focusMessageFieldSoon(it.packageName)
+            if (isChatApp(it.packageName)) ScreenAgentService.focusMessageFieldSoon(it.packageName)
             if (it.open()) {
                 recordUse(app)
                 stop()
@@ -1241,6 +1243,14 @@ class AppLauncherMode(private val context: Context) : StripSearch {
     private fun withNotifications(appResults: List<App>, q: String): List<App> {
         apps.forEach { it.unread = null }
         val notifications = LauncherNotificationService.entries().mapNotNull { entry ->
+            // a session of Termarchy that finished or asks goes in the entry of its shortcut, as a message of a person
+            val session = entry.shortcutId?.takeIf { entry.packageName == TermarchyForwards.TERMARCHY_PACKAGE }?.let { id ->
+                appResults.firstOrNull { it.shortcut?.packageName == entry.packageName && it.shortcut.id == id }
+            }
+            if (session != null) {
+                if (session.unread == null) session.unread = entry
+                return@mapNotNull null
+            }
             // a message from a person in the list goes in their entry (the newest one), not in an entry of its own
             val person = personOf(entry)
             if (person != null && person in appResults) {

@@ -26,6 +26,9 @@ class LauncherNotificationService : NotificationListenerService() {
             .split(": ").fold(listOf<String>()) { parts, part -> if (parts.lastOrNull() == part) parts else parts + part }
             .joinToString(": ")
 
+        /** the shortcut it belongs to, as its app tells it (a session of Termarchy) */
+        val shortcutId: String? get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) notification.shortcutId else null
+
         /** opens what the notification points to, like a tap on it; removes it if it is meant to go away when opened */
         fun open(): Boolean {
             val intent = notification.contentIntent ?: return false
