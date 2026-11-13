@@ -385,6 +385,7 @@
     <string name="launcher_tags">Tags</string>
     <string name="launcher_uninstall">Uninstall</string>
     <string name="launcher_remove_shortcut">Remove</string>
+    <string name="launcher_open_contact">Contact of %1$s</string>
     <string name="app_shortcuts">App shortcuts</string>
     <string name="calendars">Calendars</string>
     <string name="mousarchy">Mousarchy</string>

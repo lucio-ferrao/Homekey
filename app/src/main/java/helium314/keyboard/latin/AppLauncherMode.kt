@@ -588,15 +588,16 @@ class AppLauncherMode(private val context: Context) : StripSearch {
 
     /**
      * For the list of the home screen: what else can be done with a starred contact, each shown as an icon at the right
-     * of it: call the default number, the WhatsApp chat when a tap opens Element, and driving to the default address,
-     * when the contact has them.
+     * of it: call the default number, the WhatsApp chat when a tap opens Element, driving to the default address, when
+     * the contact has them, and the contact in the contacts app.
      */
     fun personActions(app: App): List<App> {
         if (app.whatsAppDataId == null) return emptyList()
-        val (numbers, addresses) = contactDetails
-            ?: (starredData(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE, ContactsContract.CommonDataKinds.Phone.NUMBER) to
+        val (numbers, addresses, contactIds) = contactDetails
+            ?: Triple(starredData(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE, ContactsContract.CommonDataKinds.Phone.NUMBER),
                 starredData(ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE,
-                    ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS))
+                    ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS),
+                starredData(WHATSAPP_MIME_TYPE, ContactsContract.Data.CONTACT_ID))
                 .also { contactDetails = it }
         val number = numbers[app.originalLabel]
         val address = addresses[app.originalLabel]?.replace('\n', ' ')
@@ -608,10 +609,12 @@ class AppLauncherMode(private val context: Context) : StripSearch {
                 app.whatsAppDataId) },
             address?.let { entry("drive", context.getString(R.string.launcher_drive, app.label, it),
                 Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + Uri.encode(it))).setPackage(MAPS_PACKAGE)) },
+            contactIds[app.originalLabel]?.let { entry("contact", context.getString(R.string.launcher_open_contact, app.label),
+                Intent(Intent.ACTION_VIEW, ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, it.toLong()))) },
         )
     }
-    /** the default phone numbers and addresses of the starred contacts, read again each time the list is shown */
-    private var contactDetails: Pair<Map<String, String>, Map<String, String>>? = null
+    /** the default phone numbers, addresses and contact ids of the starred contacts, read again each time the list is shown */
+    private var contactDetails: Triple<Map<String, String>, Map<String, String>, Map<String, String>>? = null
 
     /**
      * The hide key of the keyboard on the home screen: back to the app that was in front before, as the accessibility

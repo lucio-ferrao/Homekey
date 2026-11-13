@@ -200,6 +200,11 @@ SPDX-License-Identifier: Apache-2.0 AND GPL-3.0-only
             <action android:name="android.intent.action.DIAL" />
             <data android:scheme="tel" />
         </intent>
+        <!-- To find the contacts app for the contact icon of a person in the launcher mode -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:mimeType="vnd.android.cursor.item/contact" />
+        </intent>
         <intent>
             <action android:name="android.intent.action.SET_ALARM" />
         </intent>
