@@ -1,4 +1,5 @@
 import com.android.build.api.variant.ApplicationVariant
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -112,6 +113,35 @@ android {
     namespace = "helium314.keyboard.latin"
     lint {
         abortOnError = true
+    }
+}
+
+/**
+ * Mousarchy, o rato do PC no telemóvel: o binário Rust do lado do telemóvel vai no APK como
+ * `libmousarchy.so`, para o Keyarchy o arrancar. Compila-se no projeto do Mousarchy
+ * (`cargo build --release -p mousarchy-android --target aarch64-linux-android`), cuja pasta
+ * vem do `mousarchy.dir` do local.properties; sem ela o APK sai sem o Mousarchy.
+ */
+abstract class CopiarMousarchy : DefaultTask() {
+    @get:InputFile abstract val binario: RegularFileProperty
+    @get:OutputDirectory abstract val saida: DirectoryProperty
+
+    @TaskAction
+    fun copiar() {
+        val pasta = saida.get().asFile.resolve("arm64-v8a").apply { mkdirs() }
+        binario.get().asFile.copyTo(pasta.resolve("libmousarchy.so"), overwrite = true)
+    }
+}
+
+val mousarchyDir = rootProject.file("local.properties").takeIf { it.exists() }?.let { f ->
+    Properties().apply { f.inputStream().use { load(it) } }.getProperty("mousarchy.dir")
+}
+if (mousarchyDir != null) {
+    val copiarMousarchy = tasks.register<CopiarMousarchy>("copiarMousarchy") {
+        binario.set(file("$mousarchyDir/target/aarch64-linux-android/release/mousarchy-android"))
+    }
+    androidComponents.onVariants { variant ->
+        variant.sources.jniLibs?.addGeneratedSourceDirectory(copiarMousarchy, CopiarMousarchy::saida)
     }
 }
 

@@ -44,6 +44,7 @@ fun MainSettingsScreen(
     onClickDictionaries: () -> Unit,
     onClickAppShortcuts: () -> Unit,
     onClickCalendars: () -> Unit,
+    onClickMousarchy: () -> Unit,
     onClickBack: () -> Unit,
 ) {
     SearchSettingsScreen(
@@ -116,6 +117,11 @@ fun MainSettingsScreen(
                     icon = R.drawable.ic_calendar
                 ) { NextScreenIcon() }
                 Preference(
+                    name = stringResource(R.string.mousarchy),
+                    onClick = onClickMousarchy,
+                    icon = R.drawable.ic_mouse
+                ) { NextScreenIcon() }
+                Preference(
                     name = stringResource(R.string.settings_screen_advanced),
                     onClick = onClickAdvanced,
                     icon = R.drawable.ic_settings_advanced
@@ -136,7 +142,7 @@ private fun PreviewScreen() {
     initPreview(LocalContext.current)
     Theme(previewDark) {
         Surface {
-            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})
+            MainSettingsScreen({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})
         }
     }
 }

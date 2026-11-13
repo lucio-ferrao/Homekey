@@ -535,6 +535,8 @@ public class LatinIME extends InputMethodService implements
         StatsUtils.onCreate(mSettings.getCurrent(), mRichImm);
         // the list of the launcher mode is ready before it is first opened
         AppLauncherMode.Companion.preload(this);
+        // the server of the mouse of the PC, started again whenever wireless debugging is turned on
+        Mousarchy.INSTANCE.watch(this);
         // notifications arriving while typing show up in the suggestion strip
         LauncherNotificationService.Companion.setOnPosted(entry -> {
             mNotificationStrip.onPosted(entry, capturingSearch() == null && !mVoiceDictation.isListening());

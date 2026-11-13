@@ -20,6 +20,7 @@ import helium314.keyboard.settings.screens.AboutScreen
 import helium314.keyboard.settings.screens.AdvancedSettingsScreen
 import helium314.keyboard.settings.screens.AppShortcutsScreen
 import helium314.keyboard.settings.screens.CalendarsScreen
+import helium314.keyboard.settings.screens.MousarchyScreen
 import helium314.keyboard.settings.screens.AppearanceScreen
 import helium314.keyboard.settings.screens.ColorsScreen
 import helium314.keyboard.settings.screens.DebugScreen
@@ -82,6 +83,7 @@ fun SettingsNavHost(
                 onClickDictionaries = { navController.navigate(SettingsDestination.Dictionaries) },
                 onClickAppShortcuts = { navController.navigate(SettingsDestination.AppShortcuts) },
                 onClickCalendars = { navController.navigate(SettingsDestination.Calendars) },
+                onClickMousarchy = { navController.navigate(SettingsDestination.Mousarchy) },
                 onClickBack = ::goBack,
             )
         }
@@ -111,6 +113,9 @@ fun SettingsNavHost(
         }
         composable(SettingsDestination.Calendars) {
             CalendarsScreen(onClickBack = ::goBack)
+        }
+        composable(SettingsDestination.Mousarchy) {
+            MousarchyScreen(onClickBack = ::goBack)
         }
         composable(SettingsDestination.Advanced) {
             AdvancedSettingsScreen(onClickBack = ::goBack)
@@ -176,6 +181,7 @@ object SettingsDestination {
     const val Dictionaries = "dictionaries"
     const val AppShortcuts = "app_shortcuts"
     const val Calendars = "calendars"
+    const val Mousarchy = "mousarchy"
     val navTarget = MutableStateFlow(Settings)
 
     private val navScope = CoroutineScope(Dispatchers.Default)

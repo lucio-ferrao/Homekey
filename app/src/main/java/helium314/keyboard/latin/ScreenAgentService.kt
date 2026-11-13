@@ -89,7 +89,10 @@ class ScreenAgentService : AccessibilityService() {
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (event?.eventType == AccessibilityEvent.TYPE_VIEW_CLICKED && event.packageName != packageName)
             onTapInOtherApp?.invoke()
-        if (event?.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) rememberForegroundApp(event)
+        if (event?.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+            rememberForegroundApp(event)
+            if (event.packageName == "com.android.settings") Mousarchy.onSettingsWindow(this, windows.mapNotNull { it.root })
+        }
     }
 
     /**

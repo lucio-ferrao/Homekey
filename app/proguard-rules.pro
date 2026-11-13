@@ -12,3 +12,6 @@
 # after upgrading to gradle 8, stack traces contain "unknown source"
 -keepattributes SourceFile,LineNumberTable
 -dontobfuscate
+
+# run by the Mousarchy server through app_process
+-keep class helium314.keyboard.latin.MousarchyLayout { public static void main(java.lang.String[]); }

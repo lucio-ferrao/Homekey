@@ -561,5 +561,11 @@
     <string name="launcher_remove_shortcut">Remover</string>
     <string name="app_shortcuts">Atalhos das apps</string>
     <string name="calendars">Calendários</string>
+    <string name="mousarchy">Mousarchy</string>
+    <string name="mousarchy_missing">Esta versão não tem o Mousarchy.</string>
+    <string name="mousarchy_running">A correr: o PC encontra-o nesta rede.</string>
+    <string name="mousarchy_stopped">Parado: %s. Emparelha uma vez em Opções de programador › Depuração sem fios › Sincronizar dispositivo com código de sincronização.</string>
+    <string name="mousarchy_pc_code">Código mostrado no PC</string>
+    <string name="mousarchy_pair">Emparelhar</string>
     <string name="app_shortcuts_not_home">Só a app de ecrã inicial pode ver os atalhos das apps: escolhe o Keyarchy como app de ecrã inicial (Definições › Apps › Apps predefinidas).</string>
 </resources>

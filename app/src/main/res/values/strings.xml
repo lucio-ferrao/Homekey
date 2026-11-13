@@ -387,6 +387,12 @@
     <string name="launcher_remove_shortcut">Remove</string>
     <string name="app_shortcuts">App shortcuts</string>
     <string name="calendars">Calendars</string>
+    <string name="mousarchy">Mousarchy</string>
+    <string name="mousarchy_missing">This build has no Mousarchy.</string>
+    <string name="mousarchy_running">Running: the PC finds it on this network.</string>
+    <string name="mousarchy_stopped">Not running: %s. Pair once in Developer options › Wireless debugging › Pair device with pairing code.</string>
+    <string name="mousarchy_pc_code">Code shown on the PC</string>
+    <string name="mousarchy_pair">Pair</string>
     <string name="app_shortcuts_not_home">Only the home app can see the shortcuts of the apps: choose Keyarchy as home app (Settings › Apps › Default apps).</string>
     <string name="launcher_call">Call %s</string>
     <string name="launcher_alarm">Alarm at %s</string>
