@@ -289,8 +289,9 @@ class HomeActivity : Activity() {
             holder.name.text = mode.highlighted(app.label, Color.WHITE)
             // under a person, their newest message instead of the tags
             val unread = app.unread?.text?.replace('\n', ' ')
-            // for a shortcut, the name of its app before the tags; for an event, its calendar; for an app found by its id, the id
-            val under = listOfNotNull(mode.appNameOf(app), mode.idMatchOf(app), app.calendar, app.rawTags.joinToString(" ").ifEmpty { null }).joinToString(" · ")
+            // for a shortcut, the name of its app before the tags; for an event, its calendar; for an app found by its id, the id;
+            // the tags only those matching the search
+            val under = listOfNotNull(mode.appNameOf(app), mode.idMatchOf(app), app.calendar, mode.matchingTags(app).joinToString(" ").ifEmpty { null }).joinToString(" · ")
             holder.tags.text = unread ?: mode.highlighted(under, Color.WHITE)
             holder.tags.visibility = if (unread == null && under.isEmpty()) android.view.View.GONE else android.view.View.VISIBLE
             holder.row.setOnClickListener { mode.open(app) }

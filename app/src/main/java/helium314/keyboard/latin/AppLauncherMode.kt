@@ -684,6 +684,13 @@ class AppLauncherMode(private val context: Context) : StripSearch {
         return app.component.packageName.takeIf { normalize(it).contains(q) }
     }
 
+    /** the tags of [app] that match the search, to show why it was found; none without a search */
+    fun matchingTags(app: App): List<String> {
+        val q = normalize(query.toString().trim())
+        if (q.isEmpty()) return emptyList()
+        return app.rawTags.filter { normalize(it).startsWith(q) }
+    }
+
     /** the app of a shortcut, as in the list */
     private fun appOf(app: App) = apps.firstOrNull {
         it.shortcut == null && it.whatsAppDataId == null && it.component == app.component && it.user == app.user
@@ -756,8 +763,8 @@ class AppLauncherMode(private val context: Context) : StripSearch {
             chip.addView(icon, LinearLayout.LayoutParams(28.dpToPx(res), 28.dpToPx(res)))
             val label = TextView(context)
             label.text = highlighted(app.label, color)
-            // a shortcut's state already follows its name
-            app.unread?.takeIf { app.shortcut == null }?.let { label.append(": " + it.text.replace('\n', ' ').take(40)) }
+            // a Termarchy session's state already follows its name
+            app.unread?.takeIf { app.shortcut?.packageName != TermarchyForwards.TERMARCHY_PACKAGE }?.let { label.append(": " + it.text.replace('\n', ' ').take(40)) }
             appNameOf(app)?.let { label.append(" · $it") }
             idMatchOf(app)?.let { label.append(" · "); label.append(highlighted(it, color)) }
             label.setTextColor(ColorUtils.setAlphaComponent(color, 180))
@@ -1502,6 +1509,14 @@ class AppLauncherMode(private val context: Context) : StripSearch {
             else -> before.second
         }
 
+        /**
+         * Whether a shortcut of WhatsApp is in the list: a chat (its id is the WhatsApp id of a person or a group, with an
+         * @; not Meta AI or the camera) published or notified in the last [WHATSAPP_RECENT_MS].
+         */
+        fun isWhatsAppChatShown(id: String, changedAt: Long, now: Long) = '@' in id && now - changedAt < WHATSAPP_RECENT_MS
+
+        private const val WHATSAPP_RECENT_MS = 7 * 24 * 3600 * 1000L
+
         /** the apps whose shortcuts (those of a long press on their icon) are in the list, set in the settings */
         const val PREF_SHORTCUT_APPS = "app_search_shortcut_apps"
         /** whether Termarchy was turned on in [PREF_SHORTCUT_APPS], once: so turning it off afterwards stays */
@@ -1746,7 +1761,9 @@ class AppLauncherMode(private val context: Context) : StripSearch {
 
         /**
          * The shortcuts the apps offer (those of a long press on their icon) and the ones pinned to Keyarchy ("add to home
-         * screen" in an app, see [PinShortcutActivity]), with their own icon, without the ones removed from the list.
+         * screen" in an app, see [PinShortcutActivity]), with their own icon, without the ones removed from the list. Of
+         * WhatsApp, only its chats (people and groups) of the last [WHATSAPP_RECENT_MS], also those Android keeps from
+         * their notifications ([isWhatsAppChatShown]).
          * Android only gives them to the home app, so there are none while Keyarchy is not the home app; none either for a
          * locked profile.
          */
@@ -1757,7 +1774,9 @@ class AppLauncherMode(private val context: Context) : StripSearch {
             val userManager = context.getSystemService(UserManager::class.java)
             if (!launcherApps.hasShortcutHostPermission()) return emptyList()
             val query = LauncherApps.ShortcutQuery().setQueryFlags(LauncherApps.ShortcutQuery.FLAG_MATCH_DYNAMIC or
-                LauncherApps.ShortcutQuery.FLAG_MATCH_MANIFEST or LauncherApps.ShortcutQuery.FLAG_MATCH_PINNED)
+                LauncherApps.ShortcutQuery.FLAG_MATCH_MANIFEST or LauncherApps.ShortcutQuery.FLAG_MATCH_PINNED or
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) LauncherApps.ShortcutQuery.FLAG_MATCH_CACHED else 0)
+            val now = System.currentTimeMillis()
             val removed = context.prefs().getStringSet(PREF_REMOVED_SHORTCUTS, emptySet())!!
             val enabledApps = shortcutApps(context)
             // apps whose shortcuts were in the last load: a new one of theirs is a change, the shortcuts of an app just
@@ -1769,7 +1788,14 @@ class AppLauncherMode(private val context: Context) : StripSearch {
                     Log.w(TAG, "can't read the shortcuts", e)
                     null
                 }
-                shortcuts.orEmpty().filter { it.isEnabled }.mapNotNull { info ->
+                shortcuts.orEmpty().filter { info ->
+                    info.isEnabled && when {
+                        info.isPinned -> true
+                        info.`package` == "com.whatsapp" -> isWhatsAppChatShown(info.id, info.lastChangedTimestamp, now)
+                        // kept by Android from a notification, not offered by the app
+                        else -> info.isDynamic || info.isDeclaredInManifest
+                    }
+                }.mapNotNull { info ->
                     val app = launchable.firstOrNull { it.component.packageName == info.`package` && it.user == user }
                         ?: return@mapNotNull null
                     val label = (info.shortLabel ?: info.longLabel)?.toString()?.takeIf { it.isNotBlank() } ?: return@mapNotNull null
@@ -1782,11 +1808,13 @@ class AppLauncherMode(private val context: Context) : StripSearch {
                     }
                     val detail = info.longLabel?.toString()?.takeIf { it.isNotBlank() && it != label }
                     val key = "shortcut|${info.`package`}|${info.id}|$serial"
-                    val changedAt = shortcutChangedAt(previous[key], label to detail, info.`package` in previousApps,
-                        System.currentTimeMillis())
+                    // a chat kept from its notification is as recent as that notification (WhatsApp doesn't publish it again)
+                    val isCached = !info.isDynamic && !info.isDeclaredInManifest && !info.isPinned
+                    val changedAt = if (isCached) info.lastChangedTimestamp
+                        else shortcutChangedAt(previous[key], label to detail, info.`package` in previousApps, now)
                     App(key, kissId, label, app.component, user, icon,
                         names[kissId], tags[kissId].orEmpty(), shortcut = Shortcut(info.`package`, info.id, info.isPinned,
-                            info.isDynamic || info.isDeclaredInManifest, changedAt, detail)
+                            info.isDynamic || info.isDeclaredInManifest || isCached, changedAt, detail)
                     ).also { it.iconFile = iconFile }
                 }
             }
@@ -2180,9 +2208,13 @@ class AppLauncherMode(private val context: Context) : StripSearch {
         /**
          * The person in the list (a starred contact) a notification of WhatsApp or Element X comes from, if it is a
          * one-to-one chat: by the Element room of their link, or by their name as the title ("Paula Costa",
-         * "Paula Costa (2 mensagens)", Element's "misty: misty").
+         * "Paula Costa (2 mensagens)", Element's "misty: misty"). For WhatsApp, else the shortcut of its chat (a person
+         * not starred, a group), by the shortcut the notification belongs to.
          */
         private fun personOf(notification: LauncherNotificationService.Entry): App? {
+            if (notification.packageName == "com.whatsapp") notification.shortcutId?.let { id ->
+                apps.firstOrNull { it.shortcut?.packageName == "com.whatsapp" && it.shortcut.id == id }?.let { return it }
+            }
             if (notification.isGroup || notification.packageName !in ELEMENT_PACKAGES && notification.packageName != "com.whatsapp")
                 return null
             val people = apps.filter { it.whatsAppDataId != null }
