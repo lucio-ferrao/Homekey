@@ -460,6 +460,8 @@ class AppLauncherMode(private val context: Context) : StripSearch {
         val ranked = chosenFirst(withNotifications(alternativesFirst(withSettings(filter(apps, query.toString(), counts, lastUsed, dismissedRecent, byId = true))),
             normalize(query.toString().trim())))
         results = withEvents(listOfNotNull(urlEntry(), privateSpaceEntry()) + patternEntries() + withPlayers(ranked))
+        // nothing found: the text searched in the browser
+        if (results.isEmpty() && query.isNotBlank()) searchEntry(query.toString().trim())?.let { results = listOf(it) }
         // on the home screen of Keyarchy the search is its own text field and the results a vertical list above it; the
         // actions of a result, their editing and messages are a panel there (only on the home screen)
         if (isOnHome) {
